@@ -14034,8 +14034,9 @@ var Validation = function () {
     var validAddress = function validAddress(value) {
         return !/[`~!$%^&*_=+[}{\]\\"?><|]+/.test(value);
     };
+    // eslint-disable-next-line no-control-regex
     var validPostCode = function validPostCode(value) {
-        return value === '' || /^[A-Za-z0-9][A-Za-z0-9\s-]*$/.test(value);
+        return value === '' || /^([^\x00-\x7F]|[A-Za-z0-9])([^\x00-\x7F]|[A-Za-z0-9\s-])*$/.test(value);
     };
     var validPhone = function validPhone(value) {
         return (/^\+((-|\s)*[0-9])*$/.test(value)
@@ -29196,7 +29197,9 @@ var APIToken = function () {
         BinarySocket.send({ api_token: 1 }).then(populateTokensList);
 
         var regex_msg = localize('Only [_1] are allowed.', [].concat(_toConsumableArray(localize(['letters', 'numbers', 'space'])), ['_']).join(', '));
-        FormManager.init(form_id, [{ selector: '#txt_name', request_field: 'new_token', validations: ['req', ['regular', { regex: /^[\w\s]+$/, message: regex_msg }], ['length', { min: 2, max: 32 }]] }, { selector: '[id*="chk_scopes_"]', request_field: 'new_token_scopes', validations: [['req', { message: localize('Please select at least one scope') }]], value: getScopes }, { request_field: 'api_token', value: 1 }]);
+        FormManager.init(form_id, [
+        // eslint-disable-next-line no-control-regex
+        { selector: '#txt_name', request_field: 'new_token', validations: ['req', ['regular', { regex: /^([^\x00-\x7F]|[\w\s])+$/, message: regex_msg }], ['length', { min: 2, max: 32 }]] }, { selector: '[id*="chk_scopes_"]', request_field: 'new_token_scopes', validations: [['req', { message: localize('Please select at least one scope') }]], value: getScopes }, { request_field: 'api_token', value: 1 }]);
         FormManager.handleSubmit({
             form_selector: form_id,
             fnc_response_handler: newTokenResponse,
@@ -31042,12 +31045,6 @@ var SelfExclusion = function () {
             if (!/session_duration_limit|max_open_bets/.test(id)) {
                 options.type = 'float';
                 options.decimals = decimal_places;
-            }
-            if (/max_open_bets/.test(id)) {
-                options.min = 1;
-            }
-            if (/max_balance/.test(id)) {
-                options.min = 0.01;
             }
             checks.push(['number', options]);
 
