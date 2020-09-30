@@ -14090,7 +14090,7 @@ var Validation = function () {
         } else if ('min' in options && 'max' in options && +options.min === +options.max && +value !== +options.min) {
             is_ok = false;
             message = localize('Should be [_1]', addComma(options.min, options.format_money ? getDecimalPlaces(Client.get('currency')) : undefined));
-        } else if ('min' in options && 'max' in options && (+value <= +options.min || isMoreThanMax(value, options))) {
+        } else if ('min' in options && 'max' in options && (+value < +options.min || isMoreThanMax(value, options))) {
             is_ok = false;
             message = localize('Should be between [_1] and [_2]', [addComma(options.min, options.format_money ? getDecimalPlaces(Client.get('currency')) : undefined), addComma(options.max, options.format_money ? getDecimalPlaces(Client.get('currency')) : undefined)]);
         } else if ('min' in options && +value < +options.min) {
@@ -31030,7 +31030,7 @@ var SelfExclusion = function () {
             if (/timeout_until|exclude_until|max_deposit_end_date/.test(id)) return;
 
             var checks = [];
-            var options = { min: 0 };
+            var options = { min: 1 };
             if (id in self_exclusion_data) {
                 checks.push('req');
                 if (!is_svg_client) {
