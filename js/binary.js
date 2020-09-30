@@ -29196,7 +29196,7 @@ var APIToken = function () {
         BinarySocket.send({ api_token: 1 }).then(populateTokensList);
 
         var regex_msg = localize('Only [_1] are allowed.', [].concat(_toConsumableArray(localize(['letters', 'numbers', 'space'])), ['_']).join(', '));
-        FormManager.init(form_id, [{ selector: '#txt_name', request_field: 'new_token', validations: ['req', ['regular', { regex: /^[\w\s]+$/, message: regex_msg }], ['length', { min: 2, max: 32 }]] }, { selector: '[id*="chk_scopes_"]', request_field: 'new_token_scopes', validations: [['req', { message: localize('Please select at least one scope') }]], value: getScopes }, { request_field: 'api_token', value: 1 }]);
+        FormManager.init(form_id, [{ selector: '#txt_name', request_field: 'new_token', validations: ['req', ['regular', { regex: /^[\p{L}\w\s]+$/, message: regex_msg }], ['length', { min: 2, max: 32 }]] }, { selector: '[id*="chk_scopes_"]', request_field: 'new_token_scopes', validations: [['req', { message: localize('Please select at least one scope') }]], value: getScopes }, { request_field: 'api_token', value: 1 }]);
         FormManager.handleSubmit({
             form_selector: form_id,
             fnc_response_handler: newTokenResponse,
@@ -31030,7 +31030,7 @@ var SelfExclusion = function () {
             if (/timeout_until|exclude_until|max_deposit_end_date/.test(id)) return;
 
             var checks = [];
-            var options = { min: 1 };
+            var options = { min: 0 };
             if (id in self_exclusion_data) {
                 checks.push('req');
                 if (!is_svg_client) {
@@ -31042,6 +31042,12 @@ var SelfExclusion = function () {
             if (!/session_duration_limit|max_open_bets/.test(id)) {
                 options.type = 'float';
                 options.decimals = decimal_places;
+            }
+            if (/max_open_bets/.test(id)) {
+                options.min = 1;
+            }
+            if (/max_balance/.test(id)) {
+                options.min = 0.01;
             }
             checks.push(['number', options]);
 
