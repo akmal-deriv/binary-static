@@ -18728,20 +18728,18 @@ var DigitInfo = function () {
     }();
 
     var update = function update(symbol, latest_spot) {
-
         if (typeof chart === 'undefined') {
             return null;
         }
 
         var series = chart.series[0]; // Where we put the final data.
-
         if (typeof latest_spot !== 'undefined' && series.name === symbol) {
-            spots.unshift(latest_spot.slice(-1)); // Only last digit matters
-            spots.pop();
+            spots.push(latest_spot.slice(-1)); // Only last digit matters
+            spots.shift();
         }
 
         // Always recompute and draw, even if theres no new data.
-        // This is especially useful on first reuqest, but maybe in other ways.
+        // This is especially useful on first request, but maybe in other ways.
         var filtered_spots = [];
         var filterFunc = function filterFunc(el) {
             return +el === digit;
