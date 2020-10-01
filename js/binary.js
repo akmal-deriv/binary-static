@@ -10317,7 +10317,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var BinarySocket = __webpack_require__(/*! ./socket */ "./src/javascript/app/base/socket.js");
-var Defaults = __webpack_require__(/*! ../pages/trade/defaults */ "./src/javascript/app/pages/trade/defaults.js");
 var RealityCheckData = __webpack_require__(/*! ../pages/user/reality_check/reality_check.data */ "./src/javascript/app/pages/user/reality_check/reality_check.data.js");
 var ClientBase = __webpack_require__(/*! ../../_common/base/client_base */ "./src/javascript/_common/base/client_base.js");
 var GTM = __webpack_require__(/*! ../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
@@ -10401,8 +10400,6 @@ var Client = function () {
         // clear elev.io session storage
         sessionStorage.removeItem('_elevaddon-6app');
         sessionStorage.removeItem('_elevaddon-6create');
-        // clear trading session
-        Defaults.remove('underlying', 'market');
         ClientBase.clearAllAccounts();
         ClientBase.set('loginid', '');
         SocketCache.clear();
@@ -15833,10 +15830,8 @@ var Cashier = function () {
                             return false;
                         });
                     }
-                    // if there is not more than 2 non-zero decimals
-                    // don't cut off the number
-                    var min_withdrawal = to_fixed === -1 ? minimum_withdrawal : minimum_withdrawal.toFixed(to_fixed);
-                    $crypto_min_withdrawal.text(min_withdrawal);
+
+                    $crypto_min_withdrawal.text(minimum_withdrawal.toFixed(to_fixed));
                 }
             });
         });
@@ -18738,14 +18733,13 @@ var DigitInfo = function () {
         }
 
         var series = chart.series[0]; // Where we put the final data.
-
         if (typeof latest_spot !== 'undefined' && series.name === symbol) {
-            spots.unshift(latest_spot.slice(-1)); // Only last digit matters
-            spots.pop();
+            spots.push(latest_spot.slice(-1)); // Only last digit matters
+            spots.shift();
         }
 
         // Always recompute and draw, even if theres no new data.
-        // This is especially useful on first reuqest, but maybe in other ways.
+        // This is especially useful on first request, but maybe in other ways.
         var filtered_spots = [];
         var filterFunc = function filterFunc(el) {
             return +el === digit;
@@ -23999,7 +23993,7 @@ var Price = function () {
             CommonFunctions.elementInnerHtml(payout_amount, data.payout ? formatMoney(currency.value || currency.getAttribute('value'), data.payout) : '-');
             // Lookback multiplier
             CommonFunctions.elementTextContent(multiplier, localize('Multiplier') + ': ');
-            CommonFunctions.elementInnerHtml(contract_multiplier, data.multiplier ? formatMoney(currency.value || currency.getAttribute('value'), data.multiplier, false, 3, 2) : '-');
+            CommonFunctions.elementInnerHtml(contract_multiplier, data.multiplier ? formatMoney(currency.value || currency.getAttribute('value'), data.multiplier, false, 5, 2) : '-');
 
             if (data.longcode && window.innerWidth > 500) {
                 if (description) description.setAttribute('data-balloon', data.longcode);
@@ -24341,9 +24335,9 @@ var Process = function () {
             getElementById('contract_confirmation_container').style.display = 'block';
             getElementById('contracts_list').style.display = 'none';
             getElementById('confirmation_message').hide();
+
             var confirmation_error = getElementById('confirmation_error');
-            confirmation_error.setVisibility(1);
-            Defaults.remove('underlying', 'market');
+            confirmation_error.show();
             elementInnerHtml(confirmation_error, contracts.error.message + ' <a href="javascript:;" onclick="sessionStorage.removeItem(\'underlying\'); window.location.reload();">' + localize('Please reload the page') + '</a>');
             return;
         }
