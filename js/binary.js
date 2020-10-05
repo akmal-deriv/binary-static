@@ -18738,13 +18738,14 @@ var DigitInfo = function () {
         }
 
         var series = chart.series[0]; // Where we put the final data.
+
         if (typeof latest_spot !== 'undefined' && series.name === symbol) {
-            spots.push(latest_spot.slice(-1)); // Only last digit matters
-            spots.shift();
+            spots.unshift(latest_spot.slice(-1)); // Only last digit matters
+            spots.pop();
         }
 
         // Always recompute and draw, even if theres no new data.
-        // This is especially useful on first request, but maybe in other ways.
+        // This is especially useful on first reuqest, but maybe in other ways.
         var filtered_spots = [];
         var filterFunc = function filterFunc(el) {
             return +el === digit;
@@ -23998,7 +23999,7 @@ var Price = function () {
             CommonFunctions.elementInnerHtml(payout_amount, data.payout ? formatMoney(currency.value || currency.getAttribute('value'), data.payout) : '-');
             // Lookback multiplier
             CommonFunctions.elementTextContent(multiplier, localize('Multiplier') + ': ');
-            CommonFunctions.elementInnerHtml(contract_multiplier, data.multiplier ? formatMoney(currency.value || currency.getAttribute('value'), data.multiplier, false, 3, 2) : '-');
+            CommonFunctions.elementInnerHtml(contract_multiplier, data.multiplier ? formatMoney(currency.value || currency.getAttribute('value'), data.multiplier, false, 0, 2) : '-');
 
             if (data.longcode && window.innerWidth > 500) {
                 if (description) description.setAttribute('data-balloon', data.longcode);
