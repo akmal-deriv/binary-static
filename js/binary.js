@@ -10958,10 +10958,8 @@ var Header = function () {
         msg_notification.setAttribute('data-code', msg_code);
 
         if (msg_notification.offsetParent) {
-
             msg_notification.toggleClass('error', is_error);
         } else {
-
             $(msg_notification).slideDown(500, function () {
                 if (is_error) msg_notification.classList.add('error');
             });
