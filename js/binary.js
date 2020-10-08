@@ -10167,7 +10167,6 @@ var BinaryPjax = function () {
         // workaround to remove non-error notification msg for chrome bug where users logout from different browser window
         var msg_notification_el = getElementById('msg_notification');
         if (!isLoggedIn() && !msg_notification_el.classList.contains('error')) {
-
             msg_notification_el.setVisibility(0);
         }
     };
@@ -10959,10 +10958,8 @@ var Header = function () {
         msg_notification.setAttribute('data-code', msg_code);
 
         if (msg_notification.offsetParent) {
-
             msg_notification.toggleClass('error', is_error);
         } else {
-
             $(msg_notification).slideDown(500, function () {
                 if (is_error) msg_notification.classList.add('error');
             });
@@ -10979,7 +10976,6 @@ var Header = function () {
             msg_notification.classList.remove('error');
             $(msg_notification).slideUp(500, function () {
                 elementInnerHtml(msg_notification, '');
-
                 msg_notification.removeAttribute('data-message data-code');
             });
         }
@@ -33642,7 +33638,7 @@ var MetaTrader = function () {
                 MetaTraderUI.displayPageError(response.error.message);
                 MetaTraderUI.setTopupLoading(false);
             } else {
-                MetaTraderUI.displayMainMessage(localize('[_1] has been credited into your MT5 Demo Account: [_2].', [MetaTraderConfig.getCurrency(acc_type) + ' 10,000.00', accounts_info[acc_type].info.display_login]));
+                MetaTraderUI.displayMainMessage(localize('[_1] has been credited into your MT5 Demo Account: [_2].', ['10,000.00 ' + MetaTraderConfig.getCurrency(acc_type), accounts_info[acc_type].info.display_login]));
                 BinarySocket.send({ mt5_login_list: 1 }).then(function (res) {
                     allAccountsResponseHandler(res);
                     MetaTraderUI.setTopupLoading(false);
