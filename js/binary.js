@@ -10167,6 +10167,7 @@ var BinaryPjax = function () {
         // workaround to remove non-error notification msg for chrome bug where users logout from different browser window
         var msg_notification_el = getElementById('msg_notification');
         if (!isLoggedIn() && !msg_notification_el.classList.contains('error')) {
+
             msg_notification_el.setVisibility(0);
         }
     };
@@ -10958,8 +10959,10 @@ var Header = function () {
         msg_notification.setAttribute('data-code', msg_code);
 
         if (msg_notification.offsetParent) {
+
             msg_notification.toggleClass('error', is_error);
         } else {
+
             $(msg_notification).slideDown(500, function () {
                 if (is_error) msg_notification.classList.add('error');
             });
@@ -10976,6 +10979,7 @@ var Header = function () {
             msg_notification.classList.remove('error');
             $(msg_notification).slideUp(500, function () {
                 elementInnerHtml(msg_notification, '');
+
                 msg_notification.removeAttribute('data-message data-code');
             });
         }
