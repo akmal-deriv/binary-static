@@ -491,7 +491,9 @@ var ClientBase = function () {
     };
 
     var setNewAccount = function setNewAccount(options) {
+        alert('Set new account here');
         if (!options.email || !options.loginid || !options.token) {
+            alert('New account setting has failed');
             return false;
         }
 
@@ -502,7 +504,7 @@ var ClientBase = function () {
         set('email', options.email, options.loginid);
         set('is_virtual', +options.is_virtual, options.loginid);
         set('loginid', options.loginid);
-
+        alert('New account setting has succeeded');
         return true;
     };
 
@@ -10330,7 +10332,9 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
+        alert('Process new account');
         if (ClientBase.setNewAccount(options)) {
+            alert('Now redirect to a new URL: ' + options.redirect_url);
             window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
         }
     };
