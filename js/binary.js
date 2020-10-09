@@ -35450,10 +35450,12 @@ var SetCurrency = function () {
                                     BinaryPjax.load(Url.urlFor('cashier/forwardws') + '?action=deposit');
                                 }).setVisibility(1);
                             } else if (popup_action) {
+                                alert('Inside popup action');
                                 currencies = /multi_account|set_currency/.test(popup_action) ? getAvailableCurrencies(landing_company, payout_currencies) : getCurrencyChangeOptions(landing_company);
 
                                 $('#hide_new_account').setVisibility(0);
                                 $('.show_' + popup_action).setVisibility(1);
+                                alert('Show popup action');
                                 populateCurrencies(currencies);
                                 onSelection($currency_list, $error, false);
 
@@ -35473,6 +35475,7 @@ var SetCurrency = function () {
                                     $submit.addClass('button-disabled');
                                 }).find('span').text(action_map[popup_action]);
                             } else {
+                                alert('Something went really wrong');
                                 BinaryPjax.loadPreviousUrl();
                             }
                             return _context.abrupt('return');
@@ -35602,6 +35605,7 @@ var SetCurrency = function () {
     };
 
     var _onConfirm = function _onConfirm($currency_list, $error, should_create_account) {
+        alert('onConfirm function');
         removeError($error);
         var $selected_currency = $currency_list.find('.selected');
         if ($selected_currency.length) {
@@ -35638,6 +35642,7 @@ var SetCurrency = function () {
 
                     var redirect_url = void 0;
                     if (is_new_account) {
+                        alert('Inside wrong new account');
                         if (Client.isAccountOfType('financial')) {
                             var get_account_status = State.getResponse('get_account_status');
                             if (!/authenticated/.test(get_account_status.status)) {
@@ -35661,6 +35666,7 @@ var SetCurrency = function () {
                         $('#' + Client.get('loginid')).find('td[datath="Currency"]').text(selected_currency_display);
                     } else if (popup_action === 'multi_account') {
                         var new_account = response_c.new_account_real;
+                        alert('Set is new account to one');
                         localStorage.setItem('is_new_account', 1);
                         cleanupPopup();
                         // add new account to store and refresh the page
@@ -35672,12 +35678,15 @@ var SetCurrency = function () {
                         });
                         return;
                     } else {
+                        alert('Inside wrong else statement that redirects to previous url');
                         redirect_url = BinaryPjax.getPreviousUrl();
                     }
 
                     if (redirect_url) {
+                        alert('redirect url to: ' + redirect_url);
                         window.location.href = redirect_url; // load without pjax
                     } else {
+                        alert('No redirect url');
                         Header.populateAccountsList(); // update account title
                         $('.select_currency').setVisibility(0);
                         $('#deposit_btn').off('click dblclick').on('click dblclick', function () {
