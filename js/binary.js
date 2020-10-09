@@ -35435,12 +35435,14 @@ var SetCurrency = function () {
 
 
                             popup_action = localStorage.getItem('popup_action');
+                            alert('Popup action: ' + popup_action);
 
                             if (!(Client.get('currency') || popup_action)) {
-                                _context.next = 19;
+                                _context.next = 21;
                                 break;
                             }
 
+                            alert('Is new account?: ' + is_new_account);
                             if (is_new_account) {
                                 $('#set_currency_loading').remove();
                                 $('#set_currency').setVisibility(1);
@@ -35475,13 +35477,13 @@ var SetCurrency = function () {
                             }
                             return _context.abrupt('return');
 
-                        case 19:
+                        case 21:
 
                             populateCurrencies(getAvailableCurrencies(landing_company, payout_currencies));
 
                             onSelection($currency_list, $error, true);
 
-                        case 21:
+                        case 23:
                         case 'end':
                             return _context.stop();
                     }
