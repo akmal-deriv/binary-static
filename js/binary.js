@@ -10336,6 +10336,7 @@ var Client = function () {
         if (ClientBase.setNewAccount(options)) {
             alert('Now redirect to a new URL: ' + options.redirect_url);
             window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
+            alert('New windows location href URL: ' + window.location.href);
         }
     };
 
