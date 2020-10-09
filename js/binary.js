@@ -10335,7 +10335,10 @@ var Client = function () {
         alert('Process new account');
         if (ClientBase.setNewAccount(options)) {
             alert('Now redirect to a new URL: ' + options.redirect_url);
-            window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
+            // window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
+            setTimeout(function () {
+                window.location.href = options.redirect_url || defaultRedirectUrl();
+            }, 250);
             alert('New windows location href URL: ' + window.location.href);
         }
     };
@@ -35414,6 +35417,7 @@ var SetCurrency = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
+                            alert('window.location.href = ' + window.location.href);
                             onConfirmAdditional = fncOnConfirm;
                             is_new_account = localStorage.getItem('is_new_account');
                             localStorage.removeItem('is_new_account');
@@ -35425,15 +35429,15 @@ var SetCurrency = function () {
 
                             $('#upgrade_to_mf').setVisibility(can_upgrade && type === 'financial');
 
-                            _context.next = 9;
+                            _context.next = 10;
                             return BinarySocket.wait('landing_company');
 
-                        case 9:
+                        case 10:
                             landing_company = _context.sent.landing_company;
-                            _context.next = 12;
+                            _context.next = 13;
                             return BinarySocket.wait('payout_currencies');
 
-                        case 12:
+                        case 13:
                             payout_currencies = _context.sent.payout_currencies;
                             $currency_list = $('.currency_list');
                             $error = $('#set_currency').find('.error-msg');
@@ -35443,7 +35447,7 @@ var SetCurrency = function () {
                             alert('Popup action: ' + popup_action);
 
                             if (!(Client.get('currency') || popup_action)) {
-                                _context.next = 21;
+                                _context.next = 22;
                                 break;
                             }
 
@@ -35485,13 +35489,13 @@ var SetCurrency = function () {
                             }
                             return _context.abrupt('return');
 
-                        case 21:
+                        case 22:
 
                             populateCurrencies(getAvailableCurrencies(landing_company, payout_currencies));
 
                             onSelection($currency_list, $error, true);
 
-                        case 23:
+                        case 24:
                         case 'end':
                             return _context.stop();
                     }
