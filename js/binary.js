@@ -491,9 +491,7 @@ var ClientBase = function () {
     };
 
     var setNewAccount = function setNewAccount(options) {
-        alert('Set new account here');
         if (!options.email || !options.loginid || !options.token) {
-            alert('New account setting has failed');
             return false;
         }
 
@@ -504,7 +502,7 @@ var ClientBase = function () {
         set('email', options.email, options.loginid);
         set('is_virtual', +options.is_virtual, options.loginid);
         set('loginid', options.loginid);
-        alert('New account setting has succeeded');
+
         return true;
     };
 
@@ -10332,14 +10330,10 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
-        alert('Process new account');
         if (ClientBase.setNewAccount(options)) {
-            alert('Now redirect to a new URL: ' + options.redirect_url);
-            // window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
             setTimeout(function () {
                 window.location.href = options.redirect_url || defaultRedirectUrl();
-            }, 250);
-            alert('New windows location href URL: ' + window.location.href);
+            }, 250); // need to redirect not using pjax
         }
     };
 
@@ -35417,7 +35411,6 @@ var SetCurrency = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            alert('window.location.href = ' + window.location.href);
                             onConfirmAdditional = fncOnConfirm;
                             is_new_account = localStorage.getItem('is_new_account');
                             localStorage.removeItem('is_new_account');
@@ -35429,29 +35422,27 @@ var SetCurrency = function () {
 
                             $('#upgrade_to_mf').setVisibility(can_upgrade && type === 'financial');
 
-                            _context.next = 10;
+                            _context.next = 9;
                             return BinarySocket.wait('landing_company');
 
-                        case 10:
+                        case 9:
                             landing_company = _context.sent.landing_company;
-                            _context.next = 13;
+                            _context.next = 12;
                             return BinarySocket.wait('payout_currencies');
 
-                        case 13:
+                        case 12:
                             payout_currencies = _context.sent.payout_currencies;
                             $currency_list = $('.currency_list');
                             $error = $('#set_currency').find('.error-msg');
 
 
                             popup_action = localStorage.getItem('popup_action');
-                            alert('Popup action: ' + popup_action);
 
                             if (!(Client.get('currency') || popup_action)) {
-                                _context.next = 22;
+                                _context.next = 19;
                                 break;
                             }
 
-                            alert('Is new account?: ' + is_new_account);
                             if (is_new_account) {
                                 $('#set_currency_loading').remove();
                                 $('#set_currency').setVisibility(1);
@@ -35459,12 +35450,10 @@ var SetCurrency = function () {
                                     BinaryPjax.load(Url.urlFor('cashier/forwardws') + '?action=deposit');
                                 }).setVisibility(1);
                             } else if (popup_action) {
-                                alert('Inside popup action');
                                 currencies = /multi_account|set_currency/.test(popup_action) ? getAvailableCurrencies(landing_company, payout_currencies) : getCurrencyChangeOptions(landing_company);
 
                                 $('#hide_new_account').setVisibility(0);
                                 $('.show_' + popup_action).setVisibility(1);
-                                alert('Show popup action');
                                 populateCurrencies(currencies);
                                 onSelection($currency_list, $error, false);
 
@@ -35484,18 +35473,17 @@ var SetCurrency = function () {
                                     $submit.addClass('button-disabled');
                                 }).find('span').text(action_map[popup_action]);
                             } else {
-                                alert('Something went really wrong');
                                 BinaryPjax.loadPreviousUrl();
                             }
                             return _context.abrupt('return');
 
-                        case 22:
+                        case 19:
 
                             populateCurrencies(getAvailableCurrencies(landing_company, payout_currencies));
 
                             onSelection($currency_list, $error, true);
 
-                        case 24:
+                        case 21:
                         case 'end':
                             return _context.stop();
                     }
@@ -35537,7 +35525,7 @@ var SetCurrency = function () {
                 }, /^UST$/.test(c) && {
                     'data-balloon': localize('Tether Omni (USDT) is a version of Tether that\'s pegged to USD and is built on the Bitcoin blockchain.'),
                     'data-balloon-length': 'medium',
-                    'data-balloon-pos': 'left',
+                    'data-balloon-pos': 'top',
                     'class': 'show_mobile'
                 }, /^eUSDT/.test(c) && {
                     'data-balloon': localize('Tether ERC20 (eUSDT) is a version of Tether that\'s pegged to USD and is hosted on the Ethereum platform.'),
@@ -35614,7 +35602,6 @@ var SetCurrency = function () {
     };
 
     var _onConfirm = function _onConfirm($currency_list, $error, should_create_account) {
-        alert('onConfirm function');
         removeError($error);
         var $selected_currency = $currency_list.find('.selected');
         if ($selected_currency.length) {
@@ -35651,7 +35638,6 @@ var SetCurrency = function () {
 
                     var redirect_url = void 0;
                     if (is_new_account) {
-                        alert('Inside wrong new account');
                         if (Client.isAccountOfType('financial')) {
                             var get_account_status = State.getResponse('get_account_status');
                             if (!/authenticated/.test(get_account_status.status)) {
@@ -35675,7 +35661,6 @@ var SetCurrency = function () {
                         $('#' + Client.get('loginid')).find('td[datath="Currency"]').text(selected_currency_display);
                     } else if (popup_action === 'multi_account') {
                         var new_account = response_c.new_account_real;
-                        alert('Set is new account to one');
                         localStorage.setItem('is_new_account', 1);
                         cleanupPopup();
                         // add new account to store and refresh the page
@@ -35687,15 +35672,12 @@ var SetCurrency = function () {
                         });
                         return;
                     } else {
-                        alert('Inside wrong else statement that redirects to previous url');
                         redirect_url = BinaryPjax.getPreviousUrl();
                     }
 
                     if (redirect_url) {
-                        alert('redirect url to: ' + redirect_url);
                         window.location.href = redirect_url; // load without pjax
                     } else {
-                        alert('No redirect url');
                         Header.populateAccountsList(); // update account title
                         $('.select_currency').setVisibility(0);
                         $('#deposit_btn').off('click dblclick').on('click dblclick', function () {
