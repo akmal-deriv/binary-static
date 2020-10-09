@@ -733,8 +733,12 @@ label + input {
             display: block !important;
             transform: translate(-15%, 0) !important;
         }
-        &[data-balloon-length=medium]:before {
-            width: 120px;
+        &[data-balloon-pos=left]:before {
+            top: -100%;
+            right: 50%;
+        }
+        &[data-balloon-pos=top]:before {
+            left: -50%;
         }
     }
 }
