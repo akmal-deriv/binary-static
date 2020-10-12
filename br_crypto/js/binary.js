@@ -10331,7 +10331,9 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
-            window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
+            setTimeout(function () {
+                window.location.href = options.redirect_url || defaultRedirectUrl();
+            }, 250); // need to redirect not using pjax
         }
     };
 
@@ -14978,7 +14980,7 @@ var DatePicker = function () {
     var checkWidth = function checkWidth(selector) {
         var $selector = $(selector);
         var date_picker_conf = date_pickers[selector].config_data;
-        if ($(window).width() < 770) {
+        if (window.innerWidth < 770) {
             if (!date_picker_conf.native) {
                 hide(selector);
                 $selector.attr('type', 'number');
@@ -14993,7 +14995,7 @@ var DatePicker = function () {
                 return;
             }
         }
-        if ($(window).width() > 769 && $selector.attr('data-picker') !== 'jquery' || $(window).width() < 770 && !checkInput('date', 'not-a-date')) {
+        if (window.innerWidth > 769 && $selector.attr('data-picker') !== 'jquery' || window.innerWidth < 770 && !checkInput('date', 'not-a-date')) {
             var value = $selector.attr('data-value') || $selector.val();
             var format_value = value && date_picker_conf.type !== 'diff' ? toReadableFormat(moment(value)) : $selector.val();
             $selector.attr({ type: 'text', 'data-picker': 'jquery', 'data-value': value }).removeAttr('min max').val(format_value);
@@ -15205,7 +15207,7 @@ var TimePicker = function () {
     var updatePicker = function updatePicker(selector) {
         var $selector = $(selector);
         var time_picker_conf = time_pickers[selector].config_data;
-        if ($(window).width() < 770 && checkInput('time', 'not-a-time') && $selector.attr('data-picker') !== 'native') {
+        if (window.innerWidth < 770 && checkInput('time', 'not-a-time') && $selector.attr('data-picker') !== 'native') {
             removeJqueryPicker(selector);
             $selector.attr({ type: 'time', 'data-picker': 'native' }).val($selector.attr('data-value')).removeAttr('readonly').removeClass('clear');
 
@@ -15216,7 +15218,7 @@ var TimePicker = function () {
             if (maxTime) $selector.attr('max', toTime(maxTime));
             return;
         }
-        if ($(window).width() > 769 && $selector.attr('data-picker') !== 'jquery' || $(window).width() < 770 && !checkInput('time', 'not-a-time')) {
+        if (window.innerWidth > 769 && $selector.attr('data-picker') !== 'jquery' || window.innerWidth < 770 && !checkInput('time', 'not-a-time')) {
             $selector.attr({ type: 'text', 'data-picker': 'jquery', readonly: 'readonly' });
             $selector.removeAttr('min max');
             if ($selector.attr('data-value') && $selector.hasClass('clearable') && !$selector.attr('disabled')) {
@@ -23998,7 +24000,7 @@ var Price = function () {
             CommonFunctions.elementInnerHtml(payout_amount, data.payout ? formatMoney(currency.value || currency.getAttribute('value'), data.payout) : '-');
             // Lookback multiplier
             CommonFunctions.elementTextContent(multiplier, localize('Multiplier') + ': ');
-            CommonFunctions.elementInnerHtml(contract_multiplier, data.multiplier ? formatMoney(currency.value || currency.getAttribute('value'), data.multiplier, false, 3, 2) : '-');
+            CommonFunctions.elementInnerHtml(contract_multiplier, data.multiplier ? formatMoney(currency.value || currency.getAttribute('value'), data.multiplier, false, 0, 2) : '-');
 
             if (data.longcode && window.innerWidth > 500) {
                 if (description) description.setAttribute('data-balloon', data.longcode);
@@ -31016,7 +31018,8 @@ var SelfExclusion = function () {
     var setDateTimePicker = function setDateTimePicker(id, data_value) {
         var is_timepicker = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
-        $form.find(id).attr('disabled', has_exclude_until).attr('data-value', data_value).val(is_timepicker ? data_value : moment(data_value).format('DD MMM, YYYY')); // display format
+        var is_mobile = window.innerWidth < 770;
+        $form.find(id).attr('disabled', has_exclude_until).attr('data-value', data_value).val(is_timepicker || is_mobile ? data_value : moment(data_value).format('DD MMM, YYYY')); // display format
     };
 
     var setMax30DayTurnoverLimit = function setMax30DayTurnoverLimit(is_checked) {
@@ -33637,7 +33640,7 @@ var MetaTrader = function () {
                 MetaTraderUI.displayPageError(response.error.message);
                 MetaTraderUI.setTopupLoading(false);
             } else {
-                MetaTraderUI.displayMainMessage(localize('[_1] has been credited into your MT5 Demo Account: [_2].', [MetaTraderConfig.getCurrency(acc_type) + ' 10,000.00', accounts_info[acc_type].info.display_login]));
+                MetaTraderUI.displayMainMessage(localize('[_1] has been credited into your MT5 Demo Account: [_2].', ['10,000.00 ' + MetaTraderConfig.getCurrency(acc_type), accounts_info[acc_type].info.display_login]));
                 BinarySocket.send({ mt5_login_list: 1 }).then(function (res) {
                     allAccountsResponseHandler(res);
                     MetaTraderUI.setTopupLoading(false);
@@ -35521,10 +35524,14 @@ var SetCurrency = function () {
                     text: Currency.getCurrencyName(c) || c
                 }, /^UST$/.test(c) && {
                     'data-balloon': localize('Tether Omni (USDT) is a version of Tether that\'s pegged to USD and is built on the Bitcoin blockchain.'),
-                    'data-balloon-length': 'large'
+                    'data-balloon-length': 'medium',
+                    'data-balloon-pos': 'top',
+                    'class': 'show_mobile'
                 }, /^eUSDT/.test(c) && {
                     'data-balloon': localize('Tether ERC20 (eUSDT) is a version of Tether that\'s pegged to USD and is hosted on the Ethereum platform.'),
-                    'data-balloon-length': 'large'
+                    'data-balloon-length': 'medium',
+                    'data-balloon-pos': 'top',
+                    'class': 'show_mobile'
                 }));
 
                 $name.append($display_name).append($('<br/>')).append('(' + Currency.getCurrencyDisplayCode(c) + ')');
