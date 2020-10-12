@@ -10331,7 +10331,9 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
-            window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
+            setTimeout(function () {
+                window.location.href = options.redirect_url || defaultRedirectUrl();
+            }, 250); // need to redirect not using pjax
         }
     };
 
@@ -31039,11 +31041,6 @@ var SelfExclusion = function () {
             if (id in self_exclusion_data) {
                 checks.push('req');
                 if (!is_svg_client) {
-                    if (/session_duration_limit/.test(id)) {
-                        options.min = 1;
-                    } else {
-                        options.min = 0.01;
-                    }
                     options.max = self_exclusion_data[id];
                 }
             } else {
@@ -31052,7 +31049,8 @@ var SelfExclusion = function () {
             if (!/session_duration_limit|max_open_bets/.test(id)) {
                 options.type = 'float';
                 options.decimals = decimal_places;
-            } else if (/max_open_bets/.test(id)) {
+            }
+            if (/max_open_bets/.test(id)) {
                 options.min = 1;
             }
             if (/max_balance/.test(id)) {
@@ -35526,10 +35524,14 @@ var SetCurrency = function () {
                     text: Currency.getCurrencyName(c) || c
                 }, /^UST$/.test(c) && {
                     'data-balloon': localize('Tether Omni (USDT) is a version of Tether that\'s pegged to USD and is built on the Bitcoin blockchain.'),
-                    'data-balloon-length': 'large'
+                    'data-balloon-length': 'medium',
+                    'data-balloon-pos': 'top',
+                    'class': 'show_mobile'
                 }, /^eUSDT/.test(c) && {
                     'data-balloon': localize('Tether ERC20 (eUSDT) is a version of Tether that\'s pegged to USD and is hosted on the Ethereum platform.'),
-                    'data-balloon-length': 'large'
+                    'data-balloon-length': 'medium',
+                    'data-balloon-pos': 'top',
+                    'class': 'show_mobile'
                 }));
 
                 $name.append($display_name).append($('<br/>')).append('(' + Currency.getCurrencyDisplayCode(c) + ')');
