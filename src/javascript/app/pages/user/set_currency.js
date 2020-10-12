@@ -110,14 +110,14 @@ const SetCurrency = (() => {
                     ...(/^UST$/.test(c) && {
                         'data-balloon'       : localize('Tether Omni (USDT) is a version of Tether that\'s pegged to USD and is built on the Bitcoin blockchain.'),
                         'data-balloon-length': 'medium',
-                        'data-balloon-pos': 'left',
-                        'class': 'show_mobile',
+                        'data-balloon-pos'   : 'top',
+                        'class'              : 'show_mobile',
                     }),
                     ...(/^eUSDT/.test(c) && {
                         'data-balloon'       : localize('Tether ERC20 (eUSDT) is a version of Tether that\'s pegged to USD and is hosted on the Ethereum platform.'),
                         'data-balloon-length': 'medium',
-                        'data-balloon-pos': 'top',
-                        'class': 'show_mobile',
+                        'data-balloon-pos'   : 'top',
+                        'class'              : 'show_mobile',
                     }),
                 });
 
