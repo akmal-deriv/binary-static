@@ -159,7 +159,7 @@ const SelfExclusion = (() => {
                 if (!is_svg_client) {
                     if (/session_duration_limit/.test(id)) {
                         options.min = 1;
-                    } else{
+                    } else {
                         options.min = 0.01;
                     }
                     options.max = self_exclusion_data[id];
@@ -170,7 +170,7 @@ const SelfExclusion = (() => {
             if (!/session_duration_limit|max_open_bets/.test(id)) {
                 options.type     = 'float';
                 options.decimals = decimal_places;
-            } else if(/max_open_bets/.test(id)){
+            } else if (/max_open_bets/.test(id)){
                 options.min = 1;
             }
             if (/max_balance/.test(id)) {
