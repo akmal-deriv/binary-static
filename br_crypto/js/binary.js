@@ -10331,9 +10331,7 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
-            setTimeout(function () {
-                window.location.href = options.redirect_url || defaultRedirectUrl();
-            }, 250); // need to redirect not using pjax
+            window.location.replace(options.redirect_url || defaultRedirectUrl()); // need to redirect not using pjax
         }
     };
 
