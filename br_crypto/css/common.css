@@ -728,14 +728,14 @@ label + input {
     margin-top: 3px; }
 
 @media (max-width: 768px) {
-  .show-mobile[data-balloon]:before, .show-mobile[data-balloon]:after {
+  .show_mobile[data-balloon]:before, .show_mobile[data-balloon]:after {
     display: block !important;
     -webkit-transform: translate(-15%, 0) !important;
             transform: translate(-15%, 0) !important; }
-  .show-mobile[data-balloon-pos=left]:before {
+  .show_mobile[data-balloon-pos=left]:before {
     top: -100%;
     right: 50%; }
-  .show-mobile[data-balloon-pos=top]:before {
+  .show_mobile[data-balloon-pos=top]:before {
     left: -50%; } }
 
 @media screen and (max-width: 500px) {
