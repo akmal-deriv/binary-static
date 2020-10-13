@@ -31049,11 +31049,11 @@ var SelfExclusion = function () {
             } else {
                 options.allow_empty = true;
             }
-            if (!/session_duration_limit|max_open_bets/.test(id)) {
+            if (/max_open_bets/.test(id)) {
+                options.min = 1;
+            } else if (!/session_duration_limit/.test(id)) {
                 options.type = 'float';
                 options.decimals = decimal_places;
-            } else if (/max_open_bets/.test(id)) {
-                options.min = 1;
             }
             if (/max_balance/.test(id)) {
                 options.min = 0.01;
