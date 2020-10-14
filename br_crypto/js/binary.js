@@ -10333,7 +10333,7 @@ var Client = function () {
         if (ClientBase.setNewAccount(options)) {
             setTimeout(function () {
                 window.location.replace(options.redirect_url || defaultRedirectUrl());
-            }, 250); // need to redirect not using pjax
+            }, 500); // need to redirect not using pjax
         }
     };
 
