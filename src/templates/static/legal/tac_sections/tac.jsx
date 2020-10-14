@@ -111,7 +111,7 @@ const Tac = () => (
             </ul>
         </p>
 
-        <h2 data-anchor='companys-rights'>K. {it.L('Company\'s rights')}</h2>
+        <h2 data-anchor='company-rights'>K. {it.L('Company\'s rights')}</h2>
         <p>{it.L('The Company does not tolerate any form of inappropriate behaviour. This includes the usage of offensive language. The Company reserves the right to restrict or terminate the client\'s account if there is any form of inappropriate behaviour on the client\'s part.')}</p>
         <p>{it.L('The Company reserves the right to suspend the operation of this site or sections thereof in the following cases:')}
             <ul className='bullet'>
