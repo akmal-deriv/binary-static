@@ -10332,8 +10332,27 @@ var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
             setTimeout(function () {
-                location.assign(options.redirect_url || defaultRedirectUrl());
-                location.replace(options.redirect_url || defaultRedirectUrl());
+                window.location.replace(options.redirect_url || defaultRedirectUrl());
+                if (window.location.href !== options) {
+                    window.location.replace(options.redirect_url || defaultRedirectUrl());
+                } else {
+                    alert('Location changed!');
+                }
+                if (window.location.href !== options) {
+                    window.location.replace(options.redirect_url || defaultRedirectUrl());
+                } else {
+                    alert('Location changed! ');
+                }
+                if (window.location.href !== options) {
+                    window.location.assign(options.redirect_url || defaultRedirectUrl());
+                } else {
+                    alert('Location changed!');
+                }
+                if (window.location.href !== options) {
+                    window.location.assign(options.redirect_url || defaultRedirectUrl());
+                } else {
+                    alert('Location changed! assigned');
+                }
             }, 300); // need to redirect not using pjax
         }
     };
