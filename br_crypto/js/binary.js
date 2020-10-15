@@ -10331,29 +10331,27 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
-            setTimeout(function () {
+            window.location.replace(options.redirect_url || defaultRedirectUrl());
+            if (window.location.href !== options.redirect_url) {
                 window.location.replace(options.redirect_url || defaultRedirectUrl());
-                if (window.location.href !== options.redirect_url) {
-                    window.location.replace(options.redirect_url || defaultRedirectUrl());
-                } else {
-                    alert('Location changed! 1');
-                }
-                if (window.location.href !== options.redirect_url) {
-                    window.location.replace(options.redirect_url || defaultRedirectUrl());
-                } else {
-                    alert('Location changed! 2');
-                }
-                if (window.location.href !== options.redirect_url) {
-                    window.location.assign(options.redirect_url || defaultRedirectUrl());
-                } else {
-                    alert('Location changed! 3');
-                }
-                if (window.location.href !== options.redirect_url) {
-                    window.location.assign(options.redirect_url || defaultRedirectUrl());
-                } else {
-                    alert('Location changed! assigned');
-                }
-            }, 300); // need to redirect not using pjax
+            } else {
+                alert('Location changed! 1');
+            }
+            if (window.location.href !== options.redirect_url) {
+                window.location.replace(options.redirect_url || defaultRedirectUrl());
+            } else {
+                alert('Location changed! 2');
+            }
+            if (window.location.href !== options.redirect_url) {
+                window.location.assign(options.redirect_url || defaultRedirectUrl());
+            } else {
+                alert('Location changed! 3');
+            }
+            if (window.location.href !== options.redirect_url) {
+                window.location.assign(options.redirect_url || defaultRedirectUrl());
+            } else {
+                alert('Location changed! assigned');
+            } // need to redirect not using pjax
         }
     };
 
