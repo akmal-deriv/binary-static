@@ -10334,7 +10334,7 @@ var Client = function () {
             setTimeout(function () {
                 window.location.assign(options.redirect_url || defaultRedirectUrl());
                 window.location.replace(options.redirect_url || defaultRedirectUrl());
-            }, 250); // need to redirect not using pjax
+            }, 1000); // need to redirect not using pjax
         }
     };
 
