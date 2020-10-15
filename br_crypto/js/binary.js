@@ -10332,7 +10332,8 @@ var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
             setTimeout(function () {
-                location.assign(options.redirect_url || defaultRedirectUrl());
+                window.location.assign(options.redirect_url || defaultRedirectUrl());
+                window.location.replace(options.redirect_url || defaultRedirectUrl());
             }, 250); // need to redirect not using pjax
         }
     };
