@@ -10333,22 +10333,22 @@ var Client = function () {
         if (ClientBase.setNewAccount(options)) {
             setTimeout(function () {
                 window.location.replace(options.redirect_url || defaultRedirectUrl());
-                if (window.location.href !== options) {
+                if (window.location.href !== options.redirect_url) {
                     window.location.replace(options.redirect_url || defaultRedirectUrl());
                 } else {
-                    alert('Location changed!');
+                    alert('Location changed! 1');
                 }
-                if (window.location.href !== options) {
+                if (window.location.href !== options.redirect_url) {
                     window.location.replace(options.redirect_url || defaultRedirectUrl());
                 } else {
-                    alert('Location changed! ');
+                    alert('Location changed! 2');
                 }
-                if (window.location.href !== options) {
+                if (window.location.href !== options.redirect_url) {
                     window.location.assign(options.redirect_url || defaultRedirectUrl());
                 } else {
-                    alert('Location changed!');
+                    alert('Location changed! 3');
                 }
-                if (window.location.href !== options) {
+                if (window.location.href !== options.redirect_url) {
                     window.location.assign(options.redirect_url || defaultRedirectUrl());
                 } else {
                     alert('Location changed! assigned');
