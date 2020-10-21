@@ -31036,16 +31036,14 @@ var SelfExclusion = function () {
 
             var checks = [];
             var options = { min: 0 };
-            if (id in self_exclusion_data) {
+            if (id in self_exclusion_data && !is_svg_client) {
                 checks.push('req');
-                if (!is_svg_client) {
-                    if (/session_duration_limit/.test(id)) {
-                        options.min = 1;
-                    } else {
-                        options.min = 0.01;
-                    }
-                    options.max = self_exclusion_data[id];
+                if (/session_duration_limit/.test(id)) {
+                    options.min = 1;
+                } else {
+                    options.min = 0.01;
                 }
+                options.max = self_exclusion_data[id];
             } else {
                 options.allow_empty = true;
             }
@@ -31070,7 +31068,7 @@ var SelfExclusion = function () {
             validations.push({
                 selector: '#' + id,
                 validations: checks,
-                exclude_if_empty: 1
+                exclude_if_empty: 0
             });
         });
 
@@ -31190,7 +31188,7 @@ var SelfExclusion = function () {
         return new Promise(function (resolve) {
             var is_changed = Object.keys(data).some(function (key) {
                 return (// using != in next line since response types is inconsistent
-                    key !== 'set_self_exclusion' && (!(key in self_exclusion_data) || self_exclusion_data[key] != data[key]) // eslint-disable-line eqeqeq
+                    key !== 'set_self_exclusion' && self_exclusion_data[key] != data[key] && data[key] !== '' || self_exclusion_data[key] !== undefined && data[key] === '' // eslint-disable-line eqeqeq
 
                 );
             });
@@ -31198,6 +31196,12 @@ var SelfExclusion = function () {
             if (!is_changed) {
                 showFormMessage(localize('You did not change anything.'), false);
                 resolve(false);
+            }
+
+            // use for in loop instead of Object.entries to avoid unnecessary convertion of the object into an array, which later needs to be stored, processed and converted back into an object
+            for (var key in data) {
+                // eslint-disable-line
+                data[key] = data[key] === '' ? null : data[key]; // eslint-disable-line
             }
 
             if (is_svg_client && is_changed) {
