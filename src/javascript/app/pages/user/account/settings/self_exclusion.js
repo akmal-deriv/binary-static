@@ -295,8 +295,9 @@ const SelfExclusion = (() => {
                 resolve(false);
             }
 
-            for (var key in data) {
-                data[key] = data[key] === "" ? null : data[key];
+            // use for in loop instead of Object.entries to avoid unnecessary convertion of the object into an array, which later needs to be stored, processed and converted back into an object
+            for (let key in data) {// eslint-disable-line
+                data[key] = data[key] === '' ? null : data[key];// eslint-disable-line
             }
 
             if (is_svg_client && is_changed) {
