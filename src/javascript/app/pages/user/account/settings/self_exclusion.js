@@ -146,16 +146,14 @@ const SelfExclusion = (() => {
 
             const checks  = [];
             const options = { min: 0 };
-            if (id in self_exclusion_data) {
+            if (id in self_exclusion_data && !is_svg_client) {
                 checks.push('req');
-                if (!is_svg_client) {
-                    if (/session_duration_limit/.test(id)) {
-                        options.min = 1;
-                    } else {
-                        options.min = 0.01;
-                    }
-                    options.max = self_exclusion_data[id];
+                if (/session_duration_limit/.test(id)) {
+                    options.min = 1;
+                } else {
+                    options.min = 0.01;
                 }
+                options.max = self_exclusion_data[id];
             } else {
                 options.allow_empty = true;
             }
@@ -180,7 +178,7 @@ const SelfExclusion = (() => {
             validations.push({
                 selector        : `#${id}`,
                 validations     : checks,
-                exclude_if_empty: 1,
+                exclude_if_empty: 0,
             });
         });
 
@@ -289,12 +287,16 @@ const SelfExclusion = (() => {
     const additionalCheck = data => (
         new Promise((resolve) => {
             const is_changed = Object.keys(data).some(key => ( // using != in next line since response types is inconsistent
-                key !== 'set_self_exclusion' && (!(key in self_exclusion_data) || self_exclusion_data[key] != data[key]) // eslint-disable-line eqeqeq
+                key !== 'set_self_exclusion' && (self_exclusion_data[key] != data[key] && data[key] !== '') || (self_exclusion_data[key] !== undefined && data[key] === '')// eslint-disable-line eqeqeq
             ));
 
             if (!is_changed) {
                 showFormMessage(localize('You did not change anything.'), false);
                 resolve(false);
+            }
+
+            for (var key in data) {
+                data[key] = data[key] === "" ? null : data[key];
             }
 
             if (is_svg_client && is_changed) {
