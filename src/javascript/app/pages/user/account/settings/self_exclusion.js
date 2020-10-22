@@ -176,9 +176,8 @@ const SelfExclusion = (() => {
             }
 
             validations.push({
-                selector        : `#${id}`,
-                validations     : checks,
-                exclude_if_empty: 0,
+                selector   : `#${id}`,
+                validations: checks,
             });
         });
 
@@ -287,7 +286,7 @@ const SelfExclusion = (() => {
     const additionalCheck = data => (
         new Promise((resolve) => {
             const is_changed = Object.keys(data).some(key => ( // using != in next line since response types is inconsistent
-                key !== 'set_self_exclusion' && (self_exclusion_data[key] != data[key] && data[key] !== '') || (self_exclusion_data[key] !== undefined && data[key] === '')// eslint-disable-line eqeqeq
+                key !== 'set_self_exclusion' && (self_exclusion_data[key] != data[key] && data[key] !== '') || (typeof self_exclusion_data[key] !== 'undefined' && data[key] === '') // eslint-disable-line eqeqeq
             ));
 
             if (!is_changed) {
@@ -295,9 +294,11 @@ const SelfExclusion = (() => {
                 resolve(false);
             }
 
-            // use for in loop instead of Object.entries to avoid unnecessary convertion of the object into an array, which later needs to be stored, processed and converted back into an object
-            for (let key in data) {// eslint-disable-line
-                data[key] = data[key] === '' ? null : data[key];// eslint-disable-line
+            // using for in loop instead of Object.entries
+            // to avoid unnecessary conversion of the object into an array,
+            // that later needs to be stored, processed and converted back into an object
+            for (const key in data) {// eslint-disable-line no-restricted-syntax, guard-for-in
+                data[key] = data[key] === '' ? null : data[key];
             }
 
             if (is_svg_client && is_changed) {
