@@ -31067,8 +31067,7 @@ var SelfExclusion = function () {
 
             validations.push({
                 selector: '#' + id,
-                validations: checks,
-                exclude_if_empty: 0
+                validations: checks
             });
         });
 
@@ -31188,7 +31187,7 @@ var SelfExclusion = function () {
         return new Promise(function (resolve) {
             var is_changed = Object.keys(data).some(function (key) {
                 return (// using != in next line since response types is inconsistent
-                    key !== 'set_self_exclusion' && self_exclusion_data[key] != data[key] && data[key] !== '' || self_exclusion_data[key] !== undefined && data[key] === '' // eslint-disable-line eqeqeq
+                    key !== 'set_self_exclusion' && self_exclusion_data[key] != data[key] && data[key] !== '' || typeof self_exclusion_data[key] !== 'undefined' && data[key] === '' // eslint-disable-line eqeqeq
 
                 );
             });
@@ -31198,10 +31197,12 @@ var SelfExclusion = function () {
                 resolve(false);
             }
 
-            // use for in loop instead of Object.entries to avoid unnecessary convertion of the object into an array, which later needs to be stored, processed and converted back into an object
+            // using for in loop instead of Object.entries
+            // to avoid unnecessary conversion of the object into an array,
+            // that later needs to be stored, processed and converted back into an object
             for (var key in data) {
-                // eslint-disable-line
-                data[key] = data[key] === '' ? null : data[key]; // eslint-disable-line
+                // eslint-disable-line no-restricted-syntax, guard-for-in
+                data[key] = data[key] === '' ? null : data[key];
             }
 
             if (is_svg_client && is_changed) {
