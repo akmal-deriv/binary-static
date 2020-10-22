@@ -74,6 +74,7 @@ const SelfExclusion = (() => {
                 }
                 return;
             }
+            self_exclusion_data = response.get_self_exclusion;
             BinarySocket.send({ get_account_status: 1 }).then((data) => {
                 const has_to_set_30day_turnover = !has_exclude_until && /max_turnover_limit_not_set/.test(data.get_account_status.status);
                 if (typeof set_30day_turnover === 'undefined') {
@@ -84,7 +85,6 @@ const SelfExclusion = (() => {
                 $('#description').setVisibility(!has_to_set_30day_turnover);
                 $('#loading').setVisibility(0);
                 $form.setVisibility(1);
-                self_exclusion_data = response.get_self_exclusion;
                 $.each(self_exclusion_data, (key, value) => {
                     fields[key] = value.toString();
                     if (key === 'timeout_until') {
@@ -298,7 +298,7 @@ const SelfExclusion = (() => {
             // to avoid unnecessary conversion of the object into an array,
             // that later needs to be stored, processed and converted back into an object
             for (const key in data) {// eslint-disable-line no-restricted-syntax, guard-for-in
-                data[key] = data[key] === '' ? null : data[key];
+                data[key] = data[key] === '' ? 0 : data[key];
             }
 
             if (is_svg_client && is_changed) {
@@ -338,6 +338,7 @@ const SelfExclusion = (() => {
             }
             return;
         }
+        getData();
         showFormMessage(localize('Your changes have been updated.'), true);
         const exclude_until_val = $exclude_until.attr('data-value');
         showWarning(!!exclude_until_val);
