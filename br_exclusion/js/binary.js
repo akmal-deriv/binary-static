@@ -31069,7 +31069,8 @@ var SelfExclusion = function () {
 
             validations.push({
                 selector: '#' + id,
-                validations: checks
+                validations: checks,
+                exclude_if_empty: is_svg_client ? 0 : 1
             });
         });
 
