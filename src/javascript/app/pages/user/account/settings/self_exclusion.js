@@ -325,6 +325,7 @@ const SelfExclusion = (() => {
     );
 
     const setExclusionResponse = (response) => {
+        const response_arr = Object.entries(response.echo_req);
         if (response.error) {
             const error_msg = response.error.message;
             let error_fld   = response.error.field;
@@ -338,7 +339,13 @@ const SelfExclusion = (() => {
             }
             return;
         }
-        getData();
+        self_exclusion_data = {};
+        // using for of loop to format and assign new self_exclusion_data from the previous request
+        for (const [key, value] of response_arr) {// eslint-disable-line no-restricted-syntax
+            if (value > 0 && !/req_id|set_self_exclusion/.test(key)){
+                self_exclusion_data[key] = parseInt(value);
+            }
+        }
         showFormMessage(localize('Your changes have been updated.'), true);
         const exclude_until_val = $exclude_until.attr('data-value');
         showWarning(!!exclude_until_val);
