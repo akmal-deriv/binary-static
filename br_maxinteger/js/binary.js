@@ -30916,6 +30916,7 @@ var SelfExclusion = function () {
         fields = void 0,
         self_exclusion_data = void 0,
         set_30day_turnover = void 0,
+        max_limits = void 0,
         currency = void 0,
         is_svg_client = void 0,
         is_mlt = void 0,
@@ -30940,6 +30941,8 @@ var SelfExclusion = function () {
         $form.find('input').each(function () {
             fields[this.name] = '';
         });
+
+        max_limits = {};
 
         currency = Client.get('currency');
 
@@ -30970,6 +30973,10 @@ var SelfExclusion = function () {
                 }
                 return;
             }
+            BinarySocket.send({ get_limits: 1 }).then(function (data) {
+                max_limits.account_balance = data.get_limits.account_balance ? data.get_limits.account_balance : null;
+                max_limits.open_positions = data.get_limits.open_positions ? data.get_limits.open_positions : null;
+            });
             BinarySocket.send({ get_account_status: 1 }).then(function (data) {
                 var has_to_set_30day_turnover = !has_exclude_until && /max_turnover_limit_not_set/.test(data.get_account_status.status);
                 if (typeof set_30day_turnover === 'undefined') {
@@ -31055,9 +31062,11 @@ var SelfExclusion = function () {
             if (!is_svg_client) {
                 if (/max_open_bets/.test(id)) {
                     options.min = 1;
+                    options.max = max_limits.open_positions;
                 }
                 if (/max_balance/.test(id)) {
                     options.min = 0.01;
+                    options.max = max_limits.account_balance;
                 }
             }
             if (!/session_duration_limit|max_open_bets/.test(id)) {
