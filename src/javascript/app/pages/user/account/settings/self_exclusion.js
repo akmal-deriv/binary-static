@@ -176,8 +176,8 @@ const SelfExclusion = (() => {
             }
 
             validations.push({
-                selector   : `#${id}`,
-                validations: checks,
+                selector        : `#${id}`,
+                validations     : checks,
                 exclude_if_empty: is_svg_client ? 0 : 1,
             });
         });
