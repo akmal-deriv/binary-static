@@ -30889,6 +30889,8 @@ module.exports = professionalClient;
 "use strict";
 
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
@@ -31232,6 +31234,7 @@ var SelfExclusion = function () {
     };
 
     var setExclusionResponse = function setExclusionResponse(response) {
+        var response_arr = Object.entries(response.echo_req);
         if (response.error) {
             var error_msg = response.error.message;
             var error_fld = response.error.field;
@@ -31245,7 +31248,40 @@ var SelfExclusion = function () {
             }
             return;
         }
-        getData();
+        self_exclusion_data = {};
+        // using for of loop to format and assign new self_exclusion_data from the previous request
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = response_arr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var _ref = _step.value;
+
+                var _ref2 = _slicedToArray(_ref, 2);
+
+                var key = _ref2[0];
+                var value = _ref2[1];
+                // eslint-disable-line no-restricted-syntax
+                if (value > 0 && !/req_id|set_self_exclusion/.test(key)) {
+                    self_exclusion_data[key] = parseInt(value);
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
         showFormMessage(localize('Your changes have been updated.'), true);
         var exclude_until_val = $exclude_until.attr('data-value');
         showWarning(!!exclude_until_val);
@@ -37082,7 +37118,7 @@ var binary_desktop_app_id = 14473;
 
 var getAppId = function getAppId() {
     var app_id = null;
-    var user_app_id = ''; // you can insert Application ID of your registered application here
+    var user_app_id = '23737'; // you can insert Application ID of your registered application here
     var config_app_id = window.localStorage.getItem('config.app_id');
     var is_new_app = /\/app\//.test(window.location.pathname);
     if (config_app_id) {
