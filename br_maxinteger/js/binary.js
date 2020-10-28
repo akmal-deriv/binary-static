@@ -30974,8 +30974,7 @@ var SelfExclusion = function () {
                 return;
             }
             BinarySocket.send({ get_limits: 1 }).then(function (data) {
-                max_limits.account_balance = data.get_limits.account_balance ? data.get_limits.account_balance : null;
-                max_limits.open_positions = data.get_limits.open_positions ? data.get_limits.open_positions : null;
+                max_limits = _extends({}, data.get_limits.account_balance && { account_balance: data.get_limits.account_balance }, data.get_limits.open_positions && { open_positions: data.get_limits.open_positions });
             });
             BinarySocket.send({ get_account_status: 1 }).then(function (data) {
                 var has_to_set_30day_turnover = !has_exclude_until && /max_turnover_limit_not_set/.test(data.get_account_status.status);
