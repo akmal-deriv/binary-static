@@ -79,8 +79,8 @@ const SelfExclusion = (() => {
             }
             BinarySocket.send({ get_limits: 1 }).then((data) => {
                 max_limits = {
-                    ...(data.get_limits.account_balance &&  { account_balance: data.get_limits.account_balance }),
-                    ...(data.get_limits.open_positions &&  { open_positions: data.get_limits. open_positions }),
+                    ...(data.get_limits.account_balance && { account_balance: data.get_limits.account_balance }),
+                    ...(data.get_limits.open_positions && { open_positions: data.get_limits.open_positions }),
                 };
             });
             BinarySocket.send({ get_account_status: 1 }).then((data) => {
