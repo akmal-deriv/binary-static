@@ -31,7 +31,9 @@ const SelfExclusion = (() => {
     const timeout_date_id         = '#timeout_until_date';
     const timeout_time_id         = '#timeout_until_time';
     const exclude_until_id        = '#exclude_until';
+    const max_balance_id          = '#max_balance';
     const max_30day_turnover_id   = '#max_30day_turnover';
+    const max_open_bets_id        = '#max_open_bets';
     const error_class             = 'errorfield';
     const TURNOVER_LIMIT          = 999999999999999; // 15 digits
 
@@ -172,10 +174,12 @@ const SelfExclusion = (() => {
                 if (/max_open_bets/.test(id)){
                     options.min = 1;
                     options.max = max_limits.open_positions;
+                    $(max_open_bets_id).attr('maxlength', options.max.toString().length);
                 }
                 if (/max_balance/.test(id)) {
                     options.min = 0.01;
                     options.max = max_limits.account_balance;
+                    $(max_balance_id).attr('maxlength', options.max.toString().length);
                 }
             }
             if (!/session_duration_limit|max_open_bets/.test(id)) {
