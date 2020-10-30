@@ -179,7 +179,7 @@ const SelfExclusion = (() => {
                 if (/max_balance/.test(id)) {
                     options.min = 0.01;
                     options.max = max_limits.account_balance;
-                    $(max_balance_id).attr('maxlength', options.max.toString().length + decimal_places + 1); // Add 1 to allow to enter a dot
+                    $(max_balance_id).attr('maxlength', parseInt(options.max).toString().length + decimal_places + 1); // Add 1 to allow to enter a dot
                 }
             }
             if (!/session_duration_limit|max_open_bets/.test(id)) {
