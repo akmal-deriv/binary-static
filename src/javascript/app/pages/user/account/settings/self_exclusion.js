@@ -79,6 +79,7 @@ const SelfExclusion = (() => {
                 }
                 return;
             }
+            self_exclusion_data = response.get_self_exclusion;
             BinarySocket.send({ get_limits: 1 }).then((data) => {
                 max_limits = {
                     ...(data.get_limits.account_balance && { account_balance: data.get_limits.account_balance }),
@@ -95,7 +96,6 @@ const SelfExclusion = (() => {
                 $('#description').setVisibility(!has_to_set_30day_turnover);
                 $('#loading').setVisibility(0);
                 $form.setVisibility(1);
-                self_exclusion_data = response.get_self_exclusion;
                 $.each(self_exclusion_data, (key, value) => {
                     fields[key] = value.toString();
                     if (key === 'timeout_until') {
@@ -157,16 +157,14 @@ const SelfExclusion = (() => {
 
             const checks  = [];
             const options = { min: 0 };
-            if (id in self_exclusion_data) {
+            if (id in self_exclusion_data && !is_svg_client) {
                 checks.push('req');
-                if (!is_svg_client) {
-                    if (/session_duration_limit/.test(id)) {
-                        options.min = 1;
-                    } else {
-                        options.min = 0.01;
-                    }
-                    options.max = self_exclusion_data[id];
+                if (/session_duration_limit/.test(id)) {
+                    options.min = 1;
+                } else {
+                    options.min = 0.01;
                 }
+                options.max = self_exclusion_data[id];
             } else {
                 options.allow_empty = true;
             }
@@ -195,7 +193,7 @@ const SelfExclusion = (() => {
             validations.push({
                 selector        : `#${id}`,
                 validations     : checks,
-                exclude_if_empty: 1,
+                exclude_if_empty: is_svg_client ? 0 : 1,
             });
         });
 
@@ -304,12 +302,19 @@ const SelfExclusion = (() => {
     const additionalCheck = data => (
         new Promise((resolve) => {
             const is_changed = Object.keys(data).some(key => ( // using != in next line since response types is inconsistent
-                key !== 'set_self_exclusion' && (!(key in self_exclusion_data) || self_exclusion_data[key] != data[key]) // eslint-disable-line eqeqeq
+                key !== 'set_self_exclusion' && (self_exclusion_data[key] != data[key] && data[key] !== '') || (typeof self_exclusion_data[key] !== 'undefined' && data[key] === '') // eslint-disable-line eqeqeq
             ));
 
             if (!is_changed) {
                 showFormMessage(localize('You did not change anything.'), false);
                 resolve(false);
+            }
+
+            // using for in loop instead of Object.entries
+            // to avoid unnecessary conversion of the object into an array,
+            // that later needs to be stored, processed and converted back into an object
+            for (const key in data) {// eslint-disable-line no-restricted-syntax, guard-for-in
+                data[key] = data[key] === '' ? 0 : data[key];
             }
 
             if (is_svg_client && is_changed) {
@@ -336,6 +341,7 @@ const SelfExclusion = (() => {
     );
 
     const setExclusionResponse = (response) => {
+        const response_arr = Object.entries(response.echo_req);
         if (response.error) {
             const error_msg = response.error.message;
             let error_fld   = response.error.field;
@@ -348,6 +354,13 @@ const SelfExclusion = (() => {
                 showFormMessage(error_msg, false);
             }
             return;
+        }
+        self_exclusion_data = {};
+        // using for of loop to format and assign new self_exclusion_data from the previous request
+        for (const [key, value] of response_arr) {// eslint-disable-line no-restricted-syntax
+            if (value > 0 && !/req_id|set_self_exclusion/.test(key)){
+                self_exclusion_data[key] = parseInt(value);
+            }
         }
         showFormMessage(localize('Your changes have been updated.'), true);
         const exclude_until_val = $exclude_until.attr('data-value');
