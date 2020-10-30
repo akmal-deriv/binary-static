@@ -30927,7 +30927,9 @@ var SelfExclusion = function () {
     var timeout_date_id = '#timeout_until_date';
     var timeout_time_id = '#timeout_until_time';
     var exclude_until_id = '#exclude_until';
+    var max_balance_id = '#max_balance';
     var max_30day_turnover_id = '#max_30day_turnover';
+    var max_open_bets_id = '#max_open_bets';
     var error_class = 'errorfield';
     var TURNOVER_LIMIT = 999999999999999; // 15 digits
 
@@ -31062,10 +31064,12 @@ var SelfExclusion = function () {
                 if (/max_open_bets/.test(id)) {
                     options.min = 1;
                     options.max = max_limits.open_positions;
+                    $(max_open_bets_id).attr('maxlength', options.max.toString().length);
                 }
                 if (/max_balance/.test(id)) {
                     options.min = 0.01;
                     options.max = max_limits.account_balance;
+                    $(max_balance_id).attr('maxlength', options.max.toString().length);
                 }
             }
             if (!/session_duration_limit|max_open_bets/.test(id)) {
