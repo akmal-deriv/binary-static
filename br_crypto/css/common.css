@@ -748,7 +748,7 @@ label + input {
     position: fixed;
     width: 80vw;
     left: 18vw;
-    bottom: 40vh; } }
+    bottom: auto; } }
 
 @media screen and (max-width: 480px) {
   #token_form p.error-msg {
