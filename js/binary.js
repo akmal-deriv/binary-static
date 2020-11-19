@@ -520,8 +520,13 @@ var ClientBase = function () {
     };
 
     var isAuthenticationAllowed = function isAuthenticationAllowed() {
-        return (/allow_document_upload/.test(State.getResponse('get_account_status.status'))
-        );
+        var _State$getResponse = State.getResponse('get_account_status'),
+            status = _State$getResponse.status,
+            authentication = _State$getResponse.authentication;
+
+        var has_allow_document_upload = /allow_document_upload/.test(status);
+        var has_verification_flags = authentication.needs_verification.length;
+        return has_allow_document_upload || has_verification_flags;
     };
 
     // remove manager id or master distinction from group
@@ -551,13 +556,19 @@ var ClientBase = function () {
 
     var getBasicUpgradeInfo = function getBasicUpgradeInfo() {
         var upgradeable_landing_companies = State.getResponse('authorize.upgradeable_landing_companies');
+        var landing_company_obj = State.getResponse('landing_company');
 
         var can_open_multi = false;
         var can_upgrade_to = [];
         var type = void 0;
         if ((upgradeable_landing_companies || []).length) {
             var current_landing_company = get('landing_company_shortcode');
-            can_open_multi = upgradeable_landing_companies.indexOf(current_landing_company) !== -1;
+            var allowed_currencies = [];
+            if (current_loginid) {
+                allowed_currencies = getLandingCompanyValue(current_loginid, landing_company_obj, 'legal_allowed_currencies');
+            }
+            // create multiple accounts only available for landing companies with legal_allowed_currencies
+            can_open_multi = !!(upgradeable_landing_companies.indexOf(current_landing_company) !== -1 && allowed_currencies && allowed_currencies.length);
 
             // only show upgrade message to landing companies other than current
             var canUpgrade = function canUpgrade() {
@@ -612,9 +623,8 @@ var ClientBase = function () {
 
     var getRiskAssessment = function getRiskAssessment() {
         var status = State.getResponse('get_account_status.status');
-        var is_high_risk = /high/.test(State.getResponse('get_account_status.risk_classification'));
 
-        return isAccountOfType('financial') ? /(financial_assessment|trading_experience)_not_complete/.test(status) : is_high_risk && /financial_assessment_not_complete/.test(status);
+        return isAccountOfType('financial') ? /(financial_assessment|trading_experience)_not_complete/.test(status) : /financial_assessment_not_complete/.test(status);
     };
 
     // API_V3: send a list of accounts the client can transfer to
@@ -1315,13 +1325,9 @@ var BinarySocket = __webpack_require__(/*! ./socket_base */ "./src/javascript/_c
 var ClientBase = __webpack_require__(/*! ./client_base */ "./src/javascript/_common/base/client_base.js");
 
 var LiveChat = function () {
-    var initial_session_variables = { loginid: '', landing_company_shortcode: '', currency: '', residence: '' };
+    var initial_session_variables = { loginid: '', landing_company_shortcode: '', currency: '', residence: '', email: '' };
     var init = function init() {
         if (window.LiveChatWidget) {
-            // We have to clear the session first on livechat init to prevent
-            // getting data from previous session.
-            window.LiveChatWidget.call('set_customer_email', ' ');
-            window.LiveChatWidget.call('set_customer_name', ' ');
             window.LiveChatWidget.call('set_session_variables', initial_session_variables);
 
             BinarySocket.wait('get_settings').then(function (response) {
@@ -1344,15 +1350,14 @@ var LiveChat = function () {
                     var landing_company_shortcode = ClientBase.get('landing_company_shortcode');
                     var currency = ClientBase.get('currency');
                     var residence = ClientBase.get('residence');
+                    var email = ClientBase.get('email');
 
-                    var client_session_variables = _extends({}, loginid && { loginid: loginid }, landing_company_shortcode && { landing_company_shortcode: landing_company_shortcode }, currency && { currency: currency }, residence && { residence: residence });
+                    var client_session_variables = _extends({}, loginid && { loginid: loginid }, landing_company_shortcode && { landing_company_shortcode: landing_company_shortcode }, currency && { currency: currency }, residence && { residence: residence }, email && { email: email });
 
                     window.LiveChatWidget.call('set_session_variables', client_session_variables);
                 }
 
                 if (visibility === 'maximized' && !ClientBase.isLoggedIn()) {
-                    window.LiveChatWidget.call('set_customer_email', ' ');
-                    window.LiveChatWidget.call('set_customer_name', ' ');
                     window.LiveChatWidget.call('set_session_variables', initial_session_variables);
                 }
             });
@@ -1722,7 +1727,7 @@ var BinarySocketBase = function () {
     var is_disconnect_called = false;
     var is_connected_before = false;
 
-    var socket_url = getSocketURL() + '?app_id=' + getAppId() + '&l=' + getLanguage();
+    var socket_url = getSocketURL() + '?app_id=' + getAppId() + '&l=' + getLanguage() + '&brand=binary';
     var timeouts = {};
     var promises = {};
 
@@ -9492,6 +9497,13 @@ var isEqualObject = function isEqualObject(obj1, obj2) {
     });
 };
 
+var removeObjProperties = function removeObjProperties(property_arr, obj) {
+    property_arr.forEach(function (property) {
+        return delete obj[property];
+    });
+    return obj;
+};
+
 // Filters out duplicates in an array of objects by key
 var unique = function unique(array, key) {
     return array.filter(function (e, idx) {
@@ -9641,7 +9653,8 @@ module.exports = {
     applyToAllElements: applyToAllElements,
     findParent: findParent,
     getStaticHash: getStaticHash,
-    PromiseClass: PromiseClass
+    PromiseClass: PromiseClass,
+    removeObjProperties: removeObjProperties
 };
 
 /***/ }),
@@ -9666,6 +9679,7 @@ var NetworkMonitor = __webpack_require__(/*! ./network_monitor */ "./src/javascr
 var Page = __webpack_require__(/*! ./page */ "./src/javascript/app/base/page.js");
 var BinarySocket = __webpack_require__(/*! ./socket */ "./src/javascript/app/base/socket.js");
 var ContentVisibility = __webpack_require__(/*! ../common/content_visibility */ "./src/javascript/app/common/content_visibility.js");
+var DerivBanner = __webpack_require__(/*! ../common/deriv_banner */ "./src/javascript/app/common/deriv_banner.js");
 var GTM = __webpack_require__(/*! ../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
 var Login = __webpack_require__(/*! ../../_common/base/login */ "./src/javascript/_common/base/login.js");
 var LiveChat = __webpack_require__(/*! ../../_common/base/livechat */ "./src/javascript/_common/base/livechat.js");
@@ -9700,9 +9714,10 @@ var BinaryLoader = function () {
 
         Client.init();
         NetworkMonitor.init();
-
+        DerivBanner.chooseBanner();
         container = getElementById('content-holder');
         container.addEventListener('binarypjax:before', beforeContentChange);
+        window.addEventListener('beforeunload', beforeContentChange);
         container.addEventListener('binarypjax:after', afterContentChange);
         BinaryPjax.init(container, '#content');
 
@@ -9960,6 +9975,7 @@ var StaticPages = __webpack_require__(/*! ../../static/pages/static_pages */ "./
 var TermsAndConditions = __webpack_require__(/*! ../../static/pages/tnc */ "./src/javascript/static/pages/tnc.js");
 var WhyUs = __webpack_require__(/*! ../../static/pages/why_us */ "./src/javascript/static/pages/why_us.js");
 var AffiliatesIBLanding = __webpack_require__(/*! ../../static/pages/affiliate_ib_landing */ "./src/javascript/static/pages/affiliate_ib_landing.js");
+var ResponsibleTrading = __webpack_require__(/*! ../../static/pages/responsible_trading */ "./src/javascript/static/pages/responsible_trading.js");
 
 /* eslint-disable max-len */
 var pages_config = {
@@ -10039,6 +10055,7 @@ var pages_config = {
     'open-positions': { module: StaticPages.OpenPositions },
     'open-source-projects': { module: StaticPages.OpenSourceProjects },
     'payment-agent': { module: StaticPages.PaymentAgent },
+    'responsible-trading': { module: ResponsibleTrading },
     'set-currency': { module: SetCurrency, is_authenticated: true, only_real: true, needs_currency: true },
     'telegram-bot': { module: TelegramBot, is_authenticated: true },
     'terms-and-conditions': { module: TermsAndConditions },
@@ -10331,9 +10348,7 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 var Client = function () {
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
-            setTimeout(function () {
-                window.location.replace(options.redirect_url || defaultRedirectUrl());
-            }, 250); // need to redirect not using pjax
+            window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
         }
     };
 
@@ -11022,6 +11037,8 @@ var Header = function () {
                 }) < 0 ? Boolean(false) : Boolean(true);
             };
             var hasVerification = function hasVerification(string) {
+                var _get_account_status = get_account_status,
+                    prompt_client_to_authenticate = _get_account_status.prompt_client_to_authenticate;
                 var _authentication = authentication,
                     identity = _authentication.identity,
                     document = _authentication.document,
@@ -11056,7 +11073,7 @@ var Header = function () {
                         }
                     case 'rejected':
                         {
-                            result = verification_length === 2 && (identity.status !== 'none' || document.status !== 'none');
+                            result = verification_length === 2 && (identity.status !== 'none' || document.status !== 'none') && prompt_client_to_authenticate;
                             break;
                         }
                     case 'rejected_identity':
@@ -11147,7 +11164,7 @@ var Header = function () {
                     return buildMessage(localizeKeepPlaceholders('Please [_1]complete your account profile[_2] to lift your withdrawal and trading limits.'), 'user/settings/detailsws');
                 },
                 unwelcome: function unwelcome() {
-                    return buildMessage(localizeKeepPlaceholders('Trading and deposits have been disabled on your account. Kindly [_1]contact customer support[_2] for assistance.'), 'contact');
+                    return buildMessage('Trading and deposits have been disabled on your account. Kindly allow us some time to review the account.');
                 },
                 withdrawal_locked_review: function withdrawal_locked_review() {
                     return localize('Withdrawals have been disabled on your account. Please wait until your uploaded documents are verified.');
@@ -12349,6 +12366,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var isEmptyObject = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").isEmptyObject;
+var removeObjProperties = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").removeObjProperties;
 
 var submarket_order = {
     forex: 0,
@@ -12524,6 +12542,27 @@ var ActiveSymbols = function () {
         return trade_markets_list;
     };
 
+    // The unavailable underlyings are only offered on deriv.com.
+    var unavailable_underlyings = ['BOOM500', 'BOOM1000', 'CRASH500', 'CRASH1000', 'stpRNG'];
+
+    var getAvailableUnderlyings = function getAvailableUnderlyings(markets_list) {
+        var markets_list_clone = clone(markets_list);
+
+        Object.keys(markets_list_clone).forEach(function (market_key) {
+            Object.keys(markets_list_clone[market_key].submarkets).forEach(function (submarket_key) {
+                removeObjProperties(unavailable_underlyings, markets_list_clone[market_key].submarkets[submarket_key].symbols);
+                if (Object.keys(markets_list_clone[market_key].submarkets[submarket_key].symbols).length === 0) {
+                    delete markets_list_clone[market_key].submarkets[submarket_key];
+                }
+            });
+            if (Object.keys(markets_list_clone[market_key].submarkets).length === 0) {
+                delete markets_list_clone[market_key];
+            }
+        });
+        if (Object.keys(markets_list_clone).length === 0) return [];
+        return markets_list_clone;
+    };
+
     var getTradeUnderlyings = function getTradeUnderlyings(active_symbols) {
         var trade_underlyings = {};
         var all_symbols = getSymbols(active_symbols);
@@ -12558,7 +12597,8 @@ var ActiveSymbols = function () {
         clearData: clearData,
         getSymbols: getSymbols,
         getSymbolsForMarket: getSymbolsForMarket,
-        sortSubmarket: sortSubmarket
+        sortSubmarket: sortSubmarket,
+        getAvailableUnderlyings: getAvailableUnderlyings
     };
 }();
 
@@ -12967,6 +13007,11 @@ var popup_queue = [];
 // use this function if you need to show a form with some validations in popup
 // if you need a simple popup with just a confirm or also a cancel button use Dialog instead
 var showPopup = function showPopup(options) {
+    var el_popup = document.getElementById(options.popup_id);
+
+    if (el_popup) {
+        return;
+    }
     if (cache[options.url]) {
         callback(options);
     } else {
@@ -13117,7 +13162,7 @@ var Table = function () {
         var $tr = $('<tr></tr>');
         for (var i = 0; i < data.length; i++) {
             var class_name = metadata[i].toLowerCase().replace(/\s/g, '-');
-            var row_element = is_data ? $('<td></td>', { class: class_name, html: data[i] }) : $('<th></th>', { class: class_name, html: data[i] });
+            var row_element = is_data ? $('<td></td>', { class: class_name, html: data[i] }) : $('<th></th>', { class: class_name, style: '--number_of_columns: ' + data.length, html: data[i] });
             row_element.appendTo($tr);
         }
 
@@ -13665,6 +13710,86 @@ module.exports = Object.assign({
     getCurrencyNameList: getCurrencyNameList,
     getCurrencyFullName: getCurrencyFullName
 }, CurrencyBase);
+
+/***/ }),
+
+/***/ "./src/javascript/app/common/deriv_banner.js":
+/*!***************************************************!*\
+  !*** ./src/javascript/app/common/deriv_banner.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
+var createElement = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").createElement;
+
+var banner_types = {
+    rebranding: 'rebranding',
+    multiplier: 'multiplier'
+};
+
+var DerivBanner = function () {
+    var el_rebranding_banner_container = void 0,
+        el_multiplier_banner_container = void 0,
+        el_banner_to_show = void 0,
+        el_close_button = void 0,
+        deriv_banner_type = void 0;
+
+    var onLoad = function onLoad() {
+        var is_deriv_banner_dismissed = localStorage.getItem('is_deriv_banner_dismissed');
+
+        if (!is_deriv_banner_dismissed) {
+            el_rebranding_banner_container = getElementById('deriv_banner_container');
+            el_multiplier_banner_container = getElementById('multiplier_banner_container');
+            deriv_banner_type = localStorage.getItem('deriv_banner_type');
+
+            showBanner();
+            el_close_button = el_banner_to_show.querySelector('.deriv_banner_close') || createElement('div');
+            el_close_button.addEventListener('click', onClose);
+        }
+    };
+
+    var onClose = function onClose() {
+        el_banner_to_show.setVisibility(0);
+        localStorage.setItem('is_deriv_banner_dismissed', 1);
+    };
+
+    var showBanner = function showBanner() {
+        if (deriv_banner_type === banner_types.rebranding) {
+            el_banner_to_show = el_rebranding_banner_container;
+        } else {
+            el_banner_to_show = el_multiplier_banner_container;
+        }
+        el_banner_to_show.setVisibility(1);
+    };
+
+    var chooseBanner = function chooseBanner() {
+        if (localStorage.getItem('deriv_banner_type')) {
+            return;
+        }
+
+        var banner_type = Math.random() < 0.5 ? banner_types.rebranding : banner_types.multiplier;
+
+        localStorage.setItem('deriv_banner_type', banner_type);
+    };
+
+    var onUnload = function onUnload() {
+        if (el_close_button) {
+            el_close_button.removeEventListener('click', onClose);
+        }
+    };
+
+    return {
+        chooseBanner: chooseBanner,
+        onLoad: onLoad,
+        onUnload: onUnload
+    };
+}();
+
+module.exports = DerivBanner;
 
 /***/ }),
 
@@ -15879,7 +16004,7 @@ var Cashier = function () {
     var onLoad = function onLoad() {
         if (Client.isLoggedIn()) {
             BinarySocket.send({ statement: 1, limit: 1 });
-            BinarySocket.wait('authorize', 'mt5_login_list', 'statement', 'get_account_status').then(function () {
+            BinarySocket.wait('authorize', 'mt5_login_list', 'statement', 'get_account_status', 'landing_company').then(function () {
                 checkStatusIsLocked(State.getResponse('get_account_status'));
                 var residence = Client.get('residence');
                 var currency = Client.get('currency');
@@ -19818,6 +19943,7 @@ var WebtraderChart = function () {
                     WebtraderCharts.init({
                         server: Config.getSocketURL(),
                         appId: Config.getAppId(),
+                        brand: 'binary',
                         lang: getLanguage().toLowerCase()
                     });
                     is_initialized = true;
@@ -23239,7 +23365,9 @@ var Markets = (_temp = _class = function (_React$Component) {
         _initialiseProps.call(_this);
 
         var market_symbol = _defaults2.default.get('market');
-        _this.markets = _symbols2.default.markets();
+
+        var market_list = _symbols2.default.markets();
+        _this.markets = (0, _active_symbols.getAvailableUnderlyings)(market_list);
 
         _this.underlyings = _symbols2.default.getAllSymbols() || {};
         var underlying_symbol = _defaults2.default.get('underlying');
@@ -25900,6 +26028,7 @@ var ViewPopup = __webpack_require__(/*! ../user/view_popup/view_popup */ "./src/
 var Client = __webpack_require__(/*! ../../base/client */ "./src/javascript/app/base/client.js");
 var Header = __webpack_require__(/*! ../../base/header */ "./src/javascript/app/base/header.js");
 var BinarySocket = __webpack_require__(/*! ../../base/socket */ "./src/javascript/app/base/socket.js");
+var DerivBanner = __webpack_require__(/*! ../../common/deriv_banner */ "./src/javascript/app/common/deriv_banner.js");
 var Guide = __webpack_require__(/*! ../../common/guide */ "./src/javascript/app/common/guide.js");
 var TopUpVirtualPopup = __webpack_require__(/*! ../../pages/user/account/top_up_virtual/pop_up */ "./src/javascript/app/pages/user/account/top_up_virtual/pop_up.js");
 var State = __webpack_require__(/*! ../../../_common/storage */ "./src/javascript/_common/storage.js").State;
@@ -25909,6 +26038,8 @@ var TradePage = function () {
     State.remove('is_trading');
 
     var onLoad = function onLoad() {
+        DerivBanner.onLoad();
+
         BinarySocket.wait('authorize').then(function () {
             init();
         });
@@ -25985,6 +26116,7 @@ var TradePage = function () {
         commonTrading.clean();
         BinarySocket.clear('active_symbols');
         TradingAnalysis.onUnload();
+        DerivBanner.onUnload();
     };
 
     var onDisconnect = function onDisconnect() {
@@ -26995,7 +27127,7 @@ var Authenticate = function () {
 
     var initAuthentication = function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var has_personal_details_error, authentication_status, service_token_response, personal_fields_errors, missing_personal_fields, error_msgs, identity, document, is_fully_authenticated, documents_supported;
+            var has_personal_details_error, authentication_status, service_token_response, personal_fields_errors, missing_personal_fields, error_msgs, identity, needs_verification, document, is_fully_authenticated, should_allow_resubmission, documents_supported;
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                     switch (_context2.prev = _context2.next) {
@@ -27045,30 +27177,31 @@ var Authenticate = function () {
                                 $('#missing_personal_fields').html(error_msgs);
                             }
 
-                            identity = authentication_status.identity, document = authentication_status.document;
+                            identity = authentication_status.identity, needs_verification = authentication_status.needs_verification, document = authentication_status.document;
                             is_fully_authenticated = identity.status === 'verified' && document.status === 'verified';
+                            should_allow_resubmission = needs_verification.includes('identity') || needs_verification.includes('document');
 
                             onfido_unsupported = !identity.services.onfido.is_country_supported;
                             documents_supported = identity.services.onfido.documents_supported;
 
 
-                            if (is_fully_authenticated) {
+                            if (is_fully_authenticated && !should_allow_resubmission) {
                                 $('#authentication_tab').setVisibility(0);
                                 $('#authentication_verified').setVisibility(1);
                             }
 
                             if (!has_personal_details_error) {
-                                _context2.next = 21;
+                                _context2.next = 22;
                                 break;
                             }
 
                             $('#personal_details_error').setVisibility(1);
-                            _context2.next = 42;
+                            _context2.next = 43;
                             break;
 
-                        case 21:
-                            if (identity.further_resubmissions_allowed) {
-                                _context2.next = 41;
+                        case 22:
+                            if (needs_verification.includes('identity')) {
+                                _context2.next = 42;
                                 break;
                             }
 
@@ -27077,46 +27210,46 @@ var Authenticate = function () {
                                 Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
                             }
                             _context2.t0 = identity.status;
-                            _context2.next = _context2.t0 === 'none' ? 26 : _context2.t0 === 'pending' ? 28 : _context2.t0 === 'rejected' ? 30 : _context2.t0 === 'verified' ? 32 : _context2.t0 === 'expired' ? 34 : _context2.t0 === 'suspected' ? 36 : 38;
+                            _context2.next = _context2.t0 === 'none' ? 27 : _context2.t0 === 'pending' ? 29 : _context2.t0 === 'rejected' ? 31 : _context2.t0 === 'verified' ? 33 : _context2.t0 === 'expired' ? 35 : _context2.t0 === 'suspected' ? 37 : 39;
                             break;
 
-                        case 26:
+                        case 27:
                             if (onfido_unsupported) {
                                 $('#not_authenticated_uns').setVisibility(1);
                                 initUnsupported();
                             } else {
                                 initOnfido(service_token_response.token, documents_supported);
                             }
-                            return _context2.abrupt('break', 39);
+                            return _context2.abrupt('break', 40);
 
-                        case 28:
+                        case 29:
                             $('#upload_complete').setVisibility(1);
-                            return _context2.abrupt('break', 39);
+                            return _context2.abrupt('break', 40);
 
-                        case 30:
+                        case 31:
                             $('#unverified').setVisibility(1);
-                            return _context2.abrupt('break', 39);
+                            return _context2.abrupt('break', 40);
 
-                        case 32:
+                        case 33:
                             $('#verified').setVisibility(1);
-                            return _context2.abrupt('break', 39);
+                            return _context2.abrupt('break', 40);
 
-                        case 34:
+                        case 35:
                             $('#expired_poi').setVisibility(1);
-                            return _context2.abrupt('break', 39);
+                            return _context2.abrupt('break', 40);
 
-                        case 36:
+                        case 37:
                             $('#unverified').setVisibility(1);
-                            return _context2.abrupt('break', 39);
-
-                        case 38:
-                            return _context2.abrupt('break', 39);
+                            return _context2.abrupt('break', 40);
 
                         case 39:
-                            _context2.next = 42;
+                            return _context2.abrupt('break', 40);
+
+                        case 40:
+                            _context2.next = 43;
                             break;
 
-                        case 41:
+                        case 42:
                             // eslint-disable-next-line no-lonely-if
                             if (onfido_unsupported) {
                                 $('#not_authenticated_uns').setVisibility(1);
@@ -27125,58 +27258,58 @@ var Authenticate = function () {
                                 initOnfido(service_token_response.token, documents_supported);
                             }
 
-                        case 42:
-                            if (document.further_resubmissions_allowed) {
-                                _context2.next = 62;
+                        case 43:
+                            if (needs_verification.includes('document')) {
+                                _context2.next = 63;
                                 break;
                             }
 
                             _context2.t1 = document.status;
-                            _context2.next = _context2.t1 === 'none' ? 46 : _context2.t1 === 'pending' ? 49 : _context2.t1 === 'rejected' ? 51 : _context2.t1 === 'suspected' ? 53 : _context2.t1 === 'verified' ? 55 : _context2.t1 === 'expired' ? 57 : 59;
+                            _context2.next = _context2.t1 === 'none' ? 47 : _context2.t1 === 'pending' ? 50 : _context2.t1 === 'rejected' ? 52 : _context2.t1 === 'suspected' ? 54 : _context2.t1 === 'verified' ? 56 : _context2.t1 === 'expired' ? 58 : 60;
                             break;
 
-                        case 46:
+                        case 47:
                             init();
                             $('#not_authenticated').setVisibility(1);
-                            return _context2.abrupt('break', 60);
+                            return _context2.abrupt('break', 61);
 
-                        case 49:
+                        case 50:
                             $('#pending_poa').setVisibility(1);
-                            return _context2.abrupt('break', 60);
+                            return _context2.abrupt('break', 61);
 
-                        case 51:
+                        case 52:
                             $('#unverified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 60);
+                            return _context2.abrupt('break', 61);
 
-                        case 53:
+                        case 54:
                             $('#unverified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 60);
+                            return _context2.abrupt('break', 61);
 
-                        case 55:
+                        case 56:
                             $('#verified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 60);
+                            return _context2.abrupt('break', 61);
 
-                        case 57:
+                        case 58:
                             $('#expired_poa').setVisibility(1);
-                            return _context2.abrupt('break', 60);
-
-                        case 59:
-                            return _context2.abrupt('break', 60);
+                            return _context2.abrupt('break', 61);
 
                         case 60:
-                            _context2.next = 64;
+                            return _context2.abrupt('break', 61);
+
+                        case 61:
+                            _context2.next = 65;
                             break;
 
-                        case 62:
+                        case 63:
                             init();
                             $('#not_authenticated').setVisibility(1);
 
-                        case 64:
+                        case 65:
 
                             $('#authentication_loading').setVisibility(0);
                             TabSelector.updateTabDisplay();
 
-                        case 66:
+                        case 67:
                         case 'end':
                             return _context2.stop();
                     }
@@ -27654,7 +27787,8 @@ var PaymentAgentTransfer = function () {
         PaymentAgentTransferUI.initValues();
         BinarySocket.wait('get_settings', 'balance').then(function () {
             var currency = Client.get('currency');
-            if (!currency || +Client.get('balance') === 0) {
+            var balance = Client.get('balance');
+            if (!currency || +balance === 0) {
                 $('#pa_transfer_loading').remove();
                 $('#no_balance_error').setVisibility(1);
                 return;
@@ -27668,7 +27802,7 @@ var PaymentAgentTransfer = function () {
                     var pa_values = response.paymentagent_list.list.filter(function (a) {
                         return a.paymentagent_loginid === Client.get('loginid');
                     })[0];
-                    init(pa_values, currency);
+                    init(pa_values, currency, balance);
                 });
             } else {
                 setFormVisibility(false);
@@ -27683,7 +27817,7 @@ var PaymentAgentTransfer = function () {
         });
     };
 
-    var init = function init(pa, currency) {
+    var init = function init(pa, currency, balance) {
         var form_id = '#frm_paymentagent_transfer';
         $form_error = $('#form_error');
 
@@ -27693,7 +27827,7 @@ var PaymentAgentTransfer = function () {
 
         common_request_fields = [{ request_field: 'paymentagent_transfer', value: 1 }, { request_field: 'currency', value: currency }];
 
-        FormManager.init(form_id, [{ selector: '#client_id', validations: ['req', ['regular', { regex: /^\w+\d+$/, message: localize('Please enter a valid Login ID.') }]], request_field: 'transfer_to' }, { selector: '#amount', validations: ['req', ['number', { type: 'float', decimals: getDecimalPlaces(currency), min: pa ? pa.min_withdrawal : 10, max: pa ? pa.max_withdrawal : 2000 }], ['custom', { func: function func() {
+        FormManager.init(form_id, [{ selector: '#client_id', validations: ['req', ['regular', { regex: /^\w+\d+$/, message: localize('Please enter a valid Login ID.') }]], request_field: 'transfer_to' }, { selector: '#amount', validations: ['req', ['number', { type: 'float', decimals: getDecimalPlaces(currency), min: pa ? pa.min_withdrawal : 10, max: max_withdrawal(balance, pa, 2000) }], ['custom', { func: function func() {
                     return +Client.get('balance') >= +$('#amount').val();
                 }, message: localize('Insufficient balance.') }]] }, { selector: '#description', validations: ['general'] }, { request_field: 'dry_run', value: 1 }].concat(common_request_fields));
 
@@ -27702,6 +27836,12 @@ var PaymentAgentTransfer = function () {
             fnc_response_handler: responseHandler,
             enable_button: 1
         });
+    };
+
+    var max_withdrawal = function max_withdrawal(balance, pa, fixed_max_withdrawal) {
+        var pa_max_withdrawal = pa ? pa.max_withdrawal : fixed_max_withdrawal;
+
+        return balance < pa_max_withdrawal ? balance : pa_max_withdrawal;
     };
 
     var setFormVisibility = function setFormVisibility(is_visible) {
@@ -30194,7 +30334,6 @@ var Header = __webpack_require__(/*! ../../../../base/header */ "./src/javascrip
 var BinarySocket = __webpack_require__(/*! ../../../../base/socket */ "./src/javascript/app/base/socket.js");
 var FormManager = __webpack_require__(/*! ../../../../common/form_manager */ "./src/javascript/app/common/form_manager.js");
 var DatePicker = __webpack_require__(/*! ../../../../components/date_picker */ "./src/javascript/app/components/date_picker.js");
-var ClientBase = __webpack_require__(/*! ../../../../../_common/base/client_base */ "./src/javascript/_common/base/client_base.js");
 var CommonFunctions = __webpack_require__(/*! ../../../../../_common/common_functions */ "./src/javascript/_common/common_functions.js");
 var localize = __webpack_require__(/*! ../../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 var State = __webpack_require__(/*! ../../../../../_common/storage */ "./src/javascript/_common/storage.js").State;
@@ -30205,6 +30344,7 @@ var getPropertyValue = __webpack_require__(/*! ../../../../../_common/utility */
 var PersonalDetails = function () {
     var form_id = '#frmPersonalDetails';
     var real_acc_elements = '.RealAcc';
+    var real_acc_auth_elements = '.RealAccAuth';
     var name_fields = ['salutation', 'first_name', 'last_name'];
 
     var is_for_new_account = false;
@@ -30214,18 +30354,18 @@ var PersonalDetails = function () {
         is_fully_authenticated = void 0,
         residence = void 0,
         get_settings_data = void 0,
-        changeable_fields = void 0,
         mt_acct_type = void 0,
         is_mt_tax_required = void 0,
+        validations = void 0,
         $tax_residence = void 0;
 
     var init = function init() {
         editable_fields = {};
         get_settings_data = {};
-        changeable_fields = [];
         is_virtual = Client.get('is_virtual');
         residence = Client.get('residence');
         mt_acct_type = getHashValue('mt5_redirect');
+        validations = [];
         // demo and synthetic mt accounts do not require tax info
         is_mt_tax_required = /real/.test(mt_acct_type) && mt_acct_type.split('_').length > 2 && +State.getResponse('landing_company.config.tax_details_required') === 1;
     };
@@ -30259,7 +30399,6 @@ var PersonalDetails = function () {
     };
 
     var showHideMissingDetails = function showHideMissingDetails() {
-        var validations = getValidations();
         var has_missing_field = validations.find(function (validation) {
             return (/req/.test(validation.validations) && $(validation.selector).val() === ''
             );
@@ -30267,39 +30406,27 @@ var PersonalDetails = function () {
         $('#missing_details_notice').setVisibility(!!has_missing_field);
     };
 
-    var populateChangeableFields = function populateChangeableFields() {
-        if (is_fully_authenticated) return;
-
-        var loginid = Client.get('loginid');
-        var landing_company = State.getResponse('landing_company');
-        var changeable = ClientBase.getLandingCompanyValue(loginid, landing_company, 'changeable_fields');
-        if (changeable && changeable.only_before_auth) {
-            changeable_fields = changeable_fields.concat(changeable.only_before_auth);
-        }
-    };
-
     /**
-     * Remove labels and static fields and replace them with input when fields are changeable.
+     * Remove inputs and replace them with labels and static fields when fields are immutable.
      *
-     * @param {get_settings} to prepopulate some of the values.
+     * @param get_settings to prepopulate some of the values.
      */
     var displayChangeableFields = function displayChangeableFields(get_settings) {
-        if (is_fully_authenticated) return;
-        changeable_fields.forEach(function (field) {
-            CommonFunctions.getElementById('row_' + field).setVisibility(1);
-            CommonFunctions.getElementById('row_lbl_' + field).setVisibility(0);
+        get_settings.immutable_fields.forEach(function (field) {
+            CommonFunctions.getElementById('row_' + field).setVisibility(0);
+            CommonFunctions.getElementById('row_lbl_' + field).setVisibility(1);
         });
 
         if (name_fields.some(function (key) {
-            return changeable_fields.includes(key);
+            return get_settings.immutable_fields.includes(key);
         })) {
-            CommonFunctions.getElementById('row_name').setVisibility(0);
+            CommonFunctions.getElementById('row_name').setVisibility(1);
             name_fields.forEach(function (field) {
-                return CommonFunctions.getElementById(field).setVisibility(1);
+                return CommonFunctions.getElementById(field).setVisibility(0);
             });
         }
 
-        if (changeable_fields.includes('date_of_birth')) {
+        if (!get_settings.immutable_fields.includes('date_of_birth')) {
             $('#date_of_birth').setVisibility(1);
 
             DatePicker.init({
@@ -30310,18 +30437,20 @@ var PersonalDetails = function () {
             });
         }
 
-        if (changeable_fields.includes('place_of_birth') || changeable_fields.includes('citizen')) {
+        var is_changeable_citizen = !get_settings.immutable_fields.includes('citizen');
+        var is_changeable_pob = !get_settings.immutable_fields.includes('place_of_birth');
+        if (is_changeable_pob || is_changeable_citizen) {
             var $options = $('<div/>');
             var residence_list = State.getResponse('residence_list');
             residence_list.forEach(function (res) {
                 $options.append(CommonFunctions.makeOption({ text: res.text, value: res.value }));
             });
             $options.prepend($('<option/>', { value: '', text: localize('Please select') }));
-            if (changeable_fields.includes('place_of_birth')) {
+            if (is_changeable_pob) {
                 $('#place_of_birth').html($options.html()).val(get_settings.place_of_birth);
             }
 
-            if (changeable_fields.includes('citizen')) {
+            if (is_changeable_citizen) {
                 $('#citizen').html($options.html()).val(get_settings.citizen);
             }
         }
@@ -30342,13 +30471,13 @@ var PersonalDetails = function () {
             get_settings.name = (get_settings.salutation || '') + ' ' + (get_settings.first_name || '') + ' ' + (get_settings.last_name || '');
         }
 
-        if (get_settings.place_of_birth && !changeable_fields.includes('place_of_birth') && residence_list) {
+        if (get_settings.place_of_birth && get_settings.immutable_fields.includes('place_of_birth') && residence_list) {
             get_settings.place_of_birth = (residence_list.find(function (obj) {
                 return obj.value === get_settings.place_of_birth;
             }) || {}).text || get_settings.place_of_birth;
         }
 
-        if (get_settings.citizen && !changeable_fields.includes('citizen') && residence_list) {
+        if (get_settings.citizen && get_settings.immutable_fields.includes('citizen') && residence_list) {
             get_settings.citizen = (residence_list.find(function (obj) {
                 return obj.value === get_settings.citizen;
             }) || {}).text || get_settings.citizen;
@@ -30358,20 +30487,20 @@ var PersonalDetails = function () {
 
         if (is_virtual) {
             $(real_acc_elements).remove();
-        } else if (!is_fully_authenticated) {
-            displayChangeableFields(data);
-            CommonFunctions.getElementById('address_form').setVisibility(1);
-            showHideTaxMessage();
-            CommonFunctions.getElementById('tax_information_form').setVisibility(shouldShowTax(get_settings));
         } else {
+            displayChangeableFields(data);
             $(real_acc_elements).setVisibility(1);
             showHideTaxMessage();
             CommonFunctions.getElementById('tax_information_form').setVisibility(shouldShowTax(get_settings));
+            if (is_fully_authenticated) {
+                $(real_acc_auth_elements).setVisibility(1);
+            }
         }
 
         $(form_id).setVisibility(1);
         $('#loading').remove();
-        FormManager.init(form_id, getValidations());
+        setValidations();
+        FormManager.init(form_id, validations);
         FormManager.handleSubmit({
             form_selector: form_id,
             obj_request: { set_settings: 1 },
@@ -30382,21 +30511,14 @@ var PersonalDetails = function () {
         showHideMissingDetails();
     };
 
-    var show_label_if_any_value = ['account_opening_reason', 'citizen', 'place_of_birth', 'date_of_birth', 'first_name', 'last_name', 'salutation'];
-    var force_update_fields = ['tax_residence', 'tax_identification_number'];
-
     var displayGetSettingsData = function displayGetSettingsData(get_settings) {
-        var show_label = [].concat(show_label_if_any_value);
-        if (is_fully_authenticated) {
-            show_label.push('tax_residence', 'tax_identification_number');
-        }
         Object.keys(get_settings).forEach(function (key) {
-            // If there are changeable fields, show input instead of labels instead.
-            var has_label = show_label.includes(key) && (!is_fully_authenticated ? !changeable_fields.includes(key) : true);
-            var force_update = force_update_fields.concat(changeable_fields).includes(key);
+            // If field is immutable and value was set by client, show label instead of input
+            var has_label = get_settings.immutable_fields.includes(key);
             var should_show_label = has_label && get_settings[key];
+
             var element_id = '' + (should_show_label ? 'lbl_' : '') + key;
-            var element_key = CommonFunctions.getElementById(element_id);
+            var element_key = document.getElementById(element_id);
             if (!element_key) return;
 
             editable_fields[key] = get_settings[key] !== null ? get_settings[key] : '';
@@ -30430,7 +30552,7 @@ var PersonalDetails = function () {
                     // If we show label, (input) row should be hidden
                     CommonFunctions.getElementById('row_' + key).setVisibility(0);
                 }
-                if (force_update) {
+                if (has_label) {
                     // Force pushing values, used for (API-)expected values
                     $element.attr({ 'data-force': true, 'data-value': el_value });
                 }
@@ -30474,8 +30596,7 @@ var PersonalDetails = function () {
         return Client.isAccountOfType('financial') && Client.shouldCompleteTax() || is_mt_tax_required;
     };
 
-    var getValidations = function getValidations() {
-        var validations = void 0;
+    var setValidations = function setValidations() {
         if (is_virtual) {
             validations = [{ selector: '#email_consent' }, { selector: '#residence', validations: ['req'] }];
         } else {
@@ -30483,7 +30604,7 @@ var PersonalDetails = function () {
             var is_gaming = Client.isAccountOfType('gaming');
             var is_tax_req = isTaxReq();
 
-            validations = [{ selector: '#address_line_1', validations: ['req', 'address'] }, { selector: '#address_line_2', validations: ['address'] }, { selector: '#address_city', validations: ['req', 'letter_symbol'] }, { selector: '#address_state', validations: $('#address_state').prop('nodeName') === 'SELECT' ? '' : ['letter_symbol'] }, { selector: '#address_postcode', validations: [residence === 'gb' || Client.get('landing_company_shortcode') === 'iom' ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#email_consent' }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 8, max: 35, value: function value() {
+            validations = [{ selector: '#salutation', validations: ['req'] }, { selector: '#first_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#last_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#address_line_1', validations: ['req', 'address'] }, { selector: '#address_line_2', validations: ['address'] }, { selector: '#address_city', validations: ['req', 'letter_symbol'] }, { selector: '#address_state', validations: $('#address_state').prop('nodeName') === 'SELECT' ? '' : ['letter_symbol'] }, { selector: '#address_postcode', validations: [residence === 'gb' || Client.get('landing_company_shortcode') === 'iom' ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#email_consent' }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 8, max: 35, value: function value() {
                         return $('#phone').val().replace(/\D/g, '');
                     } }]] }, { selector: '#place_of_birth', validations: ['req'] }, { selector: '#account_opening_reason', validations: ['req'] }, { selector: '#date_of_birth', validations: ['req'] },
 
@@ -30498,28 +30619,14 @@ var PersonalDetails = function () {
             // all mt account opening requires citizen
             { selector: '#citizen', validations: is_financial || is_gaming || mt_acct_type ? ['req'] : '' }, { selector: '#chk_tax_id', validations: is_financial ? [['req', { hide_asterisk: true, message: localize('Please confirm that all the information above is true and complete.') }]] : '', exclude_request: 1 }];
 
-            // Push validations for changeable fields.
-            changeable_fields.forEach(function (key) {
-                var selector = '#' + key;
-
-                // First name and last name validations
-                if (['first_name', 'last_name'].includes(key)) {
-                    validations.push({
-                        selector: selector,
-                        validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]]
-                    });
+            // loop backwards since we are removing array items
+            for (var i = validations.length - 1; i >= 0; i--) {
+                // if field is immutable, no need to validate or send it to API
+                if (!validations[i].exclude_request && get_settings_data.immutable_fields.includes(validations[i].selector.slice(1))) {
+                    validations.splice(i, 1);
                 }
-
-                // Required Without special treatment
-                if (['salutation'].includes(key)) {
-                    validations.push({
-                        selector: selector,
-                        validations: ['req']
-                    });
-                }
-            });
+            }
         }
-        return validations;
     };
 
     var setDetailsResponse = function setDetailsResponse(response) {
@@ -30546,6 +30653,7 @@ var PersonalDetails = function () {
                     return;
                 }
                 var get_settings = data.get_settings;
+                get_settings_data = get_settings;
                 var has_required_mt = is_mt_tax_required ? get_settings.tax_residence && get_settings.tax_identification_number && get_settings.citizen : get_settings.citizen; // only check Citizen if user selects mt synthetic account
                 if (mt_acct_type && has_required_mt) {
                     $.scrollTo($('h1#heading'), 500, { offset: -10 });
@@ -30559,9 +30667,7 @@ var PersonalDetails = function () {
                     getDetailsResponse(get_settings);
 
                     // Re-populate changeable fields based on incoming data
-                    if (!is_fully_authenticated) {
-                        displayChangeableFields(get_settings);
-                    }
+                    displayChangeableFields(get_settings);
                     showFormMessage(localize('Your settings have been updated successfully.'), true);
                 }
             });
@@ -30666,17 +30772,7 @@ var PersonalDetails = function () {
             get_settings_data = State.getResponse('get_settings');
             is_fully_authenticated = checkStatus(account_status, 'authenticated');
 
-            if (!residence) {
-                displayResidenceList();
-            } else if (is_fully_authenticated) {
-                displayResidenceList();
-                name_fields.forEach(function (field) {
-                    return CommonFunctions.getElementById('row_' + field).classList.add('invisible');
-                });
-            } else {
-                populateChangeableFields();
-                displayResidenceList();
-            }
+            displayResidenceList();
         });
     };
 
@@ -30883,6 +30979,8 @@ module.exports = professionalClient;
 "use strict";
 
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
@@ -30907,8 +31005,8 @@ var SelfExclusion = function () {
         fields = void 0,
         self_exclusion_data = void 0,
         set_30day_turnover = void 0,
+        max_limits = void 0,
         currency = void 0,
-        is_gamstop_client = void 0,
         is_svg_client = void 0,
         is_mlt = void 0,
         is_mx = void 0,
@@ -30918,8 +31016,9 @@ var SelfExclusion = function () {
     var timeout_date_id = '#timeout_until_date';
     var timeout_time_id = '#timeout_until_time';
     var exclude_until_id = '#exclude_until';
+    var max_balance_id = '#max_balance';
     var max_30day_turnover_id = '#max_30day_turnover';
-    var max_deposit_end_date_id = '#max_deposit_end_date';
+    var max_open_bets_id = '#max_open_bets';
     var error_class = 'errorfield';
     var TURNOVER_LIMIT = 999999999999999; // 15 digits
 
@@ -30934,6 +31033,8 @@ var SelfExclusion = function () {
             fields[this.name] = '';
         });
 
+        max_limits = {};
+
         currency = Client.get('currency');
 
         $('.append_currency').after(Currency.formatCurrency(currency));
@@ -30943,7 +31044,6 @@ var SelfExclusion = function () {
 
         is_mlt = Client.get('landing_company_shortcode') === 'malta';
         is_mx = Client.get('landing_company_shortcode') === 'iom';
-        is_gamstop_client = Client.get('residence') === 'gb' && (is_mx || is_mlt);
 
         initDatePicker();
         getData(true);
@@ -30964,6 +31064,10 @@ var SelfExclusion = function () {
                 }
                 return;
             }
+            self_exclusion_data = response.get_self_exclusion;
+            BinarySocket.send({ get_limits: 1 }).then(function (data) {
+                max_limits = _extends({}, data.get_limits.account_balance && { account_balance: data.get_limits.account_balance }, data.get_limits.open_positions && { open_positions: data.get_limits.open_positions });
+            });
             BinarySocket.send({ get_account_status: 1 }).then(function (data) {
                 var has_to_set_30day_turnover = !has_exclude_until && /max_turnover_limit_not_set/.test(data.get_account_status.status);
                 if (typeof set_30day_turnover === 'undefined') {
@@ -30972,10 +31076,8 @@ var SelfExclusion = function () {
                 $('#frm_self_exclusion').find('fieldset > div.form-row:not(.max_30day_turnover)').setVisibility(!has_to_set_30day_turnover);
                 $('#description_max_30day_turnover').setVisibility(has_to_set_30day_turnover);
                 $('#description').setVisibility(!has_to_set_30day_turnover);
-                $('#gamstop_info_top').setVisibility(is_gamstop_client);
                 $('#loading').setVisibility(0);
                 $form.setVisibility(1);
-                self_exclusion_data = response.get_self_exclusion;
                 $.each(self_exclusion_data, function (key, value) {
                     fields[key] = value.toString();
                     if (key === 'timeout_until') {
@@ -30985,10 +31087,6 @@ var SelfExclusion = function () {
                         setDateTimePicker(timeout_date_id, date_value);
                         setDateTimePicker(timeout_time_id, time_value, true);
                         $form.find('label[for="timeout_until_date"]').text(localize('Timed out until'));
-                        return;
-                    }
-                    if (key === 'max_deposit_end_date') {
-                        setDateTimePicker(max_deposit_end_date_id, value);
                         return;
                     }
                     if (key === 'exclude_until') {
@@ -31034,27 +31132,36 @@ var SelfExclusion = function () {
         $form.find('input[type="text"]').each(function () {
             var id = $(this).attr('id');
 
-            if (/timeout_until|exclude_until|max_deposit_end_date/.test(id)) return;
+            if (/timeout_until|exclude_until/.test(id)) return;
 
             var checks = [];
             var options = { min: 0 };
-            if (id in self_exclusion_data) {
+            if (id in self_exclusion_data && !is_svg_client) {
                 checks.push('req');
-                if (!is_svg_client) {
-                    options.max = self_exclusion_data[id];
+                if (/session_duration_limit/.test(id)) {
+                    options.min = 1;
+                } else {
+                    options.min = 0.01;
                 }
+                options.max = self_exclusion_data[id];
             } else {
                 options.allow_empty = true;
+            }
+            if (!is_svg_client) {
+                if (/max_open_bets/.test(id)) {
+                    options.min = 1;
+                    options.max = max_limits.open_positions;
+                    $(max_open_bets_id).attr('maxlength', options.max.toString().length);
+                }
+                if (/max_balance/.test(id)) {
+                    options.min = 0.01;
+                    options.max = max_limits.account_balance;
+                    $(max_balance_id).attr('maxlength', parseInt(options.max).toString().length + decimal_places + 1); // Add 1 to allow to enter a dot
+                }
             }
             if (!/session_duration_limit|max_open_bets/.test(id)) {
                 options.type = 'float';
                 options.decimals = decimal_places;
-            }
-            if (/max_open_bets/.test(id)) {
-                options.min = 1;
-            }
-            if (/max_balance/.test(id)) {
-                options.min = 0.01;
             }
             checks.push(['number', options]);
 
@@ -31065,7 +31172,7 @@ var SelfExclusion = function () {
             validations.push({
                 selector: '#' + id,
                 validations: checks,
-                exclude_if_empty: 1
+                exclude_if_empty: is_svg_client ? 0 : 1
             });
         });
 
@@ -31102,12 +31209,6 @@ var SelfExclusion = function () {
                 }, message: localize('Exclude time cannot be less than 6 months.') }], ['custom', { func: function func(value) {
                     return !value.length || getMoment(exclude_until_id).isBefore(moment().add(5, 'years'));
                 }, message: localize('Exclude time cannot be for more than 5 years.') }]]
-        }, {
-            selector: max_deposit_end_date_id,
-            exclude_if_empty: 1,
-            value: function value() {
-                return getDate(max_deposit_end_date_id);
-            }
         });
 
         FormManager.init(form_id, validations);
@@ -31150,14 +31251,6 @@ var SelfExclusion = function () {
             maxDate: 6 * 7 // 6 weeks
         });
 
-        if (Client.get('landing_company_shortcode') === 'iom') {
-            // max_deposit_until
-            DatePicker.init({
-                selector: max_deposit_end_date_id,
-                minDate: moment().add(1, 'day').toDate()
-            });
-        }
-
         // exclude_until
         DatePicker.init({
             selector: exclude_until_id,
@@ -31199,7 +31292,7 @@ var SelfExclusion = function () {
         return new Promise(function (resolve) {
             var is_changed = Object.keys(data).some(function (key) {
                 return (// using != in next line since response types is inconsistent
-                    key !== 'set_self_exclusion' && (!(key in self_exclusion_data) || self_exclusion_data[key] != data[key]) // eslint-disable-line eqeqeq
+                    key !== 'set_self_exclusion' && self_exclusion_data[key] != data[key] && data[key] !== '' || typeof self_exclusion_data[key] !== 'undefined' && data[key] === '' // eslint-disable-line eqeqeq
 
                 );
             });
@@ -31207,6 +31300,14 @@ var SelfExclusion = function () {
             if (!is_changed) {
                 showFormMessage(localize('You did not change anything.'), false);
                 resolve(false);
+            }
+
+            // using for in loop instead of Object.entries
+            // to avoid unnecessary conversion of the object into an array,
+            // that later needs to be stored, processed and converted back into an object
+            for (var key in data) {
+                // eslint-disable-line no-restricted-syntax, guard-for-in
+                data[key] = data[key] === '' ? 0 : data[key];
             }
 
             if (is_svg_client && is_changed) {
@@ -31236,6 +31337,7 @@ var SelfExclusion = function () {
     };
 
     var setExclusionResponse = function setExclusionResponse(response) {
+        var response_arr = Object.entries(response.echo_req);
         if (response.error) {
             var error_msg = response.error.message;
             var error_fld = response.error.field;
@@ -31249,6 +31351,40 @@ var SelfExclusion = function () {
             }
             return;
         }
+        self_exclusion_data = {};
+        // using for of loop to format and assign new self_exclusion_data from the previous request
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = response_arr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var _ref = _step.value;
+
+                var _ref2 = _slicedToArray(_ref, 2);
+
+                var key = _ref2[0];
+                var value = _ref2[1];
+                // eslint-disable-line no-restricted-syntax
+                if (value > 0 && !/req_id|set_self_exclusion/.test(key)) {
+                    self_exclusion_data[key] = parseInt(value);
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
         showFormMessage(localize('Your changes have been updated.'), true);
         var exclude_until_val = $exclude_until.attr('data-value');
         showWarning(!!exclude_until_val);
@@ -32108,7 +32244,7 @@ var Accounts = function () {
             // ask client to set residence first since cannot wait landing_company otherwise
             BinaryPjax.load(urlFor('user/settings/detailsws'));
         }
-        SetCurrency.cleanupPopup();
+        clearPopup();
         BinarySocket.send({ statement: 1, limit: 1 });
         BinarySocket.wait('landing_company', 'get_settings', 'statement', 'mt5_login_list').then(function () {
             landing_company = State.getResponse('landing_company');
@@ -32137,6 +32273,10 @@ var Accounts = function () {
                 }
             }
         });
+    };
+
+    var clearPopup = function clearPopup() {
+        SetCurrency.cleanupPopup();
     };
 
     var doneLoading = function doneLoading(element_to_show) {
@@ -32323,8 +32463,13 @@ var Accounts = function () {
         doneLoading('#new_accounts_wrapper');
     };
 
+    var onUnload = function onUnload() {
+        clearPopup();
+    };
+
     return {
-        onLoad: onLoad
+        onLoad: onLoad,
+        onUnload: onUnload
     };
 }();
 
@@ -32759,10 +32904,10 @@ var MetaTraderConfig = function () {
                                             response_get_account_status = State.getResponse('get_account_status');
 
                                             if (/financial_assessment_not_complete/.test(response_get_account_status.status) && !accounts_info[acc_type].mt5_account_type // is_synthetic
-                                            && /high/.test(response_get_account_status.risk_classification)) {
-                                                showElementSetRedirect('.assessment');
-                                                _is_ok = false;
-                                            }
+                                            ) {
+                                                    showElementSetRedirect('.assessment');
+                                                    _is_ok = false;
+                                                }
                                             if (!response_get_settings.citizen && !(is_maltainvest && !has_financial_account) && accounts_info[acc_type].mt5_account_type) {
                                                 showElementSetRedirect('.citizen');
                                                 _is_ok = false;
@@ -33174,9 +33319,9 @@ var MetaTraderConfig = function () {
             needs_verification = authentication.needs_verification;
 
         var is_need_verification = needs_verification.length;
-        var is_rejected_or_expired = /^(rejected|expired)$/.test(identity.status);
+        var has_been_authenticated = /^(rejected|expired|verified)$/.test(identity.status);
 
-        if (is_rejected_or_expired) return false;
+        if (has_been_authenticated) return false;
 
         return is_need_verification;
     };
@@ -34677,9 +34822,8 @@ var RealAccOpening = function () {
 
     var onLoad = function onLoad() {
         if (Client.get('residence')) {
-            if (AccountOpening.redirectAccount()) return;
-
             BinarySocket.wait('get_settings', 'landing_company', 'get_account_status').then(function () {
+                if (AccountOpening.redirectAccount()) return;
                 var is_unwelcome_uk = State.getResponse('get_account_status.status').some(function (status) {
                     return status === 'unwelcome';
                 }) && /gb/.test(Client.get('residence'));
@@ -35405,7 +35549,7 @@ var SetCurrency = function () {
 
     var onLoad = function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(fncOnConfirm) {
-            var el, _Client$getUpgradeInf, can_upgrade, type, landing_company, payout_currencies, $currency_list, $error, currencies, action_map;
+            var el, landing_company, _Client$getUpgradeInf, can_upgrade, type, payout_currencies, $currency_list, $error, currencies, action_map;
 
             return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
@@ -35418,15 +35562,15 @@ var SetCurrency = function () {
 
                             $('#' + el + '_new_account').setVisibility(1);
 
+                            _context.next = 7;
+                            return BinarySocket.wait('landing_company');
+
+                        case 7:
+                            landing_company = _context.sent.landing_company;
                             _Client$getUpgradeInf = Client.getUpgradeInfo(), can_upgrade = _Client$getUpgradeInf.can_upgrade, type = _Client$getUpgradeInf.type;
 
                             $('#upgrade_to_mf').setVisibility(can_upgrade && type === 'financial');
 
-                            _context.next = 9;
-                            return BinarySocket.wait('landing_company');
-
-                        case 9:
-                            landing_company = _context.sent.landing_company;
                             _context.next = 12;
                             return BinarySocket.wait('payout_currencies');
 
@@ -35524,14 +35668,10 @@ var SetCurrency = function () {
                     text: Currency.getCurrencyName(c) || c
                 }, /^UST$/.test(c) && {
                     'data-balloon': localize('Tether Omni (USDT) is a version of Tether that\'s pegged to USD and is built on the Bitcoin blockchain.'),
-                    'data-balloon-length': 'medium',
-                    'data-balloon-pos': 'top',
-                    'class': 'show-mobile'
+                    'data-balloon-length': 'large'
                 }, /^eUSDT/.test(c) && {
                     'data-balloon': localize('Tether ERC20 (eUSDT) is a version of Tether that\'s pegged to USD and is hosted on the Ethereum platform.'),
-                    'data-balloon-length': 'medium',
-                    'data-balloon-pos': 'top',
-                    'class': 'show-mobile'
+                    'data-balloon-length': 'large'
                 }));
 
                 $name.append($display_name).append($('<br/>')).append('(' + Currency.getCurrencyDisplayCode(c) + ')');
@@ -37486,6 +37626,7 @@ var TabSelector = __webpack_require__(/*! ../../_common/tab_selector */ "./src/j
 var urlFor = __webpack_require__(/*! ../../_common/url */ "./src/javascript/_common/url.js").urlFor;
 var BinaryPjax = __webpack_require__(/*! ../../app/base/binary_pjax */ "./src/javascript/app/base/binary_pjax.js");
 var BinarySocket = __webpack_require__(/*! ../../app/base/socket */ "./src/javascript/app/base/socket.js");
+var DerivBanner = __webpack_require__(/*! ../../app/common/deriv_banner */ "./src/javascript/app/common/deriv_banner.js");
 var FormManager = __webpack_require__(/*! ../../app/common/form_manager */ "./src/javascript/app/common/form_manager.js");
 var getFormRequest = __webpack_require__(/*! ../../app/common/verify_email */ "./src/javascript/app/common/verify_email.js");
 var isBinaryApp = __webpack_require__(/*! ../../config */ "./src/javascript/config.js").isBinaryApp;
@@ -37496,6 +37637,7 @@ var Home = function () {
     var onLoad = function onLoad() {
         Login.initOneAll();
         TabSelector.onLoad();
+        DerivBanner.onLoad();
 
         BinarySocket.wait('website_status', 'authorize', 'landing_company').then(function () {
             clients_country = State.getResponse('website_status.clients_country');
@@ -37549,6 +37691,7 @@ var Home = function () {
 
     var onUnload = function onUnload() {
         TabSelector.onUnload();
+        DerivBanner.onUnload();
     };
 
     return {
@@ -37811,6 +37954,44 @@ var Regulation = function () {
 }();
 
 module.exports = Regulation;
+
+/***/ }),
+
+/***/ "./src/javascript/static/pages/responsible_trading.js":
+/*!************************************************************!*\
+  !*** ./src/javascript/static/pages/responsible_trading.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
+var State = __webpack_require__(/*! ../../_common/storage */ "./src/javascript/_common/storage.js").State;
+var Client = __webpack_require__(/*! ../../app/base/client */ "./src/javascript/app/base/client.js");
+var BinarySocket = __webpack_require__(/*! ../../app/base/socket */ "./src/javascript/app/base/socket.js");
+
+var ResponsibleTrading = function () {
+
+    var onLoad = function onLoad() {
+        BinarySocket.wait('authorize', 'website_status', 'landing_company').then(function () {
+            var landing_company_shortcode = Client.get('landing_company_shortcode') || State.getResponse('landing_company.gaming_company.shortcode');
+            var client_country = Client.get('residence') || State.getResponse('website_status.clients_country');
+            var is_uk_client = client_country === 'gb';
+
+            if (landing_company_shortcode === 'iom' || is_uk_client && landing_company_shortcode === 'malta') {
+                getElementById('iom_except_uk_without_mlt').setVisibility(1);
+            }
+        });
+    };
+
+    return {
+        onLoad: onLoad
+    };
+}();
+
+module.exports = ResponsibleTrading;
 
 /***/ }),
 
