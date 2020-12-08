@@ -991,6 +991,7 @@ var Elevio = function () {
 
         window._elev.on('load', function (elev) {
             // eslint-disable-line no-underscore-dangle
+            GTM.pushDataLayer({ event: 'elevio_widget_load' });
             if (el_shell) {
                 el_shell.parentNode.removeChild(el_shell);
                 el_shell = undefined;
@@ -1341,6 +1342,13 @@ var LiveChat = function () {
                 if (first_name && last_name) window.LiveChatWidget.call('set_customer_name', first_name + ' ' + last_name);
             });
 
+            window.LC_API.on_chat_ended = function () {
+                if (!ClientBase.isLoggedIn()) {
+                    window.LiveChatWidget.call('set_customer_email', ' ');
+                    window.LiveChatWidget.call('set_customer_name', ' ');
+                }
+            };
+
             window.LiveChatWidget.on('visibility_changed', function (_ref) {
                 var visibility = _ref.visibility;
 
@@ -1355,10 +1363,6 @@ var LiveChat = function () {
                     var client_session_variables = _extends({}, loginid && { loginid: loginid }, landing_company_shortcode && { landing_company_shortcode: landing_company_shortcode }, currency && { currency: currency }, residence && { residence: residence }, email && { email: email });
 
                     window.LiveChatWidget.call('set_session_variables', client_session_variables);
-                }
-
-                if (visibility === 'maximized' && !ClientBase.isLoggedIn()) {
-                    window.LiveChatWidget.call('set_session_variables', initial_session_variables);
                 }
             });
         }
@@ -1523,9 +1527,9 @@ var NetworkMonitorBase = function () {
         return navigator.onLine;
     };
 
-    var wsReconnect = function wsReconnect() {
-        if (isOnline() && BinarySocket.hasReadyState(2, 3)) {
-            // CLOSING or CLOSED
+    var wsReconnect = function wsReconnect(is_force_reconnect) {
+        if (isOnline() && (BinarySocket.hasReadyState(2, 3) || is_force_reconnect)) {
+            // CLOSING or CLOSED or forced
             BinarySocket.init(ws_config);
         } else {
             BinarySocket.send({ ping: 1 }); // trigger a request to get stable status sooner
@@ -1559,6 +1563,9 @@ var NetworkMonitorBase = function () {
         },
         message: function message() {
             return clearPendings();
+        },
+        reconnect: function reconnect() {
+            return wsReconnect(true);
         },
         close: function close() {
             return setPending(pending_keys.ws_init);
@@ -1723,13 +1730,18 @@ var BinarySocketBase = function () {
     var buffered_sends = [];
     var req_id = 0;
     var wrong_app_id = 0;
-    var is_available = true;
     var is_disconnect_called = false;
     var is_connected_before = false;
 
     var socket_url = getSocketURL() + '?app_id=' + getAppId() + '&l=' + getLanguage() + '&brand=binary';
     var timeouts = {};
     var promises = {};
+
+    var availability = {
+        is_up: true,
+        is_updating: false,
+        is_down: false
+    };
 
     var no_duplicate_requests = ['authorize', 'get_settings', 'residence_list', 'landing_company', 'payout_currencies', 'asset_index'];
 
@@ -1802,7 +1814,7 @@ var BinarySocketBase = function () {
     };
 
     var sendBufferedRequests = function sendBufferedRequests() {
-        while (buffered_sends.length > 0 && is_available) {
+        while (buffered_sends.length > 0 && !availability.is_down) {
             var req_obj = buffered_sends.shift();
             send(req_obj.request, req_obj.options);
         }
@@ -1855,7 +1867,7 @@ var BinarySocketBase = function () {
             var response = SocketCache.get(data, msg_type);
             if (response) {
                 State.set(['response', msg_type], cloneObject(response));
-                if (isReady() && is_available && !options.skip_cache_update) {
+                if (isReady() && !availability.is_down && !options.skip_cache_update) {
                     // make the request to keep the cache updated
                     binary_socket.send(JSON.stringify(data));
                 }
@@ -1892,7 +1904,7 @@ var BinarySocketBase = function () {
             subscribe: !!data.subscribe
         };
 
-        if (isReady() && is_available && config.isOnline()) {
+        if (isReady() && !availability.is_down && config.isOnline()) {
             is_disconnect_called = false;
             if (!getPropertyValue(data, 'passthrough') && !getPropertyValue(data, 'verify_email')) {
                 data.passthrough = {};
@@ -1922,7 +1934,7 @@ var BinarySocketBase = function () {
         clearTimeouts();
         config.wsEvent('init');
 
-        if (isClose()) {
+        if (isClose() || availability.is_updating) {
             binary_socket = new WebSocket(socket_url);
             State.set('response', {});
         }
@@ -2003,11 +2015,27 @@ var BinarySocketBase = function () {
         }
     };
 
-    var availability = function availability(status) {
-        if (typeof status !== 'undefined') {
-            is_available = !!status;
-        }
-        return is_available;
+    var isSiteUp = function isSiteUp(status) {
+        return (/^up$/i.test(status)
+        );
+    };
+
+    var isSiteUpdating = function isSiteUpdating(status) {
+        return (/^updating$/i.test(status)
+        );
+    };
+
+    var isSiteDown = function isSiteDown(status) {
+        return (/^down$/i.test(status)
+        );
+    };
+
+    // if status is up or updating, consider site available
+    // if status is down, consider site unavailable
+    var setAvailability = function setAvailability(status) {
+        availability.is_up = isSiteUp(status);
+        availability.is_updating = isSiteUpdating(status);
+        availability.is_down = isSiteDown(status);
     };
 
     return {
@@ -2016,11 +2044,16 @@ var BinarySocketBase = function () {
         send: send,
         clear: clear,
         clearTimeouts: clearTimeouts,
-        availability: availability,
         hasReadyState: hasReadyState,
+        isSiteUpdating: isSiteUpdating,
+        isSiteDown: isSiteDown,
+        setAvailability: setAvailability,
         sendBuffered: sendBufferedRequests,
         get: function get() {
             return binary_socket;
+        },
+        getAvailability: function getAvailability() {
+            return availability;
         },
         setOnDisconnect: function setOnDisconnect(onDisconnect) {
             config.onDisconnect = onDisconnect;
@@ -9964,7 +9997,7 @@ var VideoFacility = __webpack_require__(/*! ../pages/user/video_facility */ "./s
 // ==================== static ====================
 // const Charity            = require('../../static/pages/charity');
 var Contact = __webpack_require__(/*! ../../static/pages/contact */ "./src/javascript/static/pages/contact.js");
-var Contact2 = __webpack_require__(/*! ../../static/pages/contact_2 */ "./src/javascript/static/pages/contact_2.js");
+// const Contact2            = require('../../static/pages/contact_2');
 var GetStarted = __webpack_require__(/*! ../../static/pages/get_started */ "./src/javascript/static/pages/get_started.js");
 var Home = __webpack_require__(/*! ../../static/pages/home */ "./src/javascript/static/pages/home.js");
 var KeepSafe = __webpack_require__(/*! ../../static/pages/keep_safe */ "./src/javascript/static/pages/keep_safe.js");
@@ -10044,7 +10077,7 @@ var pages_config = {
     'affiliate-ib': { module: AffiliatesIBLanding },
     'binary-in-numbers': { module: StaticPages.BinaryInNumbers },
     'binary-options': { module: GetStarted.BinaryOptions },
-    'contact-2': { module: Contact2 },
+    // 'contact-2'              : { module: Contact2 },
     'contract-specifications': { module: TabSelector },
     'get-started': { module: TabSelector },
     'how-to-trade-mt5': { module: TabSelector },
@@ -10333,6 +10366,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var _require = __webpack_require__(/*! @livechat/customer-sdk */ "./node_modules/@livechat/customer-sdk/dist/customer-sdk.esm.js"),
+    init = _require.init;
+
 var BinarySocket = __webpack_require__(/*! ./socket */ "./src/javascript/app/base/socket.js");
 var Defaults = __webpack_require__(/*! ../pages/trade/defaults */ "./src/javascript/app/pages/trade/defaults.js");
 var RealityCheckData = __webpack_require__(/*! ../pages/user/reality_check/reality_check.data */ "./src/javascript/app/pages/user/reality_check/reality_check.data.js");
@@ -10346,6 +10382,8 @@ var applyToAllElements = __webpack_require__(/*! ../../_common/utility */ "./src
 var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").getPropertyValue;
 
 var Client = function () {
+    var licenseID = 12049137;
+    var clientID = '66aa088aad5a414484c1fd1fa8a5ace7';
     var processNewAccount = function processNewAccount(options) {
         if (ClientBase.setNewAccount(options)) {
             window.location.href = options.redirect_url || defaultRedirectUrl(); // need to redirect not using pjax
@@ -10411,6 +10449,37 @@ var Client = function () {
         });
     };
 
+    var endLiveChat = function endLiveChat() {
+        return new Promise(function (resolve) {
+            var initial_session_variables = { loginid: '', landing_company_shortcode: '', currency: '', residence: '', email: '' };
+
+            window.LiveChatWidget.call('set_session_variables', initial_session_variables);
+            window.LiveChatWidget.call('set_customer_email', ' ');
+            window.LiveChatWidget.call('set_customer_name', ' ');
+
+            try {
+                var customerSDK = init({
+                    licenseId: licenseID,
+                    clientId: clientID
+                });
+                customerSDK.on('connected', function () {
+                    if (window.LiveChatWidget.get('chat_data')) {
+                        var _window$LiveChatWidge = window.LiveChatWidget.get('chat_data'),
+                            chatId = _window$LiveChatWidge.chatId,
+                            threadId = _window$LiveChatWidge.threadId;
+
+                        if (threadId) {
+                            customerSDK.deactivateChat({ chatId: chatId });
+                        }
+                    }
+                    resolve();
+                });
+            } catch (e) {
+                resolve();
+            }
+        });
+    };
+
     var doLogout = function doLogout(response) {
         if (response.logout !== 1) return;
         removeCookies('login', 'loginid', 'loginid_list', 'email', 'residence', 'settings'); // backward compatibility
@@ -10424,12 +10493,14 @@ var Client = function () {
         ClientBase.set('loginid', '');
         SocketCache.clear();
         RealityCheckData.clear();
-        var redirect_to = getPropertyValue(response, ['echo_req', 'passthrough', 'redirect_to']);
-        if (redirect_to) {
-            window.location.href = redirect_to;
-        } else {
-            window.location.reload();
-        }
+        endLiveChat().then(function () {
+            var redirect_to = getPropertyValue(response, ['echo_req', 'passthrough', 'redirect_to']);
+            if (redirect_to) {
+                window.location.href = redirect_to;
+            } else {
+                window.location.reload();
+            }
+        });
     };
 
     var getUpgradeInfo = function getUpgradeInfo() {
@@ -11641,13 +11712,23 @@ var Page = function () {
             init();
             if (!isLoginPages()) {
                 Language.setCookie(Language.urlLang());
+                var url_query_strings = Url.paramsHash();
 
                 if (!ClientBase.get('is_virtual')) {
                     // TODO: uncomment below to enable interview popup dialog
                     // InterviewPopup.onLoad();
                 }
-                if (window.location.href.indexOf('?data-elevio-article=') > 0) {
+                if (url_query_strings['data-elevio-article']) {
                     Elevio.injectElevio();
+                }
+
+                // Handle opening livechat via URL
+                var is_livechat_open = url_query_strings.is_livechat_open === 'true';
+
+                if (is_livechat_open && window.LiveChatWidget) {
+                    window.LiveChatWidget.on('ready', function () {
+                        window.LC_API.open_chat_window();
+                    });
                 }
             }
             Header.onLoad();
@@ -11847,6 +11928,7 @@ var setCurrencies = __webpack_require__(/*! ../common/currency */ "./src/javascr
 var SessionDurationLimit = __webpack_require__(/*! ../common/session_duration_limit */ "./src/javascript/app/common/session_duration_limit.js");
 var updateBalance = __webpack_require__(/*! ../pages/user/update_balance */ "./src/javascript/app/pages/user/update_balance.js");
 var GTM = __webpack_require__(/*! ../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
+var NetworkMonitorBase = __webpack_require__(/*! ../../_common/base/network_monitor_base */ "./src/javascript/_common/base/network_monitor_base.js");
 var SubscriptionManager = __webpack_require__(/*! ../../_common/base/subscription_manager */ "./src/javascript/_common/base/subscription_manager.js").default;
 var Crowdin = __webpack_require__(/*! ../../_common/crowdin */ "./src/javascript/_common/crowdin.js");
 var localize = __webpack_require__(/*! ../../_common/localize */ "./src/javascript/_common/localize.js").localize;
@@ -11873,14 +11955,23 @@ var BinarySocketGeneral = function () {
     var onMessage = function onMessage(response) {
         handleError(response);
         Header.hideNotification('CONNECTION_ERROR');
-        var is_available = false;
         switch (response.msg_type) {
             case 'website_status':
                 if (response.website_status) {
-                    is_available = /^up$/i.test(response.website_status.site_status);
-                    if (is_available && !BinarySocket.availability()) {
+                    var is_available = !BinarySocket.isSiteDown(response.website_status.site_status);
+                    if (is_available && BinarySocket.getAvailability().is_down) {
                         window.location.reload();
                         return;
+                    }
+                    var is_updating = BinarySocket.isSiteUpdating(response.website_status.site_status);
+                    if (is_updating && !BinarySocket.getAvailability().is_updating) {
+                        // the existing connection is alive for one minute while status is updating
+                        // switch to the new connection somewhere between 1-30 seconds from now
+                        // to avoid everyone switching to the new connection at the same time
+                        var rand_timeout = Math.floor(Math.random() * 30) + 1;
+                        window.setTimeout(function () {
+                            NetworkMonitorBase.wsEvent('reconnect');
+                        }, rand_timeout * 1000);
                     }
                     if (!Crowdin.isInContext()) {
                         createLanguageDropDown(response.website_status);
@@ -11890,7 +11981,7 @@ var BinarySocketGeneral = function () {
                     } else {
                         Footer.clearNotification();
                     }
-                    BinarySocket.availability(is_available);
+                    BinarySocket.setAvailability(response.website_status.site_status);
                     setCurrencies(response.website_status);
                     // for logged out clients send landing company with IP address as residence
                     if (!Client.isLoggedIn() && !State.getResponse('landing_company')) {
@@ -17333,7 +17424,8 @@ var AssetIndexUI = function () {
         for (var i = 0; i < asset_index.length; i++) {
             var asset_item = asset_index[i];
             var symbol_info = asset_item[3];
-            if (symbol_info) {
+            var is_offered = asset_item[4] && Object.keys(asset_item[4]).length;
+            if (symbol_info && is_offered) {
                 var $submarket_table = getSubmarketTable(asset_item, symbol_info);
                 $submarket_table.find('tbody').append(createSubmarketTableRow(asset_item, symbol_info));
             }
@@ -35767,7 +35859,9 @@ var SetCurrency = function () {
                     }
                 } else {
                     var previous_currency = Client.get('currency');
-                    Client.set('currency', selected_currency);
+                    // Use the client_id while creating a new account
+                    var new_account_loginid = popup_action === 'multi_account' ? response_c.new_account_real.client_id : undefined;
+                    Client.set('currency', selected_currency, new_account_loginid);
                     BinarySocket.send({ balance: 1 });
                     BinarySocket.send({ payout_currencies: 1 }, { forced: true });
                     Header.displayAccountStatus();
