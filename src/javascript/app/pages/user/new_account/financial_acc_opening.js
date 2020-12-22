@@ -21,6 +21,22 @@ const FinancialAccOpening = (() => {
             return;
         }
 
+        if (sessionStorage.getItem('is_risk_disclaimer')){
+            handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
+        }
+
+        const setClientFormResponse = () => {
+            const client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : false;
+            if (!isEmptyObject(client_form_response)) {
+                const keys = Object.keys(client_form_response);
+                keys.forEach((key) => {
+                    const val = client_form_response[key];
+                    $(`#${key}`).val(val);
+                });
+
+            }
+        };
+
         const req_financial_assessment = BinarySocket.send({ get_financial_assessment: 1 }).then((response) => {
             const get_financial_assessment = response.get_financial_assessment;
             if (!isEmptyObject(get_financial_assessment)) {
@@ -55,6 +71,7 @@ const FinancialAccOpening = (() => {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(() => {
+            setClientFormResponse();
             AccountOpening.populateForm(form_id, getValidations, true);
 
             // date_of_birth can be 0 as a valid epoch
@@ -73,6 +90,10 @@ const FinancialAccOpening = (() => {
             e.stopPropagation();
             $('#tax_information_note_toggle').toggleClass('open');
             $('#tax_information_note').slideToggle();
+        });
+
+        $('#financial-risk-decline').off('click').on('click', () => {
+            sessionStorage.removeItem('is_risk_disclaimer');
         });
 
         AccountOpening.showHidePulser(0);
@@ -108,14 +129,15 @@ const FinancialAccOpening = (() => {
     };
 
     const handleResponse = (response) => {
+        sessionStorage.setItem('client_form_response', JSON.stringify(response));
         if ('error' in response && response.error.code === 'show risk disclaimer') {
+            sessionStorage.setItem('is_risk_disclaimer', true);
             $(form_id).setVisibility(0);
             $('#client_message').setVisibility(0);
-            const $financial_risk = $('#financial-risk');
-            $financial_risk.setVisibility(1);
-            $.scrollTo($financial_risk, 500, { offset: -10 });
-
             const risk_form_id = '#financial-risk';
+            $(risk_form_id).setVisibility(1);
+            $.scrollTo($(risk_form_id), 500, { offset: -10 });
+  
             FormManager.init(risk_form_id, []);
 
             const echo_req = $.extend({}, response.echo_req);
@@ -127,6 +149,7 @@ const FinancialAccOpening = (() => {
                 fnc_response_handler: handleResponse,
             });
         } else {
+            sessionStorage.removeItem('is_risk_disclaimer');
             AccountOpening.handleNewAccount(response, response.msg_type);
         }
     };

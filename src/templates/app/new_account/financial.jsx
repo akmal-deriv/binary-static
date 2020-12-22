@@ -79,7 +79,7 @@ const Financial = () => (
                     <p>{it.L('By clicking <strong>Accept</strong> below and proceeding with the Account Opening you should note that you may be exposing yourself to risks (which may be significant, including the risk of loss of the entire sum invested) that you may not have the knowledge and experience to properly assess or mitigate.')}</p>
                     <p className='center-text'>
                         <button className='button' type='submit'>{it.L('Accept')}</button>
-                        <a className='button' href={it.url_for('trading')}><span>{it.L('Decline')}</span></a>
+                        <a id='financial-risk-decline' className='button' href={it.url_for('trading')}><span>{it.L('Decline')}</span></a>
                     </p>
                 </div>
             </fieldset>
