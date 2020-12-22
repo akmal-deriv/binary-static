@@ -34778,7 +34778,11 @@ var FinancialAccOpening = function () {
             return;
         }
 
-        var set_client_form_response = function set_client_form_response() {
+        if (sessionStorage.getItem('is_risk_disclaimer')) {
+            handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
+        }
+
+        var setClientFormResponse = function setClientFormResponse() {
             var client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : false;
             if (!isEmptyObject(client_form_response)) {
                 var keys = Object.keys(client_form_response);
@@ -34822,13 +34826,9 @@ var FinancialAccOpening = function () {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(function () {
-            set_client_form_response();
+            setClientFormResponse();
             AccountOpening.populateForm(form_id, getValidations, true);
 
-            if (sessionStorage.getItem('is_risk_disclaimer') === 'true') {
-                // console.log('risk disclaimer');
-                handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
-            }
             // date_of_birth can be 0 as a valid epoch
             if ('date_of_birth' in get_settings && get_settings.date_of_birth !== 'null') {
                 $('#date_of_birth').val(get_settings.date_of_birth);
@@ -34848,8 +34848,6 @@ var FinancialAccOpening = function () {
         });
 
         $('#financial-risk-decline').off('click').on('click', function () {
-            // console.log('click dismiss');
-            // e.stopPropagation();
             sessionStorage.removeItem('is_risk_disclaimer');
         });
 
@@ -34878,7 +34876,7 @@ var FinancialAccOpening = function () {
     var handleResponse = function handleResponse(response) {
         sessionStorage.setItem('client_form_response', JSON.stringify(response));
         if ('error' in response && response.error.code === 'show risk disclaimer') {
-            sessionStorage.setItem('is_risk_disclaimer', 'true');
+            sessionStorage.setItem('is_risk_disclaimer', true);
             $(form_id).setVisibility(0);
             $('#client_message').setVisibility(0);
             var risk_form_id = '#financial-risk';
@@ -34895,9 +34893,7 @@ var FinancialAccOpening = function () {
                 obj_request: echo_req,
                 fnc_response_handler: handleResponse
             });
-            // sessionStorage.removeItem('is_risk_disclaimer');
         } else {
-            // console.log('removeItem');
             sessionStorage.removeItem('is_risk_disclaimer');
             AccountOpening.handleNewAccount(response, response.msg_type);
         }
