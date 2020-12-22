@@ -34778,6 +34778,17 @@ var FinancialAccOpening = function () {
             return;
         }
 
+        var set_client_form_response = function set_client_form_response() {
+            var client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : false;
+            if (!isEmptyObject(client_form_response)) {
+                var keys = Object.keys(client_form_response);
+                keys.forEach(function (key) {
+                    var val = client_form_response[key];
+                    $('#' + key).val(val);
+                });
+            }
+        };
+
         var req_financial_assessment = BinarySocket.send({ get_financial_assessment: 1 }).then(function (response) {
             var get_financial_assessment = response.get_financial_assessment;
             if (!isEmptyObject(get_financial_assessment)) {
@@ -34811,8 +34822,13 @@ var FinancialAccOpening = function () {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(function () {
+            set_client_form_response();
             AccountOpening.populateForm(form_id, getValidations, true);
 
+            if (sessionStorage.getItem('is_risk_disclaimer') === 'true') {
+                // console.log('risk disclaimer');
+                handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
+            }
             // date_of_birth can be 0 as a valid epoch
             if ('date_of_birth' in get_settings && get_settings.date_of_birth !== 'null') {
                 $('#date_of_birth').val(get_settings.date_of_birth);
@@ -34829,6 +34845,12 @@ var FinancialAccOpening = function () {
             e.stopPropagation();
             $('#tax_information_note_toggle').toggleClass('open');
             $('#tax_information_note').slideToggle();
+        });
+
+        $('#financial-risk-decline').off('click').on('click', function () {
+            // console.log('click dismiss');
+            // e.stopPropagation();
+            sessionStorage.removeItem('is_risk_disclaimer');
         });
 
         AccountOpening.showHidePulser(0);
@@ -34854,14 +34876,15 @@ var FinancialAccOpening = function () {
     };
 
     var handleResponse = function handleResponse(response) {
+        sessionStorage.setItem('client_form_response', JSON.stringify(response));
         if ('error' in response && response.error.code === 'show risk disclaimer') {
+            sessionStorage.setItem('is_risk_disclaimer', 'true');
             $(form_id).setVisibility(0);
             $('#client_message').setVisibility(0);
-            var $financial_risk = $('#financial-risk');
-            $financial_risk.setVisibility(1);
-            $.scrollTo($financial_risk, 500, { offset: -10 });
-
             var risk_form_id = '#financial-risk';
+            $(risk_form_id).setVisibility(1);
+            $.scrollTo($(risk_form_id), 500, { offset: -10 });
+
             FormManager.init(risk_form_id, []);
 
             var echo_req = $.extend({}, response.echo_req);
@@ -34872,7 +34895,10 @@ var FinancialAccOpening = function () {
                 obj_request: echo_req,
                 fnc_response_handler: handleResponse
             });
+            // sessionStorage.removeItem('is_risk_disclaimer');
         } else {
+            // console.log('removeItem');
+            sessionStorage.removeItem('is_risk_disclaimer');
             AccountOpening.handleNewAccount(response, response.msg_type);
         }
     };
