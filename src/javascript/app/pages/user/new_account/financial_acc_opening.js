@@ -25,18 +25,6 @@ const FinancialAccOpening = (() => {
             handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
         }
 
-        const setClientFormResponse = () => {
-            const client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : false;
-            if (!isEmptyObject(client_form_response)) {
-                const keys = Object.keys(client_form_response);
-                keys.forEach((key) => {
-                    const val = client_form_response[key];
-                    $(`#${key}`).val(val);
-                });
-
-            }
-        };
-
         const req_financial_assessment = BinarySocket.send({ get_financial_assessment: 1 }).then((response) => {
             const get_financial_assessment = response.get_financial_assessment;
             if (!isEmptyObject(get_financial_assessment)) {
@@ -71,7 +59,16 @@ const FinancialAccOpening = (() => {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(() => {
-            setClientFormResponse();
+            const client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : {};
+            if (!isEmptyObject(client_form_response)) {
+                const keys = Object.keys(client_form_response);
+                keys.forEach((key) => {
+                    const val = client_form_response[key];
+                    $(`#${key}`).val(val);
+                });
+
+            }
+
             AccountOpening.populateForm(form_id, getValidations, true);
 
             // date_of_birth can be 0 as a valid epoch
@@ -92,7 +89,7 @@ const FinancialAccOpening = (() => {
             $('#tax_information_note').slideToggle();
         });
 
-        $('#financial-risk-decline').off('click').on('click', () => {
+        $('#financial_risk_decline').off('click').on('click', () => {
             sessionStorage.removeItem('is_risk_disclaimer');
         });
 
