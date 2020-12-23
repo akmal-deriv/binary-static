@@ -34782,17 +34782,6 @@ var FinancialAccOpening = function () {
             handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
         }
 
-        var setClientFormResponse = function setClientFormResponse() {
-            var client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : false;
-            if (!isEmptyObject(client_form_response)) {
-                var keys = Object.keys(client_form_response);
-                keys.forEach(function (key) {
-                    var val = client_form_response[key];
-                    $('#' + key).val(val);
-                });
-            }
-        };
-
         var req_financial_assessment = BinarySocket.send({ get_financial_assessment: 1 }).then(function (response) {
             var get_financial_assessment = response.get_financial_assessment;
             if (!isEmptyObject(get_financial_assessment)) {
@@ -34826,7 +34815,15 @@ var FinancialAccOpening = function () {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(function () {
-            setClientFormResponse();
+            var client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : {};
+            if (!isEmptyObject(client_form_response)) {
+                var keys = Object.keys(client_form_response);
+                keys.forEach(function (key) {
+                    var val = client_form_response[key];
+                    $('#' + key).val(val);
+                });
+            }
+
             AccountOpening.populateForm(form_id, getValidations, true);
 
             // date_of_birth can be 0 as a valid epoch
@@ -34847,7 +34844,7 @@ var FinancialAccOpening = function () {
             $('#tax_information_note').slideToggle();
         });
 
-        $('#financial-risk-decline').off('click').on('click', function () {
+        $('#financial_risk_decline').off('click').on('click', function () {
             sessionStorage.removeItem('is_risk_disclaimer');
         });
 
