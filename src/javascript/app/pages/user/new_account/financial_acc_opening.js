@@ -15,6 +15,11 @@ const FinancialAccOpening = (() => {
     let get_settings,
         txt_secret_answer;
 
+    const doneLoading = () => {
+        $('#financial_loading').remove();
+        $('#financial_wrapper').setVisibility(1);
+    };
+
     const onLoad = () => {
         if (Client.hasAccountType('financial') || !Client.get('residence')) {
             BinaryPjax.loadPreviousUrl();
@@ -122,6 +127,7 @@ const FinancialAccOpening = (() => {
         if (place_of_birth) {
             validations = validations.concat([{ request_field: 'place_of_birth', value: place_of_birth }]);
         }
+        doneLoading();
         return validations;
     };
 
@@ -145,6 +151,7 @@ const FinancialAccOpening = (() => {
                 obj_request         : echo_req,
                 fnc_response_handler: handleResponse,
             });
+            doneLoading();
         } else {
             sessionStorage.removeItem('is_risk_disclaimer');
             AccountOpening.handleNewAccount(response, response.msg_type);
