@@ -34768,9 +34768,16 @@ var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javasc
 
 var FinancialAccOpening = function () {
     var form_id = '#financial-form';
+    // const loading_id = $('#financial_init_progress');
 
     var get_settings = void 0,
         txt_secret_answer = void 0;
+
+    var doneLoading = function doneLoading(element_to_show) {
+        $(element_to_show).setVisibility(1);
+        $('#financial_loading').remove();
+        $('#financial_wrapper').setVisibility(1);
+    };
 
     var onLoad = function onLoad() {
         if (Client.hasAccountType('financial') || !Client.get('residence')) {
@@ -34890,9 +34897,12 @@ var FinancialAccOpening = function () {
                 obj_request: echo_req,
                 fnc_response_handler: handleResponse
             });
+
+            doneLoading('#new_accounts_wrapper');
         } else {
             sessionStorage.removeItem('is_risk_disclaimer');
             AccountOpening.handleNewAccount(response, response.msg_type);
+            doneLoading('#new_accounts_wrapper');
         }
     };
 
