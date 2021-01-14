@@ -34768,6 +34768,7 @@ var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javasc
 
 var FinancialAccOpening = function () {
     var form_id = '#financial-form';
+    var client_details = sessionStorage.getItem('client_form_response');
 
     var get_settings = void 0,
         txt_secret_answer = void 0;
@@ -34784,7 +34785,7 @@ var FinancialAccOpening = function () {
         }
 
         if (sessionStorage.getItem('is_risk_disclaimer')) {
-            handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
+            handleResponse(JSON.parse(client_details));
         }
 
         var req_financial_assessment = BinarySocket.send({ get_financial_assessment: 1 }).then(function (response) {
@@ -34820,7 +34821,7 @@ var FinancialAccOpening = function () {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(function () {
-            var client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : {};
+            var client_form_response = client_details ? JSON.parse(client_details).echo_req : {};
             if (!isEmptyObject(client_form_response)) {
                 var keys = Object.keys(client_form_response);
                 keys.forEach(function (key) {
