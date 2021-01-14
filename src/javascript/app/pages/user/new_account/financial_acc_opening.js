@@ -11,6 +11,7 @@ const State          = require('../../../../_common/storage').State;
 
 const FinancialAccOpening = (() => {
     const form_id = '#financial-form';
+    const client_details = sessionStorage.getItem('client_form_response');
 
     let get_settings,
         txt_secret_answer;
@@ -27,7 +28,7 @@ const FinancialAccOpening = (() => {
         }
 
         if (sessionStorage.getItem('is_risk_disclaimer')){
-            handleResponse(JSON.parse(sessionStorage.getItem('client_form_response')));
+            handleResponse(JSON.parse(client_details));
         }
 
         const req_financial_assessment = BinarySocket.send({ get_financial_assessment: 1 }).then((response) => {
@@ -64,7 +65,7 @@ const FinancialAccOpening = (() => {
         });
 
         Promise.all([req_settings, req_financial_assessment]).then(() => {
-            const client_form_response = sessionStorage.getItem('client_form_response') ? JSON.parse(sessionStorage.getItem('client_form_response')).echo_req : {};
+            const client_form_response = client_details ? JSON.parse(client_details).echo_req : {};
             if (!isEmptyObject(client_form_response)) {
                 const keys = Object.keys(client_form_response);
                 keys.forEach((key) => {
