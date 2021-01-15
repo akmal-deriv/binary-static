@@ -11,7 +11,6 @@ const State          = require('../../../../_common/storage').State;
 
 const FinancialAccOpening = (() => {
     const form_id = '#financial-form';
-    const client_details = sessionStorage.getItem('client_form_response');
 
     let get_settings,
         txt_secret_answer;
@@ -22,6 +21,8 @@ const FinancialAccOpening = (() => {
     };
 
     const onLoad = () => {
+        const client_details = sessionStorage.getItem('client_form_response');
+        
         if (Client.hasAccountType('financial') || !Client.get('residence')) {
             BinaryPjax.loadPreviousUrl();
             return;
