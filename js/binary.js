@@ -34768,7 +34768,6 @@ var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javasc
 
 var FinancialAccOpening = function () {
     var form_id = '#financial-form';
-    var client_details = sessionStorage.getItem('client_form_response');
 
     var get_settings = void 0,
         txt_secret_answer = void 0;
@@ -34779,6 +34778,8 @@ var FinancialAccOpening = function () {
     };
 
     var onLoad = function onLoad() {
+        var client_details = sessionStorage.getItem('client_form_response');
+
         if (Client.hasAccountType('financial') || !Client.get('residence')) {
             BinaryPjax.loadPreviousUrl();
             return;
