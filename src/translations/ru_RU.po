@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2020-12-07 07:46\n"
+"PO-Revision-Date: 2021-01-14 06:37\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,12 @@ msgstr "10"
 
 msgid "404"
 msgstr "404"
+
+msgid " (account created)"
+msgstr " (счет открыт)"
+
+msgid " (unavailable)"
+msgstr " (недоступно)"
 
 msgid " All calls are recorded for training and monitoring purposes."
 msgstr " Все звонки записываются с целью обучения и мониторинга."
@@ -553,6 +559,9 @@ msgstr "1-2 года"
 msgid "1. Proof of identity"
 msgstr "1. Подтверждение личности"
 
+msgid "1. This link was sent by you"
+msgstr "1. Эта ссылка была отправлена вами"
+
 msgid "1.5%"
 msgstr "1.5%"
 
@@ -588,6 +597,9 @@ msgstr "Оцените движение рынка в двух направле�
 
 msgid "2. Selfie with proof of ID"
 msgstr "2. Селфи с удостоверением личности"
+
+msgid "2. Your desktop window stays open"
+msgstr "2. Окно остается открытым."
 
 msgid "20 – 39.999%"
 msgstr "20 – 39.999%"
@@ -1081,6 +1093,9 @@ msgstr "Добавьте +/–, чтобы определить оффсет б�
 msgid "Add funds"
 msgstr "Пополнить"
 
+msgid "Add more trade servers"
+msgstr "Добавить больше торговых серверов"
+
 msgid "Additional business exposure:"
 msgstr "Дополнительные возможности для бизнеса:"
 
@@ -1222,6 +1237,9 @@ msgstr "Широкий выбор длительности контрактов 
 msgid "All credit card details are submitted directly to the Visa/Mastercard network using the latest SSL encryption technology, in accordance with bank policies."
 msgstr "Все данные о картах отправляются напрямую в систему Visa/Mastercard, используя новейшие технологии шифрования данных SSL, согласно политике банков."
 
+msgid "All details must be clear — nothing blurry"
+msgstr "Все данные должны быть четко видны — ничего размытого"
+
 msgid "All durations"
 msgstr "Контрактами любой длительности"
 
@@ -1294,6 +1312,9 @@ msgstr "Позволяют Клиентам пополнять счет небо
 msgid "Allow Clients to use e-wallets, which are not available directly on %1"
 msgstr "Позволяют клиентам использовать электронные кошельки, которые недоступны на %1"
 
+msgid "Allow camera access"
+msgstr "Разрешить доступ к камере"
+
 msgid "Allow equals"
 msgstr "Разрешить равные значения"
 
@@ -1359,6 +1380,9 @@ msgstr "Энергичность, ориентированность на про
 
 msgid "An eagerness for robust risk management to keep up with the increasing pace of information exchange"
 msgstr "Стремление к эффективному управлению риском, чтобы справляться с быстрым темпом обмена информации"
+
+msgid "An error occurred while loading the component"
+msgstr "Произошла ошибка при загрузке компонента."
 
 msgid "An excellent command of spoken and written English"
 msgstr "Отличное владение английским языком (устным и письменным)"
@@ -1897,9 +1921,6 @@ msgstr "Баланс:"
 msgid "Bank statement"
 msgstr "Выписка со счёта"
 
-msgid "Bank wire, credit card, e-wallet"
-msgstr "Банковский перевод, кредитная карта или электронный кошелёк"
-
 msgid "Bank wire/Money transfer"
 msgstr "Денежный/банковский перевод"
 
@@ -2104,6 +2125,9 @@ msgstr "Технология блокчейн – все криптовалют�
 msgid "Blogger and vlogger"
 msgstr "Блоггер и влогер"
 
+msgid "Blurry photo detected"
+msgstr "Обнаружена размытая фотография"
+
 msgid "Books and records"
 msgstr "Книги и информация"
 
@@ -2296,6 +2320,18 @@ msgstr "Колл спред"
 msgid "Call Spread/Put Spread"
 msgstr "Колл спред/Пут спред"
 
+msgid "Camera access is denied"
+msgstr "Доступ к камере закрыт."
+
+msgid "Camera not detected"
+msgstr "Камера не обнаружена"
+
+msgid "Camera not working"
+msgstr "Не работает камера"
+
+msgid "Camera not working?"
+msgstr "Не работает камера?"
+
 msgid "Can I offer my referrals an incentive to sign up through my unique affiliate link rather than sign up directly?"
 msgstr "Могу ли я предложить рефералам вознаграждение за регистрацию через мою ссылку, а не напрямую через сайт?"
 
@@ -2387,7 +2423,7 @@ msgid "Certain limits are imposed as to the acceptable levels for barrier/strike
 msgstr "Определенные ограничения накладываются на допустимые уровни барьерных/страйк цен контрактов. Как правило, барьер/страйк не может находиться ни слишком близко, ни слишком далеко от текущего базового рыночного уровня."
 
 msgid "Champion Group Ltd: Vanuatu"
-msgstr ""
+msgstr "Champion Group Ltd: Вануату"
 
 msgid "Change API Endpoint"
 msgstr "Изменить конечную точку API"
@@ -2425,6 +2461,9 @@ msgstr "Графики для этого инструмента рисуются
 msgid "Charting platforms"
 msgstr "Графические платформы"
 
+msgid "Check back here to finish the submission"
+msgstr "Вернитесь сюда, чтобы завершить отправку"
+
 msgid "Check our systems against the latest attacks, vulnerabilities, and mitigations"
 msgstr "Проверка наших систем на предмет недавних атак, уязвимостей и слабых мест"
 
@@ -2433,6 +2472,21 @@ msgstr "Ознакомьтесь с некоторыми техническим�
 
 msgid "Check out the payment methods accepted by the payment agents in the list below."
 msgstr "Ниже проверьте список платежных способов, принимаемых платежным агентом."
+
+msgid "Check selfie"
+msgstr "Проверьте селфи"
+
+msgid "Check that it is connected and functional. You can also <fallback>continue verification on your phone</fallback>"
+msgstr "Убедитесь, что все подключено и работает. Вы также можете <fallback>продолжить верификацию со своего телефона</fallback>."
+
+msgid "Check that your number is correct"
+msgstr "Убедитесь, что указали правильный номер"
+
+msgid "Check your image"
+msgstr "Проверьте свое изображение"
+
+msgid "Check your mobile"
+msgstr "Проверьте свой телефон"
 
 msgid "Checked"
 msgstr "Проверено"
@@ -2458,8 +2512,14 @@ msgstr "Выберите выплату, и наша система рассчи
 msgid "Choose a payout from $1 to $50,000."
 msgstr "Выберите выплату от $1 до $50,000."
 
+msgid "Choose a server for your MT5 %1 account:"
+msgstr ""
+
 msgid "Choose an account"
 msgstr "Выберите счёт"
+
+msgid "Choose document"
+msgstr ""
 
 msgid "Choose from 100+ tradable instruments, backed by award-winning technology and innovation since 2000."
 msgstr "Выберите один из 100+ инструментов и торгуйте с признанным технологическим новатором, работающим с 2000 года."
@@ -2569,8 +2629,8 @@ msgstr "Клиенты соглашаются выполнять разумны�
 msgid "Clients are also advised that their rights may be prejudiced if they provide the wrong information as the Company would not be in a position to act in their best interests."
 msgstr "Клиентам следует помнить, что их права могут быть затронуты в случае предоставления ложной информации, так как Компания не сможет действовать в их лучших интересах."
 
-msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, Hong Kong) will have their FX and CFD Metatrader 5 account opened with Deriv (BVI) Ltd. %1 is not available in the British Virgin Islands."
-msgstr "Счета клиентов из других стран мира (за исключением США, Канады и Гонконга) для торговли на Forex и CFD на платформе Metatrader 5 будут открыты в рамках компании Deriv (BVI) Ltd.  Услуги %1 недоступны на Британских Виргинских островах."
+msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, Hong Kong) who wish to trade CFDs on financial instruments and cryptocurrencies can have MetaTrader 5 accounts under Deriv (BVI) Ltd. %1 is not available in the British Virgin Islands."
+msgstr ""
 
 msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, Hong Kong) will have their FX and CFD Metatrader 5 account opened with Deriv (V) Ltd. %1 is not available in the Republic of Vanuatu."
 msgstr "Счета клиентов из других стран мира (за исключением США, Канады и Гонконга) для торговли на Forex и CFD на платформе Metatrader 5 будут открыты в рамках компании Deriv (V) Ltd. Услуги %1 недоступны в Вануату."
@@ -2637,6 +2697,9 @@ msgstr "Время закрытия"
 
 msgid "Close all or any of the client's Open Positions at a closing level that is reasonably available"
 msgstr "закрыть любую или все открытые позиции клиента на доступном уровне закрытия,"
+
+msgid "Close identity verification screen"
+msgstr "Закройте экран подтверждения личности"
 
 msgid "Close my account"
 msgstr "Закрыть мой счет"
@@ -2878,11 +2941,17 @@ msgstr "Поздравляем!"
 msgid "Congratulations! We'll make you a fair and competitive offer, and we don't make you negotiate in order to eliminate salary inequities and stress."
 msgstr "Поздравляем! Мы сделаем вам справедливое и конкурентоспособное предложение, и мы не заставляем вас вести переговоры, чтобы устранить неравенство в оплате труда и лишний стресс."
 
+msgid "Connected to your mobile"
+msgstr "Подключено к вашему мобильному телефону"
+
 msgid "Connecting to server"
 msgstr "Соединение с сервером"
 
 msgid "Connection error: Please check your internet connection."
 msgstr "Проблема со связью: пожалуйста, проверьте ваше подключение к интернету."
+
+msgid "Connection lost"
+msgstr "Соединение прервано"
 
 msgid "Consent"
 msgstr "Согласие"
@@ -2911,8 +2980,20 @@ msgstr "Свяжитесь с платежным агентом напрямую
 msgid "Contact us"
 msgstr "Обратная связь"
 
+msgid "Continue"
+msgstr "Продолжить"
+
+msgid "Continue on phone"
+msgstr "Продолжить на телефоне"
+
+msgid "Continue on your phone"
+msgstr "Продолжить на телефоне"
+
 msgid "Continue trading"
 msgstr "Продолжить торговлю"
+
+msgid "Continue with the verification"
+msgstr ""
 
 msgid "Continuous Indices – Choose from the Volatility 10 Index, Volatility 25 Index, Volatility 50 Index, Volatility 75 Index, and Volatility 100 Index. These indices correspond to simulated markets with constant volatilities of 10%, 25%, 50%, 75%, and 100% respectively."
 msgstr "Непрерывные индексы, включающие Индекс волатильности 10, Индекс волатильности 25, Индекс волатильности 50, Индекс волатильности 75 и Индекс волатильности 100. Эти индексы соответствуют моделируемым рынкам с волатильностью в размере 10%, 25%, 50%, 75% и 100%."
@@ -3034,6 +3115,21 @@ msgstr "Координация развития бизнеса и предлож
 msgid "Coordinate with payment system service providers in offering cryptocurrencies and digital wallets as a payment method"
 msgstr "Взаимодействие с поставщиками платежных услуг и систем для предоставления криптовалют и цифровых кошельков в качестве способов оплаты"
 
+msgid "Copied"
+msgstr "Скопировано"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Copy link"
+msgstr "Копировать ссылку"
+
+msgid "Copy the link to your mobile browser"
+msgstr "Скопируйте ссылку в браузер своего телефона"
+
+msgid "Copy the link to your phone"
+msgstr "Скопируйте ссылку на свой телефон"
+
 msgid "Copyright"
 msgstr "Авторское право"
 
@@ -3060,6 +3156,9 @@ msgstr "Стран мира"
 
 msgid "Countries report: Displays a list of countries where your clicks are coming from"
 msgstr "Отчёт по странам: показывает список стран, откуда поступают клики"
+
+msgid "Country not found"
+msgstr ""
 
 msgid "Country of Residence"
 msgstr "Страна проживания"
@@ -3250,6 +3349,9 @@ msgstr "Клиентские средства"
 msgid "Customer-centric partnership"
 msgstr "Клиентоориентированность"
 
+msgid "Cut-off image detected"
+msgstr ""
+
 msgid "Cyberjaya"
 msgstr "Сайберджайя"
 
@@ -3280,11 +3382,17 @@ msgstr "DIEL RTS28 за 2019"
 msgid "DIEL forms part of %1the Investor Compensation Scheme%2 (the \"Scheme\"), which is a rescue fund for investors that are clients of failed investment firms licensed by the MFSA. The Scheme covers 90% of the Company's net liability to a client in respect of investments that qualify for compensation under the Investment Services Act subject to a maximum payment to any one person of €20,000. The Scheme is based on EC Directive 97/9."
 msgstr "DIEL является частью %1Схемы компенсации инвесторам%2 (далее именуемой \"Схема\"), которая представляет собой пакет помощи для инвесторов, являющихся клиентами закрывшихся инвестиционных фирм, лицензированных Мальтийским управлением финансовых услуг (MFSA). Схема покрывает 90% чистых обязательств Компании перед клиентами в отношении инвестиций, по которым, согласно Акту об Инвестиционных услугах, предусмотрены компенсации, максимальный размер которых составляет €20,000. Схема основана на Директиве Европейского Комитета 97/9."
 
+msgid "DIEL has the duty to disclose all the circumstances that are material to the product or services that it provides to the clients before and during the provision of such product and/or service. DIEL is obliged to do so in accordance with its licensed activities."
+msgstr ""
+
 msgid "DIEL is a company established in Malta under registration number C70156 and having its registered office at W Business Centre, Level 3, Triq Dun Karm, Birkirkara, BKR 9033, Malta."
 msgstr "DIEL - компания, зарегистрированная на Мальте под регистрационным номером C70156 и с юридический адресом: W Business Centre, Level 3, Triq Dun Karm, Birkirkara, BKR 9033, Malta."
 
-msgid "DIEL is authorised and regulated by the Malta Financial Services Authority (\"MFSA\") under the Investment Services Act (Cap. 370, Laws of Malta) (the \"Act\") to carry on investment business. DIEL is authorised by the MFSA to deal on own account (i.e. offer and act as counterparty to trades) and to execute orders on behalf of other clients; both services are in relation to financial derivative products relating to foreign exchange, indices and other financial products or assets (\"Financial Products\"). DIEL is not authorised to and does not offer investment, financial, legal, tax, regulatory, and/or other types of advice or state an opinion in relation to a Transaction under any circumstances. Clients should get independent advice from an investment adviser if they have any doubts about dealing in financial products."
-msgstr "DIEL уполномочен и регулируется Управлением по финансовым услугам Мальты, Malta Financial Services Authority (\"MFSA\"), в рамках Акта об инвестиционных услугах, Investment Services Act (глава 370 мальтийского законодательства) (\"Акт\"), на ведение инвестиционного бизнеса. DIEL обладает разрешением MFSA на проведение операций на своём счете (т.е. предложение контрактов и действие в качестве контрагента по сделкам), а также на исполнение контрактов от имени других лиц; обе услуги относятся к производным финансовым продуктам, а также связаны с обменом валют, индексами и другими финансовыми продуктами или активами (\"финансовые продукты\"). DIEL не уполномочен, не предлагает и не предоставляет инвестиционных, финансовых, юридических или налоговых консультаций, а также каких-либо других советов относительно заключения контрактов при любых обстоятельствах. Если у клиента есть какие-либо сомнения относительно работы с финансовыми продуктами, клиенту рекомендуется обратиться за советом к независимому инвестиционному консультанту."
+msgid "DIEL is authorised and regulated by the Malta Financial Services Authority (\"MFSA\") under the Investment Services Act (Cap. 370, Laws of Malta) (the \"Act\") to carry on investment business. It is also authorised and subject to limited regulation by the Financial Conduct Authority in the UK. Details about the extent of our authorisation and regulation by the Financial Conduct Authority are available from us on request. DIEL is authorised by the MFSA to deal on own account (i.e. offer and act as counterparty to trades) and to execute orders on behalf of other clients; both services are in relation to financial derivative products relating to foreign exchange, indices and other financial products or assets (\"Financial Products\"). DIEL is not authorised to and does not offer investment, financial, legal, tax, regulatory, and/or other types of advice or state an opinion in relation to a Transaction under any circumstances. Clients should get independent advice from an investment adviser if they have any doubts about dealing in financial products."
+msgstr ""
+
+msgid "DIEL is authorised by the MFSA to deal on own account (i.e. offer and act as counterparty to trades) and to execute orders on behalf of other clients; both services are in relation to financial derivative products relating to foreign exchange, indices and other financial products or assets (\"Financial Products\"). DIEL is not authorised to and does not offer investment, financial, legal, tax, regulatory, and/or other types of advice or state an opinion in relation to a Transaction under any circumstances. Clients should get independent advice from an investment adviser if they have any doubts about dealing in financial products."
+msgstr "DIEL обладает разрешением MFSA на проведение операций на своём счету (т.е. предложение контрактов и действие в качестве контрагента по сделкам), а также на исполнение контрактов от имени других лиц; обе услуги относятся к производным финансовым продуктам, а также связаны с обменом валют, индексами и другими финансовыми продуктами или активами (\"финансовые продукты\"). DIEL не уполномочен, не предлагает и не предоставляет инвестиционных, финансовых, юридических или налоговых консультаций, а также каких-либо других советов относительно заключения контрактов при любых обстоятельствах. Если у клиента есть любые сомнения относительно работы с финансовыми продуктами, клиенту рекомендуется получить независимый совет от инвестиционного консультанта."
 
 msgid "DIEL is entitled under the Rules to rely upon information provided by clients. Clients should ensure that they provide DIEL with accurate and complete information and notify DIEL in the event that any information supplied to DIEL changes. Clients should note that if they provide DIEL with inaccurate information, or if they fail to notify DIEL of any changes to information previously supplied by them, this may adversely affect the quality of the services that DIEL can provide."
 msgstr "В соответствии с Правилами, DIEL имеет право полагаться на информацию, предоставленную клиентами. Клиенты должны гарантировать предоставление DIEL точной и полной информации, а также уведомить DIEL в случае любых изменений в ней. Следует отметить, что, если клиенты предоставляют DIEL неточную информацию или не сообщают о любых изменениях в ранее предоставленной информации, это может негативно повлиять на качество услуг DIEL."
@@ -3312,6 +3420,9 @@ msgstr "Дневной лимит на оборот счета"
 
 msgid "Dash vs US dollar"
 msgstr "Dash против доллара США"
+
+msgid "Dashboard"
+msgstr ""
 
 msgid "Data Analytics"
 msgstr "Анализ данных"
@@ -3425,7 +3536,7 @@ msgid "Depending on what you do, you can apply as our Affiliate or Introducing B
 msgstr "В зависимости от вашего рода деятельности и предпочтений, вы можете подать заявку и стать нашим партнёром, Представляющим брокером или занять сразу обе позиции. Чем больше клиентов вы привлечёте, тем выше могут быть ваши комиссионные."
 
 msgid "Depending on where the client lives, the client's account will be governed by the laws of the country of incorporation of the company that the client's account is registered with as set out below. If the client has registered more than one account with more than one company, each account will be governed by the law of the country of incorporation of the company that each individual account has been registered with. The client agrees to submit to the applicable jurisdiction's courts and bring any claim the client may have before them. These courts will have sole authority to settle any disputes that may arise between the client and the Company."
-msgstr ""
+msgstr "В зависимости от того, где живет клиент, счет клиента будет регулироваться законами страны регистрации компании, в которой открыт счет клиента, как указано ниже. Если клиент открыл более одного счета в более чем одной компании, каждый счет будет регулироваться законодательством страны регистрации компании, в которой был открыт каждый отдельный счет. Клиент соглашается подавать в суды соответствующей юрисдикции все запросы и претензии, которые могут возникнуть у клиента. Эти суды будут иметь исключительное право разрешать любые споры, которые могут возникнуть между клиентом и Компанией."
 
 msgid "Depending on your broker or trading platform, you can start trading from the time the Sydney market opens on Monday morning to the time the New York market closes on Friday evening – up to 24 hours a day, five days a week."
 msgstr "В зависимости от брокера или торговой платформы, вы можете торговать с открытия фондового рынка в Сиднее в понедельник и до закрытия Нью-Йоркской биржи в пятницу вечером - до 24 часов в день, пять дней в неделю."
@@ -3439,11 +3550,11 @@ msgstr "Пополняйте счёт и выводите средства че�
 msgid "Deposit as little as 5 USD to start trading."
 msgstr "Внесите на счёт всего 5 USD и начните торговлю."
 
+msgid "Deposit into or withdraw from your real account"
+msgstr ""
+
 msgid "Deposit or withdraw below"
 msgstr "Пополните счёт или выведите средства"
-
-msgid "Deposit or withdraw to your account via bank wire, credit card, or e-wallet."
-msgstr "Внесите или выведите средства со счета банковским переводом, картой или через электронный кошелёк."
 
 msgid "Deposit: %1 blockchain confirmations"
 msgstr "Пополнение. Подтверждение блокчейнов: %1"
@@ -3476,7 +3587,7 @@ msgid "Deriv (BVI) Ltd, Kingston Chambers, P.O. Box 173, Road Town, Tortola, Bri
 msgstr "Deriv (BVI) Ltd, Kingston Chambers, P.O. Box 173, Road Town, Tortola, British Virgin Islands. Компания лицензирована и регулируется Комиссией по предоставлению финансовых услуг Британских Виргинских островов - %1лицензия%2."
 
 msgid "Deriv (BVI) Ltd: British Virgin Islands"
-msgstr ""
+msgstr "Deriv (BVI) Ltd: Британские Виргинские острова"
 
 msgid "Deriv (Europe) Limited"
 msgstr "Deriv (Europe) Limited"
@@ -3503,7 +3614,7 @@ msgid "Deriv (FX) Ltd., Lot No. F16, First Floor, Paragon Labuan, Jalan Tun Must
 msgstr "Deriv (FX) Ltd., Lot No. F16, First Floor, Paragon Labuan, Jalan Tun Mustapha, 87000 Federal Territory of Labuan, Malaysia. Компания лицензирована и находится под регулированием Управление финансовых услуг Лабуана в качестве финансового брокера %1(лицензия номер MB/18/0024)%2."
 
 msgid "Deriv (FX) Ltd: Labuan, Territory of Malaysia"
-msgstr ""
+msgstr "Deriv (FX) Ltd: Лабуан, территория Малайзии"
 
 msgid "Deriv (MX) Ltd"
 msgstr "Deriv (MX) Ltd"
@@ -3515,7 +3626,7 @@ msgid "Deriv (MX) Ltd."
 msgstr "Deriv (MX) Ltd."
 
 msgid "Deriv (MX) Ltd: the Isle of Man"
-msgstr ""
+msgstr "Deriv (MX) Ltd: остров Мэн"
 
 msgid "Deriv (SVG) LLC"
 msgstr "Deriv (SVG) LLC"
@@ -3527,7 +3638,7 @@ msgid "Deriv (SVG) LLC, Hinds Buildings, Kingstown, St. Vincent and the Grenadin
 msgstr "Deriv (SVG) LLC, Hinds Buildings, Kingstown, St. Vincent and the Grenadines; номер компании 25299 BC 2019."
 
 msgid "Deriv (SVG) LLC: St. Vincent and the Grenadines"
-msgstr ""
+msgstr "Deriv (SVG) LLC: Сент-Винсент и Гренадины"
 
 msgid "Deriv (V) Ltd"
 msgstr "Deriv (V) Ltd"
@@ -3539,7 +3650,7 @@ msgid "Deriv (V) Ltd, Govant Building, Port Vila, PO Box 1276, Vanuatu, Republic
 msgstr "Deriv (V) Ltd, Govant Building, Port Vila, PO Box 1276, Vanuatu, Republic of Vanuatu. Компания лицензирована и регулируется Комиссией по предоставлению финансовых услуг Вануату - %1лицензия%2."
 
 msgid "Deriv (V) Ltd: Vanuatu"
-msgstr ""
+msgstr "Deriv (V) Ltd: Вануату"
 
 msgid "Deriv Group members are sometimes referred to collectively as \"%1\" or \"the Company\"."
 msgstr "Члены Deriv Group могут коллективно именоваться \"%1\" или \"Компания\"."
@@ -3554,6 +3665,9 @@ msgid "Deriv Investments (Europe) Limited aggregates the Bid and Ask prices from
 msgstr "Компания Deriv Investments (Europe) Limited рассчитывает цену бид и цену аск на основе информации, предоставляемой рядом поставщиков ликвидности, с целью определить и предложить клиенту наилучшую доступную цену для каждого инструмента. Компания всегда выступает финансовым контрагентом по отношению к контрактам клиента. Компания может исполнять ордеры от имени клиентов, выступая при этом в качестве брокера и передавая ордер поставщику ликвидности с целью его исполнения. Также Компания может держать ордер клиента на собственном счете и занять другую сторону в контракте клиента. Примите во внимание, что Компания может получать прибыль в результате потерь клиента и наоборот. Более подробную информацию можно найти в Политике конфликта интересов и Политике исполнения ордеров."
 
 msgid "Deriv Investments (Europe) Limited and Deriv (Europe) Limited: Malta"
+msgstr "Deriv Investments (Europe) Limited и Deriv (Europe) Limited: Мальта"
+
+msgid "Deriv Investments (Europe) Limited is a company established in Malta, at W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033. It is licensed in Malta and regulated by the Malta Financial Services Authority, Triq l-Imdina, Zone 1, Central Business District, Birkirkara CBD 1010, Malta, under the Investments Services Act to provide investment services in the European Union."
 msgstr ""
 
 msgid "Deriv Investments (Europe) Limited is entitled to provide services in another EU Member State through EU passporting rights. Refer to the map below for the list of EU countries that have access to %1 via EU passporting rights - freedom to provide cross border services."
@@ -3562,8 +3676,11 @@ msgstr "Компания Deriv Investments (Europe) Limited уполномоче
 msgid "Deriv Investments (Europe) Limited is required to collect your tax information."
 msgstr "Компания Deriv Investments (Europe) Limited обязана собирать вашу налоговую информацию."
 
-msgid "Deriv Investments (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara, BKR 9033, Malta. Licensed and regulated as a Category 3 Investment Services provider by the Malta Financial Services Authority (%1licence no. IS/70156%2)."
-msgstr "Компания Deriv Investments (Europe) Limited, расположенная по адресу W Business Centre, Level 3, Triq Dun Karm, Birkirkara, BKR 9033, Malta, лицензирована и регулируется Мальтийским управлением финансовых услуг в качестве поставщика инвестиционных услуг 3-й категории (%1лицензия номер IS/70156%2)."
+msgid "Deriv Investments (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed in Malta and authorised by the Malta Financial Services Authority under the Investments Services Act to provide investment services in the European Union."
+msgstr "Компания Deriv Investments (Europe) Limited, расположенная по адресу W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, лицензирована и уполномочена Мальтийским управлением финансовых услуг в рамках Закона об инвестиционных услугах на предоставление инвестиционных услуг в ЕС."
+
+msgid "Deriv Investments (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed in Malta and regulated by the Malta Financial Services Authority under the Investments Services Act to provide investment services in the European Union (%1licence no. IS/70156%2). It is also authorised and subject to limited regulation by the Financial Conduct Authority in the UK. Details about the extent of our authorisation and regulation by the Financial Conduct Authority are available from us on request."
+msgstr "Компания Deriv Investments (Europe) Limited, расположенная по адресу W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, лицензирована и уполномочена Мальтийским управлением финансовых услуг в рамках Закона об инвестиционных услугах на предоставление инвестиционных услуг в ЕС (%1лицензия номер IS/70156%2). Компания также уполномочена и подлежит ограниченному регулированию Управлением по финансовому надзору Великобритании (FCA). Подробную информацию о степени полномочий и регулирования со стороны Управления можно получить по запросу."
 
 msgid "Deriv Investments (Europe) Limited, or"
 msgstr "Deriv Investments (Europe) Limited или"
@@ -3679,6 +3796,9 @@ msgstr "Отказ от ответственности"
 msgid "Discover what’s new"
 msgstr "Узнайте, что нового"
 
+msgid "Dismiss alert"
+msgstr "Закрыть оповещение"
+
 msgid "Display your proof of address when prompted."
 msgstr "Предоставьте подтверждение адреса по требованию."
 
@@ -3736,11 +3856,26 @@ msgstr "Вид документа"
 msgid "Document and administer database policies, procedures, and standards"
 msgstr "Документирование и администрирование политики, процедур и стандартов баз данных."
 
+msgid "Document example"
+msgstr "Пример документа"
+
 msgid "Document our current and intended future systems and software architecture"
 msgstr "Документирование нашей уже имеющейся и находящейся в разработке архитектуры программного и системного обеспечения."
 
 msgid "Document submission status"
 msgstr "Статус предоставления документа"
+
+msgid "Document uploaded"
+msgstr "Документ загружен."
+
+msgid "Documents from that country are not currently supported — <fallback>try another document type</fallback>"
+msgstr ""
+
+msgid "Documents uploaded"
+msgstr "Документы загружены."
+
+msgid "Documents you can use to verify your identity"
+msgstr "Документы, которые можно использовать для подтверждения личности"
 
 msgid "Does Not Touch"
 msgstr "не коснется"
@@ -3750,6 +3885,9 @@ msgstr "Хорошо выполнять работу и вдохновлять �
 
 msgid "Don't have a %1 account yet?"
 msgstr "У вас ещё нет счёта %1?"
+
+msgid "Don't refresh this page"
+msgstr "Не обновляйте эту страницу"
 
 msgid "Don't share your %1 account or payment methods with any other person."
 msgstr "Не делитесь данными вашего счёта %1 или платёжной информацией с другими лицами."
@@ -3795,6 +3933,9 @@ msgstr "DragonPhoenix - это платежная система, которая
 
 msgid "Drive rapid growth and business development to support the company's sales and marketing objectives"
 msgstr "Стимуляция быстрого роста и развития бизнеса с целью поддержания уровня продаж и выполнения маркетинговых задач компании"
+
+msgid "Driver's license"
+msgstr "Водительские права"
 
 msgid "Driving licence"
 msgstr "Водительское удостоверение"
@@ -4006,6 +4147,9 @@ msgstr "Активировать"
 msgid "Enable %1two-factor authentication%2 on your account."
 msgstr "Включите %1двухступенчатую авторизацию%2 на вашем счете."
 
+msgid "Enable camera"
+msgstr "Включить камеру"
+
 msgid "Enable two-factor authentication for an extra layer of security."
 msgstr "Активировать двухступенчатую проверку для дополнительной безопасности."
 
@@ -4057,6 +4201,9 @@ msgstr "Захватывающие возможности торговли фо�
 msgid "Enjoy our fastest type of trading with our Tick Trade app, wherever you are."
 msgstr "Воспользуйтесь быстрой торговлей с приложения Tick Trade, где бы вы не находились."
 
+msgid "Enlarge image"
+msgstr "Увеличить изображение"
+
 msgid "Ensure that your original documents are ready when the video call starts"
 msgstr "Перед началом видео звонка пожалуйста убедитесь, что вы приготовили оригиналы всех необходимых документов"
 
@@ -4066,6 +4213,9 @@ msgstr "Дизайн и разработка каждой страницы пр�
 msgid "Ensure the integrity of releases by coordinating testing activities"
 msgstr "Обеспечение целостности релизов путём координации тестирования"
 
+msgid "Enter mobile number"
+msgstr "Введите номер мобильного телефона"
+
 msgid "Enter payment agent ID"
 msgstr "Введите ID платежного агента"
 
@@ -4074,6 +4224,9 @@ msgstr "Введите код проверки, сгенерированный �
 
 msgid "Enter your email"
 msgstr "Введите свой email"
+
+msgid "Enter your mobile number:"
+msgstr "Введите номер мобильного телефона:"
 
 msgid "Entertainment"
 msgstr "Развлечения"
@@ -4188,6 +4341,15 @@ msgstr "Случаи невыполнения обязательств"
 
 msgid "Everyone else can use the FIX API to connect to our One Zero bridge – subject to a conformance test."
 msgstr "Каждый может воспользоваться функцией FIX API, чтобы присоединиться к нашей опции \"Мост Один-ноль\" (что подразумевает прохождение теста на соответствие)."
+
+msgid "Example of a blurry document"
+msgstr "Пример нечеткого документа"
+
+msgid "Example of a cut-off document"
+msgstr "Пример документа, который не будет принят"
+
+msgid "Example of a document with glare"
+msgstr "Пример документа с бликами"
 
 msgid "Example:"
 msgstr "Пример:"
@@ -4489,6 +4651,12 @@ msgstr "Основные пары FX, минорные пары FX, экзоти
 msgid "FXOpen"
 msgstr "FXOpen,"
 
+msgid "Face forward and make sure your eyes are clearly visible"
+msgstr "Повернитесь лицом вперед и убедитесь, что ваши глаза хорошо видны."
+
+msgid "Face photo page"
+msgstr "Страница с фотографией"
+
 msgid "Facility that allows you to set limits on your account."
 msgstr "Функция, позволяющая устанавливать ограничения на вашем счете."
 
@@ -4585,8 +4753,17 @@ msgstr "Размер файла (%1) превышает разрешенный �
 msgid "File Name"
 msgstr "Название файла"
 
+msgid "File not uploaded."
+msgstr "Файл не загружен."
+
 msgid "File records and documents of customer interactions according to existing guidelines"
 msgstr "Ведение файлов и документации по взаимодействию с клиентами, согласно текущим требованиям"
+
+msgid "File size exceeded."
+msgstr "Превышен допустимый размер файла."
+
+msgid "File type not supported"
+msgstr "Этот тип файла не поддерживается"
 
 msgid "Filtering Controls"
 msgstr "Контроль фильтрации"
@@ -4698,6 +4875,9 @@ msgstr "Соблюдение установленных рабочих проц�
 
 msgid "Follow the law and these Terms"
 msgstr "Соблюдение закона и данных Правил"
+
+msgid "Follow these steps to recover camera access:"
+msgstr "Выполните следующие действия, чтобы восстановить доступ к камере:"
 
 msgid "Follow up on the recommendations and timeline for corrective actions with department heads"
 msgstr "Соблюдение рекомендаций и графика корректирующих действий в сотрудничестве с руководителями отделов"
@@ -4855,6 +5035,9 @@ msgstr "Время от времени DIEL может предоставлят�
 msgid "Front Side"
 msgstr "Лицевая сторона"
 
+msgid "Front and back"
+msgstr "Спереди и сзади"
+
 msgid "Front side"
 msgstr "Лицевая сторона"
 
@@ -4954,20 +5137,26 @@ msgstr "Щедрые комиссионные"
 msgid "Get %1"
 msgstr "Получить%1"
 
-msgid "Get 10,000.00 USD"
-msgstr "Получить 10,000.00 USD"
-
 msgid "Get Started"
 msgstr "С чего начать"
 
+msgid "Get link via SMS"
+msgstr "Получите ссылку по SMS"
+
 msgid "Get out of the city centre and enjoy the serenity of island life free from the excesses of commercialisation. Friendly, helpful locals are also never far off."
 msgstr "Выберитесь из центра города и насладитесь спокойствием островной жизни без излишеств коммерциализации. Дружелюбные и отзывчивые местные жители тоже всегда рядом."
+
+msgid "Get secure link"
+msgstr "Получить безопасную ссылку"
 
 msgid "Get started with MT5"
 msgstr "Начать с MT5"
 
 msgid "Get your price"
 msgstr "Узнайте цену"
+
+msgid "Get your secure link"
+msgstr "Получите безопасную ссылку"
 
 msgid "Getting Started"
 msgstr "С чего начать"
@@ -4977,6 +5166,9 @@ msgstr "С чего начать"
 
 msgid "Given the Company's role as a Margin trading service provider as described in this agreement, the Company seeks to avoid undue market influence to the extent consistent with the client's trading needs and the Company's risk management policies and procedures. By continuing to use the Margin trading services described in this agreement, the client acknowledges that they are aware of the potential conflict of interest disclosed that may arise and cannot be completely eliminated, and they consent to the Company acting notwithstanding such potential conflict of interests."
 msgstr "Учитывая роль Компании в качестве поставщика услуг торговли с использованием маржи, перечисленных в данном соглашении, Компания стремится избегать нежелательного влияния со стороны рынка в той мере, которая соответствует торговым потребностям клиента, политике управления риском и внутреннему регламенту Компании. Продолжая пользоваться услугами торговли с использованием маржи, перечисленными в данном соглашении, клиент подтверждает, что он/она осведомлены о потенциальном конфликте интересов, который может возникнуть и быть не полностью устранённым. Настоящим клиент разрешает Компании действовать, невзирая на потенциальный конфликт интересов."
+
+msgid "Glare detected"
+msgstr "Обнаружены блики"
 
 msgid "Global Banking & Finance Awards"
 msgstr "Премия Global Banking & Finance Awards"
@@ -5065,8 +5257,14 @@ msgstr "Законодательство и юрисдикция"
 msgid "Government Officers"
 msgstr "Гос. служащие"
 
+msgid "Grant access to your camera from your browser settings"
+msgstr "Предоставьте доступ к вашей камере в настройках браузера."
+
 msgid "Graphics Designer"
 msgstr "Графический дизайнер"
+
+msgid "Great, that's everything we need"
+msgstr "Отлично, это все, что нам нужно."
 
 msgid "Group History"
 msgstr "История компании"
@@ -5118,6 +5316,9 @@ msgstr "Ниже приведена информация о котировках
 
 msgid "Here's an example of the EUR/USD currency pair and its bid-ask price:"
 msgstr "Рассмотрим пример пары EUR/USD с ценой бид и ценой аск:"
+
+msgid "Here's how to do it:"
+msgstr "Вот как это сделать:"
 
 msgid "Here, you can set and adjust the amount of money and time you spend trading on SmartTrader, WebTrader, and Binary Bot. Setting your limits is optional and you can adjust them at any time. If you don’t wish to set a specific limit, leave the field blank."
 msgstr "Здесь вы можете установить и настроить количество времени и денег, которые тратите на трейдинг на платформах SmartTrader, WebTrader и Binary Bot. Установка лимитов не является обязательной, и вы можете изменить их в любое время. Если вы не хотите устанавливать какой-либо из лимитов, оставьте поле пустым."
@@ -5256,6 +5457,9 @@ msgstr "Как читать таблицу спецификации"
 
 msgid "How to read the table above"
 msgstr "Как читать таблицу выше"
+
+msgid "How to scan a QR code"
+msgstr "Как отсканировать QR-код"
 
 msgid "How to trade CFDs"
 msgstr "Как торговать CFD"
@@ -5402,7 +5606,7 @@ msgid "If DIEL decides to introduce a new trading platform, it shall provide the
 msgstr "Если DIEL решит внедрить новую торговую платформу, компания предоставит клиенту соответствующее уведомление в течение 30 дней до начала использования новой или дополнительной торговой платформы. Данное уведомление будет содержать всю необходимую информацию, включая, но не ограничиваясь характеристиками и операциями новой торговой платформы. Таким образом, используя резервную базу данных на торговой платформе MT5, DIEL интегрирует все данные на новую торговую платформу, включая, но не ограничиваясь открытыми контрактами, историей торгов/данных, а также информацией о счетах."
 
 msgid "If a court or regulatory body of competent jurisdiction declares any provision of the Terms to be invalid or unenforceable, the rest of the Terms shall remain in full force and effect."
-msgstr ""
+msgstr "Если суд или регулирующий орган компетентной юрисдикции объявит какое-либо положение Правил и условий недействительным или неприменимым, остальные положения Правил и условий должны оставаться в полной силе."
 
 msgid "If a trade becomes unavailable after the transaction is made but before the trade is executed, the client may request a refund of the charged price. The Company reserves the right to accept or reject the client’s request after investigating the client’s claim. If technical problems prevent the execution of a trade, for example, if a disruption occurs in the data feeds that the Company cannot readily fix, the Company reserves the right to refund or reverse the trade."
 msgstr "Если контракт становится недоступен после совершения транзакции, до его исполнения клиент может запросить возврат заплаченной цены. Компания оставляет за собой право принять или отклонить запрос после расследования претензии клиента. Если технические проблемы препятствуют исполнению контракта, например, если в потоках данных происходит сбой, который Компания не может быстро исправить, Компания оставляет за собой право вернуть деньги или отменить контракт."
@@ -5430,6 +5634,9 @@ msgstr "Если любое положение данного соглашени
 
 msgid "If force majeure events last for more than 30 business days, the Party not suffering force majeure events may terminate this agreement immediately."
 msgstr "Если форс-мажорные обстоятельства длятся более 30 рабочих дней, Сторона, не затронутая этими обстоятельствами, может незамедлительно расторгнуть данное соглашение."
+
+msgid "If it doesn’t work, download a QR code scanner from Google Play or the App Store"
+msgstr "Если не работает, скачайте сканер QR-кода из Google Play или App Store."
 
 msgid "If such documents expire, the Company reserves the right to request updated documentation."
 msgstr "Если срок действия предоставленных документов истечёт, Компания оставляет за собой право запросить предоставление действующих документов."
@@ -5604,6 +5811,9 @@ msgstr "Если вам нужна помощь, пожалуйста, обра�
 
 msgid "If you reside in the UK and are considering self-exclusion, you may wish to register with GAMSTOP."
 msgstr "Если вы проживаете в Великобритании и рассматриваете возможность самоисключения, рекомендуем зарегистрироваться в GAMSTOP."
+
+msgid "If you reside in the UK and you are unhappy with our response you may escalate your complaint to the %1Financial Ombudsman Service%2."
+msgstr ""
 
 msgid "If you score well in the hackathon or talent test, we'll send you a Self-Assessment Topgrading Interview (SATI) questionnaire. Do well on the SATI and we'll invite you for an interview with a member of our recruitment team."
 msgstr "Если вы получили хорошие баллы в состязании hackathon или тесте, мы отправим вам опросник на интервью Self-Assessment Topgrading Interview (SATI). Если вы хорошо пройдёте тест SATI, мы пригласим вас на интервью с членом нашего отдела по набору персонала."
@@ -6142,6 +6352,9 @@ msgstr "Настоящим Стороны соглашаются, что на м
 msgid "It is agreed that the Company shall not be responsible or liable for any matter arising out of or in relation to the use and operation of any website owned or used by the Agent. It is understood that the Agent shall indemnify the Company for all and any losses that the Company may suffer arising out of, or in relation to the use or operations of any website used or owned by the Agent."
 msgstr "Настоящим Стороны соглашаются, что Компания не должна нести ответственности за любые ситуации, возникающие в отношении использования и любой работы на любом вебсайте, принадлежащем или использующимся Агентом. Следует понимать, что Агент должен возместить любой убыток, который может понести Компания в связи с использованием или работой любого сайта, принадлежащего Агенту."
 
+msgid "It is also authorised and subject to limited regulation by the Financial Conduct Authority in the UK. Details about the extent of our authorisation and regulation by the Financial Conduct Authority are available from us on request."
+msgstr "Компания также уполномочена и подлежит ограниченному регулированию Управлением по финансовому надзору Великобритании (FCA). Подробную информацию о степени полномочий и регулирования со стороны Управления можно получить по запросу."
+
 msgid "It is further agreed and understood that the Agent shall not use any domain name that includes the name %1 and any derivation or variation of this name that might give the impression that the Company and the Agent are the same person."
 msgstr "В дальнейшем Стороны признают и соглашаются, что Агент не должен пользоваться доменными именами, включающими название %1 и любые его вариации, способные создать ощущение, что Компания и Агент являются единым лицом."
 
@@ -6173,10 +6386,22 @@ msgid "It is the client's responsibility to keep their password and login ID con
 msgstr "Клиент обязуется сохранять конфиденциальность своего логина и пароля. Настоящим клиент соглашается не разглашать пароль и логин любому другому лицу."
 
 msgid "It is the responsibility of clients accessing this site to make sure that they understand and fully follow the relevant laws and regulations of their own country. The Company does not support any offerings or make any solicitations that are illegal in a client's country, and clients cannot use their account for such prohibited offerings. In some countries, the Company may not be permitted to offer products and services to clients unless they have taken proactive steps to solicit information about the Company's products and services and requested to be provided with them. Access to this site and the offering of certain trades via this site may be also restricted in some jurisdictions. It is the client's responsibility to know about the restrictions that apply in the client's country of residence and to observe them, as in continuing to access the Company's products and services, the client represents to the Company that the client is doing so legally and that, where relevant, the client has solicited information about the Company's products and services and requested to be provided with them."
-msgstr ""
+msgstr "Клиенты, пользующиеся доступом к этому сайту, обязаны убедиться, что они понимают и полностью соблюдают соответствующие законы и постановления своей страны. Компания не поддерживает какие-либо предложения и не делает никаких предложений, которые являются незаконными в стране клиента, и клиенты не могут использовать свой счет для приобретения таких запрещенных предложений.  В некоторых странах Компании может быть запрещено предлагать продукты и услуги клиентам, если они не предприняли упреждающих шагов для запроса информации о продуктах и ​​услугах Компании и не запросили их предоставление. Доступ к этому сайту и предложение определенных контрактов на этом сайте также может быть ограничено в некоторых юрисдикциях. Клиент обязан знать об ограничениях, которые применяются в стране проживания клиента, и соблюдать их, поскольку, продолжая получать доступ к продуктам и услугам Компании, клиент заявляет Компании, что он делает это на законных основаниях и что в соответствующих случаях клиент запросил информацию о продуктах и ​​услугах Компании и запросил их предоставление."
 
 msgid "It is the responsibility of each client to read and understand this legal notice and the terms and conditions (\"Terms\") pursuant to which an acquisition of financial contracts via this site is governed."
+msgstr "Каждый клиент обязан прочитать и понять это юридическое уведомление и условия (\"Правила и условия\"), в соответствии с которыми регулируется приобретение финансовых контрактов на этом сайте."
+
+msgid "It may be disconnected. <fallback>Try using your phone instead</fallback>."
+msgstr "Она может быть отключена. <fallback>Попробуйте использовать свой телефон</fallback>."
+
+msgid "It may take a few minutes to arrive"
+msgstr "Доставка может занять несколько минут"
+
+msgid "It must be an official photo ID"
 msgstr ""
+
+msgid "It will only take a couple of minutes."
+msgstr "Это займет всего пару минут."
 
 msgid "It's completely free to join our IB programme. We've never charged a fee and we never will."
 msgstr "Участие в программе ПБ совершенно бесплатно. Мы не взимаем и не планируем взимать никаких взносов."
@@ -6189,6 +6414,9 @@ msgstr "Время расширяться. Для улучшения работ�
 
 msgid "Item"
 msgstr "Описание"
+
+msgid "It’ll take longer to verify you if we can’t read it"
+msgstr ""
 
 msgid "J. Electronic trading platform and transactions"
 msgstr "J. Электронная торговая платформа и контракты"
@@ -6243,6 +6471,9 @@ msgstr "Поддержание нашей инфраструктуры в обн
 
 msgid "Keep safe"
 msgstr "Безопасность"
+
+msgid "Keep this window open while using your mobile"
+msgstr "Не закрывайте это окно при использовании мобильного телефона"
 
 msgid "Keep track of your authorised applications."
 msgstr "Следите за доступными приложениями."
@@ -6514,6 +6745,9 @@ msgstr "Лимиты с 1 по 3 могут быть удалены или ув�
 msgid "Link to and direct the Company's clients to the Programmer's Application."
 msgstr "направлять и приглашать клиентов Компании на Приложение Программиста."
 
+msgid "Linked to your computer"
+msgstr ""
+
 msgid "Links"
 msgstr "Ссылки"
 
@@ -6549,6 +6783,12 @@ msgstr "Жизнь на Мальте"
 
 msgid "Living on an island paradise has its perks. Labuan is one of those rare gems that has yet to undergo excessive commercialisation, thus retaining its small-town charm and tight-knit community vibe. Labuan welcomes tourists throughout the year as the island enjoys good weather all year round, with average daily temperature between 28 and 32 degrees Celsius."
 msgstr "Жизнь на райском островке имеет целый ряд преимуществ. Лабуан является одним из тех редких сокровищ, которому удалось избежать чрезмерной коммерциализации и сохранить уникальный шарм маленького живого городка. Лабуан привлекает туристов на протяжении всего года, благодаря отличной погоде круглый год со средней суточной температурой от 28 до 32 градусов Цельсия."
+
+msgid "Loading"
+msgstr "Загрузка"
+
+msgid "Loading..."
+msgstr "Загрузка..."
 
 msgid "Located 10 minutes away, Malaysia's intelligent garden city offers stunning greenery and exquisite structures."
 msgstr "Умный малазийский город-сад, расположенный в 10 минутах езды, сочетает восхитительный зелёный пейзаж и отличную инфраструктуру."
@@ -6600,6 +6840,9 @@ msgstr "Ищете приложения для ПК?"
 
 msgid "Looking for the %1 Desktop app?"
 msgstr "Ищете приложение для ПК %1?"
+
+msgid "Looks like you took too long"
+msgstr ""
 
 msgid "Loss"
 msgstr "Потери"
@@ -6757,8 +7000,44 @@ msgstr "Пополняйте счет или выводите средства, 
 msgid "Make another transfer"
 msgstr "Выполнить ещё один перевод"
 
+msgid "Make sure all of the document is in the photo"
+msgstr "Убедитесь, что на фото весь документ"
+
+msgid "Make sure details are clear to read, with no blur or glare"
+msgstr "Убедитесь, что данные четко видны, читаемы, без размытия или бликов."
+
+msgid "Make sure everything is clear"
+msgstr ""
+
+msgid "Make sure full document is visible"
+msgstr ""
+
 msgid "Make sure that production and publication of content are technically accurate, well-written, and easily understandable"
 msgstr "Контроль за производством и публикацией технически точного, хорошо написанного и легко воспринимаемого контента "
+
+msgid "Make sure your card details are clear to read, with no blur or glare"
+msgstr "Убедитесь, что данные карты четко видны, читаемы, без размытия или бликов."
+
+msgid "Make sure your device has a working camera"
+msgstr "Убедитесь, что на вашем устройстве работает камера"
+
+msgid "Make sure your device's camera works"
+msgstr "Убедитесь, что на вашем устройстве работает камера"
+
+msgid "Make sure your license details are clear to read, with no blur or glare"
+msgstr "Убедитесь, что данные на правах четко видны, читаемы, без размытия или бликов."
+
+msgid "Make sure your passport details are clear to read, with no blur or glare"
+msgstr "Убедитесь, что паспортные данные четко видны, читаемы, без размытия или бликов"
+
+msgid "Make sure your permit details are clear to read, with no blur or glare"
+msgstr ""
+
+msgid "Make sure your selfie clearly shows your face"
+msgstr "Убедитесь, что на селфи хорошо видно ваше лицо."
+
+msgid "Make sure§"
+msgstr ""
 
 msgid "Make your trade"
 msgstr "Купите контракт"
@@ -7144,6 +7423,15 @@ msgstr "Мать городов"
 msgid "Mother's maiden name"
 msgstr "Девичья фамилия матери"
 
+msgid "Move away from direct light"
+msgstr "Отойдите от прямого света"
+
+msgid "Move away from direct light — no glare"
+msgstr ""
+
+msgid "Move funds in and out of your real account."
+msgstr ""
+
 msgid "Mr"
 msgstr "Господин"
 
@@ -7171,6 +7459,9 @@ msgstr "Варианты ликвидности на множестве акти
 msgid "Multilingual platforms"
 msgstr "Многоязычные платформы"
 
+msgid "Multiple faces found"
+msgstr "Найдено несколько лиц"
+
 msgid "Multiple income opportunities"
 msgstr "Множество возможностей заработка"
 
@@ -7191,6 +7482,9 @@ msgstr "Фото должно быть чётким"
 
 msgid "Must be a clear, colour photo or scanned image"
 msgstr "Чёткая цветная фотография или отсканированное изображение"
+
+msgid "Must be under 10MB."
+msgstr "Файл должен быть меньше 10 МБ."
 
 msgid "My Players report: Displays a list of your clients according to their IDs and the date they signed up"
 msgstr "Отчёт Мои игроки: отображает список ваших клиентов по имени и дате их регистрации"
@@ -7366,6 +7660,12 @@ msgstr "Никаких комиссий"
 msgid "No delay, neglect, or forbearance on the part of either party in enforcing any term or condition of this Agreement against the other party shall either be, or be deemed to be, a waiver or in any way prejudice any right of that party under this Agreement."
 msgstr "Никакая задержка, пренебрежение или несоблюдение любых правил и условий настоящего Соглашения любой из сторон по отношению к другой стороне не будет считаться освобождением от выполнения Соглашения или каким-либо другим образом влиять на права данной стороны по настоящему Соглашению."
 
+msgid "No document detected"
+msgstr "Документов не обнаружено"
+
+msgid "No face found"
+msgstr "Лицо не найдено"
+
 msgid "No fiduciary duty"
 msgstr "Отсутствие фидуциарной обязанности"
 
@@ -7449,9 +7749,6 @@ msgstr "Примечание:"
 
 msgid "Note: %1 does not charge any transfer fees."
 msgstr "Примечание: %1 не взимает комиссий за перевод средств."
-
-msgid "Note: A no deposit bonus worth 10 USD will be credited into your account within 24 hours after registration."
-msgstr "Примечание: Бонус в размере 10 USD, не зависящий от пополнения, будет начислен на ваш счёт в течение 24 часов после регистрации."
 
 msgid "Note: For any enquiries regarding disabled or excluded accounts, please contact %1Customer Support%2."
 msgstr "Примечание: В отношении любых вопросов о неактивных или исключенных счетах, пожалуйста, свяжитесь со %1службой поддержки клиентов%2."
@@ -7564,6 +7861,9 @@ msgstr "Как только мы получим вашу заявку, один 
 msgid "Once you click the 'Submit' button, the funds will be withdrawn from your account and transferred to your Client's account."
 msgstr "Когда вы нажмете кнопку 'Подтвердить', средства будут сняты с вашего счета и перечислены на счет клиента."
 
+msgid "Once you've finished we'll take you to the next step"
+msgstr "Как только вы закончите, мы перейдем к следующему шагу"
+
 msgid "One Zero"
 msgstr "Один-ноль"
 
@@ -7642,6 +7942,9 @@ msgstr "Допускаются только буквы латинского ал
 msgid "Only one account is allowed per person. No withdrawals and/or refunds may be collected on accounts opened in false names or on multiple accounts opened by the same person."
 msgstr "Разрешается иметь только один счет на человека. Вывод средств или компенсация не может перечисляться на счета, открытые на вымышленное имя, или на множественные счета, открытые одним и тем же лицом."
 
+msgid "Only your face can be in the selfie"
+msgstr "На селфи может быть только ваше лицо"
+
 msgid "Oops... Page Not Available"
 msgstr "Страница недоступна"
 
@@ -7680,6 +7983,15 @@ msgstr "Открытые контракты"
 
 msgid "Open positions"
 msgstr "Открытые позиции"
+
+msgid "Open the link and complete the tasks"
+msgstr "Откройте ссылку и выполните все задания"
+
+msgid "Open the link on your mobile"
+msgstr "Откройте ссылку на своем телефоне"
+
+msgid "Open your new bank account"
+msgstr "Откройте новый банковский счет"
 
 msgid "Open-Source Projects"
 msgstr "Проекты с открытым кодом"
@@ -7921,6 +8233,9 @@ msgstr "Интересуетесь работой с людьми, культу�
 msgid "Passport"
 msgstr "Паспорт"
 
+msgid "Passport photo page"
+msgstr "Страница паспорта с фотографией"
+
 msgid "Password Reset"
 msgstr "Изменение пароля"
 
@@ -8076,6 +8391,12 @@ msgstr "Personal Wealth Awards 2017"
 
 msgid "Personal details"
 msgstr "Личные данные"
+
+msgid "Photo of your document"
+msgstr "Фото вашего документа"
+
+msgid "Photo of your face"
+msgstr "Фото вашего лица"
 
 msgid "Pillar 3 Disclosures"
 msgstr "Пояснение Принципа 3"
@@ -8350,11 +8671,17 @@ msgstr "Пожалуйста, примите во внимание, что на�
 msgid "Please tell us why you are closing your account (please select one):"
 msgstr "Пожалуйста, скажите нам, почему вы решили закрыть свой счет (вы можете выбрать одну из причин ниже):"
 
+msgid "Please try again"
+msgstr "Пожалуйста, попробуйте снова"
+
 msgid "Please update your %1 to continue."
 msgstr "Чтобы продолжить, пожалуйста, обновите %1."
 
 msgid "Please wait for confirmation. Our customer support team will get back to you regarding your account status via email within four hours."
 msgstr "Пожалуйста, дождитесь подтверждения. В течение четырёх часов наша служба поддержки уведомит вас о статусе вашего счёта по эл. почте."
+
+msgid "Point your phone’s camera at the QR code"
+msgstr "Наведите камеру телефона на QR-код"
 
 msgid "Portfolio"
 msgstr "Портфель"
@@ -8686,6 +9013,9 @@ msgstr "Предоставлять Компании любую имеющуюс�
 msgid "Provide the customer support agent with the four-digit verification code below for confirmation."
 msgstr "Чтобы получить подтверждение, сообщите 4-значный код подтверждения (который указан ниже) нашему специалисту из отдела поддержки клиентов."
 
+msgid "Provide the whole document page for best results"
+msgstr ""
+
 msgid "Provision of service"
 msgstr "Предоставление услуг"
 
@@ -8899,11 +9229,20 @@ msgstr "Осознавая сложность финансовых рынков,
 msgid "Recommend alternatives to redundant or obsolete systems"
 msgstr "Рекомендация альтернатив для модернизации ненужных или устаревших систем"
 
+msgid "Recover camera access to continue face verification"
+msgstr "Восстановите доступ к камере, чтобы продолжить верификацию лица"
+
+msgid "Recovery"
+msgstr "Восстановление"
+
 msgid "Recruit, train, and nurture affiliates and IBs in countries where Deriv Group is active, leveraging your direct knowledge and experience of the local market"
 msgstr "Рекрутинг, тренинги и обучение партнёров и представляющих брокеров в странах, где Deriv Group ведёт активную деятельность, а также применение ваших непосредственных знаний и опыта для работы на местных рынках"
 
 msgid "Recruitment Process"
 msgstr "Процесс найма"
+
+msgid "Redo"
+msgstr "Вернуть"
 
 msgid "Ref."
 msgstr "Ном."
@@ -8928,6 +9267,12 @@ msgstr "Реферальные инструменты"
 
 msgid "Refine and polish engineer-generated documents and open source projects to imbue them with clarity and consistency"
 msgstr "Усовершенствование и редактирование документов, созданных разработчиками, а так же проектов, основанных на открытом исходном коде, чтобы придать им ясность и последовательность"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "Refresh this page to restart the identity verification process"
+msgstr "Обновите эту страницу, чтобы перезапустить процесс проверки личности."
 
 msgid "Refund policy"
 msgstr "Политика возвратов"
@@ -9004,6 +9349,12 @@ msgstr "Оставшиеся переводы средств на MT5 сегод
 msgid "Remaining Time"
 msgstr "Оставшееся время"
 
+msgid "Remember to press stop when you're done. <fallback>Redo video actions</fallback>"
+msgstr "Не забудьте нажать стоп, когда закончите. <fallback>Повторить действия с видео</fallback>."
+
+msgid "Remove your glasses, if necessary"
+msgstr "При необходимости снимите очки."
+
 msgid "Replication,"
 msgstr "Репликация,"
 
@@ -9049,6 +9400,9 @@ msgstr "Исследование и оценка блокчейн-техноло
 msgid "Research new payment systems that are available in the market"
 msgstr "Поиск новых платёжных систем, доступных на рынке"
 
+msgid "Resend link"
+msgstr "Отправить ссылку повторно"
+
 msgid "Reset Barrier"
 msgstr "Барьер Reset"
 
@@ -9070,11 +9424,23 @@ msgstr "Reset Пут"
 msgid "Reset Time"
 msgstr "Время Reset"
 
+msgid "Reset my virtual balance"
+msgstr ""
+
 msgid "Reset password"
 msgstr "Изменить пароль"
 
+msgid "Reset the balance of your virtual account to %1 anytime."
+msgstr ""
+
 msgid "Reset to original settings"
 msgstr "Восстановить исходные настройки"
+
+msgid "Reset your virtual balance"
+msgstr ""
+
+msgid "Residence permit"
+msgstr ""
 
 msgid "Residents of countries that have been identified by the FATF as having strategic deficiencies shall be restricted from opening an account with Deriv Investments (Europe) Limited."
 msgstr "Граждане стран, перечисленных FATF (Группой разработки финансовых мер борьбы с отмыванием денег) по причине нормативно-правового регулирования, не могут открыть счёт в компании Deriv Investments (Europe) Limited."
@@ -9102,6 +9468,15 @@ msgstr "Ответственная торговля"
 
 msgid "Rest assured that your information will only be used for CRS/FATCA reporting purposes and will be kept safe."
 msgstr "Мы гарантируем, что ваша информация будет использована только с целью отчётности по CRS/FATCA и будет надёжно храниться."
+
+msgid "Restart process on a different device"
+msgstr "Повторите процесс на другом устройстве."
+
+msgid "Restart the process on the latest version of Google Chrome"
+msgstr "Повторите процесс в последней версии Google Chrome."
+
+msgid "Restart the process on the latest version of Safari"
+msgstr "Повторите процесс в последней версии Safari."
 
 msgid "Restrict the client’s account to prevent the client from closing any affected trades until the corporate action is passed"
 msgstr "Ограничить счет клиента, чтобы предотвратить закрытие клиентом любых затронутых контрактов, пока не будет принято корпоративное действие."
@@ -9256,8 +9631,17 @@ msgstr "Сбережения и наследство"
 msgid "Scalable"
 msgstr "Масштабируемость"
 
+msgid "Scan QR code"
+msgstr "Сканировать QR-код"
+
 msgid "Scan the QR code below with your authentication app. We recommend %1 or %2. Please note that %3 is not supported."
 msgstr "Отсканируйте QR-код ниже через спец. приложение. Рекомендуем %1 или %2. Обратите внимание, что %3 не поддерживается."
+
+msgid "Scan the QR code with your phone"
+msgstr "Отсканируйте QR-код со своего телефона."
+
+msgid "Scans and photocopies are not accepted"
+msgstr "Сканы и ксерокопии не принимаются"
 
 msgid "Schedule and coordinate interviews with candidates"
 msgstr "Планирование и координация интервью с кандидатами"
@@ -9279,6 +9663,9 @@ msgstr "Проверка и утверждение контента сайта, 
 
 msgid "Scrutinise clients' user behaviour on our trading platform"
 msgstr "Проведение оценки поведения пользователей на нашей торговой платформе"
+
+msgid "Search for country"
+msgstr ""
 
 msgid "Search..."
 msgstr "Поиск..."
@@ -9334,11 +9721,20 @@ msgstr "Выберите актив"
 msgid "Select Trade Type"
 msgstr "Выберите вид контракта"
 
+msgid "Select a %{country} document"
+msgstr "Выберите документ %{country}"
+
+msgid "Select country"
+msgstr "Выберите страну"
+
 msgid "Select currency"
 msgstr "Выберите валюту"
 
 msgid "Select date"
 msgstr "Выберите дату"
+
+msgid "Select issuing country"
+msgstr ""
 
 msgid "Select market:"
 msgstr "Выбрать рынок:"
@@ -9373,8 +9769,14 @@ msgstr "Самоисключение на этом веб-сайте приме�
 msgid "Self-motivation and flexibility in task rotations"
 msgstr "Высокая мотивация и гибкость при выполнении разнообразных задач"
 
+msgid "Selfie"
+msgstr "Селфи"
+
 msgid "Selfie holding proof of identity (front)"
 msgstr "Селфи с документом, удостоверяющим вашу личность (лицевая сторона)"
+
+msgid "Selfie uploaded"
+msgstr "Селфи загружено."
 
 msgid "Sell"
 msgstr "Продажа"
@@ -9394,11 +9796,23 @@ msgstr "Продажа опциона"
 msgid "Sell your long-term contracts before expiry to protect any profits you may have made or to minimise your losses."
 msgstr "Продавайте долгосрочные контракты до истечения срока их действия, чтобы зафиксировать прибыль или минимизировать убыток."
 
+msgid "Send a secure link to your phone"
+msgstr "Отправьте защищенную ссылку на свой телефон"
+
+msgid "Send link"
+msgstr "Отправить ссылку"
+
+msgid "Send this one-time link to your phone"
+msgstr "Отправьте эту одноразовую ссылку на свой телефон"
+
 msgid "Send us your CV and cover letter. We'll compare your skills and experience with our requirements."
 msgstr "Отправьте ваше резюме и сопроводительное письмо. Мы сопоставим ваши навыки и опыт с нашими требованиями."
 
 msgid "Send your funds to the payment agent. The deposited funds, less the agent's commission, will show up in your account."
 msgstr "Переведите средства платежному агенту. Внесенные средства за вычетом комиссии агента появятся на вашем счете."
+
+msgid "Sending"
+msgstr "Отправка"
 
 msgid "Sep"
 msgstr "Сен"
@@ -9511,6 +9925,9 @@ msgstr "Должно начинаться с буквы или цифры; мо�
 msgid "Should these expenses not be covered by funds in the Affiliate's account, the Company reserves the right to investigate alternative means for obtaining payment. For example, should the Affiliate's account have generated purchasing accounts, the Company will hold payment of commission for these accounts until such a time as the account for damages has been cleared."
 msgstr "Если такие расходы не будут покрыты средствами на Партнёрском счете, Компания оставляет за собой право применить альтернативные способы получения оплаты. Например, если Партнёрский счёт связан с рядом счетов, Компания удержит выплату комиссионных по данным счетам до полной компенсации причинённого ущерба."
 
+msgid "Show all details — including the bottom 2 lines"
+msgstr "Показаны все данные, включая 2 нижние строки"
+
 msgid "Show all historical transactions up to"
 msgstr "Показать историю всех контрактов до"
 
@@ -9583,6 +10000,9 @@ msgstr "Решение сложных бизнес-задач с использ�
 msgid "Some of the things that cryptocurrencies have in common include:"
 msgstr "Криптовалюты имеют некоторые схожие черты:"
 
+msgid "Something's gone wrong"
+msgstr "Что-то пошло не так"
+
 msgid "Sorry,"
 msgstr "Извините,"
 
@@ -9603,6 +10023,9 @@ msgstr "Извините, пополнение счета в этой валют
 
 msgid "Sorry, mobile version is not available yet."
 msgstr "Извините, мобильная версия пока недоступна."
+
+msgid "Sorry, no mobile phone bills"
+msgstr "Извините, никаких счетов за мобильный телефон"
 
 msgid "Sorry, this feature is available to virtual accounts only."
 msgstr "Извините, эта опция доступна только для демо-счетов."
@@ -9766,6 +10189,9 @@ msgstr "Step индексы"
 msgid "Step outdoors and soak up the sun on one of Labuan's pristine beaches. There's also wreck diving, island hopping, kayaking, and deep sea fishing to look forward to."
 msgstr "Прогуляйтесь по округе, наслаждаясь ласковым солнцем и тихими пляжами Лабуана. Попробуйте дайвинг к затонувшим кораблям, путешествие по островам, катание на каяке и рыбалку в открытом океане."
 
+msgid "Steps required to continue verification on your mobile"
+msgstr "Шаги, необходимые для продолжения верификации с мобильного телефона:"
+
 msgid "Sticpay is a global e-wallet service for money transfers and online payments. For more information, please visit %1."
 msgstr "Sticpay – это международный электронный кошелёк, предназначенный для денежных переводов и онлайн платежей. Более подробную информацию можно узнать на сайте %1."
 
@@ -9845,13 +10271,13 @@ msgid "Subject to the availability and sufficiency of funds in their MT5 Real Ac
 msgstr "При условии наличия достаточного количества средств на Реальном счете MT5 и соответствия лимитам на перевод за день, клиент может перевести средства с текущего Реального счёта MT5 на счёт %1."
 
 msgid "Subject to the law and the terms and conditions of this agreement, the Company shall not be liable to the Agent for any matter arising out of or in relation to this agreement."
-msgstr "В рамках действующего законодательства, правил и условий данного соглашения, Компания не должна нести ответственности перед Агентом за любые обстоятельства, возникающие ввиду или в связи с данным соглашением."
+msgstr "В рамках действующего законодательства, правил и условий настоящего соглашения, Компания не должна нести ответственности перед Агентом за любые обстоятельства, возникающие ввиду или в связи с настоящим соглашением."
 
 msgid "Subject to the law, neither the Company nor any of its directors, officers, managers, employees, or agents shall be liable to the Agent or client for any loss, damage, or debt whatsoever arising directly or indirectly out of, or in connection with, this agreement. The Agent agrees to indemnify the Company and its directors, officers, managers, employees, or agents from, and against, any and all liabilities, losses, damages, costs, and expenses, including all and any legal fees incurred arising out of the Agent's failure to comply with any and all of the Agent's obligations set forth in this agreement."
-msgstr "Согласно закону, Компания, а также её руководители, представители, управляющие, сотрудники или агенты не несут ответственности перед Агентом или клиентом за любые потери, ущерб или задолженности, прямо или косвенно возникающие в результате или в связи с данным соглашением. Настоящим Агент соглашается оградить Компанию, её руководителей, представителей, управляющих, сотрудников или агентов от любой ответственности, потерь, убытков, затрат или расходов (включая соответствующий гонорар юриста), возникающих в результате несоблюдения им любых обязанностей, перечисленных в данном соглашении."
+msgstr "В соответствии с законом ни Компания, ни ее руководители, представители, управляющие, сотрудники или агенты не несут ответственности перед Агентом или клиентом за любые потери, ущерб или задолженности, прямо или косвенно возникающие в результате или в связи с настоящим соглашением. Агент соглашается оградить Компанию, её руководителей, представителей, управляющих, сотрудников или агентов от любой ответственности, потерь, убытков, затрат или расходов (включая соответствующий гонорар юриста), возникающих в результате несоблюдения им любых обязанностей, перечисленных в настоящем соглашении."
 
 msgid "Sublicense any of the rights granted under these Terms, other than as permitted by these Terms"
-msgstr "Перепоручать любые права, полученные в рамках данных Правил, за исключением случаев, разрешенных данными Правилами."
+msgstr "Сублицензировать любые права, предоставленные в соответствии с настоящими Правилами, за исключением разрешенных настоящими Правилами."
 
 msgid "Submit"
 msgstr "Подтвердить"
@@ -9859,14 +10285,41 @@ msgstr "Подтвердить"
 msgid "Submit a report on HackerOne of any potential security issue you found, along with any suggestions you have to resolve the issue."
 msgstr "Отправьте на HackerOne отчёт о любых потенциальных нарушениях системы безопасности, которые вам удалось найти, а также укажите свои варианты улучшений."
 
+msgid "Submit document"
+msgstr ""
+
 msgid "Submit for review"
 msgstr "Отправить на ознакомление"
+
+msgid "Submit identity card (back)"
+msgstr "Отправить ID-карту (оборотная сторона)"
+
+msgid "Submit identity card (front)"
+msgstr "Отправить ID-карту (лицевая сторона)"
+
+msgid "Submit license (back)"
+msgstr "Отправить права (оборотная сторона)"
+
+msgid "Submit license (front)"
+msgstr "Отправить права (лицевая сторона)"
 
 msgid "Submit one of the documents below"
 msgstr "Отправьте один из документов, указанных ниже"
 
+msgid "Submit passport photo page"
+msgstr "Отправить страницу паспорта с фотографией"
+
+msgid "Submit residence permit (back)"
+msgstr ""
+
+msgid "Submit residence permit (front)"
+msgstr ""
+
 msgid "Submit the document below"
 msgstr "Отправьте документ, указанный ниже"
+
+msgid "Submit verification"
+msgstr "Отправить подтверждение"
 
 msgid "Submit your CV and Cover Letter"
 msgstr "Отправьте своё резюме и сопроводительное письмо"
@@ -9994,6 +10447,36 @@ msgstr "Таблица 4 – Информация о ежедневных цен
 msgid "Table 6 - Likelihood of execution information"
 msgstr "Таблица 6 – Информация о вероятности исполнения"
 
+msgid "Take a photo"
+msgstr "Сделайте фото"
+
+msgid "Take a photo of the back of your card"
+msgstr "Сфотографируйте оборотную сторону карты"
+
+msgid "Take a photo of the back of your license"
+msgstr "Сфотографируйте оборотную сторону прав"
+
+msgid "Take a photo of the front of your card"
+msgstr "Сфотографируйте лицевую сторону карты"
+
+msgid "Take a photo of the front of your license"
+msgstr "Сфотографируйте лицевую сторону прав"
+
+msgid "Take a photo of your passport photo page"
+msgstr "Сфотографируйте страницу паспорта с фотографией"
+
+msgid "Take a photo using the <fallback>basic camera mode</fallback> instead"
+msgstr "Сделайте фото в <fallback>базовом режиме камеры</fallback>"
+
+msgid "Take a photo with your phone"
+msgstr "Сделай фото на свой телефон"
+
+msgid "Take a selfie"
+msgstr "Сделайте селфи"
+
+msgid "Take a selfie showing your face"
+msgstr "Сделайте селфи, показывающее ваше лицо"
+
 msgid "Take a short-term or long-term view with trade durations from 10 seconds to 365 days."
 msgstr "Торгуйте краткосрочными и долгосрочными контрактами: от 10 секунд до 365 дней."
 
@@ -10002,6 +10485,9 @@ msgstr "всегда предпринимать все разумные меры
 
 msgid "Take necessary measures to correct and enhance IT operations"
 msgstr "Принятие необходимых мер для корректировки и улучшения IT-операций"
+
+msgid "Take photo"
+msgstr "Сделать фото"
 
 msgid "Taking the following measures, the Company is committed to making sure that the client's personal data and transactions are secure:"
 msgstr "Предпринимая меры, изложенные ниже, Компания обязуется удостовериться, что личные данные и информация о контрактах клиента находятся в безопасности:"
@@ -10055,13 +10541,13 @@ msgid "Term and termination"
 msgstr "Сроки и прекращение действия Соглашения"
 
 msgid "Term and termination of this Agreement"
-msgstr "Сроки и прекращение действия данного Соглашения"
+msgstr "Сроки и прекращение действия настоящего Соглашения"
 
 msgid "Terminate the Programmer's use of the %1 API"
 msgstr "прекратить использование Программистом API %1,"
 
 msgid "Terminate this Agreement"
-msgstr "прекратить действие данного Соглашения."
+msgstr "прекратить действие настоящего Соглашения."
 
 msgid "Termination"
 msgstr "Окончание действия"
@@ -10070,7 +10556,7 @@ msgid "Termination causes"
 msgstr "Причины прекращения действия Соглашения"
 
 msgid "Termination of this Agreement shall not prejudice any rights of any party which may have arisen on or before the date of termination."
-msgstr "Прекращение действия данного Соглашения не повлияет на права любой из сторон, которые были в силе до или на момент прекращения действия Соглашения."
+msgstr "Прекращение действия настоящего Соглашения не повлияет на права любой из сторон, которые были в силе до или на момент прекращения действия Соглашения."
 
 msgid "Terms and Conditions"
 msgstr "Правила и условия"
@@ -10111,6 +10597,9 @@ msgstr "Tether – это криптовалюта на основе блокч�
 msgid "Th"
 msgstr "Чт"
 
+msgid "Thank you"
+msgstr "Спасибо"
+
 msgid "Thank you for completing the Financial Assessment. You can now deposit funds and trade forex with real money on MetaTrader 5."
 msgstr "Спасибо за прохождение финансовой оценки. Теперь вы можете внести на счёт средства и торговать реальными деньгами на forex на MetaTrader 5."
 
@@ -10130,7 +10619,7 @@ msgid "That contravenes any laws, regulations, instruments, ordinances, or rules
 msgstr "нарушающей любые законы, нормы, противоречащей правилам инструментов, предписаниям, правилам работы любой биржи, финансового рынка или нормативно-правовой базе финансового сектора;"
 
 msgid "That the parties agree in writing that both parties will be exempt from the provisions of this clause"
-msgstr "в ситуации, когда обе стороны подписали письменное согласие освободить обе стороны от исполнения данного положения."
+msgstr "в ситуации, когда обе стороны подписали письменное согласие освободить обе стороны от исполнения настоящего положения."
 
 msgid "That the recipient is obliged by Law to disclose such information, provided that the recipient promptly advises the other party of the legal obligation to disclose such information"
 msgstr "которую получатель обязан раскрыть по закону, при условии, что получатель своевременно уведомит вторую сторону о юридическом обязательстве разгласить данную информацию,"
@@ -10558,8 +11047,8 @@ msgstr "Компания оставляет за собой право внос�
 msgid "The Company reserves the right to refuse the Affiliate's referrals' application to open an account (or to close the Affiliate's account), as deemed necessary, to comply with any requirements that the Company may periodically establish and/or that may be required under applicable laws, rules, and regulations."
 msgstr "Компания оставляет за собой право отклонить заявку клиентов, привлечённых Партнёром, на открытие (или закрытие) счета с целью соблюдения требований, которые Компания может периодически устанавливать и/или которые могут быть необходимы в рамках применимого законодательства, правил и норм."
 
-msgid "The Company reserves the right to refuse the client's request to open an MT5 Real Account for any reason, and any MT5 Real Account may be closed at the Company's discretion at any time."
-msgstr "Компания оставляет за собой право отказать клиенту в открытии Реального счёта MT5 по любой причине. Каждый Реальный счёт MT5 может быть в любое время закрыт по усмотрению Компании."
+msgid "The Company reserves the right to refuse the client's request to open an MT5 Real Account for any reason, and any MT5 Real Account may be closed at the Company's discretion at any time upon 7-day notice."
+msgstr ""
 
 msgid "The Company reserves the right to refuse to do business with, to discontinue to do business with, and to reverse the transactions of clients who engage in any trading activity"
 msgstr "Компания оставляет за собой право отказаться от ведения бизнеса, а также прекратить любое сотрудничество и отменить транзакции клиентов, занимающихся следующей деятельностью"
@@ -10928,7 +11417,7 @@ msgid "The anti-money laundering processes have the following effects on clients
 msgstr "Процедуры по предотвращению отмывания денег имеют следующие требования:"
 
 msgid "The applicable jurisdiction shall be one of the following:"
-msgstr ""
+msgstr "Применимая юрисдикция должна быть одной из следующих:"
 
 msgid "The applicant also has the right to restrict the further processing of their personal data."
 msgstr "Заявитель также имеет право ограничить дальнейшую обработку своих персональных данных."
@@ -11338,6 +11827,9 @@ msgstr "Уровень защиты, предложенный и предост�
 msgid "The leverage ratio refers to the number of times that the client's margin (the amount set aside from the client's account balance to open and maintain a transaction) can be \"leveraged\" to enter into a transaction. The denominator of the leverage ratio is always one. A 50:1 leverage is equivalent to a 2% margin requirement (1 divided by 50 = 2%). The leverage ratio that the Company/the client establishes will determine the amount of margin required. As leverage is inversely proportional to margin, as the leverage that the client sets for the client's account gets lower, the margin required to be set aside from the client's account balance (the client's margin requirement) gets higher."
 msgstr "Коэффициент кредитного плеча показывает, во сколько раз может быть увеличена маржа (сумма, которая будет заблокирована на счете клиента для открытия и поддержания контракта). Знаменатель в коэффициенте кредитного плеча всегда равен 1. Кредитное плечо в размере 50:1 эквивалентно маржинальному требованию в размере 2% (1 разделить на 50 = 2%). Установленный Компанией/клиентом коэффициент кредитного плеча определяет необходимый уровень маржи. Кредитное плечо обратно пропорционально марже: чем ниже кредитное плечо, установленное на счете клиента, тем выше уровень маржи, который должен быть заблокирован на балансе клиента (маржинальное требование)."
 
+msgid "The link only works on mobile devices"
+msgstr "Ссылка работает только на мобильных устройствах"
+
 msgid "The market conditions of the financial instruments that client orders are related to, which includes the need for timely execution, availability of price improvement, liquidity of the market, size of client order, and the potential impact on total consideration"
 msgstr "условиями рынка на финансовых инструментах, к которым относятся ордеры клиентов, что включает необходимость своевременного исполнения, возможность улучшения цены, ликвидность на рынке, размер ордера клиента, а также его потенциальное влияние на общую прибыль."
 
@@ -11397,6 +11889,9 @@ msgstr "Патент означает признание Regent Markets пион
 
 msgid "The payout is the amount paid to an options trader if their prediction is correct."
 msgstr "Выплата – это сумма, которую получит трейдер, если его прогноз окажется верен."
+
+msgid "The photo should clearly show your document"
+msgstr ""
 
 msgid "The premier platform for trading binary options in the world's financial markets"
 msgstr "Ведущая платформа для торговли бинарными опционами на мировых финансовых рынках"
@@ -11604,6 +12099,9 @@ msgstr "Данные Дополнительные правила и услови
 
 msgid "These ST&Cs form part of, and need to be read together with, the general terms and conditions relating to the use of %1."
 msgstr "Данные Дополнительные правила и условия являются частью и должны рассматриваться вместе с общими правилами и условиями, определяющими порядок использования %1."
+
+msgid "These are the documents most likely to show your current home address"
+msgstr "В этих документах, скорее всего, будет указан ваш текущий домашний адрес"
 
 msgid "These are trades where the trader predicts if a market will finish higher or lower than a specified price target."
 msgstr "Контракты, где трейдер прогнозирует, закончится ли рынок выше или ниже заданного ценового барьера."
@@ -11890,6 +12388,9 @@ msgstr "Времена меняются. Мы увеличиваем выпла�
 msgid "Tips"
 msgstr "Советы"
 
+msgid "Tips to take a good selfie"
+msgstr "Советы, как сделать хорошее селфи"
+
 msgid "Tips:"
 msgstr "Советы:"
 
@@ -11947,6 +12448,9 @@ msgstr "Чтобы получить более подробную информа
 msgid "To maintain Open Positions, the client is required to have sufficient Account Equity to cover any Margin Requirement. If a client's Margin Level is less than the Margin Level set for their account, the client has entered into a Margin Call and is required to increase their Margin Level above the account's specified level in order to avoid a Stop Out to occur. The client may not be able to place an Order to open a transaction unless there is sufficient Account Equity to cover the Total Margin."
 msgstr "Чтобы поддерживать открытые позиции, клиент должен иметь достаточный остаток средств на счете для покрытия всех маржинальных требований. Если уровень маржи клиента опускается ниже уровня, установленного для его счета, клиент получит маржин колл и должен будет увеличить свой уровень маржи, чтобы избежать стоп-аута. Клиенту может быть отказано в размещении ордера на открытие контракта, если на его счете нет достаточных средств для покрытия общей маржи."
 
+msgid "To open a bank account, we will need to verify your identity."
+msgstr "Чтобы открыть банковский счет, нам необходимо будет подтвердить вашу личность."
+
 msgid "To perform this action, please set the %1currency%2 of your account."
 msgstr "Чтобы выполнить это действие, пожалуйста, установите %1валюту%2 вашего счёта."
 
@@ -11964,6 +12468,9 @@ msgstr "Чтобы изменить пароль, введите ваш заре
 
 msgid "To reset your trading or investor password, please click the button below:"
 msgstr "Для изменения торгового или инвестиционного пароля нажмите на кнопку ниже:"
+
+msgid "To smoothly verify you, we need a better photo"
+msgstr ""
 
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr "которая на момент исполнения данного Соглашения была или впоследствии стала известной широкой общественности без участия сторон,"
@@ -11988,6 +12495,9 @@ msgstr "Название ключа"
 
 msgid "Too addictive"
 msgstr "Слишком затягивает"
+
+msgid "Too many failed attempts"
+msgstr "Слишком много неудачных попыток"
 
 msgid "Top Up Virtual Account"
 msgstr "Пополнить демо-счёт"
@@ -12135,6 +12645,9 @@ msgstr "Торгуйте популярными криптовалютами н�
 
 msgid "Trade popular major and minor currency pairs, plus Smart FX indices – weighted indices that measure the value of a currency against a basket of major currencies."
 msgstr "Торгуйте популярными основными и вторичными валютными парами, а также индексами Smart FX – взвешенными индексами, измеряющими стоимость валюты против корзины из основных валют."
+
+msgid "Trade server:"
+msgstr ""
 
 msgid "Trade type"
 msgstr "Тип контракта"
@@ -12361,6 +12874,12 @@ msgstr "Опробуйте наши %1Синтетические индексы%
 msgid "Try our other markets."
 msgstr "Вы можете торговать на других активах."
 
+msgid "Try using a JPG or PNG file"
+msgstr "Попробуйте использовать файл JPG или PNG"
+
+msgid "Try using another file type."
+msgstr "Попробуйте использовать другой тип файла."
+
 msgid "Tu"
 msgstr "Вт"
 
@@ -12523,6 +13042,9 @@ msgstr "Незнакомая операционная система"
 msgid "Unless otherwise advised, DIEL shall treat a client as a retail client. Clients may also request, by writing to DIEL, to change the category in which they have been classified, and this may have an effect on the level of protection afforded to them. DIEL will assess the client's knowledge and experience versus the appropriateness of the requested service/investment product."
 msgstr "Если не упомянуто иначе, DIEL будет считать клиента Индивидуальным клиентом. Также клиенты могут в письменном виде запросить изменить свою категорию, что может сказаться на уровне предоставляемой им защиты. DIEL оценит знания и опыт клиента на предмет соответствия запрошенной услуги/инвестиционного продукта."
 
+msgid "Unsupported browser"
+msgstr "Неподдерживаемый браузер"
+
 msgid "Up to %1"
 msgstr "До %1"
 
@@ -12558,6 +13080,39 @@ msgstr "Обновите счёт %1 до %2Игрового счёта%3."
 
 msgid "Upgrade your account and start trading using real money."
 msgstr "Обновите счёт и начните торговлю на реальные деньги."
+
+msgid "Upload"
+msgstr "Загрузить"
+
+msgid "Upload a selfie from your computer"
+msgstr "Загрузите селфи со своего компьютера"
+
+msgid "Upload anyway"
+msgstr ""
+
+msgid "Upload back of card from your computer"
+msgstr "Загрузите оборотную сторону карты со своего компьютера"
+
+msgid "Upload back of license from your computer"
+msgstr "Загрузите оборотную сторону прав со своего компьютера"
+
+msgid "Upload front of card from your computer"
+msgstr "Загрузите лицевую сторону карты со своего компьютера"
+
+msgid "Upload front of license from your computer"
+msgstr "Загрузите лицевую сторону прав со своего компьютера"
+
+msgid "Upload passport photo page"
+msgstr "Загрузите страницу паспорта с фотографией"
+
+msgid "Upload passport photo page from your computer"
+msgstr "Загрузите страницу паспорта с фото со своего компьютера"
+
+msgid "Upload photo"
+msgstr "Загрузить фото"
+
+msgid "Uploads successful"
+msgstr "Загрузки прошли успешно"
 
 msgid "Upon closing a trade, the realised profit (or loss), which is represented by the difference between the opening level and closing level of the trade multiplied by the number of lots (volume), becomes due and payable by the Company to the client (or due and payable by the client to the Company in cases of realised loss)."
 msgstr "После закрытия контракта реализованная прибыль (или убыток), которая представлена разницей между уровнем открытия и уровнем закрытия сделки, умноженной на количество лотов (объем), подлежит выплате Компанией клиенту (или причитающиеся и подлежащие уплате клиентом Компании в случае реализованных убытков)."
@@ -12658,8 +13213,14 @@ msgstr "Код проверки"
 msgid "Verification code is wrong. Please use the link sent to your email."
 msgstr "Неправильный проверочный код. Пожалуйста, воспользуйтесь ссылкой, отправленной на ваш email."
 
+msgid "Verification complete"
+msgstr "Верификация завершена"
+
 msgid "Verification required"
 msgstr "Требуется проверка"
+
+msgid "Verify Identity"
+msgstr "Подтвердить личность"
 
 msgid "Verify Reset Password"
 msgstr "Подтвердите изменение пароля"
@@ -12680,7 +13241,7 @@ msgid "Verify new password"
 msgstr "Подтвердите новый пароль"
 
 msgid "Version 49. Last modified 23-11-2020."
-msgstr ""
+msgstr "Версия 49. Последние изменения: 23-11-2020."
 
 msgid "Video Room Facility"
 msgstr "Видео комната"
@@ -12696,6 +13257,9 @@ msgstr "См. доступные способы оплаты"
 
 msgid "View chart"
 msgstr "Обзор графика"
+
+msgid "View from camera"
+msgstr "Вид с камеры"
 
 msgid "View guide"
 msgstr "Просмотреть гид"
@@ -12838,6 +13402,9 @@ msgstr "Мы считаем, что всегда должны поступать
 msgid "We can't validate your personal details because there is some information missing."
 msgstr "Мы не можем подтвердить ваши личные данные, потому что отсутствует некоторая информация."
 
+msgid "We cannot verify you without using your camera"
+msgstr "Мы не можем верифицировать вас, не используя камеру"
+
 msgid "We delete an order with the largest margin reserved."
 msgstr "Ордер с наибольшим маржинальным требованием будет удален."
 
@@ -12937,6 +13504,9 @@ msgstr "Мы не разрешаем использовать наши прод�
 msgid "We'd love to hear what you think."
 msgstr "Будем рады узнать ваше мнение."
 
+msgid "We'll compare it with your document"
+msgstr "Мы сравним его с вашим документом"
+
 msgid "We're almost there"
 msgstr "Почти готово"
 
@@ -12952,6 +13522,9 @@ msgstr "Мы всегда стремимся совершенствовать н
 msgid "We're not obliged to conduct an appropriateness test, nor provide you with any risk warnings"
 msgstr "Мы не обязаны проводить тест на проверку целесообразности и предоставлять вам любые предупреждения о возможном риске"
 
+msgid "We're now ready to verify your identity"
+msgstr "Теперь мы готовы подтвердить вашу личность"
+
 msgid "We're projected to register over 377 million transactions this year, bringing the total number of contracts that were bought and sold on our platform since inception to over 1.42 billion."
 msgstr "Количество контрактов в этом году способно превысить 377 млн., а общее количество контрактов, заключённых на нашей платформе с момента основания, превысит 1.42 млрд."
 
@@ -12960,6 +13533,9 @@ msgstr "Мы очень гордимся этой наградой. Мы стр�
 
 msgid "We've grown in size over the years - both in terms of manpower and offices. We currently have over %1 employees across four offices in Malaysia, Malta, Paraguay and Dubai. Further growth in headcount is expected this year to cater to the increased demand in our products and services."
 msgstr "За последние годы мы значительно выросли в размерах, как в отношении количества сотрудников, так и в отношении числа действующих офисов. На данный момент в офисах в Малайзии, Парагвае, Дубае и на Мальте трудится более %1 человек. В этом году мы ожидаем дальнейший рост наших ресурсов, чтобы соответствовать растущему спросу на наши продукты и услуги."
+
+msgid "We've sent a secure link to %{number}"
+msgstr "Мы отправили безопасную ссылку на %{number}"
 
 msgid "Web and software developer"
 msgstr "Веб разработчик и разработчик ПО"
@@ -13071,6 +13647,9 @@ msgstr "При исполнении ордеров клиента с испол�
 
 msgid "When it comes to food, you'll be spoilt for choice. Cuisine from every part of the world can be found in Dubai, but that doesn't mean that local flavours should be ignored: chebab (saffron pancakes), khameer (puffed flatbreads), harees (savoury porridge), tender roasted meats, and pistachio-stuffed sweets are some of the local dishes that will excite your taste buds. There are also numerous economical options in the form of chain restaurants that cater to a variety of tastes."
 msgstr "Местная кухня славится большой палитрой вкусов и разнообразием. К вашим услугам блюда из всех уголков мира и лучшие местные яства: чебаб (блинчики с шафраном), хамир (воздушные лепёшки), харис (каша с пряностями), нежное жареное мясо, а также сладости с фисташками, которые приятно порадуют ваши вкусовые рецепторы. Также в городе есть более экономичные заведения, например, сетевые рестораны, предлагающие широкий ассортимент вкусов и блюд."
+
+msgid "When prompted, you must enable camera access to continue"
+msgstr "При появлении запроса вы должны разрешить доступ к камере, чтобы продолжить"
 
 msgid "When the Affiliate's referred clients open an account with any member of the Deriv group, the Company assumes ownership of the database of names and contact information and any other data of the Affiliate's referred clients."
 msgstr "Когда клиенты, направленные Партнёром, открывают счёт на сайте любого представителя Deriv Group, Компания будет обладать правом собственности на базу данных, содержащую имена, контактные данные, а также любые другие данные о клиентах, привлеченных Партнёром."
@@ -13226,7 +13805,7 @@ msgid "Where the Introducing Broker owns, or operates, a website and wishes to i
 msgstr "Если Представляющий брокер владеет или управляет вебсайтом и хочет добавить услуги Binary, Представляющему брокеру нужно выполнить следующие действия:"
 
 msgid "Where the client makes any false or misleading representation to the Company breaching the clauses under Governing laws and jurisdiction"
-msgstr ""
+msgstr "Если клиент делает какие-либо ложные или вводящие в заблуждение заявления в адрес Компании, нарушая положения применимого законодательства и юрисдикции."
 
 msgid "Where the client's obligations to the Company are due and payable, the Company shall cease to treat as client money the amount equal to the amount of such obligations."
 msgstr "В случае необходимости погашения обязательств клиента перед Компанией, Компания имеет полномочия вычесть из денег клиента сумму, равную размеру таковых обязательств."
@@ -13519,6 +14098,9 @@ msgstr "Вы не можете изменить валюту счёта, так 
 msgid "You can no longer change the currency because you've made a first-time deposit."
 msgstr "Вы не можете изменить валюту счёта, так как вы уже пополняли счёт."
 
+msgid "You can now return to your computer to continue"
+msgstr "Теперь вы можете вернуться и продолжить со своего компьютера"
+
 msgid "You can open a fiat currency account without closing your cryptocurrency account."
 msgstr "Вы можете открыть фиатный счет, не закрывая своего криптовалютного счета."
 
@@ -13529,9 +14111,6 @@ msgid "You can set limits to your account and trading activities. Go to the %1se
 msgstr "Вы можете устанавливать ограничения на свой счет и торговую деятельность. Для этого перейдите на %1страницу самоисключения%2."
 
 msgid "You can top up your demo account with an additional %1 if your balance is %2 or less."
-msgstr "Вы можете дополнительно внести на демо-счёт %1, если его баланс составит %2 или ниже."
-
-msgid "You can top up your virtual account with an additional %1 if your balance is %2 or less."
 msgstr "Вы можете дополнительно внести на демо-счёт %1, если его баланс составит %2 или ниже."
 
 msgid "You can use an authorized payment agent to process deposits and withdrawals for payment methods or local currencies not supported by %1. It's easy to do."
@@ -13714,6 +14293,9 @@ msgstr "Вы выигрываете, если рыночная цена по и�
 msgid "You win the payout if the market price ends in the digit you have selected."
 msgstr "Вы выигрываете, если рыночная цена по истечении срока действия контракта будет заканчиваться выбранной вами цифрой."
 
+msgid "You'll need to restart your verification on your computer"
+msgstr "Вам нужно будет перезапустить верификацию на вашем компьютере"
+
 msgid "You're buying the %1 and selling the %2."
 msgstr "Вы покупаете %1 и продаёте %2."
 
@@ -13807,11 +14389,17 @@ msgstr "Ваши изменения внесены успешно."
 msgid "Your commission for the previous calendar month will be deposited into your account by the 15th of every month."
 msgstr "Комиссионные за предыдущий календарный месяц поступят на ваш счёт к 15 числу каждого месяца."
 
+msgid "Your computer may take a few seconds to update"
+msgstr "Вашему компьютеру может потребоваться несколько секунд на обновление"
+
 msgid "Your demo account balance is currently %1 or less. You may top up your account with an additional %2."
 msgstr "В данный момент баланс вашего демо-счёта составляет %1 или ниже. Вы можете пополнить счёт дополнительными %2."
 
 msgid "Your document is being reviewed, please check back in 1-3 days"
 msgstr "Ваши документы проходят процесс проверки. Пожалуйста, подождите от 1 до 3 дней"
+
+msgid "Your face is needed in the selfie"
+msgstr "На селфи должно быть ваше лицо"
 
 msgid "Your fiat account's currency is currently set to %1."
 msgstr "Валютой вашего фиатного счета является %1."
@@ -13821,6 +14409,12 @@ msgstr "Валютой вашего фиатного счета является
 
 msgid "Your fund transfer is successful. Your new balances are:"
 msgstr "Перевод средств выполнен успешно. Ваш новый баланс:"
+
+msgid "Your link will expire in one hour"
+msgstr "Срок действия вашей ссылки истечет через час."
+
+msgid "Your mobile link will expire in one hour"
+msgstr "Срок действия вашей мобильной ссылки истечет через час."
 
 msgid "Your name, email address and contact number"
 msgstr "Вашего имени, электронного адреса и номера телефона"
@@ -13900,9 +14494,6 @@ msgstr "Номер вашей транзакции:"
 msgid "Your transaction reference number is %1"
 msgstr "Номер вашей транзакции: %1"
 
-msgid "Your virtual account balance is currently %1 or less. You may top up your account with an additional %2."
-msgstr "В данный момент баланс вашего демо-счёта составляет %1 или ниже. Вы можете пополнить счёт дополнительными %2."
-
 msgid "Your web browser (%1) is out of date and may affect your trading experience. Proceed at your own risk. %2Update browser%3"
 msgstr "Ваш веб браузер (%1) устарел, что может повлиять на результаты вашей торговли. Рекомендуем %2обновить браузер%3"
 
@@ -13914,9 +14505,6 @@ msgstr "Адрес вашего сайта (если есть)"
 
 msgid "Your withdrawal limit is %1%2."
 msgstr "Ваш лимит на вывод составляет %1%2."
-
-msgid "Your withdrawal will be processed in one business day (Monday to Friday 9:00 am–5:00 pm GMT+8) unless stated otherwise."
-msgstr "Ваш вывод будет обработан в течение одного рабочего дня (с понедельника по пятницу с 9:00 до 17:00 GMT+8), если не указано иначе."
 
 msgid "You’ll be logged out automatically."
 msgstr "Вы автоматически выйдете из системы."
@@ -13981,8 +14569,14 @@ msgstr "исполнение инструкций, предоставленны�
 msgid "b. Download and install the MT5 trading platform through the link %1"
 msgstr "b) загрузить и установить торговую платформу MT5 по ссылке %1"
 
+msgid "back"
+msgstr "назад"
+
 msgid "binary options, forex, forex trading, online trading, financial trading, binary trading, index trading, trading stock indices, forex trades, trading commodities, binary options strategy, binary broker, binary bet, binary options trading platform, binary strategy, finance, investment, trading"
 msgstr "бинарные опционы, forex, форекс, forex трейдинг, торговля на форекс, онлайн торговля, онлайн-трейдинг бинарный трейдинг, торговля на фондовых индексах, трейдинг на фондовых индексах, контракты на форекс, торговля на сырье, стратегия бинарных опционов, бинарный брокер, бинарная ставка, платформа для торговли бинарными опционами, бинарная стратегия, финансы, инвестиции, трейдинг"
+
+msgid "close"
+msgstr "закрыть"
 
 msgid "day"
 msgstr "дн."
@@ -13992,6 +14586,9 @@ msgstr "дн."
 
 msgid "details"
 msgstr "подробности"
+
+msgid "e.g. United States"
+msgstr ""
 
 msgid "e.g. frontend.binaryws.com"
 msgstr "напр., frontend.binaryws.com"
@@ -14040,6 +14637,9 @@ msgstr "цифры"
 
 msgid "or"
 msgstr "или"
+
+msgid "or upload photo – no scans or photocopies"
+msgstr "или загрузите фото - никаких сканов и ксерокопий"
 
 msgid "paysafecard offers a voucher-based online payment method that does not require a bank account, credit card, or other personal information. For more information, please visit %1."
 msgstr "Paysafecard предоставляет способ онлайн оплаты на основе ваучера, который не требует указания банковского счёта, кредитной карты или иной личной информации. Более подробная информация: %1."

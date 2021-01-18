@@ -61,6 +61,7 @@ const BinaryLoader = (() => {
             }
             active_script = null;
         }
+        
         ScrollToAnchor.cleanup();
     };
 
@@ -78,8 +79,10 @@ const BinaryLoader = (() => {
         ContentVisibility.init().then(() => {
             BinarySocket.wait('authorize', 'website_status', 'landing_company').then(() => {
                 GTM.pushDataLayer({ event: 'page_load' }); // we need website_status.clients_country
-                LiveChat.init();
-
+                
+                // reroute LiveChat group
+                LiveChat.rerouteGroup();
+                
                 // first time load.
                 const last_image = $('#content img').last();
                 if (last_image) {
