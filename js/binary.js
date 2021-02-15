@@ -35022,6 +35022,7 @@ var MetaTraderUI = function () {
             if (Validation.validate('#frm_new_account')) {
                 var new_account_type = newAccountGetType();
                 _$form.find('button[type="submit"]').attr('acc_type', new_account_type);
+                // TODO: Remove step 3
                 displayStep(3);
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             }
