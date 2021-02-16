@@ -34971,6 +34971,92 @@ var MetaTraderUI = function () {
         }
     };
 
+    // const addRegion = () => {
+    //     const sample_account = MetaTraderConfig.getSampleAccount(new_account_type);
+    //     $form.find('#view_3 #mt5_account_type').text(sample_account.title);
+
+    //     const $submit_button = $form.find('#btn_submit_new_account');
+    //     const $view_3_button_container = $form.find('#view_3-buttons');
+
+    //     $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_3_button_container);
+
+    //     $view_3_button_container.append($submit_button);
+    //     $view_3_button_container.setVisibility(1);
+    //     $submit_button.setVisibility(1);
+
+    //     const $ddl_trade_server = $form.find('#ddl_trade_server');
+
+    //     $ddl_trade_server.empty();
+    //     let account_type = newAccountGetType();
+    //     const num_servers = {
+    //         disabled : 0,
+    //         supported: 0,
+    //         used     : 0,
+    //     };
+
+    //     State.getResponse('trading_servers').forEach(trading_server => {
+    //         // if server is not added to account type, and in accounts_info we are not storing it with server
+    //         if (!/\d$/.test(account_type) && !accounts_info[account_type]) {
+    //             account_type += `_${trading_server.id}`;
+    //         }
+    //         const new_account_info = accounts_info[account_type];
+    //         const { market_type, sub_account_type } = new_account_info;
+
+    //         const { supported_accounts = [] } = trading_server;
+
+    //         const is_server_supported = isSupportedServer(market_type, sub_account_type, supported_accounts);
+
+    //         if (is_server_supported) {
+    //             num_servers.supported += 1;
+    //             const is_used_server = isUsedServer(is_server_supported, trading_server);
+
+    //             const is_disabled = trading_server.disabled === 1;
+
+    //             const input_attributes = {
+    //                 disabled: is_used_server || is_disabled,
+    //                 type    : 'radio',
+    //                 name    : 'ddl_trade_server',
+    //                 value   : trading_server.id,
+    //                 ...(trading_server.recommended && !is_used_server && !is_disabled && { checked: 'checked' }),
+    //             };
+
+    //             const { region, sequence } = trading_server.geolocation;
+    //             let label_text = sequence > 1 ? `${region} ${sequence}` : region;
+
+    //             if (is_used_server) {
+    //                 num_servers.used += 1;
+    //                 label_text += localize(' (account created)');
+    //             } else if (is_disabled) {
+    //                 num_servers.disabled += 1;
+    //                 label_text += localize(' (unavailable)');
+    //             }
+
+    //             $ddl_trade_server
+    //                 .append(
+    //                     $('<div />', { id: trading_server.id, class: 'gr-padding-10 gr-parent' })
+    //                         .append($('<input />', input_attributes))
+    //                         .append($('<label />', { htmlFor: trading_server.id })
+    //                             .append($('<span />', { text: label_text }))
+    //                         )
+    //                 );
+    //         }
+    //     });
+
+    //     // Check whether any of the servers is checked, if not, check one.
+    //     if ($ddl_trade_server.find('input[checked]').length === 0) {
+    //         $ddl_trade_server.find('input:not(:disabled):first').attr('checked', 'checked');
+    //     }
+
+    //     $form.find('#view_3 #server_unavailable_notice').setVisibility(num_servers.disabled > 0);
+
+    //     if (num_servers.supported === num_servers.disabled + num_servers.used) {
+    //         $submit_button.addClass('button-disabled');
+    //     } else {
+    //         $submit_button.removeClass('button-disabled');
+    //         $submit_button.removeAttr('disabled');
+    //     }
+    // };
+
     // -----------------------
     // ----- New Account -----
     // -----------------------
