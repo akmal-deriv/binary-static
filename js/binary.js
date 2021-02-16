@@ -35019,6 +35019,9 @@ var MetaTraderUI = function () {
         });
 
         _$form.find('#view_2 .btn-next').click(function () {
+            // console.log('');
+            // console.log('Validation');
+            // console.log(Validation);
             if (Validation.validate('#frm_new_account')) {
                 var new_account_type = newAccountGetType();
                 _$form.find('button[type="submit"]').attr('acc_type', new_account_type);
