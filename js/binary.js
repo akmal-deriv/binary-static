@@ -34523,10 +34523,10 @@ var MetaTraderUI = function () {
                 var mt_balance = Currency.formatMoney(MetaTraderConfig.getCurrency(acc_type), +accounts_info[acc_type].info.balance);
                 $acc_item.find('.mt-balance').html(mt_balance);
                 $action.find('.mt5-balance').html(mt_balance);
-                var $add_server_btn = $container.find('#btn_add_more_servers');
-                $add_server_btn.setVisibility(getAvailableServers(false, acc_type).length > 0 && !accounts_info[acc_type].is_demo);
+                var $add_region_btn = $container.find('#btn_add_region');
+                $add_region_btn.setVisibility(getAvailableServers(false, acc_type).length > 0 && !accounts_info[acc_type].is_demo);
                 if (disabled_signup_types.real) {
-                    $add_server_btn.addClass('button-disabled');
+                    $add_region_btn.addClass('button-disabled');
                 }
             }
             // disable MT5 account opening if created all available accounts
@@ -34537,7 +34537,7 @@ var MetaTraderUI = function () {
             }
 
             // Add more trade servers button.
-            $container.find('#btn_add_more_servers').click(function () {
+            $container.find('#btn_add_region').click(function () {
                 if (disabled_signup_types.real) {
                     return;
                 }
@@ -34592,7 +34592,7 @@ var MetaTraderUI = function () {
         if (accounts_info[acc_type].info) {
             var is_demo = accounts_info[acc_type].is_demo;
             $detail.find('.real-only').setVisibility(!is_demo);
-            $container.find('#btn_add_more_servers').setVisibility(getAvailableServers(false, acc_type).length > 0 && !is_demo);
+            $container.find('#btn_add_region').setVisibility(getAvailableServers(false, acc_type).length > 0 && !is_demo);
             // Update account info
             $detail.find('.acc-info div[data]').map(function () {
                 var key = $(this).attr('data');
@@ -34689,7 +34689,7 @@ var MetaTraderUI = function () {
             $action.find('#frm_action').html(_$form).setVisibility(1).end().setVisibility(1);
 
             if (action === 'manage_password') {
-                _$form.find('button[type="submit"]').append(accounts_info[acc_type].info.display_login ? ' ' + localize('for account [_1]', accounts_info[acc_type].info.display_login) : '');
+                _$form.find('button[action="password_change"]').append(accounts_info[acc_type].info.display_login ? ' ' + localize('for account [_1]', accounts_info[acc_type].info.display_login) : '');
                 if (!token) {
                     _$form.find('#frm_verify_password_reset').setVisibility(1);
                 } else if (!Validation.validEmailToken(token)) {
