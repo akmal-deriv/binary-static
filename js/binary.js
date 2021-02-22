@@ -33704,9 +33704,9 @@ var MetaTraderConfig = function () {
     };
 
     var hasMultipleTradeServers = function hasMultipleTradeServers(acc_type, accounts) {
-        var clean_acc_type_a = getCleanAccType(acc_type);
+        var clean_acc_type_a = getCleanAccType(getCleanAccType(acc_type));
         return Object.keys(accounts).filter(function (acc_type_b) {
-            return clean_acc_type_a === getCleanAccType(acc_type_b);
+            return clean_acc_type_a === getCleanAccType(getCleanAccType(acc_type_b));
         }).length > 1;
     };
 
@@ -34454,13 +34454,14 @@ var MetaTraderUI = function () {
 
                 if (is_used_server) {
                     num_servers.used += 1;
-                    label_text += localize(' (account created)');
                 } else if (is_disabled) {
                     num_servers.disabled += 1;
                     label_text += localize(' (unavailable)');
                 }
 
-                $ddl_trade_server.append($('<div />', { id: trading_server.id, class: 'gr-padding-10 gr-parent' }).append($('<input />', input_attributes)).append($('<label />', { htmlFor: trading_server.id }).append($('<span />', { text: label_text }))));
+                if (!is_used_server) {
+                    $ddl_trade_server.append($('<div />', { id: trading_server.id, class: 'gr-padding-10 gr-parent' }).append($('<input />', input_attributes)).append($('<label />', { htmlFor: trading_server.id }).append($('<span />', { text: label_text }))));
+                }
             }
         });
 
@@ -34566,10 +34567,11 @@ var MetaTraderUI = function () {
         var $acc_item = $list.find('[value="' + acc_type + '"]');
         $acc_item.find('.mt-type').text(accounts_info[acc_type].short_title);
         if (accounts_info[acc_type].info) {
+            var server_info = accounts_info[acc_type].info.server_info;
             setMTAccountText();
             $acc_item.find('.mt-login').text('(' + accounts_info[acc_type].info.display_login + ')');
-            if (accounts_info[acc_type].info.display_server && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) || /unknown+$/.test(acc_type)) {
-                $acc_item.find('.mt-server').text('' + accounts_info[acc_type].info.display_server);
+            if (server_info && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) || /unknown+$/.test(acc_type)) {
+                $acc_item.find('.mt-server').text('' + server_info.geolocation.region);
 
                 // add disabled style to unknown or unavailable accounts
                 if (/unknown+$/.test(acc_type)) {
@@ -34612,12 +34614,18 @@ var MetaTraderUI = function () {
                 var $back_button = _$form.find('#view_3 .btn-back');
                 var $cancel_button = _$form.find('#view_3 .btn-cancel');
                 var account_type = Client.get('mt5_account');
+                var num_servers = populateTradingServers();
 
                 loadAction('new_account', account_type);
                 _$form.find('button[type="submit"]').attr('acc_type', account_type);
                 $cancel_button.setVisibility(1);
                 $back_button.setVisibility(0);
-                displayStep(2);
+
+                if (num_servers.supported > 1) {
+                    displayStep(2);
+                } else {
+                    displayStep(3);
+                }
 
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             });
@@ -34682,8 +34690,8 @@ var MetaTraderUI = function () {
                     server: function server() {
                         return '' + (server_info && server_info.environment);
                     }
-                }, accounts_info[acc_type].info.display_server && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) && { trade_server: function trade_server() {
-                        return accounts_info[acc_type].info.display_server;
+                }, server_info.geolocation.region && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) && { trade_server: function trade_server() {
+                        return server_info.geolocation.region;
                     } });
 
                 $container.find('#mt-trade-server-container').setVisibility(!!mapping.trade_server);
@@ -34991,7 +34999,7 @@ var MetaTraderUI = function () {
         _$form.find('#view_1 .btn-next').click(function () {
             if (!$(this).hasClass('button-disabled')) {
                 var num_servers = populateTradingServers();
-                if (num_servers.supported > 0 && num_servers.used > 0) {
+                if (num_servers.supported > 1 && num_servers.used > 0) {
                     displayStep(2);
                 } else {
                     displayStep(3);
@@ -35057,7 +35065,7 @@ var MetaTraderUI = function () {
         }
         // otherwise they are adding more server to their current account type
         var saved_mt5_account = Client.get('mt5_account');
-        return MetaTraderConfig.getCleanAccType(MetaTraderConfig.getCleanAccType(saved_mt5_account));
+        return saved_mt5_account;
     };
 
     var selectAccountTypeUI = function selectAccountTypeUI(e) {
@@ -35142,7 +35150,7 @@ var MetaTraderUI = function () {
         var filtered_accounts = {};
         Object.keys(accounts_info).sort(sortMt5Accounts).forEach(function (acc_type) {
             // remove server from name
-            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type);
+            var clean_acc_type = MetaTraderConfig.getCleanAccType(MetaTraderConfig.getCleanAccType(acc_type));
             filtered_accounts[clean_acc_type] = accounts_info[acc_type];
         });
 
