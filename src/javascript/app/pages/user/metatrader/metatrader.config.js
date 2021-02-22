@@ -568,8 +568,9 @@ const MetaTraderConfig = (() => {
     };
 
     const hasMultipleTradeServers = (acc_type, accounts) => {
-        const clean_acc_type_a = getCleanAccType(acc_type);
-        return Object.keys(accounts).filter(acc_type_b => clean_acc_type_a === getCleanAccType(acc_type_b)).length > 1;
+        const clean_acc_type_a = getCleanAccType(getCleanAccType(acc_type));
+        return Object.keys(accounts).filter(acc_type_b => clean_acc_type_a ===
+            getCleanAccType(getCleanAccType(acc_type_b))).length > 1;
     };
 
     return {
