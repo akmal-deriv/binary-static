@@ -568,6 +568,7 @@ const MetaTraderConfig = (() => {
     };
 
     const hasMultipleTradeServers = (acc_type, accounts) => {
+        // we need to call getCleanAccType twice as the server names have underscore in it
         const clean_acc_type_a = getCleanAccType(getCleanAccType(acc_type));
         return Object.keys(accounts).filter(acc_type_b => clean_acc_type_a ===
             getCleanAccType(getCleanAccType(acc_type_b))).length > 1;
