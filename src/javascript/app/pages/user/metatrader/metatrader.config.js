@@ -552,8 +552,12 @@ const MetaTraderConfig = (() => {
 
     // remove server from acc_type for cases where we don't have it
     // e.g. during new account creation no server is set yet
-    const getCleanAccType = (acc_type) =>
-        /\d$/.test(acc_type) ? acc_type.substr(0, acc_type.lastIndexOf('_')) : acc_type;
+    const getCleanAccType = (acc_type, underscores) => {
+        if (underscores > 1) {
+            acc_type = getCleanAccType(acc_type, --underscores);
+        }
+        return /\d$/.test(acc_type) ? acc_type.substr(0, acc_type.lastIndexOf('_')) : acc_type;
+    }
 
     // if no server exists yet, e.g. during new account creation
     // we want to get information like landing company etc which is shared
@@ -569,9 +573,9 @@ const MetaTraderConfig = (() => {
 
     const hasMultipleTradeServers = (acc_type, accounts) => {
         // we need to call getCleanAccType twice as the server names have underscore in it
-        const clean_acc_type_a = getCleanAccType(getCleanAccType(acc_type));
+        const clean_acc_type_a = getCleanAccType(acc_type, 2);
         return Object.keys(accounts).filter(acc_type_b => clean_acc_type_a ===
-            getCleanAccType(getCleanAccType(acc_type_b))).length > 1;
+            getCleanAccType(acc_type_b, 2)).length > 1;
     };
 
     return {

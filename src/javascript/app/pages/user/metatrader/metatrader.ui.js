@@ -106,25 +106,24 @@ const MetaTraderUI = (() => {
                 };
 
                 const { region, sequence } = trading_server.geolocation;
-                let label_text = sequence > 1 ? `${region} ${sequence}` : region;
+                let label_text = `${region} ${sequence}`;
 
                 if (is_used_server) {
                     num_servers.used += 1;
+                    label_text += localize(' (account created)')
                 } else if (is_disabled) {
                     num_servers.disabled += 1;
                     label_text += localize(' (unavailable)');
                 }
 
-                if (!is_used_server) {
-                    $ddl_trade_server
-                        .append(
-                            $('<div />', { id: trading_server.id, class: 'gr-padding-10 gr-parent' })
-                                .append($('<input />', input_attributes))
-                                .append($('<label />', { htmlFor: trading_server.id })
-                                    .append($('<span />', { text: label_text }))
-                                )
-                        );
-                }
+                $ddl_trade_server
+                    .append(
+                        $('<div />', { id: trading_server.id, class: 'gr-padding-10 gr-parent' })
+                            .append($('<input />', input_attributes))
+                            .append($('<label />', { htmlFor: trading_server.id })
+                                .append($('<span />', { text: label_text }))
+                            )
+                    );
             }
         });
 
@@ -229,6 +228,8 @@ const MetaTraderUI = (() => {
         $acc_item.find('.mt-type').text(accounts_info[acc_type].short_title);
         if (accounts_info[acc_type].info) {
             const server_info = accounts_info[acc_type].info.server_info;
+            const { region, sequence } = server_info.geolocation;
+            const label_text = `${region} ${sequence}`;
             setMTAccountText();
             $acc_item.find('.mt-login').text(`(${accounts_info[acc_type].info.display_login})`);
             if (
@@ -236,7 +237,7 @@ const MetaTraderUI = (() => {
                 MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) ||
                 /unknown+$/.test(acc_type)
             ) {
-                $acc_item.find('.mt-server').text(`${server_info.geolocation.region}`);
+                $acc_item.find('.mt-server').text(`${label_text}`);
 
                 // add disabled style to unknown or unavailable accounts
                 if (/unknown+$/.test(acc_type)) {
@@ -335,6 +336,8 @@ const MetaTraderUI = (() => {
         if (accounts_info[acc_type].info) {
             const is_demo     = accounts_info[acc_type].is_demo;
             const server_info = accounts_info[acc_type].info.server_info;
+            const { region, sequence } = server_info.geolocation;
+            const label_text = `${region} ${sequence}`;
             $detail.find('.real-only').setVisibility(!is_demo);
             $container.find('#btn_add_region').setVisibility(getAvailableServers(false, acc_type).length > 0 && !is_demo);
             // Update account info
@@ -350,7 +353,7 @@ const MetaTraderUI = (() => {
                     ...(
                         server_info.geolocation.region &&
                         MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) &&
-                        ({ trade_server: () => server_info.geolocation.region })
+                        ({ trade_server: () => label_text })
                     ),
                 };
 
@@ -584,14 +587,23 @@ const MetaTraderUI = (() => {
 
     const displayStep = (step) => {
         const new_account_type = newAccountGetType();
+        const is_demo = /demo/.test(new_account_type);
+        const is_synthetic = /gaming/.test(new_account_type);
 
         $form.find('#msg_form').remove();
         $form.find('#mv_new_account div[id^="view_"]').setVisibility(0);
         $form.find(`#view_${step}`).setVisibility(1);
         $form.find('#view_3').find('.error-msg, .days_to_crack').setVisibility(0);
-        $form.find(`.${/demo/.test(new_account_type) ? 'real' : 'demo'}-only`).setVisibility(0);
+        $form.find(`.${is_demo ? 'real' : 'demo'}-only`).setVisibility(0);
 
-        if (step === 2) {
+        if (step === 2 && !is_demo && is_synthetic) {
+            const num_servers = populateTradingServers();
+
+            if (num_servers.used === 0) {
+                // API will choose server for the first time
+                displayStep(1);
+            }
+
             const sample_account = MetaTraderConfig.getSampleAccount(new_account_type);
             $form.find('#view_2 #mt5_account_type').text(sample_account.title);
 
@@ -599,7 +611,6 @@ const MetaTraderUI = (() => {
 
             $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_2_button_container);
             $view_2_button_container.setVisibility(1);
-            populateTradingServers();
         } else if (step === 3) {
             $form.find('input').not(':input[type=radio]').val('');
 
@@ -611,6 +622,8 @@ const MetaTraderUI = (() => {
             }
 
             $view_3_button_container.setVisibility(1);
+        } else if (step !== 1) {
+            displayStep(1);
         }
     };
 
@@ -785,7 +798,7 @@ const MetaTraderUI = (() => {
                 if (accounts_info[acc_type].info && (getAvailableServers(false, acc_type).length === 0 || type === 'demo')) {
                     class_name = 'existed';
                 }
-                const clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type);
+                const clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
                 $form.find(`.step-2 #${clean_acc_type.replace(type, 'rbtn')}`)
                     .removeClass('existed disabled selected')
                     .addClass(class_name);
@@ -804,7 +817,7 @@ const MetaTraderUI = (() => {
         const filtered_accounts = {};
         Object.keys(accounts_info).sort(sortMt5Accounts).forEach(acc_type => {
             // remove server from name
-            const clean_acc_type = MetaTraderConfig.getCleanAccType(MetaTraderConfig.getCleanAccType(acc_type));
+            const clean_acc_type =  MetaTraderConfig.getCleanAccType(acc_type, 2);
             filtered_accounts[clean_acc_type] = accounts_info[acc_type];
         });
 
