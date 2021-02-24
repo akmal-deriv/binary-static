@@ -728,8 +728,7 @@ const MetaTraderUI = (() => {
             return MetaTraderConfig.getCleanAccType(`${$form.find('.step-1 .selected').attr('data-acc-type') || 'real'}_${$form.find('.step-2 .selected').attr('data-acc-type')}`);
         }
         // otherwise they are adding more server to their current account type
-        const saved_mt5_account = Client.get('mt5_account');
-        return saved_mt5_account;
+        return Client.get('mt5_account');
     };
 
     const selectAccountTypeUI = (e) => {
@@ -817,7 +816,7 @@ const MetaTraderUI = (() => {
         const filtered_accounts = {};
         Object.keys(accounts_info).sort(sortMt5Accounts).forEach(acc_type => {
             // remove server from name
-            const clean_acc_type =  MetaTraderConfig.getCleanAccType(acc_type, 2);
+            const clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
             filtered_accounts[clean_acc_type] = accounts_info[acc_type];
         });
 
