@@ -110,7 +110,7 @@ const MetaTraderUI = (() => {
 
                 if (is_used_server) {
                     num_servers.used += 1;
-                    label_text += localize(' (account created)')
+                    label_text += localize(' (account created)');
                 } else if (is_disabled) {
                     num_servers.disabled += 1;
                     label_text += localize(' (unavailable)');

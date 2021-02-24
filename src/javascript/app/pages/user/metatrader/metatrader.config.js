@@ -554,10 +554,11 @@ const MetaTraderConfig = (() => {
     // e.g. during new account creation no server is set yet
     const getCleanAccType = (acc_type, underscores) => {
         if (underscores > 1) {
+            // eslint-disable-next-line no-param-reassign
             acc_type = getCleanAccType(acc_type, --underscores);
         }
         return /\d$/.test(acc_type) ? acc_type.substr(0, acc_type.lastIndexOf('_')) : acc_type;
-    }
+    };
 
     // if no server exists yet, e.g. during new account creation
     // we want to get information like landing company etc which is shared
