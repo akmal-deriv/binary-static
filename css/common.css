@@ -531,15 +531,15 @@ button .barspinner.white {
       text-decoration: none;
       background-color: #14602b; }
 
-.days_to_crack {
+.days-to-crack {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 5px;
   margin-top: 5px; }
-  .days_to_crack.red {
+  .days-to-crack.red {
     color: #c03; }
-  .days_to_crack.green {
+  .days-to-crack.green {
     color: #2e8836; }
 
 ul.bullet.gr-row > li {
