@@ -352,11 +352,12 @@ a.previous-wrapper {
         border-bottom: none; }
     #mt_account_management #account_details .add_region {
       position: absolute;
-      bottom: 16px;
-      right: 21px; }
+      bottom: 20px;
+      right: 20px; }
+      #mt_account_management #account_details .add_region #btn_add_region {
+        margin-right: 16px; }
       #mt_account_management #account_details .add_region span {
-        padding: 9px;
-        font-size: 14px; }
+        font-size: 18px; }
   #mt_account_management .acc-actions {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -508,7 +509,22 @@ a.previous-wrapper {
   #mt_account_management .mobile-balance {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex; } }
+    display: flex; }
+  #mt_account_management #account_details .add_region {
+    position: unset;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    width: 100%;
+    padding: 0 10px; }
+    #mt_account_management #account_details .add_region a {
+      margin-bottom: 0 !important; }
+    #mt_account_management #account_details .add_region span {
+      padding: 9px;
+      font-size: 14px; } }
 
 .mt-sidebar-button {
   display: -webkit-box;

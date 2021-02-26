@@ -34408,10 +34408,9 @@ var MetaTraderUI = function () {
     };
 
     var populateWebLinks = function populateWebLinks(server_info) {
-        var $mt5_web = $('.mt5-web');
-        var $web_links = $mt5_web.find('a');
+        var $mt5_web_link = $('.mt5-web-link');
 
-        $web_links.attr('href', 'https://trade.mql5.com/trade?' + (server_info && 'servers=' + server_info.environment + '&trade_server=' + server_info.environment));
+        $mt5_web_link.attr('href', 'https://trade.mql5.com/trade?' + (server_info && 'servers=' + server_info.environment + '&trade_server=' + server_info.environment));
     };
 
     var populateTradingServers = function populateTradingServers() {
@@ -34685,10 +34684,6 @@ var MetaTraderUI = function () {
 
             var label_text = sequence > 1 ? region + ' ' + sequence : region;
             $detail.find('.real-only').setVisibility(!is_demo);
-            // console.error('here');
-            // console.log(getAvailableServers(false, acc_type).length);
-            // console.log(getAvailableServers(false, acc_type).length > 0);
-            // console.log(!is_demo);
             $container.find('#btn_add_region').setVisibility(getAvailableServers(false, acc_type).length > 0 && !is_demo);
             // Update account info
             $detail.find('.acc-info div[data]').map(function () {
@@ -34925,7 +34920,12 @@ var MetaTraderUI = function () {
                 return is_server_supported;
             }
 
-            var is_used_server = isUsedServer(is_server_supported, trading_server);
+            // console.log('accounts_info: ');
+            // console.error(accounts_info);
+            var is_used_server = isUsedServer2(is_server_supported, trading_server);
+            // console.warn('');
+            // console.log(trading_server);
+            // console.log(is_used_server);
 
             return is_server_supported && !is_used_server;
         });
@@ -34940,6 +34940,12 @@ var MetaTraderUI = function () {
     };
 
     var isUsedServer = function isUsedServer(is_server_supported, trading_server) {
+        return is_server_supported && Object.keys(accounts_info).find(function (account) {
+            return accounts_info[account].info && isSupportedServer(accounts_info[account].info.market_type, accounts_info[account].info.sub_account_type, trading_server.supported_accounts) && trading_server.id === accounts_info[account].info.server;
+        });
+    };
+
+    var isUsedServer2 = function isUsedServer2(is_server_supported, trading_server) {
         return is_server_supported && Object.keys(accounts_info).find(function (account) {
             return accounts_info[account].info && isSupportedServer(accounts_info[account].info.market_type, accounts_info[account].info.sub_account_type, trading_server.supported_accounts) && trading_server.id === accounts_info[account].info.server;
         });
