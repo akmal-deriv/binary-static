@@ -34920,12 +34920,7 @@ var MetaTraderUI = function () {
                 return is_server_supported;
             }
 
-            // console.log('accounts_info: ');
-            // console.error(accounts_info);
             var is_used_server = isUsedServer(is_server_supported, trading_server);
-            // console.warn('');
-            // console.log(trading_server);
-            // console.log(is_used_server);
 
             return is_server_supported && !is_used_server;
         });
@@ -34966,6 +34961,7 @@ var MetaTraderUI = function () {
 
             var sample_account = MetaTraderConfig.getSampleAccount(new_account_type);
             _$form.find('#view_2 #mt5_account_type').text(sample_account.title);
+            _$form.find('button[type="submit"]').attr('acc_type', MetaTraderConfig.getCleanAccType(newAccountGetType(), 2));
 
             var $view_2_button_container = _$form.find('#view_2-buttons');
             $view_2_button_container.setVisibility(1);
@@ -35033,6 +35029,7 @@ var MetaTraderUI = function () {
 
                 if (is_demo) {
                     displayStep(3);
+                    _$form.find('button[type="submit"]').attr('acc_type', newAccountGetType());
                 } else {
                     var num_servers = populateTradingServers();
                     if (num_servers.supported > 1 && num_servers.used > 0) {
@@ -35040,16 +35037,14 @@ var MetaTraderUI = function () {
                     } else {
                         displayStep(3);
                     }
+                    _$form.find('button[type="submit"]').attr('acc_type', MetaTraderConfig.getCleanAccType(newAccountGetType(), 2));
                 }
-                _$form.find('button[type="submit"]').attr('acc_type', acc_type);
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             }
         });
 
         _$form.find('#view_2 .btn-next').click(function () {
             if (Validation.validate('#frm_new_account')) {
-                var new_account_type = newAccountGetType();
-                _$form.find('button[type="submit"]').attr('acc_type', new_account_type);
                 displayStep(3);
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             }
