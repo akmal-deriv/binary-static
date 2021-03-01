@@ -34922,7 +34922,7 @@ var MetaTraderUI = function () {
 
             // console.log('accounts_info: ');
             // console.error(accounts_info);
-            var is_used_server = isUsedServer2(is_server_supported, trading_server);
+            var is_used_server = isUsedServer(is_server_supported, trading_server);
             // console.warn('');
             // console.log(trading_server);
             // console.log(is_used_server);
@@ -34940,12 +34940,6 @@ var MetaTraderUI = function () {
     };
 
     var isUsedServer = function isUsedServer(is_server_supported, trading_server) {
-        return is_server_supported && Object.keys(accounts_info).find(function (account) {
-            return accounts_info[account].info && isSupportedServer(accounts_info[account].info.market_type, accounts_info[account].info.sub_account_type, trading_server.supported_accounts) && trading_server.id === accounts_info[account].info.server;
-        });
-    };
-
-    var isUsedServer2 = function isUsedServer2(is_server_supported, trading_server) {
         return is_server_supported && Object.keys(accounts_info).find(function (account) {
             return accounts_info[account].info && isSupportedServer(accounts_info[account].info.market_type, accounts_info[account].info.sub_account_type, trading_server.supported_accounts) && trading_server.id === accounts_info[account].info.server;
         });
