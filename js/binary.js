@@ -34678,12 +34678,15 @@ var MetaTraderUI = function () {
             var is_demo = accounts_info[acc_type].is_demo;
             var is_synthetic = accounts_info[acc_type].market_type === 'gaming';
             var server_info = accounts_info[acc_type].info.server_info;
+            // const num_servers = populateTradingServers();
             var _server_info$geolocat2 = server_info.geolocation,
                 region = _server_info$geolocat2.region,
                 sequence = _server_info$geolocat2.sequence;
 
             var label_text = sequence > 1 ? region + ' ' + sequence : region;
             $detail.find('.real-only').setVisibility(!is_demo);
+            // console.warn(getAvailableServers(false, acc_type).length > 0 && !is_demo);
+            // console.log(num_servers);
             $container.find('#btn_add_region').setVisibility(getAvailableServers(false, acc_type).length > 0 && !is_demo);
             // Update account info
             $detail.find('.acc-info div[data]').map(function () {
@@ -34735,7 +34738,7 @@ var MetaTraderUI = function () {
 
     var defaultAction = function defaultAction(acc_type) {
         var type = 'new_account';
-        if (accounts_info[acc_type].info) {
+        if (accounts_info[acc_type] && accounts_info[acc_type].info) {
             type = accounts_info[acc_type].is_demo || Client.get('is_virtual') || getHashValue('token') ? 'manage_password' : 'cashier';
             removeUrlHash(); // only load manage_password section on first page load if token in url, after that remove it from url
         }
@@ -35016,7 +35019,7 @@ var MetaTraderUI = function () {
         // Navigation buttons: cancel, next, back
         _$form.find('.btn-cancel').click(function () {
             loadAction(null, acc_type);
-            displayAccountDescription(accounts_info[acc_type].info ? acc_type : undefined);
+            displayAccountDescription(accounts_info[acc_type] ? acc_type : undefined);
             $.scrollTo($('h1'), 300, { offset: -10 });
             showFinancialAuthentication(true);
         });
