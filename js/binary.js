@@ -34458,10 +34458,10 @@ var MetaTraderUI = function () {
 
                 if (is_used_server) {
                     num_servers.used += 1;
-                    label_text += localize(' (account created)');
+                    label_text += localize(' (Region added)');
                 } else if (is_disabled) {
                     num_servers.disabled += 1;
-                    label_text += localize(' (unavailable)');
+                    label_text += localize(' (Temporarily unavailable)');
                 }
 
                 $ddl_trade_server.append($('<div />', { id: trading_server.id, class: 'gr-padding-10 gr-parent' }).append($('<input />', input_attributes)).append($('<label />', { htmlFor: trading_server.id }).append($('<span />', { text: label_text }))));
