@@ -368,6 +368,15 @@
                     max-width: 140px;
                     margin: 0 auto;
                 }
+                #template_gaming_financial {
+                    order: 1;
+                }
+                #template_financial_financial {
+                    order: 2;
+                }
+                #template_financial_financial_stp {
+                    order: 3;
+                }
             }
             #new_account_msg ul.bullet {
                 margin-top: 0;
