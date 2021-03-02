@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-02-19 05:35\n"
+"PO-Revision-Date: 2021-03-02 08:22\n"
 "Last-Translator: \n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -519,6 +519,9 @@ msgstr "(d) Kemungkinan Penyelesaian"
 
 msgid "(e) Size and nature"
 msgstr "(e) Ukuran dan sifat"
+
+msgid "*Cryptocurrency pairs are not available for DMT5 Financial accounts registered with Deriv (V) Ltd."
+msgstr "*Pasangan mata uang kripto tidak tersedia untuk akun DMT5 Finansial yang terdaftar di Deriv (V) Ltd."
 
 msgid "0 – 19.999%"
 msgstr "0 – 19,999%"
@@ -2651,7 +2654,7 @@ msgid "Clients from the rest of the world (excluding certain countries such as t
 msgstr "Klien dari seluruh dunia (kecuali negara terbatas seperti AS, Kanada, Hong Kong) yang ingin bertrading CFD pada instrumen keuangan dan mata uang kripto dapat mendaftar akun MetaTrader 5 di bawah Deriv (BVI) Ltd. %1 tidak tersedia di Kepulauan Virgin Britania Raya."
 
 msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, Hong Kong) will have their FX and CFD Metatrader 5 account opened with Deriv (V) Ltd. This company does not offer CFDs on cryptocurrencies. %1 is not available in the Republic of Vanuatu."
-msgstr ""
+msgstr "Pelanggan dari seluruh dunia (kecuali Amerika Serikat, Kanada, Hong Kong) akan mendaftar akun FX dan CFD Metatrader 5 dibawah Deriv (V) Ltd. Perusahaan ini tidak menawarkan CFD pada mata uang kripto. %1 tidak tersedia untuk warga Republik Vanuatu."
 
 msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, and Hong Kong) will have their account opened with Deriv (SVG) LLC."
 msgstr "Klien dari seluruh dunia (kecuali Amerika Serikat, Kanada, dan Hong Kong) akan mendaftar akun mereka pada Deriv (SVG) LLC."
@@ -3303,6 +3306,9 @@ msgstr "Mata uang kripto seperti Bitcoin dan Ethereum adalah aset digital terdes
 
 msgid "Cryptocurrencies such as Bitcoin and Ethereum are decentralised digital currencies on the blockchain."
 msgstr "Mata uang kripto seperti Bitcoin dan Ethereum adalah mata uang digital terdesentralisasi pada blockchain."
+
+msgid "Cryptocurrencies*"
+msgstr "Mata uang kripto*"
 
 msgid "Cryptocurrency"
 msgstr "Mata uang kripto"
@@ -6947,6 +6953,9 @@ msgstr "MT5 Sintetis"
 msgid "MT5 Web platform"
 msgstr "Platform Web MT5"
 
+msgid "MT5 for %1"
+msgstr ""
+
 msgid "MT5 for Android"
 msgstr "MT5 pada Android"
 
@@ -6955,9 +6964,6 @@ msgstr "MT5 pada Linux"
 
 msgid "MT5 for Mobile"
 msgstr "MT5 pada Seluler"
-
-msgid "MT5 for Windows"
-msgstr "MT5 pada Windows"
 
 msgid "MT5 for iOS"
 msgstr "MT5 pada iOS"
@@ -8573,6 +8579,9 @@ msgstr "Mohon konfirmasikan bahwa Anda bukanlah orang yang terlibat dalam politi
 msgid "Please confirm the transaction details in order to complete the transfer:"
 msgstr "Pastikan Anda telah memilih Agen Pembayaran yang benar, salah transfer adalah diluar tanggungjawab kami:"
 
+msgid "Please contact us via %1live chat%2."
+msgstr "Silakan hubungi kami melalui %1obrolan langsung%2."
+
 msgid "Please contact your payment agent to validate your withdrawal request."
 msgstr "Silakan hubungi agen pembayaran untuk memproses permintaan penarikan Anda."
 
@@ -8588,8 +8597,8 @@ msgstr "Pastikan alamat Anda lengkap dan akurat."
 msgid "Please enter a valid Login ID."
 msgstr "Masukkan Login ID yang berlaku."
 
-msgid "Please enter a valid phone number, including the country code (e.g. +15417541234)."
-msgstr "Masukkan nomor telepon yang berlaku, termasuk kode negara (mis., +62812391234)."
+msgid "Please enter a valid phone number (e.g. +15417541234)."
+msgstr "Masukkan nomor telepon yang berlaku (contoh +62812391234)."
 
 msgid "Please enter date in the format DD MMM, YYYY HH:mm (local time)."
 msgstr "Pilih tanggal, bulan, tahun, jam serta menit waktu istirahat yang Anda inginkan."
@@ -9973,6 +9982,12 @@ msgstr "Tampilkan semua detail — termasuk 2 baris terakhir"
 
 msgid "Show all historical transactions up to"
 msgstr "Tampilkan semua transaksi historis hingga"
+
+msgid "Show less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
 
 msgid "Sign out"
 msgstr "Keluar"
@@ -13140,6 +13155,9 @@ msgstr "Unggah bagian belakang kartu dari komputer Anda"
 msgid "Upload back of license from your computer"
 msgstr "Unggah kembali Sim dari komputer Anda"
 
+msgid "Upload document"
+msgstr "Unggah dokumen"
+
 msgid "Upload front of card from your computer"
 msgstr "Unggah bagian depan kartu dari komputer Anda"
 
@@ -13289,9 +13307,6 @@ msgstr "Versi 49. Terakhir diperbarui pada 23-11-2020."
 
 msgid "Video Room Facility"
 msgstr "Fasilitas Ruang Video"
-
-msgid "Video tutorial"
-msgstr "Video tutorial"
 
 msgid "View"
 msgstr "Lihat"
@@ -14364,6 +14379,9 @@ msgstr "Anda telah melakukan transaksi signifikan pada pasar yang serupa dengan 
 msgid "You've made no transactions of this type up to this date."
 msgstr "Anda tidak memiliki transaksi untuk jenis ini hingga detik ini."
 
+msgid "You've reached the limit for uploading your documents."
+msgstr "Anda telah mencapai batas untuk mengupload dokumen Anda."
+
 msgid "You've worked in the financial sector for at least one year in a role that requires knowledge of your intended transactions on our platform"
 msgstr "Anda telah bekerja di sektor keuangan setidaknya selama satu tahun dalam peran yang membutuhkan pengetahuan tentang transaksi yang Anda maksud pada platform kami"
 
@@ -14507,6 +14525,9 @@ msgstr "Bukti identitas Anda telah berhasil diverifikasi"
 
 msgid "Your proof of identity has expired"
 msgstr "Bukti identitas Anda telah berakhir"
+
+msgid "Your proof of identity submission failed because:"
+msgstr "Pengiriman bukti identitas Anda gagal karena:"
 
 msgid "Your proof of identity was submitted successfully"
 msgstr "Bukti identitas Anda telah berhasil dikirim"

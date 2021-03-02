@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-02-19 05:35\n"
+"PO-Revision-Date: 2021-03-02 08:22\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "MIME-Version: 1.0\n"
@@ -519,6 +519,9 @@ msgstr "(四) 結算的可能性"
 
 msgid "(e) Size and nature"
 msgstr "(五) 大小和性質"
+
+msgid "*Cryptocurrency pairs are not available for DMT5 Financial accounts registered with Deriv (V) Ltd."
+msgstr "*加密貨幣對不適用於在 Deriv (V) Ltd 註冊的 DMT5 金融帳戶。"
 
 msgid "0 – 19.999%"
 msgstr "0 – 19.999%"
@@ -2651,7 +2654,7 @@ msgid "Clients from the rest of the world (excluding certain countries such as t
 msgstr "全球其他地區(除了一些國家如美國、加拿大和香港) 想要進行金融工具和加密貨幣差價合約交易的客戶可在 Deriv (BVI) Ltd. 擁有MetaTrader 5帳戶。%1在英屬維爾京群島不能使用。"
 
 msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, Hong Kong) will have their FX and CFD Metatrader 5 account opened with Deriv (V) Ltd. This company does not offer CFDs on cryptocurrencies. %1 is not available in the Republic of Vanuatu."
-msgstr ""
+msgstr "全球其他地區的客戶(不包括某些國家如美國、加拿大、香港) 可在 Deriv (V) Ltd. 開設外匯和差價合約 Metatrader 5 帳戶。公司不提供加密貨幣的差價合約。%1在萬那杜不能使用。"
 
 msgid "Clients from the rest of the world (excluding certain countries such as the USA, Canada, and Hong Kong) will have their account opened with Deriv (SVG) LLC."
 msgstr "全球其他地區的客戶(不包括某些國家如美國、加拿大和香港) 可在 Deriv (SVG) LLC開設帳戶。"
@@ -3303,6 +3306,9 @@ msgstr "像比特幣和以太幣這樣的加密貨幣是分散式的數字資產
 
 msgid "Cryptocurrencies such as Bitcoin and Ethereum are decentralised digital currencies on the blockchain."
 msgstr "比特幣和以太幣等加密貨幣是區塊鏈上的分散式數字貨幣。"
+
+msgid "Cryptocurrencies*"
+msgstr "加密貨幣*"
 
 msgid "Cryptocurrency"
 msgstr "加密貨幣"
@@ -6946,6 +6952,9 @@ msgstr "MT5 綜合"
 msgid "MT5 Web platform"
 msgstr "網路平台版 MT5"
 
+msgid "MT5 for %1"
+msgstr ""
+
 msgid "MT5 for Android"
 msgstr "Android版MT5"
 
@@ -6954,9 +6963,6 @@ msgstr "Linux版MT5"
 
 msgid "MT5 for Mobile"
 msgstr "移動設備版MT5"
-
-msgid "MT5 for Windows"
-msgstr "Windows版MT5"
 
 msgid "MT5 for iOS"
 msgstr "IOS版MT5"
@@ -8572,6 +8578,9 @@ msgstr "請確認您不是政治公眾人士。"
 msgid "Please confirm the transaction details in order to complete the transfer:"
 msgstr "請確認交易詳細資料以完成轉帳："
 
+msgid "Please contact us via %1live chat%2."
+msgstr "請透過%1即時聊天%2與我們聯繫。"
+
 msgid "Please contact your payment agent to validate your withdrawal request."
 msgstr "請聯繫您的付款代理，以便驗證您的取款請求。"
 
@@ -8587,8 +8596,8 @@ msgstr "請確保您提供的地址是完整和準確的。"
 msgid "Please enter a valid Login ID."
 msgstr "請輸入有效的登入識別碼。"
 
-msgid "Please enter a valid phone number, including the country code (e.g. +15417541234)."
-msgstr "請輸入包括國家代碼的有效電話號 (例如 +15417541234)。"
+msgid "Please enter a valid phone number (e.g. +15417541234)."
+msgstr "請輸入有效的電話號 (例如 +15417541234)。"
 
 msgid "Please enter date in the format DD MMM, YYYY HH:mm (local time)."
 msgstr "請輸入日期，格式為日-月-年 時:分(當地時間)。"
@@ -9972,6 +9981,12 @@ msgstr "顯示所有詳細資訊-包括最後2行"
 
 msgid "Show all historical transactions up to"
 msgstr "顯示此日期前的所有歷史記錄"
+
+msgid "Show less"
+msgstr "顯示更少"
+
+msgid "Show more"
+msgstr "顯示更多"
 
 msgid "Sign out"
 msgstr "登出"
@@ -13138,6 +13153,9 @@ msgstr "從電腦上傳卡的背面"
 msgid "Upload back of license from your computer"
 msgstr "從電腦上傳執照的背面"
 
+msgid "Upload document"
+msgstr "上傳文件"
+
 msgid "Upload front of card from your computer"
 msgstr "從電腦上傳卡的正面"
 
@@ -13287,9 +13305,6 @@ msgstr "版本49。最後修改時間為 2020年11月23日。"
 
 msgid "Video Room Facility"
 msgstr "視訊室設施"
-
-msgid "Video tutorial"
-msgstr "視訊教程"
 
 msgid "View"
 msgstr "檢視"
@@ -14362,6 +14377,9 @@ msgstr "您在與我們類似的市場進行了相當多的交易, 過去四季�
 msgid "You've made no transactions of this type up to this date."
 msgstr "您至今為止沒有進行過此類交易。"
 
+msgid "You've reached the limit for uploading your documents."
+msgstr "文件上傳已達上限。"
+
 msgid "You've worked in the financial sector for at least one year in a role that requires knowledge of your intended transactions on our platform"
 msgstr "您在金融業界工作至少一年, 擁有在我們平台上交易的所需知識"
 
@@ -14505,6 +14523,9 @@ msgstr "您的身份證明已通過驗證"
 
 msgid "Your proof of identity has expired"
 msgstr "您的身份證明已過期"
+
+msgid "Your proof of identity submission failed because:"
+msgstr "您提交的身份證明已失敗，因為："
 
 msgid "Your proof of identity was submitted successfully"
 msgstr "您的身份證明已成功提交"
