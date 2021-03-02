@@ -12509,7 +12509,7 @@ var AccountOpening = function () {
     var commonValidations = function commonValidations() {
         var req = [{ selector: '#salutation', validations: ['req'] }, { selector: '#first_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#last_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#date_of_birth', validations: ['req'] }, { selector: '#address_line_1', validations: ['req', 'address', ['length', { min: 1, max: 70 }]] }, { selector: '#address_line_2', validations: ['address', ['length', { min: 0, max: 70 }]] }, { selector: '#address_city', validations: ['req', 'letter_symbol', ['length', { min: 1, max: 35 }]] }, { selector: '#address_state', validations: $('#address_state').prop('nodeName') === 'SELECT' ? '' : ['letter_symbol', ['length', { min: 0, max: 35 }]] }, { selector: '#address_postcode', validations: [Client.get('residence') === 'gb' || State.getResponse('authorize.upgradeable_landing_companies').some(function (lc) {
                 return lc === 'iom';
-            }) ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 8, max: 35, value: function value() {
+            }) ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 9, max: 35, value: function value() {
                     return $('#phone').val().replace(/\D/g, '');
                 } }]] }, { selector: '#secret_question', validations: ['req'] }, { selector: '#secret_answer', validations: ['req', 'general', ['length', { min: 4, max: 50 }]] }, { selector: '#tnc', validations: [['req', { message: localize('Please accept the terms and conditions.') }]], exclude_request: 1 }, { selector: '#tax_residence', validations: ['req', ['length', { min: 1, max: 20 }]] }, { selector: '#tax_identification_number', validations: ['req'] }, { request_field: 'residence', value: Client.get('residence') }, { request_field: 'client_type', value: function value() {
                 return $('#chk_professional').is(':checked') ? 'professional' : 'retail';
@@ -14384,7 +14384,7 @@ var Validation = function () {
         return value === '' || /^[A-Za-z0-9][A-Za-z0-9\s-]*$/.test(value);
     };
     var validPhone = function validPhone(value) {
-        return (/^\+((-|\s)*[0-9])*$/.test(value)
+        return (/^\+?((-|\s)*[0-9])*$/.test(value)
         );
     };
     var validRegular = function validRegular(value, options) {
@@ -14497,7 +14497,7 @@ var Validation = function () {
                 address: { func: validAddress, message: localize('Only letters, numbers, space, and these special characters are allowed: [_1]', '- . \' # ; : ( ) , @ /') },
                 letter_symbol: { func: validLetterSymbol, message: localize('Only letters, space, hyphen, period, and apostrophe are allowed.') },
                 postcode: { func: validPostCode, message: localize('Only letters, numbers, space, and hyphen are allowed.') },
-                phone: { func: validPhone, message: localize('Please enter a valid phone number, including the country code (e.g. +15417541234).') },
+                phone: { func: validPhone, message: localize('Please enter a valid phone number (e.g. +15417541234).') },
                 compare: { func: validCompare, message: localize('The two passwords that you entered do not match.') },
                 not_equal: { func: validNotEqual, message: localizeKeepPlaceholders('[_1] and [_2] cannot be the same.') },
                 min: { func: validMin, message: localizeKeepPlaceholders('Minimum of [_1] characters required.') },
@@ -27480,9 +27480,14 @@ var Authenticate = function () {
         return !is_not_required;
     };
 
+    var cleanElementVisibility = function cleanElementVisibility() {
+        $('#personal_details_error').setVisibility(0);
+        $('#limited_poi').setVisibility(0);
+    };
+
     var initAuthentication = function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var has_personal_details_error, authentication_status, service_token_response, personal_fields_errors, missing_personal_fields, error_msgs, identity, needs_verification, document, is_fully_authenticated, should_allow_resubmission, documents_supported, country_code;
+            var has_personal_details_error, authentication_status, service_token_response, personal_fields_errors, missing_personal_fields, error_msgs, identity, needs_verification, document, is_fully_authenticated, should_allow_resubmission, documents_supported, country_code, has_submission_attempts, is_rejected, last_rejected_reasons, has_rejected_reasons, maximum_reasons, has_minimum_reasons;
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                     switch (_context2.prev = _context2.next) {
@@ -27539,6 +27544,10 @@ var Authenticate = function () {
                             onfido_unsupported = !identity.services.onfido.is_country_supported;
                             documents_supported = identity.services.onfido.documents_supported;
                             country_code = identity.services.onfido.country_code;
+                            has_submission_attempts = !!identity.services.onfido.submissions_left;
+                            is_rejected = identity.status === 'rejected' || identity.status === 'suspected';
+                            last_rejected_reasons = identity.services.onfido.last_rejected;
+                            has_rejected_reasons = !!last_rejected_reasons.length && is_rejected;
 
 
                             if (is_fully_authenticated && !should_allow_resubmission) {
@@ -27547,17 +27556,79 @@ var Authenticate = function () {
                             }
 
                             if (!has_personal_details_error) {
-                                _context2.next = 23;
+                                _context2.next = 27;
                                 break;
                             }
 
                             $('#personal_details_error').setVisibility(1);
-                            _context2.next = 44;
+                            _context2.next = 61;
                             break;
 
-                        case 23:
+                        case 27:
+                            if (!(has_rejected_reasons && has_submission_attempts)) {
+                                _context2.next = 36;
+                                break;
+                            }
+
+                            maximum_reasons = last_rejected_reasons.slice(0, 3);
+                            has_minimum_reasons = last_rejected_reasons.length > 3;
+
+                            $('#last_rejection_poi').setVisibility(1);
+
+                            maximum_reasons.forEach(function (reason) {
+                                $('#last_rejection_list').append('<li>' + reason + '</li>');
+                            });
+
+                            $('#last_rejection_button').off('click').on('click', function () {
+                                $('#last_rejection_poi').setVisibility(0);
+
+                                if (onfido_unsupported) {
+                                    $('#not_authenticated_uns').setVisibility(1);
+                                    initUnsupported();
+                                } else {
+                                    initOnfido(service_token_response.token, documents_supported, country_code);
+                                }
+                            });
+                            if (has_minimum_reasons) {
+                                $('#last_rejection_more').setVisibility(1);
+                                $('#last_rejection_more').off('click').on('click', function () {
+                                    $('#last_rejection_more').setVisibility(0);
+                                    $('#last_rejection_less').setVisibility(1);
+
+                                    $('#last_rejection_list').empty();
+
+                                    last_rejected_reasons.forEach(function (reason) {
+                                        $('#last_rejection_list').append('<li>' + reason + '</li>');
+                                    });
+                                });
+                                $('#last_rejection_less').off('click').on('click', function () {
+                                    $('#last_rejection_less').setVisibility(0);
+                                    $('#last_rejection_more').setVisibility(1);
+
+                                    $('#last_rejection_list').empty();
+
+                                    maximum_reasons.forEach(function (reason) {
+                                        $('#last_rejection_list').append('<li>' + reason + '</li>');
+                                    });
+                                });
+                            }
+
+                            _context2.next = 61;
+                            break;
+
+                        case 36:
+                            if (!(!has_submission_attempts && is_rejected)) {
+                                _context2.next = 40;
+                                break;
+                            }
+
+                            $('#limited_poi').setVisibility(1);
+                            _context2.next = 61;
+                            break;
+
+                        case 40:
                             if (needs_verification.includes('identity')) {
-                                _context2.next = 43;
+                                _context2.next = 60;
                                 break;
                             }
 
@@ -27566,46 +27637,46 @@ var Authenticate = function () {
                                 Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
                             }
                             _context2.t0 = identity.status;
-                            _context2.next = _context2.t0 === 'none' ? 28 : _context2.t0 === 'pending' ? 30 : _context2.t0 === 'rejected' ? 32 : _context2.t0 === 'verified' ? 34 : _context2.t0 === 'expired' ? 36 : _context2.t0 === 'suspected' ? 38 : 40;
+                            _context2.next = _context2.t0 === 'none' ? 45 : _context2.t0 === 'pending' ? 47 : _context2.t0 === 'rejected' ? 49 : _context2.t0 === 'verified' ? 51 : _context2.t0 === 'expired' ? 53 : _context2.t0 === 'suspected' ? 55 : 57;
                             break;
 
-                        case 28:
+                        case 45:
                             if (onfido_unsupported) {
                                 $('#not_authenticated_uns').setVisibility(1);
                                 initUnsupported();
                             } else {
                                 initOnfido(service_token_response.token, documents_supported, country_code);
                             }
-                            return _context2.abrupt('break', 41);
+                            return _context2.abrupt('break', 58);
 
-                        case 30:
+                        case 47:
                             $('#upload_complete').setVisibility(1);
-                            return _context2.abrupt('break', 41);
+                            return _context2.abrupt('break', 58);
 
-                        case 32:
+                        case 49:
                             $('#unverified').setVisibility(1);
-                            return _context2.abrupt('break', 41);
+                            return _context2.abrupt('break', 58);
 
-                        case 34:
+                        case 51:
                             $('#verified').setVisibility(1);
-                            return _context2.abrupt('break', 41);
+                            return _context2.abrupt('break', 58);
 
-                        case 36:
+                        case 53:
                             $('#expired_poi').setVisibility(1);
-                            return _context2.abrupt('break', 41);
+                            return _context2.abrupt('break', 58);
 
-                        case 38:
+                        case 55:
                             $('#unverified').setVisibility(1);
-                            return _context2.abrupt('break', 41);
+                            return _context2.abrupt('break', 58);
 
-                        case 40:
-                            return _context2.abrupt('break', 41);
+                        case 57:
+                            return _context2.abrupt('break', 58);
 
-                        case 41:
-                            _context2.next = 44;
+                        case 58:
+                            _context2.next = 61;
                             break;
 
-                        case 43:
+                        case 60:
                             // eslint-disable-next-line no-lonely-if
                             if (onfido_unsupported) {
                                 $('#not_authenticated_uns').setVisibility(1);
@@ -27614,58 +27685,58 @@ var Authenticate = function () {
                                 initOnfido(service_token_response.token, documents_supported, country_code);
                             }
 
-                        case 44:
+                        case 61:
                             if (needs_verification.includes('document')) {
-                                _context2.next = 64;
+                                _context2.next = 81;
                                 break;
                             }
 
                             _context2.t1 = document.status;
-                            _context2.next = _context2.t1 === 'none' ? 48 : _context2.t1 === 'pending' ? 51 : _context2.t1 === 'rejected' ? 53 : _context2.t1 === 'suspected' ? 55 : _context2.t1 === 'verified' ? 57 : _context2.t1 === 'expired' ? 59 : 61;
+                            _context2.next = _context2.t1 === 'none' ? 65 : _context2.t1 === 'pending' ? 68 : _context2.t1 === 'rejected' ? 70 : _context2.t1 === 'suspected' ? 72 : _context2.t1 === 'verified' ? 74 : _context2.t1 === 'expired' ? 76 : 78;
                             break;
 
-                        case 48:
+                        case 65:
                             init();
                             $('#not_authenticated').setVisibility(1);
-                            return _context2.abrupt('break', 62);
+                            return _context2.abrupt('break', 79);
 
-                        case 51:
+                        case 68:
                             $('#pending_poa').setVisibility(1);
-                            return _context2.abrupt('break', 62);
+                            return _context2.abrupt('break', 79);
 
-                        case 53:
+                        case 70:
                             $('#unverified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 62);
+                            return _context2.abrupt('break', 79);
 
-                        case 55:
+                        case 72:
                             $('#unverified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 62);
+                            return _context2.abrupt('break', 79);
 
-                        case 57:
+                        case 74:
                             $('#verified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 62);
+                            return _context2.abrupt('break', 79);
 
-                        case 59:
+                        case 76:
                             $('#expired_poa').setVisibility(1);
-                            return _context2.abrupt('break', 62);
+                            return _context2.abrupt('break', 79);
 
-                        case 61:
-                            return _context2.abrupt('break', 62);
+                        case 78:
+                            return _context2.abrupt('break', 79);
 
-                        case 62:
-                            _context2.next = 66;
+                        case 79:
+                            _context2.next = 83;
                             break;
 
-                        case 64:
+                        case 81:
                             init();
                             $('#not_authenticated').setVisibility(1);
 
-                        case 66:
+                        case 83:
 
                             $('#authentication_loading').setVisibility(0);
                             TabSelector.updateTabDisplay();
 
-                        case 68:
+                        case 85:
                         case 'end':
                             return _context2.stop();
                     }
@@ -27685,10 +27756,11 @@ var Authenticate = function () {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
-                            _context3.next = 2;
+                            cleanElementVisibility();
+                            _context3.next = 3;
                             return getAuthenticationStatus();
 
-                        case 2:
+                        case 3:
                             authentication_status = _context3.sent;
                             is_required = checkIsRequired(authentication_status);
 
@@ -27709,7 +27781,7 @@ var Authenticate = function () {
                                 $('#authentication_loading').setVisibility(0);
                             }
 
-                        case 7:
+                        case 8:
                         case 'end':
                             return _context3.stop();
                     }
@@ -30978,7 +31050,7 @@ var PersonalDetails = function () {
             var is_gaming = Client.isAccountOfType('gaming');
             var is_tax_req = isTaxReq();
 
-            validations = [{ selector: '#salutation', validations: ['req'] }, { selector: '#first_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#last_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#address_line_1', validations: ['req', 'address'] }, { selector: '#address_line_2', validations: ['address'] }, { selector: '#address_city', validations: ['req', 'letter_symbol'] }, { selector: '#address_state', validations: $('#address_state').prop('nodeName') === 'SELECT' ? '' : ['letter_symbol'] }, { selector: '#address_postcode', validations: [residence === 'gb' || Client.get('landing_company_shortcode') === 'iom' ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#email_consent' }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 8, max: 35, value: function value() {
+            validations = [{ selector: '#salutation', validations: ['req'] }, { selector: '#first_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#last_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#address_line_1', validations: ['req', 'address'] }, { selector: '#address_line_2', validations: ['address'] }, { selector: '#address_city', validations: ['req', 'letter_symbol'] }, { selector: '#address_state', validations: $('#address_state').prop('nodeName') === 'SELECT' ? '' : ['letter_symbol'] }, { selector: '#address_postcode', validations: [residence === 'gb' || Client.get('landing_company_shortcode') === 'iom' ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#email_consent' }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 9, max: 35, value: function value() {
                         return $('#phone').val().replace(/\D/g, '');
                     } }]] }, { selector: '#place_of_birth', validations: ['req'] }, { selector: '#account_opening_reason', validations: ['req'] }, { selector: '#date_of_birth', validations: ['req'] },
 
@@ -33682,8 +33754,11 @@ var MetaTraderConfig = function () {
         return is_need_verification;
     };
 
-    // remove server from acc_type for cases where we don't have it
+    // remove server from acc_type for cases where we don't need it
     // e.g. during new account creation no server is set yet
+    // due to ability for server names to have one or more underscores in the name
+    // we can pass the number of underscores to remove it from acc_type
+    // f.e. getCleanAccType('financial_ts01_02', 2) returns 'financial'
     var getCleanAccType = function getCleanAccType(acc_type, underscores) {
         if (underscores > 1) {
             // eslint-disable-next-line no-param-reassign
@@ -34418,8 +34493,10 @@ var MetaTraderUI = function () {
     };
 
     var populateWebLinks = function populateWebLinks(server_info) {
+        var mt5_url = 'https://trade.mql5.com/trade' + (server_info && '?servers=' + server_info.environment + '&trade_server=' + server_info.environment);
         var $mt5_web_link = $('.mt5-web-link');
-        $mt5_web_link.attr('href', 'https://trade.mql5.com/trade?' + (server_info && 'servers=' + server_info.environment + '&trade_server=' + server_info.environment));
+
+        $mt5_web_link.attr('href', mt5_url);
     };
 
     var populateTradingServers = function populateTradingServers() {
@@ -34961,6 +35038,8 @@ var MetaTraderUI = function () {
         _$form.find('#view_3').find('.error-msg, .days-to-crack').setVisibility(0);
         _$form.find('.' + (is_demo ? 'real' : 'demo') + '-only').setVisibility(0);
 
+        // we do not show step 2 (servers selection) to demo and non synthetic accouns
+        // as the server will be set to the closest/best suitable by API
         if (step === 2 && !is_demo && is_synthetic) {
             var num_servers = populateTradingServers();
 
@@ -34978,11 +35057,11 @@ var MetaTraderUI = function () {
         } else if (step === 3) {
             _$form.find('input').not(':input[type=radio]').val('');
 
-            var get_settings = State.getResponse('get_settings');
+            var settings = State.getResponse('get_settings');
             var $view_3_button_container = _$form.find('#view_3-buttons');
 
-            if (get_settings.first_name && get_settings.last_name) {
-                _$form.find('#txt_name').val(get_settings.first_name + ' ' + get_settings.last_name);
+            if (settings.first_name && settings.last_name) {
+                _$form.find('#txt_name').val(settings.first_name + ' ' + settings.last_name);
             }
 
             $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_3_button_container);
@@ -35037,10 +35116,13 @@ var MetaTraderUI = function () {
                 var is_demo = /^demo_/.test(account_type);
 
                 if (is_demo) {
+                    // If accound is demo, we will skip server selection and show the following step
                     displayStep(3);
                     _$form.find('button[type="submit"]').attr('acc_type', newAccountGetType());
                 } else {
                     var num_servers = populateTradingServers();
+                    // if account is real, we will skip server selection when the first server is being selected (chosen by API)
+                    // or when there are no multiple servers supported
                     if (num_servers.supported > 1 && num_servers.used > 0) {
                         displayStep(2);
                     } else {
@@ -35200,6 +35282,7 @@ var MetaTraderUI = function () {
             var $acc = filtered_accounts[acc_type].is_demo ? $acc_template_demo.clone() : $acc_template_real.clone();
             var type = acc_type.split('_').slice(1).join('_');
             var image = filtered_accounts[acc_type].market_type === 'gaming' ? 'synthetic' : filtered_accounts[acc_type].sub_account_type; // image name can be (financial_stp|financial|synthetic)
+            $acc.attr({ id: 'template_' + type });
             $acc.find('.mt5_type_box').attr({ id: 'rbtn_' + type, 'data-acc-type': type }).find('img').attr('src', urlForStatic('/images/pages/metatrader/icons/acc_' + image + '.svg'));
             $acc.find('p').text(filtered_accounts[acc_type].short_title);
             $acc_template_mt.append($acc);
