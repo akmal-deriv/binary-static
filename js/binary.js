@@ -33707,6 +33707,16 @@ var MetaTraderConfig = function () {
         })];
     };
 
+    var hasTradeServers = function hasTradeServers(acc_type) {
+        var is_real = acc_type.startsWith('real');
+        var is_gaming = accounts_info[acc_type].market_type === 'gaming';
+        var is_clean_type = acc_type.endsWith('financial') || acc_type.endsWith('stp');
+        if (/unknown/.test(acc_type)) {
+            return false;
+        }
+        return !(is_real && (is_gaming || is_clean_type));
+    };
+
     var hasMultipleTradeServers = function hasMultipleTradeServers(acc_type, accounts) {
         // we need to call getCleanAccType twice as the server names have underscore in it
         var clean_acc_type_a = getCleanAccType(acc_type, 2);
@@ -33722,6 +33732,7 @@ var MetaTraderConfig = function () {
         validations: validations,
         needsRealMessage: needsRealMessage,
         hasAccount: hasAccount,
+        hasTradeServers: hasTradeServers,
         hasMultipleTradeServers: hasMultipleTradeServers,
         getCleanAccType: getCleanAccType,
         getCurrency: getCurrency,
@@ -34218,15 +34229,12 @@ var MetaTrader = function () {
 
             // in case trading_server API response is corrupted, acc_type will not exist in accounts_info due to missing supported_accounts prop
             if (acc_type in accounts_info && !/unknown+$/.test(acc_type)) {
-                // console.log('');
-                // console.warn('allAccountsResponseHandler');
                 accounts_info[acc_type].info = account;
 
                 accounts_info[acc_type].info.display_login = MetaTraderConfig.getDisplayLogin(account.login);
                 accounts_info[acc_type].info.login = account.login;
                 accounts_info[acc_type].info.server = account.server;
 
-                // console.log(accounts_info[acc_type].info);
                 if (getDisplayServer(trading_servers, account.server)) {
                     accounts_info[acc_type].info.display_server = getDisplayServer(trading_servers, account.server);
                 }
@@ -34574,12 +34582,10 @@ var MetaTraderUI = function () {
         $acc_item.find('.mt-type').text(accounts_info[acc_type].short_title);
         if (accounts_info[acc_type].info) {
             var server_info = accounts_info[acc_type].info.server_info;
+            var region = server_info && server_info.geolocation.region;
+            var sequence = server_info && server_info.geolocation.sequence;
             var is_synthetic = accounts_info[acc_type].market_type === 'gaming';
-            var _server_info$geolocat = server_info.geolocation,
-                region = _server_info$geolocat.region,
-                sequence = _server_info$geolocat.sequence;
-
-            var label_text = sequence > 1 ? region + ' ' + sequence : region;
+            var label_text = server_info ? sequence > 1 ? region + ' ' + sequence : region : accounts_info[acc_type].info.display_server;
             setMTAccountText();
             $acc_item.find('.mt-login').text('(' + accounts_info[acc_type].info.display_login + ')');
             if (server_info && is_synthetic && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) || /unknown+$/.test(acc_type)) {
@@ -34613,7 +34619,7 @@ var MetaTraderUI = function () {
             }
             // disable MT5 account opening if created all available accounts
             if (Object.keys(accounts_info).every(function (type) {
-                return accounts_info[type].info;
+                return accounts_info[type].info || !MetaTraderConfig.hasTradeServers(type);
             })) {
                 $container.find('.act_new_account').remove();
             }
@@ -34682,9 +34688,9 @@ var MetaTraderUI = function () {
             var is_synthetic = accounts_info[acc_type].market_type === 'gaming';
             var server_info = accounts_info[acc_type].info.server_info;
             // const num_servers = populateTradingServers();
-            var _server_info$geolocat2 = server_info.geolocation,
-                region = _server_info$geolocat2.region,
-                sequence = _server_info$geolocat2.sequence;
+            var _server_info$geolocat = server_info.geolocation,
+                region = _server_info$geolocat.region,
+                sequence = _server_info$geolocat.sequence;
 
             var label_text = sequence > 1 ? region + ' ' + sequence : region;
             $detail.find('.real-only').setVisibility(!is_demo);
