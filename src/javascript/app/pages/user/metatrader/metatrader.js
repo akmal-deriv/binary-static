@@ -389,7 +389,6 @@ const MetaTrader = (() => {
             // in case trading_server API response is corrupted, acc_type will not exist in accounts_info due to missing supported_accounts prop
             if (acc_type in accounts_info && !/unknown+$/.test(acc_type)) {
                 accounts_info[acc_type].info = account;
-
                 accounts_info[acc_type].info.display_login = MetaTraderConfig.getDisplayLogin(account.login);
                 accounts_info[acc_type].info.login         = account.login;
                 accounts_info[acc_type].info.server        = account.server;

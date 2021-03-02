@@ -213,12 +213,14 @@
         }
         .add_region {
             position: absolute;
-            bottom: 16px;
-            right: 21px;
+            bottom: 20px;
+            right: 20px;
 
+            #btn_add_region {
+                margin-right: 16px;
+            }
             span {
-                padding: 9px;
-                font-size: 14px;
+                font-size: 18px;
             }
         }
     }
@@ -430,8 +432,27 @@
 }
 
 @media (max-width: 768px) {
-    #mt_account_management .mobile-balance {
-        display: flex;
+    #mt_account_management {
+        .mobile-balance {
+            display: flex;
+        }
+        #account_details {
+            .add_region {
+                position: unset;
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                padding: 0 10px;
+
+                a {
+                    margin-bottom: 0 !important;
+                }
+                span {
+                    padding: 9px;
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }
 

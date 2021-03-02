@@ -572,6 +572,16 @@ const MetaTraderConfig = (() => {
         return accounts_info[Object.keys(accounts_info).find(account => regex.test(account))];
     };
 
+    const hasTradeServers = (acc_type) => {
+        const is_real = acc_type.startsWith('real');
+        const is_gaming = accounts_info[acc_type].market_type === 'gaming';
+        const is_clean_type = acc_type.endsWith('financial') || acc_type.endsWith('stp');
+        if ((/unknown/.test(acc_type))) {
+            return false;
+        }
+        return !(is_real && (is_gaming || is_clean_type));
+    };
+
     const hasMultipleTradeServers = (acc_type, accounts) => {
         // we need to call getCleanAccType twice as the server names have underscore in it
         const clean_acc_type_a = getCleanAccType(acc_type, 2);
@@ -586,6 +596,7 @@ const MetaTraderConfig = (() => {
         validations,
         needsRealMessage,
         hasAccount,
+        hasTradeServers,
         hasMultipleTradeServers,
         getCleanAccType,
         getCurrency,

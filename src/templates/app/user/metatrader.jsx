@@ -134,8 +134,11 @@ const Metatrader = () => (
                             </div>
                         </div>
                         <div className='add_region'>
-                            <a id='btn_add_region' className='button' href='javascript:;'>
-                                <span>{it.L('Add region')}</span>
+                            <a id='btn_add_region' className='button-secondary invisible' href='javascript:;'>
+                                <span>{it.L('+ Add region')}</span>
+                            </a>
+                            <a className='button mt5-web-link' target='_blank' rel='noopener noreferrer'>
+                                <span>{it.L('Trade on web terminal')}</span>
                             </a>
                         </div>
                     </div>
@@ -182,30 +185,6 @@ const Metatrader = () => (
                             <a href={it.url_for('metatrader/download')} className='mt-link-button'>
                                 {it.L('Go to MT5 download page')}
                             </a>
-                        </div>
-                    </div>
-                </div>
-                <div className='mt-panel'>
-                    <div className='mt-sidebar-button mt5-web'>
-                        <div className='small-icon'>
-                            <a href='#' target='_blank' rel='noopener noreferrer'>
-                                <img src={it.url_for('images/pages/metatrader/dashboard/img-app-mac@2x.png')} />
-                            </a>
-                        </div>
-                        <div className='mt-title-mt5-web'>
-                            {it.L('MT5 Web platform')}
-                        </div>
-                        <div className='mt-link-web'>
-                            <div className='mt5-web-link'>
-                                <a href='#' target='_blank' rel='noopener noreferrer'>
-                                    {it.L('Demo')}
-                                </a>
-                            </div>
-                            <div className='mt5-web-link'>
-                                <a href='#' target='_blank' rel='noopener noreferrer'>
-                                    {it.L('Real')}
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>

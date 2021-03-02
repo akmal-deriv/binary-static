@@ -7,7 +7,7 @@ const checkPassword = (password_selector) => {
         return;
     }
 
-    const div = el_password.parentNode.querySelector('.days_to_crack') || document.createElement('div');
+    const div = el_password.parentNode.querySelector('.days-to-crack') || document.createElement('div');
 
     const daysToCrack = Mellt.checkPassword(el_password.value.trim());
     if (daysToCrack < 0) {
@@ -28,12 +28,12 @@ const checkPassword = (password_selector) => {
                 years ? `${years} ${localize('years')}` : `${daysToCrack} ${localize('days')}`,
             ]);
     }
-    div.className = `days_to_crack fill-bg-color hint ${daysToCrack < 30 ? 'red' : 'green'}`;
+    div.className = `days-to-crack fill-bg-color hint ${daysToCrack < 30 ? 'red' : 'green'}`;
     el_password.parentNode.appendChild(div);
 };
 
 const removeCheck = (password_selector) => {
-    const el_message = document.querySelector(password_selector).parentNode.querySelector('.days_to_crack');
+    const el_message = document.querySelector(password_selector).parentNode.querySelector('.days-to-crack');
     if (el_message) {
         el_message.remove();
     }

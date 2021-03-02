@@ -64,10 +64,8 @@ const MetaTraderUI = (() => {
     };
 
     const populateWebLinks = (server_info) => {
-        const $mt5_web = $('.mt5-web');
-        const $web_links = $mt5_web.find('a');
-
-        $web_links.attr('href', `https://trade.mql5.com/trade?${server_info && `servers=${server_info.environment}&trade_server=${server_info.environment}`}`);
+        const $mt5_web_link = $('.mt5-web-link');
+        $mt5_web_link.attr('href', `https://trade.mql5.com/trade?${server_info && `servers=${server_info.environment}&trade_server=${server_info.environment}`}`);
     };
 
     const populateTradingServers = () => {
@@ -106,14 +104,14 @@ const MetaTraderUI = (() => {
                 };
 
                 const { region, sequence } = trading_server.geolocation;
-                let label_text = `${region} ${sequence}`;
+                let label_text = sequence > 1 ? `${region} ${sequence}` : region;
 
                 if (is_used_server) {
                     num_servers.used += 1;
-                    label_text += localize(' (account created)');
+                    label_text += localize(' (Region added)');
                 } else if (is_disabled) {
                     num_servers.disabled += 1;
-                    label_text += localize(' (unavailable)');
+                    label_text += localize(' (Temporarily unavailable)');
                 }
 
                 $ddl_trade_server
@@ -228,12 +226,15 @@ const MetaTraderUI = (() => {
         $acc_item.find('.mt-type').text(accounts_info[acc_type].short_title);
         if (accounts_info[acc_type].info) {
             const server_info = accounts_info[acc_type].info.server_info;
-            const { region, sequence } = server_info.geolocation;
-            const label_text = `${region} ${sequence}`;
+            const region = server_info && server_info.geolocation.region;
+            const sequence = server_info && server_info.geolocation.sequence;
+            const is_synthetic = accounts_info[acc_type].market_type === 'gaming';
+            const label_text = server_info ? sequence > 1 ? `${region} ${sequence}` : region : accounts_info[acc_type].info.display_server;
             setMTAccountText();
             $acc_item.find('.mt-login').text(`(${accounts_info[acc_type].info.display_login})`);
             if (
                 server_info &&
+                is_synthetic &&
                 MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) ||
                 /unknown+$/.test(acc_type)
             ) {
@@ -269,7 +270,8 @@ const MetaTraderUI = (() => {
                 }
             }
             // disable MT5 account opening if created all available accounts
-            if (Object.keys(accounts_info).every(type => accounts_info[type].info)) {
+            if (Object.keys(accounts_info).every(type =>
+                accounts_info[type].info || !MetaTraderConfig.hasTradeServers(type))) {
                 $container.find('.act_new_account').remove();
             }
 
@@ -334,12 +336,12 @@ const MetaTraderUI = (() => {
         }
 
         if (accounts_info[acc_type].info) {
-            const is_demo     = accounts_info[acc_type].is_demo;
-            const server_info = accounts_info[acc_type].info.server_info;
+            const is_demo      = accounts_info[acc_type].is_demo;
+            const is_synthetic = accounts_info[acc_type].market_type === 'gaming';
+            const server_info  = accounts_info[acc_type].info.server_info;
             const { region, sequence } = server_info.geolocation;
-            const label_text = `${region} ${sequence}`;
+            const label_text = sequence > 1 ? `${region} ${sequence}` : region;
             $detail.find('.real-only').setVisibility(!is_demo);
-            $container.find('#btn_add_region').setVisibility(getAvailableServers(false, acc_type).length > 0 && !is_demo);
             // Update account info
             $detail.find('.acc-info div[data]').map(function () {
                 const key     = $(this).attr('data');
@@ -351,6 +353,7 @@ const MetaTraderUI = (() => {
                     leverage     : () => `1:${info}`,
                     server       : () => `${server_info && server_info.environment}`,
                     ...(
+                        is_synthetic &&
                         server_info.geolocation.region &&
                         MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) &&
                         ({ trade_server: () => label_text })
@@ -364,10 +367,14 @@ const MetaTraderUI = (() => {
             populateWebLinks(server_info);
             setCounterpartyAndJurisdictionTooltip($('.acc-info div[data="display_login"]'), acc_type);
 
-            // $container.find('.act_cashier').setVisibility(!types_info[acc_type].is_demo);
             if (current_action_ui !== 'new_account') {
                 $container.find('.has-account').setVisibility(1);
             }
+
+            // we need to add a small delay to let the servers details be filled before we check their availability
+            setTimeout(() => {
+                $container.find('#btn_add_region').setVisibility(getAvailableServers(false, MetaTraderConfig.getCleanAccType(acc_type, 2)).length > 0 && !is_demo);
+            }, 50);
         } else {
             $detail.find('.acc-info, .acc-actions').setVisibility(0);
         }
@@ -383,7 +390,7 @@ const MetaTraderUI = (() => {
 
     const defaultAction = acc_type => {
         let type = 'new_account';
-        if (accounts_info[acc_type].info) {
+        if (accounts_info[acc_type] && accounts_info[acc_type].info) {
             type = (accounts_info[acc_type].is_demo || Client.get('is_virtual') || getHashValue('token')) ? 'manage_password' : 'cashier';
             removeUrlHash(); // only load manage_password section on first page load if token in url, after that remove it from url
         }
@@ -593,7 +600,7 @@ const MetaTraderUI = (() => {
         $form.find('#msg_form').remove();
         $form.find('#mv_new_account div[id^="view_"]').setVisibility(0);
         $form.find(`#view_${step}`).setVisibility(1);
-        $form.find('#view_3').find('.error-msg, .days_to_crack').setVisibility(0);
+        $form.find('#view_3').find('.error-msg, .days-to-crack').setVisibility(0);
         $form.find(`.${is_demo ? 'real' : 'demo'}-only`).setVisibility(0);
 
         if (step === 2 && !is_demo && is_synthetic) {
@@ -606,10 +613,9 @@ const MetaTraderUI = (() => {
 
             const sample_account = MetaTraderConfig.getSampleAccount(new_account_type);
             $form.find('#view_2 #mt5_account_type').text(sample_account.title);
+            $form.find('button[type="submit"]').attr('acc_type', MetaTraderConfig.getCleanAccType(newAccountGetType(), 2));
 
             const $view_2_button_container = $form.find('#view_2-buttons');
-
-            $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_2_button_container);
             $view_2_button_container.setVisibility(1);
         } else if (step === 3) {
             $form.find('input').not(':input[type=radio]').val('');
@@ -621,6 +627,7 @@ const MetaTraderUI = (() => {
                 $form.find('#txt_name').val(`${get_settings.first_name} ${get_settings.last_name}`);
             }
 
+            $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_3_button_container);
             $view_3_button_container.setVisibility(1);
         } else if (step !== 1) {
             displayStep(1);
@@ -659,28 +666,34 @@ const MetaTraderUI = (() => {
         // Navigation buttons: cancel, next, back
         $form.find('.btn-cancel').click(() => {
             loadAction(null, acc_type);
-            displayAccountDescription(accounts_info[acc_type].info ? acc_type : undefined);
+            displayAccountDescription(accounts_info[acc_type] ? acc_type : undefined);
             $.scrollTo($('h1'), 300, { offset: -10 });
             showFinancialAuthentication(true);
         });
 
         $form.find('#view_1 .btn-next').click(function() {
             if (!$(this).hasClass('button-disabled')) {
-                const num_servers = populateTradingServers();
-                if (num_servers.supported > 1 && num_servers.used > 0){
-                    displayStep(2);
-                } else {
+                const account_type = newAccountGetType();
+                const is_demo = /^demo_/.test(account_type);
+
+                if (is_demo) {
                     displayStep(3);
+                    $form.find('button[type="submit"]').attr('acc_type', newAccountGetType());
+                } else {
+                    const num_servers = populateTradingServers();
+                    if (num_servers.supported > 1 && num_servers.used > 0){
+                        displayStep(2);
+                    } else {
+                        displayStep(3);
+                    }
+                    $form.find('button[type="submit"]').attr('acc_type', MetaTraderConfig.getCleanAccType(newAccountGetType(), 2));
                 }
-                $form.find('button[type="submit"]').attr('acc_type', newAccountGetType());
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             }
         });
 
         $form.find('#view_2 .btn-next').click(() => {
             if (Validation.validate('#frm_new_account')) {
-                const new_account_type = newAccountGetType();
-                $form.find('button[type="submit"]').attr('acc_type', new_account_type);
                 displayStep(3);
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             }
