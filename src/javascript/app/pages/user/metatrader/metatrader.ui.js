@@ -64,8 +64,10 @@ const MetaTraderUI = (() => {
     };
 
     const populateWebLinks = (server_info) => {
+        const mt5_url = `https://trade.mql5.com/trade${server_info && `?servers=${server_info.environment}&trade_server=${server_info.environment}`}`;
         const $mt5_web_link = $('.mt5-web-link');
-        $mt5_web_link.attr('href', `https://trade.mql5.com/trade?${server_info && `servers=${server_info.environment}&trade_server=${server_info.environment}`}`);
+
+        $mt5_web_link.attr('href', mt5_url);
     };
 
     const populateTradingServers = () => {
@@ -603,6 +605,8 @@ const MetaTraderUI = (() => {
         $form.find('#view_3').find('.error-msg, .days-to-crack').setVisibility(0);
         $form.find(`.${is_demo ? 'real' : 'demo'}-only`).setVisibility(0);
 
+        // we do not show step 2 (servers selection) to demo and non synthetic accouns
+        // as the server will be set to the closest/best suitable by API
         if (step === 2 && !is_demo && is_synthetic) {
             const num_servers = populateTradingServers();
 
@@ -620,11 +624,11 @@ const MetaTraderUI = (() => {
         } else if (step === 3) {
             $form.find('input').not(':input[type=radio]').val('');
 
-            const get_settings = State.getResponse('get_settings');
+            const settings = State.getResponse('get_settings');
             const $view_3_button_container = $form.find('#view_3-buttons');
 
-            if (get_settings.first_name && get_settings.last_name) {
-                $form.find('#txt_name').val(`${get_settings.first_name} ${get_settings.last_name}`);
+            if (settings.first_name && settings.last_name) {
+                $form.find('#txt_name').val(`${settings.first_name} ${settings.last_name}`);
             }
 
             $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_3_button_container);
@@ -677,10 +681,13 @@ const MetaTraderUI = (() => {
                 const is_demo = /^demo_/.test(account_type);
 
                 if (is_demo) {
+                    // If accound is demo, we will skip server selection and show the following step
                     displayStep(3);
                     $form.find('button[type="submit"]').attr('acc_type', newAccountGetType());
                 } else {
                     const num_servers = populateTradingServers();
+                    // if account is real, we will skip server selection when the first server is being selected (chosen by API)
+                    // or when there are no multiple servers supported
                     if (num_servers.supported > 1 && num_servers.used > 0){
                         displayStep(2);
                     } else {

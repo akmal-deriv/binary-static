@@ -550,8 +550,11 @@ const MetaTraderConfig = (() => {
         return is_need_verification;
     };
 
-    // remove server from acc_type for cases where we don't have it
+    // remove server from acc_type for cases where we don't need it
     // e.g. during new account creation no server is set yet
+    // due to ability for server names to have one or more underscores in the name
+    // we can pass the number of underscores to remove it from acc_type
+    // f.e. getCleanAccType('financial_ts01_02', 2) returns 'financial'
     const getCleanAccType = (acc_type, underscores) => {
         if (underscores > 1) {
             // eslint-disable-next-line no-param-reassign
