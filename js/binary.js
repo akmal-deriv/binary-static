@@ -34460,6 +34460,7 @@ var MetaTraderUI = function () {
 
     var accounts_info = MetaTraderConfig.accounts_info;
     var actions_info = MetaTraderConfig.actions_info;
+    var mt5_url = 'https://trade.mql5.com/trade';
 
     var disabled_signup_types = {
         'real': false,
@@ -34493,10 +34494,10 @@ var MetaTraderUI = function () {
     };
 
     var populateWebLinks = function populateWebLinks(server_info) {
-        var mt5_url = 'https://trade.mql5.com/trade' + (server_info && '?servers=' + server_info.environment + '&trade_server=' + server_info.environment);
+        var query_params = '' + (server_info && '?servers=' + server_info.environment + '&trade_server=' + server_info.environment);
         var $mt5_web_link = $('.mt5-web-link');
 
-        $mt5_web_link.attr('href', mt5_url);
+        $mt5_web_link.attr('href', '' + mt5_url + query_params);
     };
 
     var populateTradingServers = function populateTradingServers() {
