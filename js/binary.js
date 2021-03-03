@@ -35048,6 +35048,11 @@ var MetaTraderUI = function () {
                 displayStep(1);
             }
 
+            // disable next button in case if all servers are used or unavailable
+            if (num_servers.supported === num_servers.used + num_servers.disabled) {
+                disableButtonLink('.btn-next');
+            }
+
             var sample_account = MetaTraderConfig.getSampleAccount(new_account_type);
             _$form.find('#view_2 #mt5_account_type').text(sample_account.title);
             _$form.find('button[type="submit"]').attr('acc_type', MetaTraderConfig.getCleanAccType(newAccountGetType(), 2));
@@ -35135,7 +35140,7 @@ var MetaTraderUI = function () {
         });
 
         _$form.find('#view_2 .btn-next').click(function () {
-            if (Validation.validate('#frm_new_account')) {
+            if (!$(this).hasClass('button-disabled') && Validation.validate('#frm_new_account')) {
                 displayStep(3);
                 $.scrollTo($container.find('.acc-actions'), 300, { offset: -10 });
             }
