@@ -33869,10 +33869,9 @@ var MetaTrader = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            _context.next = 2;
-                            return BinarySocket.send({ trading_servers: 1, platform: 'mt5' });
+                            // const response = await BinarySocket.send({ trading_servers: 1, platform: 'mt5' });
 
-                        case 2:
+                            // hasDisabledServers(response.trading_servers);
 
                             if (isEligible()) {
                                 if (Client.get('is_virtual')) {
@@ -33884,7 +33883,7 @@ var MetaTrader = function () {
                                 MetaTraderUI.displayPageError(localize('Sorry, this feature is not available in your jurisdiction.'));
                             }
 
-                        case 3:
+                        case 1:
                         case 'end':
                             return _context.stop();
                     }
@@ -33892,6 +33891,16 @@ var MetaTrader = function () {
             }, _callee, undefined);
         })));
     };
+
+    // const hasDisabledServers = (trading_servers) => {
+    //     trading_servers.forEach((trading_server) => {
+    //         if (trading_server.disabled === 1) {
+    //             const message = localize('Due to an issue on our server, some of your MT5 accounts are unavailable at the moment. Please bear with us and thank you for your patience.');
+
+    //             MetaTraderUI.displayPageError(message);
+    //         }
+    //     });
+    // };
 
     var isEligible = function isEligible() {
         var landing_company = State.getResponse('landing_company');
@@ -34483,7 +34492,7 @@ var MetaTraderUI = function () {
         $action = $container.find('#fst_action');
         $templates = $container.find('#templates').remove();
         $main_msg = $container.find('#main_msg');
-        $container.find('[class*="act_"]').click(populateForm);
+        $container.find('[class*="act_"]').on('click', populateForm);
 
         MetaTraderConfig.setMessages($templates.find('#messages'));
 
@@ -34763,11 +34772,9 @@ var MetaTraderUI = function () {
             var is_demo = accounts_info[acc_type].is_demo;
             var is_synthetic = accounts_info[acc_type].market_type === 'gaming';
             var server_info = accounts_info[acc_type].info.server_info;
-            var _server_info$geolocat = server_info.geolocation,
-                region = _server_info$geolocat.region,
-                sequence = _server_info$geolocat.sequence;
-
-            var label_text = sequence > 1 ? region + ' ' + sequence : region;
+            var region = server_info && server_info.geolocation.region;
+            var sequence = server_info && server_info.geolocation.sequence;
+            var label_text = server_info ? sequence > 1 ? region + ' ' + sequence : region : accounts_info[acc_type].info.display_server;
             $detail.find('.real-only').setVisibility(!is_demo);
             // Update account info
             $detail.find('.acc-info div[data]').map(function () {
