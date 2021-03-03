@@ -31,6 +31,7 @@ const MetaTraderUI = (() => {
 
     const accounts_info = MetaTraderConfig.accounts_info;
     const actions_info  = MetaTraderConfig.actions_info;
+    const mt5_url       = 'https://trade.mql5.com/trade';
 
     let disabled_signup_types = {
         'real': false,
@@ -53,7 +54,7 @@ const MetaTraderUI = (() => {
         $action      = $container.find('#fst_action');
         $templates   = $container.find('#templates').remove();
         $main_msg    = $container.find('#main_msg');
-        $container.find('[class*="act_"]').click(populateForm);
+        $container.find('[class*="act_"]').on('click', populateForm);
 
         MetaTraderConfig.setMessages($templates.find('#messages'));
 
@@ -64,10 +65,10 @@ const MetaTraderUI = (() => {
     };
 
     const populateWebLinks = (server_info) => {
-        const mt5_url = `https://trade.mql5.com/trade${server_info && `?servers=${server_info.environment}&trade_server=${server_info.environment}`}`;
+        const query_params = `${server_info && `?servers=${server_info.environment}&trade_server=${server_info.environment}`}`;
         const $mt5_web_link = $('.mt5-web-link');
 
-        $mt5_web_link.attr('href', mt5_url);
+        $mt5_web_link.attr('href', `${mt5_url}${query_params}`);
     };
 
     const populateTradingServers = () => {
@@ -341,8 +342,9 @@ const MetaTraderUI = (() => {
             const is_demo      = accounts_info[acc_type].is_demo;
             const is_synthetic = accounts_info[acc_type].market_type === 'gaming';
             const server_info  = accounts_info[acc_type].info.server_info;
-            const { region, sequence } = server_info.geolocation;
-            const label_text = sequence > 1 ? `${region} ${sequence}` : region;
+            const region = server_info && server_info.geolocation.region;
+            const sequence = server_info && server_info.geolocation.sequence;
+            const label_text = server_info ? sequence > 1 ? `${region} ${sequence}` : region : accounts_info[acc_type].info.display_server;
             $detail.find('.real-only').setVisibility(!is_demo);
             // Update account info
             $detail.find('.acc-info div[data]').map(function () {
@@ -567,8 +569,9 @@ const MetaTraderUI = (() => {
             }
 
             const is_used_server = isUsedServer(is_server_supported, trading_server);
+            const is_available = trading_server.disabled !== 1;
 
-            return is_server_supported && !is_used_server;
+            return is_server_supported && is_available && !is_used_server;
         });
 
     const isSupportedServer = (market_type, sub_account_type, supported_accounts) => {
