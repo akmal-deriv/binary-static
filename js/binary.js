@@ -33869,9 +33869,10 @@ var MetaTrader = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            // const response = await BinarySocket.send({ trading_servers: 1, platform: 'mt5' });
+                            _context.next = 2;
+                            return BinarySocket.send({ trading_servers: 1, platform: 'mt5' });
 
-                            // hasDisabledServers(response.trading_servers);
+                        case 2:
 
                             if (isEligible()) {
                                 if (Client.get('is_virtual')) {
@@ -33883,7 +33884,7 @@ var MetaTrader = function () {
                                 MetaTraderUI.displayPageError(localize('Sorry, this feature is not available in your jurisdiction.'));
                             }
 
-                        case 1:
+                        case 3:
                         case 'end':
                             return _context.stop();
                     }
@@ -33891,16 +33892,6 @@ var MetaTrader = function () {
             }, _callee, undefined);
         })));
     };
-
-    // const hasDisabledServers = (trading_servers) => {
-    //     trading_servers.forEach((trading_server) => {
-    //         if (trading_server.disabled === 1) {
-    //             const message = localize('Due to an issue on our server, some of your MT5 accounts are unavailable at the moment. Please bear with us and thank you for your patience.');
-
-    //             MetaTraderUI.displayPageError(message);
-    //         }
-    //     });
-    // };
 
     var isEligible = function isEligible() {
         var landing_company = State.getResponse('landing_company');
@@ -33940,16 +33931,10 @@ var MetaTrader = function () {
             response.mt5_login_list.forEach(function (mt5_login) {
 
                 if (mt5_login.error) {
-                    var account_type = mt5_login.error.details.account_type;
-
                     var message = mt5_login.error.message_to_client;
                     switch (mt5_login.error.code) {
                         case 'MT5AccountInaccessible':
                             {
-                                MetaTraderUI.setDisabledAccountTypes({
-                                    'real': account_type === 'real',
-                                    'demo': account_type === 'demo'
-                                });
                                 message = localize('Due to an issue on our server, some of your MT5 accounts are unavailable at the moment. [_1]Please bear with us and thank you for your patience.', '<br />');
                                 break;
                             }
@@ -35016,8 +35001,9 @@ var MetaTraderUI = function () {
             }
 
             var is_used_server = isUsedServer(is_server_supported, trading_server);
+            var is_available = trading_server.disabled !== 1;
 
-            return is_server_supported && !is_used_server;
+            return is_server_supported && is_available && !is_used_server;
         });
     };
 
