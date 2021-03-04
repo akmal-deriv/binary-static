@@ -632,12 +632,7 @@ const MetaTraderUI = (() => {
         } else if (step === 3) {
             $form.find('input').not(':input[type=radio]').val('');
 
-            const settings = State.getResponse('get_settings');
             const $view_3_button_container = $form.find('#view_3-buttons');
-
-            if (settings.first_name && settings.last_name) {
-                $form.find('#txt_name').val(`${settings.first_name} ${settings.last_name}`);
-            }
 
             $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_3_button_container);
             $view_3_button_container.setVisibility(1);

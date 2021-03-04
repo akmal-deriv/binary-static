@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-03-02 08:22\n"
+"PO-Revision-Date: 2021-03-04 05:41\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -521,7 +521,7 @@ msgid "(e) Size and nature"
 msgstr "(e) Размер и свойства"
 
 msgid "*Cryptocurrency pairs are not available for DMT5 Financial accounts registered with Deriv (V) Ltd."
-msgstr ""
+msgstr "*Криптовалютные пары недоступны для финансовых счетов DMT5, зарегистрированных в Deriv (V) Ltd."
 
 msgid "0 – 19.999%"
 msgstr "0 – 19.999%"
@@ -3308,7 +3308,7 @@ msgid "Cryptocurrencies such as Bitcoin and Ethereum are decentralised digital c
 msgstr "Криптовалюты (например, Bitcoin и Ethereum), являются децентрализованными цифровыми валютами, работающими на основе технологии блокчейн."
 
 msgid "Cryptocurrencies*"
-msgstr ""
+msgstr "Криптовалюты*"
 
 msgid "Cryptocurrency"
 msgstr "Криптовалюта"
@@ -3586,8 +3586,8 @@ msgstr "Пополните счёт или выведите средства"
 msgid "Deposit: %1 blockchain confirmations"
 msgstr "Пополнение. Подтверждение блокчейнов: %1"
 
-msgid "Deposit: %1 working day"
-msgstr "Пополнения: %1 раб.день (дня)"
+msgid "Deposit: %1 day"
+msgstr ""
 
 msgid "Deposit: Instant"
 msgstr "Пополнения: Мгновенно"
@@ -6954,7 +6954,7 @@ msgid "MT5 Web platform"
 msgstr "Веб платформа MT5"
 
 msgid "MT5 for %1"
-msgstr ""
+msgstr "MT5 для %1"
 
 msgid "MT5 for Android"
 msgstr "MT5 для Android"
@@ -7558,9 +7558,6 @@ msgstr "Имя домашнего животного"
 
 msgid "Name, email address, and contact number"
 msgstr "своё имя, электронный адрес и контактный номер,"
-
-msgid "Name:"
-msgstr "Имя:"
 
 msgid "National ID card, ID book or any government-issued document which contains a photo, your name, and date of birth"
 msgstr "Национальное удостоверение личности, ID-карта, ID book или любой документ, выпущенный государством и содержащий фотографию, ваше имя и дату рождения"
@@ -8598,7 +8595,7 @@ msgid "Please enter a valid Login ID."
 msgstr "Пожалуйста, введите правильное имя пользователя."
 
 msgid "Please enter a valid phone number (e.g. +15417541234)."
-msgstr "Пожалуйста, введите действительный номер телефона (например +15417541234)."
+msgstr "Пожалуйста, введите действительный номер телефона (например, +15417541234)."
 
 msgid "Please enter date in the format DD MMM, YYYY HH:mm (local time)."
 msgstr "Пожалуйста, введите дату в формате ДД ММ, ГГГГ ЧЧ:мм (по местному времени)."
@@ -14018,11 +14015,11 @@ msgstr "Вывод средств с Реального счёта MT5 клие�
 msgid "Withdrawal via payment agent is available only if you deposit exclusively via payment agent."
 msgstr "Вывод средств через платёжного агента возможен только в том случае, если вы вносите средства исключительно через этого платёжного агента."
 
-msgid "Withdrawal: %1 to %2 working days"
-msgstr "Вывод: от %1 до %2 рабочих дней"
+msgid "Withdrawal: %1 day"
+msgstr ""
 
-msgid "Withdrawal: %1 working day"
-msgstr "Вывод: %1 раб. дн"
+msgid "Withdrawal: %1 to %2 days"
+msgstr ""
 
 msgid "Withdrawal: Not applicable"
 msgstr "Вывод: не предлагается"
@@ -14282,6 +14279,12 @@ msgstr "Вы можете переводить средства только м�
 msgid "You may open one account for each supported cryptocurrency."
 msgstr "Вы можете открыть по одному счёту на каждую доступную криптовалюту."
 
+msgid "You must also submit a proof of address."
+msgstr ""
+
+msgid "You must also submit a proof of identity."
+msgstr ""
+
 msgid "You must ensure that potential clients are aware of the prohibition on insider trading based on confidential information. If you have any suspicion that such trading is taking place you must inform %1compliance@binary.com%2."
 msgstr "Вы должны убедиться, что потенциальные клиенты знают о запрете на инсайдерскую торговлю с использованием конфиденциальной информации. Если у вас есть подозрения, что кто-то практикует этот вид торговли, напишите нам на %1compliance@binary.com%2."
 
@@ -14465,8 +14468,14 @@ msgstr "Вашему компьютеру может потребоваться 
 msgid "Your demo account balance is currently %1 or less. You may top up your account with an additional %2."
 msgstr "В данный момент баланс вашего демо-счёта составляет %1 или ниже. Вы можете пополнить счёт дополнительными %2."
 
-msgid "Your document is being reviewed, please check back in 1-3 days"
-msgstr "Ваши документы проходят процесс проверки. Пожалуйста, подождите от 1 до 3 дней"
+msgid "Your document is being reviewed, please check back in 1-3 days."
+msgstr ""
+
+msgid "Your document is being reviewed, please check back in 1-3 days. You must also submit a proof of address."
+msgstr ""
+
+msgid "Your document is being reviewed, please check back in 1-3 days. You must also submit a proof of identity."
+msgstr ""
 
 msgid "Your face is needed in the selfie"
 msgstr "На селфи должно быть ваше лицо"
