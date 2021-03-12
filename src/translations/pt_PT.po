@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-03-04 05:41\n"
+"PO-Revision-Date: 2021-03-11 08:11\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -522,7 +522,8 @@ msgid "(e) Size and nature"
 msgstr "(e) Dimensão e natureza"
 
 msgid "*Cryptocurrency pairs are not available for DMT5 Financial accounts registered with Deriv (V) Ltd."
-msgstr ""
+msgstr "\n"
+"* Os pares de criptomoedas não estão disponíveis para contas financeiras DMT5 registradas com Deriv (V) Ltd."
 
 msgid "0 – 19.999%"
 msgstr "0 a 19,999%"
@@ -3317,7 +3318,7 @@ msgid "Cryptocurrencies such as Bitcoin and Ethereum are decentralised digital c
 msgstr "Criptomoedas como Bitcoin e Ethereum são ativos digitais descentralizados que permitem pagamentos instantâneos para qualquer parte do mundo."
 
 msgid "Cryptocurrencies*"
-msgstr ""
+msgstr "Criptomoedas*"
 
 msgid "Cryptocurrency"
 msgstr "Criptomoeda"
@@ -3598,7 +3599,7 @@ msgid "Deposit: %1 blockchain confirmations"
 msgstr "Depósito: %1 confirmações de blockchain"
 
 msgid "Deposit: %1 day"
-msgstr ""
+msgstr "Depósito: %1 dia"
 
 msgid "Deposit: Instant"
 msgstr "Depósito: Instantâneo"
@@ -6986,7 +6987,7 @@ msgid "MT5 Web platform"
 msgstr "Plataforma Web MT5"
 
 msgid "MT5 for %1"
-msgstr ""
+msgstr "MT5 para %1"
 
 msgid "MT5 for Android"
 msgstr "MT5 para Android"
@@ -8611,7 +8612,8 @@ msgid "Please confirm the transaction details in order to complete the transfer:
 msgstr "Confirme os detalhes da transação para concluir a transferência:"
 
 msgid "Please contact us via %1live chat%2."
-msgstr ""
+msgstr "\n"
+"Entre em contato conosco através do %1live chat%2."
 
 msgid "Please contact your payment agent to validate your withdrawal request."
 msgstr "Entre em contato com seu Agente de Pagamento para validar sua solicitação de retirada."
@@ -9168,6 +9170,9 @@ msgstr "T4 2018"
 
 msgid "Q4 2019"
 msgstr "Q4 2019"
+
+msgid "Q4 2020"
+msgstr "Q4 2020"
 
 msgid "Qiwi is a payment service provider that was founded in 2007. It provides individuals with a simple way to transfer money, receive payments, and pay online. For more information, please visit %1."
 msgstr "Qiwi é um provedor de serviços de pagamentos fundado em 2007. Ele fornece a clientes particulares um método simples de transferir dinheiro, receber pagamentos e pagar online. Para mais informações, visite %1."
@@ -10021,10 +10026,10 @@ msgid "Show all historical transactions up to"
 msgstr "Mostrar todas as transações históricas até"
 
 msgid "Show less"
-msgstr ""
+msgstr "Mostre menos"
 
 msgid "Show more"
-msgstr ""
+msgstr "Mostre mais"
 
 msgid "Sign out"
 msgstr "Sair"
@@ -13199,7 +13204,8 @@ msgid "Upload back of license from your computer"
 msgstr "Enviar o verso da carteira de condução direto do seu computador"
 
 msgid "Upload document"
-msgstr ""
+msgstr "\n"
+"Carregar documento"
 
 msgid "Upload front of card from your computer"
 msgstr "Enviar a frente da carteira nacional direto do seu computador"
@@ -14066,10 +14072,10 @@ msgid "Withdrawal via payment agent is available only if you deposit exclusively
 msgstr "Nota: Retiradas através de agentes de pagamento estão disponíveis apenas se você deposita exclusivamente através de agentes de pagamento."
 
 msgid "Withdrawal: %1 day"
-msgstr ""
+msgstr "Retirada: %1 dia"
 
 msgid "Withdrawal: %1 to %2 days"
-msgstr ""
+msgstr "Retiradas: %1 a %2 dias"
 
 msgid "Withdrawal: Not applicable"
 msgstr "Retirada: Não aplicável"
@@ -14330,10 +14336,10 @@ msgid "You may open one account for each supported cryptocurrency."
 msgstr "Você pode abrir uma conta para cada criptomoeda suportada."
 
 msgid "You must also submit a proof of address."
-msgstr ""
+msgstr "Você também deve enviar um comprovante de endereço."
 
 msgid "You must also submit a proof of identity."
-msgstr ""
+msgstr "Você também deve enviar um comprovante de identidade."
 
 msgid "You must ensure that potential clients are aware of the prohibition on insider trading based on confidential information. If you have any suspicion that such trading is taking place you must inform %1compliance@binary.com%2."
 msgstr "Você deve garantir que os clientes em potencial estejam cientes da proibição de informações privilegiadas com base em informações confidenciais. Se você suspeitar que isso está ocorrendo, informe %1compliance@binary.com%2."
@@ -14432,7 +14438,7 @@ msgid "You've made no transactions of this type up to this date."
 msgstr "Você não fez nenhuma transação deste tipo até esta data."
 
 msgid "You've reached the limit for uploading your documents."
-msgstr ""
+msgstr "Você atingiu o limite de upload de seus documentos."
 
 msgid "You've worked in the financial sector for at least one year in a role that requires knowledge of your intended transactions on our platform"
 msgstr "Você já trabalhou no setor financeiro durante pelo menos um ano numa função que requeira conhecimentos relacionados com as transações que você pretende realizar na nossa plataforma"
@@ -14520,13 +14526,13 @@ msgid "Your demo account balance is currently %1 or less. You may top up your ac
 msgstr "O saldo da sua conta demo está atualmente equivalente a %1 ou menos. É possível carregar mais %2 para a sua conta."
 
 msgid "Your document is being reviewed, please check back in 1-3 days."
-msgstr ""
+msgstr "Seu documento está sendo analisado. Verifique novamente em 1 a 3 dias."
 
 msgid "Your document is being reviewed, please check back in 1-3 days. You must also submit a proof of address."
-msgstr ""
+msgstr "Seu documento está sendo analisado. Verifique novamente em 1 a 3 dias. Você também deve enviar um comprovante de endereço."
 
 msgid "Your document is being reviewed, please check back in 1-3 days. You must also submit a proof of identity."
-msgstr ""
+msgstr "Seu documento está sendo analisado. Verifique novamente em 1 a 3 dias. Você também deve enviar um comprovante de identidade."
 
 msgid "Your face is needed in the selfie"
 msgstr "Seu rosto é necessário na selfie"
@@ -14586,7 +14592,8 @@ msgid "Your proof of identity has expired"
 msgstr "Seu comprovante de identidade expirou ou não é mais válido"
 
 msgid "Your proof of identity submission failed because:"
-msgstr ""
+msgstr "\n"
+"O envio do seu comprovante de identidade falhou porque:"
 
 msgid "Your proof of identity was submitted successfully"
 msgstr "Seu comprovante de identidade foi enviado com sucesso"
