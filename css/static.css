@@ -1962,31 +1962,79 @@ body #not_authenticated_financial ul.checked > li {
       #content.economic_calendar-content .calendar-container .calendar-footer .right a {
         padding: 0 2px; }
 
-.welcome-content .box-grid .box {
+.welcome-content-container {
+  max-width: 1500px;
+  margin-top: 3rem;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  max-height: 100%;
-  min-height: 120px; }
-  .welcome-content .box-grid .box div > p {
-    margin: 1em 0 0.5em; }
-    .welcome-content .box-grid .box div > p.text-orange {
-      color: #e98024;
-      font-size: 1.520875rem;
-      font-weight: 300; }
+  display: flex; }
+  @media (max-width: 480px) {
+    .welcome-content-container {
+      display: block; } }
 
-.welcome-content .account-created:before {
-  content: url("../images/pages/set_currency/congratulations.svg"); }
+.welcome-content-title {
+  color: #2a3052;
+  font-size: 1.3225rem;
+  margin-bottom: 0; }
 
-.welcome-content .box > .box-item-end {
-  margin-top: auto; }
-  .welcome-content .box > .box-item-end p {
-    margin-top: 0;
-    margin-bottom: 10px; }
+.welcome-content-box {
+  padding: 1.5rem;
+  border-radius: 0.5rem; }
+  .welcome-content-box-icon {
+    margin: 0 0.5rem; }
+    .welcome-content-box-icon-container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center; }
+
+.welcome-content-platform {
+  padding-left: 1rem; }
+  .welcome-content-platform-container {
+    position: relative;
+    display: block; }
+    @media (min-width: 780px) {
+      .welcome-content-platform-container {
+        min-height: 340px; } }
+  .welcome-content-platform-list-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 2rem;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start; }
+  .welcome-content-platform-title {
+    margin: 0;
+    font-size: 1.15rem;
+    text-align: start; }
+  .welcome-content-platform-description {
+    margin: 5px 0;
+    color: #c2c2c2;
+    text-align: start; }
+
+.welcome-content-action {
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: stretch; }
+  .welcome-content-action-container {
+    width: 100%;
+    margin-top: 1rem; }
+    @media (min-width: 780px) {
+      .welcome-content-action-container {
+        position: absolute;
+        bottom: 0px; } }
+
+.password-input {
+  width: 260px; }
+  .password-input-hint {
+    margin-top: 1.5rem !important;
+    max-width: 380px; }
+
+.margin-top-32 {
+  margin-top: 2rem; }
 
 .two_factor_auth .padding-left-medium {
   padding-left: 45px; }
