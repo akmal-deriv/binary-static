@@ -36587,6 +36587,38 @@ var State = __webpack_require__(/*! ../../../../../_common/storage */ "./src/jav
 
 var TermsOfUseForm = function () {
 
+    // const handleResponse = (response) => {
+    //     // sessionStorage.setItem('client_form_response', JSON.stringify(response));
+    //     // if ('error' in response && response.error.code === 'show risk disclaimer') {
+    //     //     sessionStorage.setItem('is_risk_disclaimer', true);
+    //     //     $(form_id).setVisibility(0);
+    //     //     $('#client_message').setVisibility(0);
+    //     //     const risk_form_id = '#financial-risk';
+    //     //     $(risk_form_id).setVisibility(1);
+    //     //     $.scrollTo($(risk_form_id), 500, { offset: -10 });
+
+    //     //     FormManager.init(risk_form_id, []);
+
+    //     //     const echo_req = $.extend({}, response.echo_req);
+    //     //     echo_req.accept_risk = 1;
+    //     //     echo_req.secret_answer = txt_secret_answer; // update from <not shown> to the previous value stored in FE
+    //     //     FormManager.handleSubmit({
+    //     //         form_selector       : risk_form_id,
+    //     //         obj_request         : echo_req,
+    //     //         fnc_response_handler: handleResponse,
+    //     //     });
+    //     //     doneLoading();
+    //     // } else {
+    //     //     sessionStorage.removeItem('is_risk_disclaimer');
+    //     //     AccountOpening.handleNewAccount(response, response.msg_type);
+    //     // }
+    //     FormManager.handleSubmit({
+    //         form_selector       : risk_form_id,
+    //         obj_request         : echo_req,
+    //         fnc_response_handler: handleResponse,
+    //     });
+    // };
+
     var init = function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(fields, real_account_signup_target) {
             var landing_company, lc_to_upgrade_to;
@@ -36745,6 +36777,7 @@ var RealAccountOpening = function () {
     var onStepSubmitted = function onStepSubmitted() {
         if (current_step === steps.length - 1) {
             // alert('submit data');
+            // console.log('submit data');
         } else {
             current_step++;
             renderStep(current_step - 1);
