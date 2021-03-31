@@ -36695,6 +36695,7 @@ var RealAccountOpening = function () {
     var real_account_signup_target = void 0,
         steps = void 0,
         current_step = void 0,
+        account_details = void 0,
         action_previous_buttons = void 0;
 
     var onLoad = function () {
@@ -36705,15 +36706,16 @@ var RealAccountOpening = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
+                            account_details = {};
                             real_account_signup_target = param('account_type');
 
                             residence_list_promise = BinarySocket.send({ residence_list: 1 });
                             account_settings_promise = BinarySocket.send({ get_settings: 1 });
                             financial_assessment_promise = BinarySocket.send({ get_financial_assessment: 1 });
-                            _context.next = 6;
+                            _context.next = 7;
                             return Promise.all([residence_list_promise, account_settings_promise, financial_assessment_promise]);
 
-                        case 6:
+                        case 7:
                             _ref2 = _context.sent;
                             _ref3 = _slicedToArray(_ref2, 3);
                             residence_list_response = _ref3[0];
@@ -36746,7 +36748,7 @@ var RealAccountOpening = function () {
                             getElementById('real_account_wrapper').setVisibility(1);
                             renderStep();
 
-                        case 24:
+                        case 25:
                         case 'end':
                             return _context.stop();
                     }
@@ -36774,10 +36776,15 @@ var RealAccountOpening = function () {
         });
     };
 
-    var onStepSubmitted = function onStepSubmitted() {
+    var onStepSubmitted = function onStepSubmitted(req) {
+        // console.warn('req');
+        // console.log(req);
+        // console.log('');
+        Object.assign(account_details, req);
         if (current_step === steps.length - 1) {
             // alert('submit data');
             // console.log('submit data');
+            // console.log(account_details);
         } else {
             current_step++;
             renderStep(current_step - 1);
