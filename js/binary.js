@@ -10914,6 +10914,7 @@ module.exports = Footer;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var BinaryPjax = __webpack_require__(/*! ./binary_pjax */ "./src/javascript/app/base/binary_pjax.js");
+// const AccountOpening = require('../common/account_opening');
 var Client = __webpack_require__(/*! ./client */ "./src/javascript/app/base/client.js");
 var BinarySocket = __webpack_require__(/*! ./socket */ "./src/javascript/app/base/socket.js");
 var showHidePulser = __webpack_require__(/*! ../common/account_opening */ "./src/javascript/app/common/account_opening.js").showHidePulser;
@@ -11052,6 +11053,7 @@ var Header = function () {
         BinarySocket.wait('authorize', 'landing_company', 'get_settings', 'get_account_status').then(function () {
             var upgrade_msg = document.getElementsByClassName('upgrademessage');
 
+            // AccountOpening.redirectAccount();
             if (!upgrade_msg) {
                 return;
             }
@@ -11099,8 +11101,16 @@ var Header = function () {
                     }, '', el);
                 });
 
+                // console.log('showUpgradeBtn');
+                // console.log(show_upgrade_msg);
+                // console.log(upgrade_btn_txt);
+                // console.log(upgrade_info);
+                // console.log('here');
                 if (show_upgrade_msg) {
                     var upgrade_url = upgrade_info.can_upgrade_to.length > 1 ? 'user/accounts' : Object.values(upgrade_info.upgrade_links)[0];
+                    // console.log('upgrade_url');
+                    // console.log(upgrade_url);
+                    // console.log(upgrade_btn_txt);
                     showUpgrade(upgrade_url, upgrade_link_txt);
                     showUpgradeBtn(upgrade_url, upgrade_btn_txt);
                 } else {
@@ -12254,6 +12264,7 @@ var getPropertyValue = __webpack_require__(/*! ../../_common/utility */ "./src/j
 var AccountOpening = function () {
     var redirectAccount = function redirectAccount() {
         var upgrade_info = Client.getUpgradeInfo();
+        // console.warn('redirectAccount');
 
         if (!upgrade_info.can_upgrade) {
             BinaryPjax.loadPreviousUrl();
@@ -36706,16 +36717,15 @@ var RealAccountOpening = function () {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            account_details = {};
                             real_account_signup_target = param('account_type');
 
                             residence_list_promise = BinarySocket.send({ residence_list: 1 });
                             account_settings_promise = BinarySocket.send({ get_settings: 1 });
                             financial_assessment_promise = BinarySocket.send({ get_financial_assessment: 1 });
-                            _context.next = 7;
+                            _context.next = 6;
                             return Promise.all([residence_list_promise, account_settings_promise, financial_assessment_promise]);
 
-                        case 7:
+                        case 6:
                             _ref2 = _context.sent;
                             _ref3 = _slicedToArray(_ref2, 3);
                             residence_list_response = _ref3[0];
@@ -36727,6 +36737,7 @@ var RealAccountOpening = function () {
                             upgrade_info = Client.getUpgradeInfo();
 
 
+                            account_details = { new_account_real: 1, residence: account_settings.country_code };
                             action_previous_buttons = document.getElementsByClassName('action_previous');
                             Array.from(action_previous_buttons).forEach(function (item) {
                                 item.addEventListener('click', onClickPrevious);
@@ -36777,16 +36788,15 @@ var RealAccountOpening = function () {
     };
 
     var onStepSubmitted = function onStepSubmitted(req) {
-        // console.warn('req');
-        // console.log(req);
-        // console.log('');
         Object.assign(account_details, req);
         if (current_step === steps.length - 1) {
-            // alert('submit data');
-            // console.log('submit data');
-            // console.log(account_details);
-            // AccountOpening.handleNewAccount(account_details, account_details.msg_type)
+            BinarySocket.send(account_details).then(function (response) {
+                AccountOpening.handleNewAccount(response, response.msg_type);
+            });
         } else {
+            if (current_step === 0) {
+                account_details.currency = $('#set_currency .select_currency #currency').find('.selected').attr('id');
+            }
             current_step++;
             renderStep(current_step - 1);
         }
