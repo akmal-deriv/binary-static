@@ -160,7 +160,7 @@ const SetCurrency = (() => {
             if (should_show_confirmation) {
                 const currency            = $clicked_currency.attr('id');
                 const is_iom_client       = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-                const change_text_for_iom = is_iom_client ? localize('deposit.') : localize('deposit or create an MT5 account.');
+                const change_text_for_iom = is_iom_client ? localize('deposit') : localize('deposit or create an MT5 account');
                 let localized_message     = '';
                 let localized_footnote    = '';
 
@@ -169,7 +169,7 @@ const SetCurrency = (() => {
                     localized_footnote = `${localize('Note:')} ${localize('You may open one account for each supported cryptocurrency.')}`;
                 } else {
                     localized_message = localize('Are you sure you want to create a fiat account in [_1]?', `${currency}`);
-                    localized_footnote = `${localize('Note:')} ${localize('You are limited to one fiat account. You can change the currency of your fiat account anytime before you make a first-time [_1]', change_text_for_iom)}`;
+                    localized_footnote = `${localize('Note:')} ${localize('You are limited to one fiat account. You can change the currency of your fiat account anytime before you make a first-time [_1].', change_text_for_iom)}`;
                 }
 
                 Dialog.confirm({
