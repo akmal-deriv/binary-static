@@ -862,7 +862,9 @@ div.kineticjs-content {
   .home-content .center-text-m {
     text-align: center; }
   .home-content .gr-centered-m {
-    margin: 0 auto; } }
+    margin: 0 auto; }
+  .home-content .margin-top-10 {
+    margin-top: 10px; } }
 
 @media screen and (max-width: 480px) {
   .home-content .small-image {
@@ -1053,30 +1055,28 @@ div.kineticjs-content {
     margin: 35px 0 0; }
   #payment_methods table thead {
     border-bottom: 1px solid #44484c; }
-  #payment_methods table tr {
-    position: relative; }
-    #payment_methods table tr .data-anchor-link {
-      display: none; }
-    #payment_methods table tr .th-list, #payment_methods table tr .td-list {
-      display: grid;
-      grid-template-columns: 2fr 1.3fr 1.3fr 3fr 1fr;
-      grid-column-gap: 10px; }
-      #payment_methods table tr .th-list .th, #payment_methods table tr .th-list .td, #payment_methods table tr .td-list .th, #payment_methods table tr .td-list .td {
-        -ms-flex-item-align: center;
-            align-self: center; }
-      #payment_methods table tr .th-list > *:nth-child(1), #payment_methods table tr .td-list > *:nth-child(1) {
-        min-width: 180px; }
-      #payment_methods table tr .th-list > *:nth-child(2), #payment_methods table tr .th-list > *:nth-child(3), #payment_methods table tr .td-list > *:nth-child(2), #payment_methods table tr .td-list > *:nth-child(3) {
-        min-width: 110px; }
-      #payment_methods table tr .th-list > *:nth-child(4), #payment_methods table tr .td-list > *:nth-child(4) {
-        min-width: 190px; }
-    #payment_methods table tr .td-description {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center; }
+  #payment_methods table tr .data-anchor-link {
+    display: none; }
+  #payment_methods table tr .th-list, #payment_methods table tr .td-list {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1.3fr 3fr 1fr;
+    grid-column-gap: 10px; }
+    #payment_methods table tr .th-list .th, #payment_methods table tr .th-list .td, #payment_methods table tr .td-list .th, #payment_methods table tr .td-list .td {
+      -ms-flex-item-align: center;
+          align-self: center; }
+    #payment_methods table tr .th-list > *:nth-child(1), #payment_methods table tr .td-list > *:nth-child(1) {
+      min-width: 180px; }
+    #payment_methods table tr .th-list > *:nth-child(2), #payment_methods table tr .th-list > *:nth-child(3), #payment_methods table tr .td-list > *:nth-child(2), #payment_methods table tr .td-list > *:nth-child(3) {
+      min-width: 110px; }
+    #payment_methods table tr .th-list > *:nth-child(4), #payment_methods table tr .td-list > *:nth-child(4) {
+      min-width: 190px; }
+  #payment_methods table tr .td-description {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
   #payment_methods table thead tr th {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1637,26 +1637,38 @@ body #not_authenticated_financial ul.checked > li {
   margin-left: 5px;
   margin-bottom: 3px; }
 
-.authentication #onfido .onfido-sdk-ui-NavigationBar-back {
-  background: transparent; }
+.authentication #onfido {
+  /** TODO: To re-implement style overrides when upgrading Onfido version
+        .onfido-sdk-ui-Theme-textButton:hover {
+            color: $COLOR_BLACK;
+        }
+        .onfido-sdk-ui-CustomFileInput-container {
+            .onfido-sdk-ui-Theme-button-lg {
+                background: rgb(54, 64, 245);
+            }
+            button {
+                background: transparent;
 
-.authentication #onfido .onfido-sdk-ui-Button-button-primary:hover {
-  background: #353ff4; }
-
-.authentication #onfido .onfido-sdk-ui-Button-button-outline:hover {
-  background-color: transparent; }
-
-.authentication #onfido .onfido-sdk-ui-crossDevice-CrossDeviceLink-copyToClipboard {
-  background: #fff;
-  color: #000;
-  border-radius: 0; }
-
-.authentication #onfido input:hover, .authentication #onfido input:focus, .authentication #onfido textarea:hover, .authentication #onfido textarea:focus {
-  outline: 0;
-  border: none; }
-
-.authentication #onfido button:not(.onfido-sdk-ui-Theme-link):not(.onfido-sdk-ui-Button-button-primary):hover, .authentication #onfido button:not(.onfido-sdk-ui-Theme-link):not(.onfido-sdk-ui-Button-button-primary):focus {
-  background-color: inherit; }
+                &:hover {
+                    background: rgb(92, 108, 255);
+                }
+            }
+        } **/ }
+  .authentication #onfido .onfido-sdk-ui-NavigationBar-back {
+    background: transparent; }
+  .authentication #onfido .onfido-sdk-ui-Button-button-primary:hover {
+    background: #353ff4; }
+  .authentication #onfido .onfido-sdk-ui-Button-button-outline:hover {
+    background-color: transparent; }
+  .authentication #onfido .onfido-sdk-ui-crossDevice-CrossDeviceLink-copyToClipboard {
+    background: #fff;
+    color: #000;
+    border-radius: 0; }
+  .authentication #onfido input:hover, .authentication #onfido input:focus, .authentication #onfido textarea:hover, .authentication #onfido textarea:focus {
+    outline: 0;
+    border: none; }
+  .authentication #onfido button:not(.onfido-sdk-ui-Theme-link):not(.onfido-sdk-ui-Button-button-primary):hover, .authentication #onfido button:not(.onfido-sdk-ui-Theme-link):not(.onfido-sdk-ui-Button-button-primary):focus {
+    background-color: inherit; }
 
 .authentication .fields > .gr-row > div > .button {
   display: block;
@@ -1698,6 +1710,10 @@ body #not_authenticated_financial ul.checked > li {
 
 .authentication .center-text .button .barspinner {
   margin: 0 auto; }
+
+@media screen and (max-width: 500px) {
+  .authentication .submit-status table {
+    font-size: 0.7rem; } }
 
 .authentication .submit-status table th:not(:last-child) {
   width: 25%; }
@@ -1962,6 +1978,67 @@ body #not_authenticated_financial ul.checked > li {
       #content.economic_calendar-content .calendar-container .calendar-footer .right a {
         padding: 0 2px; }
 
+.welcome-content a:hover {
+  text-decoration: none; }
+
+.welcome-content-container {
+  margin: 0 auto;
+  width: 80%; }
+  @media only screen and (max-width: 768px) {
+    .welcome-content-container {
+      width: 100%; } }
+
+.welcome-content-box {
+  max-height: 86px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-radius: 9px;
+  margin-top: 10px; }
+  .welcome-content-box-desc {
+    overflow: hidden;
+    text-align: left;
+    margin-left: 15px;
+    width: 80%;
+    font-weight: 500; }
+    @media only screen and (max-width: 576px) {
+      .welcome-content-box-desc {
+        font-size: 13px;
+        margin-top: 0.6rem;
+        width: 70%;
+        word-wrap: break-word;
+        margin-left: 8px; } }
+    .welcome-content-box-desc p {
+      margin: 0.4em 0;
+      line-height: 1.2em; }
+    .welcome-content-box-desc p.default:first-of-type {
+      margin-top: 1.1rem; }
+  .welcome-content-box-sub-options {
+    width: 100%;
+    font-size: 12px;
+    color: #000; }
+    @media only screen and (max-width: 576px) {
+      .welcome-content-box-sub-options {
+        font-size: xx-small; } }
+    .welcome-content-box-sub-options span {
+      padding: 0 0.5rem;
+      border-left: 0.5px solid #999999; }
+      @media only screen and (max-width: 576px) {
+        .welcome-content-box-sub-options span {
+          padding: 0 0.2rem; } }
+  .welcome-content-box-arrow {
+    width: 5%;
+    position: relative; }
+    .welcome-content-box-arrow-image img {
+      position: absolute;
+      top: 50%; }
+
 .welcome-content .box-grid .box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2185,11 +2262,54 @@ body #not_authenticated_financial ul.checked > li {
       .why-us-content .awards-section .horizontal-margin {
         margin: 15px 15px 20px; } }
 
+.deactivated-account-content {
+  text-align: center; }
+  .deactivated-account-content .close-user-account {
+    height: 25vh; }
+    .deactivated-account-content .close-user-account .msg_main_modal .notice-msg {
+      background-color: transparent;
+      height: auto;
+      margin: auto; }
+      .deactivated-account-content .close-user-account .msg_main_modal .notice-msg img {
+        width: 4rem;
+        margin-bottom: 1rem; }
+      .deactivated-account-content .close-user-account .msg_main_modal .notice-msg p {
+        font-weight: 500; }
+      @media (max-width: 500px) {
+        .deactivated-account-content .close-user-account .msg_main_modal .notice-msg h1 {
+          font-size: 30px; } }
+      @media (max-width: 500px) {
+        .deactivated-account-content .close-user-account .msg_main_modal .notice-msg {
+          width: 90%; } }
+    @media (max-width: 500px) {
+      .deactivated-account-content .close-user-account {
+        margin-bottom: 5rem; } }
+
+.account-closure .notice-msg-wrapper {
+  background-color: #fef1cf;
+  margin-top: 65px; }
+
+.account-closure .notice-msg-text {
+  color: #000;
+  overflow: hidden;
+  margin: 0;
+  text-align: center; }
+
 .account-closure-form {
   text-align: left;
   line-height: 40px; }
-  .account-closure-form span {
-    padding-left: 15px; }
+  .account-closure-form .margin-top-20 {
+    margin-top: 20px; }
+  .account-closure-form .textarea-container {
+    display: grid; }
+  .account-closure-form p {
+    font-size: 1rem; }
+  .account-closure-form textarea {
+    width: 90%;
+    max-width: 350px;
+    height: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px; }
 
 .account-closure-subtitle {
   margin-top: 0;
@@ -2280,6 +2400,27 @@ body #not_authenticated_financial ul.checked > li {
 
 #self_exclusion_dialog #dialog_content {
   max-width: 496px; }
+
+.affiliate-ib-calculation {
+  border: 1px solid #000;
+  padding: 10px; }
+  .affiliate-ib-calculation-minimum {
+    margin-top: 20px;
+    margin-bottom: 20px; }
+
+.signal_provider-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  @media screen and (max-width: 480px) {
+    .signal_provider-container {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: reverse;
+          -ms-flex-direction: column-reverse;
+              flex-direction: column-reverse; } }
+
+.signal_provider-image {
+  border: 2px solid #dedede; }
 
 .timeline {
   margin: 0 auto;
