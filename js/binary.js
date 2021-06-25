@@ -293,7 +293,7 @@ var ClientBase = function () {
 
     var isValidLoginid = function isValidLoginid() {
         if (!isLoggedIn()) return true;
-        var valid_login_ids = new RegExp('^(MX|MF|VRTC|MLT|CR|FOG)[0-9]+$', 'i');
+        var valid_login_ids = new RegExp('^(MX|MF|VRTC|MLT|CR|FOG|VRDW|DW)[0-9]+$', 'i');
         return getAllLoginids().every(function (loginid) {
             return valid_login_ids.test(loginid);
         });
@@ -427,7 +427,7 @@ var ClientBase = function () {
                 default: localize('Real'),
                 financial: localize('Investment'),
                 gaming: localize('Gaming'),
-                virtual: localize('Virtual')
+                virtual: localize('Demo')
             };
         };
 
@@ -9974,10 +9974,10 @@ var BinaryLoader = function () {
             return localize('Please [_1]log in[_2] or [_3]sign up[_4] to view this page.', ['<a href="' + 'javascript:;' + '">', '</a>', '<a href="' + urlFor('new-account') + '">', '</a>']);
         },
         only_virtual: function only_virtual() {
-            return localize('This feature is available to virtual accounts only.');
+            return localize('This feature is available to demo accounts only.');
         },
         only_real: function only_real() {
-            return localize('This feature is not relevant to virtual-money accounts.');
+            return localize('This feature is not relevant to demo-money accounts.');
         },
         not_authenticated: function not_authenticated() {
             return localize('This page is only available to logged out clients.');
@@ -12408,8 +12408,22 @@ var AccountOpening = function () {
         handleTaxIdentificationNumber();
         var landing_company = State.getResponse('landing_company');
         var lc_to_upgrade_to = landing_company[is_financial ? 'financial_company' : 'gaming_company'] || landing_company.financial_company;
+        switch (lc_to_upgrade_to.shortcode) {
+            case 'iom':
+                CommonFunctions.elementTextContent(CommonFunctions.getElementById('lc-regulator'), 'regulated by the UK Gaming Commission (UKGC),');
+                break;
+            case 'malta':
+                CommonFunctions.elementTextContent(CommonFunctions.getElementById('lc-regulator'), 'regulated by the Malta Gaming Authority,');
+                break;
+            case 'maltainvest':
+                CommonFunctions.elementTextContent(CommonFunctions.getElementById('lc-regulator'), 'regulated by the Malta Financial Services Authority (MFSA),');
+                break;
+            default:
+                break;
+        }
+
         CommonFunctions.elementTextContent(CommonFunctions.getElementById('lc-name'), lc_to_upgrade_to.name);
-        CommonFunctions.elementTextContent(CommonFunctions.getElementById('lc-country'), lc_to_upgrade_to.country);
+        CommonFunctions.elementTextContent(CommonFunctions.getElementById('lc-country'), lc_to_upgrade_to.shortcode === 'iom' ? 'the ' + lc_to_upgrade_to.country : lc_to_upgrade_to.country);
         if (getPropertyValue(landing_company, ['financial_company', 'shortcode']) === 'maltainvest') {
             professionalClient.init(is_financial, false);
         }
@@ -14072,18 +14086,37 @@ module.exports = Object.assign({
 "use strict";
 
 
+var Cookies = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
 var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
 var createElement = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").createElement;
+var getLanguage = __webpack_require__(/*! ../../_common/language */ "./src/javascript/_common/language.js").get;
 
 var DerivBanner = function () {
     var el_multiplier_banner_container = void 0,
-        el_close_button = void 0;
+        el_close_button = void 0,
+        multiplier_link = void 0;
 
     var onLoad = function onLoad() {
         var is_deriv_banner_dismissed = localStorage.getItem('is_deriv_banner_dismissed');
 
         if (!is_deriv_banner_dismissed) {
+            var affiliate_cookie = Cookies.getJSON('affiliate_tracking');
+            var affiliate_token = void 0;
+
+            if (affiliate_cookie) affiliate_token = affiliate_cookie.t;else {
+                var queryString = window.location.search;
+                var urlParams = new URLSearchParams(queryString);
+                affiliate_token = urlParams.get('t');
+            }
+
             el_multiplier_banner_container = getElementById('multiplier_banner_container');
+            multiplier_link = getElementById('multiplier-link');
+
+            var lang = getLanguage().toLowerCase();
+            var multiplier_href = 'https://deriv.com/' + lang + '/trade-types/multiplier/?utm_source=binary&utm_medium=referral&utm_campaign=ww-banner-deriv-1020-en&utm_content=multiplier-banner-synthetic-indices-amplified';
+
+            multiplier_link.href = affiliate_token ? multiplier_href + '&t=' + affiliate_token : multiplier_href;
+
             el_multiplier_banner_container.setVisibility(1);
             el_close_button = el_multiplier_banner_container.querySelector('.deriv_banner_close') || createElement('div');
             el_close_button.addEventListener('click', onClose);
@@ -14446,8 +14479,10 @@ var Validation = function () {
                     var event = events_map[field.type];
 
                     if (event) {
-                        field.$.unbind(event).on(event, function () {
-                            checkField(field);
+                        field.$.unbind(event).on(event, function (e) {
+                            if (e.type === 'input') {
+                                checkField(field);
+                            }
                             if (field.re_check_field) {
                                 checkField(forms[form_selector].fields.find(function (fld) {
                                     return fld.selector === field.re_check_field;
@@ -14510,7 +14545,7 @@ var Validation = function () {
         return false;
     };
     var validEmail = function validEmail(value) {
-        return (/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(value)
+        return (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
         );
     };
     var validPassword = function validPassword(value, options, field) {
@@ -15761,7 +15796,8 @@ var AccountTransfer = function () {
         parent: 'client_message',
         error: 'no_account',
         balance: 'not_enough_balance',
-        deposit: 'no_balance'
+        deposit: 'no_balance',
+        transfer: 'transfer_not_allowed'
     };
 
     var el_transfer_from = void 0,
@@ -16023,12 +16059,14 @@ var AccountTransfer = function () {
             } else {
                 var req_transfer_between_accounts = BinarySocket.send({ transfer_between_accounts: 1 });
                 var get_account_status = BinarySocket.send({ get_account_status: 1 });
+                var req_get_limits = BinarySocket.send({ get_limits: 1 });
 
-                Promise.all([req_transfer_between_accounts, get_account_status]).then(function () {
+                Promise.all([req_transfer_between_accounts, get_account_status, req_get_limits]).then(function () {
                     var response_transfer = State.get(['response', 'transfer_between_accounts']);
                     var is_authenticated = State.getResponse('get_account_status.status').some(function (state) {
                         return state === 'authenticated';
                     });
+                    var response_internal_transfer_limits = State.getResponse('get_limits.daily_transfers.internal');
 
                     if (hasError(response_transfer)) {
                         return;
@@ -16039,11 +16077,20 @@ var AccountTransfer = function () {
                         return;
                     }
 
-                    populateAccounts(accounts);
-                    setLimits(min_amount, is_authenticated).then(function () {
-                        showForm({ is_authenticated: is_authenticated });
-                        populateHints();
-                    });
+                    var allowed_internal_transfer = response_internal_transfer_limits.allowed;
+                    var available_internal_transfer = response_internal_transfer_limits.available;
+                    if (available_internal_transfer === 0) {
+                        setLoadingVisibility(0);
+                        getElementById(messages.parent).setVisibility(1);
+                        elementTextContent(getElementById('allowed_internal_transfer'), allowed_internal_transfer);
+                        getElementById(messages.transfer).setVisibility(1);
+                    } else {
+                        populateAccounts(accounts);
+                        setLimits(min_amount, is_authenticated).then(function () {
+                            showForm({ is_authenticated: is_authenticated });
+                            populateHints();
+                        });
+                    }
                 });
             }
         });
@@ -16242,7 +16289,7 @@ var Cashier = function () {
             new_el.class = 'toggle button button-disabled';
             new_el.href = '';
         }
-        el_virtual_topup_info.innerText = localize('Reset the balance of your virtual account to [_1] anytime.', [Client.get('currency') + ' 10,000.00']);
+        el_virtual_topup_info.innerText = localize('Reset the balance of your demo account to [_1] anytime.', [Client.get('currency') + ' 10,000.00']);
         $a.replaceWith($('<a/>', new_el));
         $(top_up_id).parent().setVisibility(1);
     };
@@ -19170,6 +19217,8 @@ var DigitInfo = function () {
             plotBackgroundColor: '#fff',
             plotBorderWidth: 1,
             plotBorderColor: '#ccc',
+            paddingBottom: 20,
+            // useHTML            : true,
             height: 225 // This is "unresponsive", but so is leaving it empty where it goes to 400px.
         },
         title: { text: '' },
@@ -19249,6 +19298,9 @@ var DigitInfo = function () {
         });
 
         $('#digit_underlying').html($(elem)).val(underlying);
+        // console.log('');
+        // console.warn('Symbols here:');
+        // console.log(symbols);
         $('#digit_domain').text(domain.charAt(0).toUpperCase() + domain.slice(1));
         $('#digit_info_underlying').text($('#digit_underlying option:selected').text());
         CreateDropdown('#digit_underlying');
@@ -19358,12 +19410,17 @@ var DigitInfo = function () {
 
                                 var getTitle = function getTitle() {
                                     return {
-                                        text: template($('#last_digit_title').html(), [new_spots.length, $('#digit_underlying option:selected').text()])
+                                        text: template($('#last_digit_title').html(), [new_spots.length, $('#digit_underlying option:selected').text()]),
+                                        useHTML: true,
+                                        style: { 'text-align': 'center' }
                                     };
                                 };
 
                                 spots = new_spots;
                                 if (chart) chart.destroy();
+                                // console.log('');
+                                // console.error('This creates last_digit_title');
+                                // console.log(getTitle());
                                 addContent(underlying); // this creates #last_digit_title
                                 chart_config.xAxis.title = getTitle();
                                 chart = new Highcharts.Chart(chart_config);
@@ -27808,7 +27865,10 @@ var Authenticate = function () {
                                         },
                                         token: sdk_token,
                                         useModal: false,
-                                        onComplete: handleComplete,
+                                        onComplete: function onComplete(data) {
+                                            handleComplete(data);
+                                        },
+
                                         steps: [{
                                             type: 'document',
                                             options: {
@@ -27872,11 +27932,18 @@ var Authenticate = function () {
         }
     };
 
-    var handleComplete = function handleComplete() {
+    var handleComplete = function handleComplete(data) {
+        var document_ids = Object.keys(data).map(function (key) {
+            return data[key].id;
+        });
+
         BinarySocket.send({
             notification_event: 1,
             category: 'authentication',
-            event: 'poi_documents_uploaded'
+            event: 'poi_documents_uploaded',
+            args: {
+                documents: document_ids
+            }
         }).then(function () {
             onfido.tearDown();
             $('#authentication_loading').setVisibility(1);
@@ -31250,11 +31317,14 @@ var LimitsUI = function () {
         if (limits.market_specific) {
             var markets = getMarkets(response_active_symbols.active_symbols);
             Object.keys(limits.market_specific).forEach(function (market) {
-                appendRowTable(markets[market].name, '', 'auto', 'bold');
-                limits.market_specific[market].forEach(function (submarket) {
-                    // submarket name could be (Commodities|Minor Pairs|Major Pairs|Smart FX|Stock Indices|Synthetic Indices)
-                    appendRowTable(localize(submarket.name /* localize-ignore */), submarket.turnover_limit !== 'null' ? Currency.formatMoney(currency, submarket.turnover_limit, 1) : 0, '25px', 'normal');
-                });
+                // If the market is not present in active symbols, don't attempt to show it.
+                if (markets[market]) {
+                    appendRowTable(markets[market].name, '', 'auto', 'bold');
+                    limits.market_specific[market].forEach(function (submarket) {
+                        // submarket name could be (Commodities|Minor Pairs|Major Pairs|Smart FX|Stock Indices|Synthetic Indices)
+                        appendRowTable(localize(submarket.name /* localize-ignore */), submarket.turnover_limit !== 'null' ? Currency.formatMoney(currency, submarket.turnover_limit, 1) : 0, '25px', 'normal');
+                    });
+                }
             });
         } else {
             var tr = findParent(getElementById('market_specific'), 'tr');
@@ -33088,7 +33158,7 @@ var TopUpVirtualPopup = function () {
                 Dialog.confirm({
                     id: 'top_up_success',
                     localized_title: localize('Top-up successful'),
-                    localized_message: localize('[_1] has been credited into your Virtual Account: [_2].', ['$10,000.00', Client.get('loginid')]),
+                    localized_message: localize('[_1] has been credited into your Demo Account: [_2].', ['$10,000.00', Client.get('loginid')]),
                     cancel_text: localize('Go to statement'),
                     ok_text: localize('Continue trading'),
                     onAbort: function onAbort() {
@@ -33183,7 +33253,7 @@ var TopUpVirtual = function () {
             if (response.error) {
                 showMessage(response.error.message, false);
             } else {
-                showMessage(localize('Your virtual balance has been reset.'), true);
+                showMessage(localize('Your Demo balance has been reset.'), true);
             }
             $('.barspinner').setVisibility(0);
         });
