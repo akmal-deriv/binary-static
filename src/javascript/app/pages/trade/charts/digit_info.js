@@ -182,7 +182,6 @@ const DigitInfo = (() => {
                     text   : template($('#last_digit_title').html(), [new_spots.length, $('#digit_underlying option:selected').text()]),
                     useHTML: true,
                     style  : { 'text-align': 'center' },
-                    padding: 150,
                 }
             );
 
