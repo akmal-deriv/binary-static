@@ -158,8 +158,8 @@ const Price = (() => {
         const proposal            = details.proposal;
         const id                  = proposal ? proposal.id : '';
         const params              = details.echo_req;
-        const account_status      = await BinarySocket.wait('get_account_status');
-        const is_trading_disabled = account_status.get_account_status.status.some(state => state === 'no_trading');
+        const account_status      = !!Client.isLoggedIn() && await BinarySocket.wait('get_account_status');
+        const is_trading_disabled = account_status && account_status.get_account_status.status.some(state => state === 'no_trading');
 
         let type = params.contract_type;
         if (id && !type) {
