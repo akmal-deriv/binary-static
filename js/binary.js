@@ -1393,6 +1393,8 @@ var LiveChat = function () {
             is_logged_in: is_logged_in
         }, loginid && { loginid: loginid }, landing_company_shortcode && { landing_company_shortcode: landing_company_shortcode }, currency && { currency: currency }, residence && { residence: residence }, email && { email: email }, utm_source && { utm_source: utm_source }, utm_campaign && { utm_campaign: utm_campaign }, utm_medium && { utm_medium: utm_medium });
         window.LiveChatWidget.call('set_session_variables', session_variables);
+
+        // console.error('Initialize livechat');
     };
 
     var setNameEmail = function setNameEmail() {
@@ -1471,6 +1473,7 @@ var LiveChat = function () {
     // LiveChat initialisation code (provided by LiveChat)
     var liveChatInitialization = function liveChatInitialization() {
         return new Promise(function (resolve) {
+            // console.warn('liveChatInitialization');
             window.__lc = window.__lc || {}; // eslint-disable-line
             window.__lc.license = licenseID; // eslint-disable-line
             ;(function (n, t, c) {
@@ -11977,10 +11980,17 @@ var Page = function () {
 
                 // Handle opening livechat via URL
                 var is_livechat_open = url_query_strings.is_livechat_open === 'true';
+                // console.log('');
+                // console.warn('PAGE');
+                // console.log(is_livechat_open);
+                // console.log(window.LiveChatWidget);
+                // console.log(url_query_strings);
 
                 if (is_livechat_open && window.LiveChatWidget) {
+                    // console.log('LISTENER FOR LIVECHAT');
                     window.LiveChatWidget.on('ready', function () {
                         window.LC_API.open_chat_window();
+                        //    console.error('Open chat window');
                     });
                 }
             }
@@ -12658,9 +12668,6 @@ var AccountOpening = function () {
     };
 
     var commonValidations = function commonValidations() {
-        // console.log('');
-        // console.warn('commonValidations');
-        // console.log(Client.get('residence'));
         var req = [{ selector: '#salutation', validations: ['req'] }, { selector: '#first_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#last_name', validations: ['req', 'letter_symbol', ['length', { min: 2, max: 50 }]] }, { selector: '#date_of_birth', validations: ['req'] }, { selector: '#address_line_1', validations: ['req', 'address', ['length', { min: 1, max: 70 }]] }, { selector: '#address_line_2', validations: ['address', ['length', { min: 0, max: 70 }]] }, { selector: '#address_city', validations: ['req', 'letter_symbol', ['length', { min: 1, max: 35 }]] }, { selector: '#address_state', validations: $('#address_state').prop('nodeName') === 'SELECT' ? '' : ['letter_symbol', ['length', { min: 0, max: 35 }]] }, { selector: '#address_postcode', validations: [Client.get('residence') === 'gb' || State.getResponse('authorize.upgradeable_landing_companies').some(function (lc) {
                 return lc === 'iom';
             }) ? 'req' : '', 'postcode', ['length', { min: 0, max: 20 }]] }, { selector: '#phone', validations: ['req', 'phone', ['length', { min: 9, max: 35, value: function value() {
