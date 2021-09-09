@@ -180,6 +180,10 @@ a.previous-wrapper {
     border: 1px solid #dedede;
     border-radius: 4px;
     margin-bottom: 20px; }
+    #mt_account_management .mt-panel .password_change_warning {
+      margin: 25px 0 32px;
+      font-size: 1.15rem;
+      font-style: normal; }
     #mt_account_management .mt-panel .password--message {
       white-space: unset; }
     @media screen and (max-width: 480px) {
@@ -191,6 +195,15 @@ a.previous-wrapper {
         top: 22px; }
       #mt_account_management .mt-panel .password--toggle {
         top: 5px; } }
+    #mt_account_management .mt-panel .dummy-password {
+      margin-bottom: 17px; }
+      #mt_account_management .mt-panel .dummy-password--field-wrapper {
+        position: relative;
+        max-width: auto; }
+      #mt_account_management .mt-panel .dummy-password--input-field {
+        font-size: 1.15rem; }
+      #mt_account_management .mt-panel .dummy-password--label {
+        font-size: 1.15rem; }
     #mt_account_management .mt-panel #trading_password_input {
       padding-left: 7rem; }
     #mt_account_management .mt-panel #trading_password_existing_user_validation_error {
@@ -199,6 +212,9 @@ a.previous-wrapper {
       #mt_account_management .mt-panel #trading_password_input {
         width: calc(100% - 20px);
         padding: initial; }
+        #mt_account_management .mt-panel #trading_password_input .form-row {
+          width: 250px;
+          margin: 0 auto; }
         #mt_account_management .mt-panel #trading_password_input .password--meter.password--meter-bg {
           top: 28px; }
         #mt_account_management .mt-panel #trading_password_input .password--meter.password--meter-fill {
@@ -217,7 +233,8 @@ a.previous-wrapper {
     border-radius: 4px;
     color: #2a3052;
     background: #f2f2f2;
-    font-weight: bold; }
+    font-weight: bold;
+    text-align: center; }
     #mt_account_management .get-started-link:before {
       content: '';
       background-image: url("../images/pages/metatrader/dashboard/get_started.svg");
@@ -413,8 +430,7 @@ a.previous-wrapper {
     #mt_account_management .fst-container #fst_action .separator, #mt_account_management .fst-container #fst_action #main_msg {
       margin-bottom: 20px; }
     #mt_account_management .fst-container #fst_action button .barspinner.white {
-      height: 13px;
-      margin: 3px; }
+      height: 13px; }
     #mt_account_management .fst-container #fst_action #frm_cashier .mt-panel {
       margin-bottom: 0;
       padding: 15px;
@@ -436,7 +452,7 @@ a.previous-wrapper {
       width: 100%; }
     #mt_account_management .fst-container #fst_action #frm_manage_password .change-investor-button {
       margin-bottom: 10px; }
-    #mt_account_management .fst-container #fst_action #frm_manage_password #existing_client_message .notice-msg, #mt_account_management .fst-container #fst_action #frm_manage_password #new_client_message .notice-msg {
+    #mt_account_management .fst-container #fst_action #frm_manage_password #existing_client_message .notice-msg {
       padding: 16px; }
     #mt_account_management .fst-container #fst_action .type-group .mt5_type_box {
       width: 88px;
@@ -571,8 +587,17 @@ a.previous-wrapper {
       font-size: 14px; } }
 
 @media (max-width: 480px) {
-  #view_3-buttons_existing_user .button + .button {
-    margin-left: 0 !important; } }
+  #view_3 .button {
+    width: 220px;
+    padding: 10px 20px; }
+  #view_3 .button + .button {
+    margin-left: 0 !important; }
+  .button-full-width-m {
+    width: 100%; }
+    .button-full-width-m span {
+      width: 100%;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; } }
 
 .mt-sidebar-button {
   display: -webkit-box;
@@ -625,6 +650,10 @@ a.previous-wrapper {
 
 tbody#instruments > tr > td {
   width: 33%; }
+
+#password-change-email-popup #dialog_content, #success_reset_trading_pw_dialog #dialog_content {
+  max-width: 480px;
+  padding-top: 32px; }
 
 #portfolio td {
   padding: 10px;
@@ -692,6 +721,49 @@ tbody#instruments > tr > td {
 
 #trading-times .ui-tabs-nav li, #asset-index .ui-tabs-nav li {
   margin-top: 5px; }
+
+#trading-date-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  #trading-date-container .input-group {
+    position: relative;
+    margin: 0 0.5rem; }
+    #trading-date-container .input-group .ux-date {
+      position: absolute;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      background: #fff;
+      color: #000;
+      font-size: 1rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #f2f2f2;
+      padding: 0 0.3rem;
+      border-radius: 4px;
+      z-index: 1; }
+    #trading-date-container .input-group input[type=date] {
+      margin: 0;
+      width: 100%;
+      position: relative;
+      z-index: 2; }
+  #trading-date-container label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    white-space: nowrap; }
 
 #asset_index_wrapper {
   max-width: 1200px; }
