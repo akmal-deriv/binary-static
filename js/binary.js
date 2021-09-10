@@ -428,8 +428,8 @@ var ClientBase = function () {
         var initTypesMap = function initTypesMap() {
             return {
                 default: localize('Real'),
-                financial: localize('Investment'),
-                gaming: localize('Gaming'),
+                financial: localize('Multipliers'),
+                gaming: localize('Options'),
                 virtual: localize('Demo')
             };
         };
