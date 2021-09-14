@@ -1228,12 +1228,11 @@ label + input {
         width: 80px;
         font-size: 0.7561436673rem; } }
 
-#reality_check_content {
-  padding: 34px 25px; }
-  #reality_check_content td, #reality_check_content .table-container tr div .td, .table-container tr div #reality_check_content .td {
-    width: 12.5%; }
-  #reality_check_content [data-balloon] {
-    border-bottom: none; }
+#reality_check_content td, #reality_check_content .table-container tr div .td, .table-container tr div #reality_check_content .td {
+  width: 12.5%; }
+
+#reality_check_content [data-balloon] {
+  border-bottom: none; }
 
 #deriv_banner_container {
   position: relative; }

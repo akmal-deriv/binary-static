@@ -428,8 +428,8 @@ var ClientBase = function () {
         var initTypesMap = function initTypesMap() {
             return {
                 default: localize('Real'),
-                financial: localize('Multipliers'),
-                gaming: localize('Options'),
+                financial: localize('Investment'),
+                gaming: localize('Gaming'),
                 virtual: localize('Demo')
             };
         };
@@ -33745,13 +33745,13 @@ var Accounts = function () {
         upgrade_info.type.forEach(function (new_account_type, index) {
             var getAccountTitle = function getAccountTitle() {
                 if (new_account_type === 'financial') {
-                    return localize('Multipliers Account');
+                    return localize('Financial Account');
                 }
                 if (upgrade_info.can_upgrade_to[index] === 'malta') {
                     return localize('Gaming Account');
                 }
 
-                return localize('Options Account');
+                return localize('Real Account');
             };
 
             var account = {
@@ -38406,7 +38406,7 @@ var RealAccountOpening = function () {
     };
 
     var setPageTitle = function setPageTitle() {
-        getElementById('page_title').innerHTML = real_account_signup_target === 'maltainvest' ? localize('Financial Account Opening') : localize('Real Money Account Opening');
+        getElementById('page_title').innerHTML = real_account_signup_target === 'maltainvest' ? localize('Financial Account Opening') : localize('Real money account opening');
     };
 
     var onUnload = function onUnload() {
@@ -39372,7 +39372,7 @@ var SetCurrency = function () {
                                 $('#set_currency_loading').remove();
                                 $('#set_currency').setVisibility(1);
                                 $('#deposit_row').setVisibility(1);
-                                $('#congratulations_message').html(localize('You have successfully created your [_1] account.', [Client.get('currency')]));
+                                $('#congratulations_message').html(localize('You have added a [_1] account.', [Client.get('currency')]));
                             } else if (popup_action) {
                                 currencies = /multi_account|set_currency/.test(popup_action) ? getAvailableCurrencies(landing_company, payout_currencies) : getCurrencyChangeOptions(landing_company);
 
