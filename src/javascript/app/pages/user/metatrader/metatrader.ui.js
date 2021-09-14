@@ -277,6 +277,10 @@ const MetaTraderUI = (() => {
         button_link_el.children('span').addClass('disabled');
     };
 
+    const disableNewAccountButton = () => {
+        $(document).find('.act_new_account').remove();
+    };
+    
     const getTradingPasswordConfirmVisibility = () => is_trading_password_confirmed;
 
     const setTradingPasswordConfirmVisibility = (visibility = 0) => {
@@ -342,7 +346,7 @@ const MetaTraderUI = (() => {
             // disable MT5 account opening if created all available accounts
             if (Object.keys(accounts_info).every(type =>
                 getAccountsInfo(type).info || !MetaTraderConfig.hasTradeServers(type))) {
-                $container.find('.act_new_account').remove();
+                disableNewAccountButton();
             }
 
             // Add more trade servers button.
@@ -1254,6 +1258,7 @@ const MetaTraderUI = (() => {
         displayPageError,
         disableButton,
         disableButtonLink,
+        disableNewAccountButton,
         enableButton,
         refreshAction,
         setTopupLoading,
