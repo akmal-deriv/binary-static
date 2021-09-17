@@ -41798,11 +41798,16 @@ module.exports = KeepSafe;
 "use strict";
 
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 var BinarySocket = __webpack_require__(/*! ../../app/base/socket */ "./src/javascript/app/base/socket.js");
 var isIndonesia = __webpack_require__(/*! ../../app/common/country_base */ "./src/javascript/app/common/country_base.js").isIndonesia;
+var MetaTraderUI = __webpack_require__(/*! ../../app/pages/user/metatrader/metatrader.ui */ "./src/javascript/app/pages/user/metatrader/metatrader.ui.js");
+var MetaTrader = __webpack_require__(/*! ../../app/pages/user/metatrader/metatrader */ "./src/javascript/app/pages/user/metatrader/metatrader.js");
 var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
 var TabSelector = __webpack_require__(/*! ../../_common/tab_selector */ "./src/javascript/_common/tab_selector.js");
 var isBinaryApp = __webpack_require__(/*! ../../config */ "./src/javascript/config.js").isBinaryApp;
+var localize = __webpack_require__(/*! ../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 
 var os_list = [{
     name: 'mac',
@@ -41813,33 +41818,77 @@ var os_list = [{
 }];
 
 var Mt5Signals = function () {
-    var onLoad = function onLoad() {
-        BinarySocket.wait('website_status').then(function () {
-            $('.desktop-app').setVisibility(isIndonesia() && !isBinaryApp());
-        });
-        TabSelector.onLoad();
-        $.getJSON('https://api.github.com/repos/binary-com/binary-desktop-installers/releases/latest', function () {
-            var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { assets: [] };
+    var onLoad = function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            BinarySocket.wait('landing_company').then(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                                return regeneratorRuntime.wrap(function _callee$(_context) {
+                                    while (1) {
+                                        switch (_context.prev = _context.next) {
+                                            case 0:
+                                                _context.next = 2;
+                                                return MetaTrader.isEligible();
 
-            data.assets.some(function (asset) {
-                if (os_list.every(function (os) {
-                    return os.download_url;
-                })) {
-                    return true;
-                }
-                os_list.forEach(function (os) {
-                    if (!os.download_url && os.url_test.test(asset.browser_download_url)) {
-                        os.download_url = asset.browser_download_url;
+                                            case 2:
+                                                if (!_context.sent) {
+                                                    _context.next = 8;
+                                                    break;
+                                                }
+
+                                                BinarySocket.wait('website_status').then(function () {
+                                                    $('.desktop-app').setVisibility(isIndonesia() && !isBinaryApp());
+                                                });
+                                                TabSelector.onLoad();
+                                                $.getJSON('https://api.github.com/repos/binary-com/binary-desktop-installers/releases/latest', function () {
+                                                    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { assets: [] };
+
+                                                    data.assets.some(function (asset) {
+                                                        if (os_list.every(function (os) {
+                                                            return os.download_url;
+                                                        })) {
+                                                            return true;
+                                                        }
+                                                        os_list.forEach(function (os) {
+                                                            if (!os.download_url && os.url_test.test(asset.browser_download_url)) {
+                                                                os.download_url = asset.browser_download_url;
+                                                            }
+                                                        });
+                                                        return false;
+                                                    });
+                                                    os_list.forEach(function (os) {
+                                                        var el_button = getElementById('app_' + os.name);
+                                                        el_button.setAttribute('href', os.download_url);
+                                                    });
+                                                });
+                                                _context.next = 9;
+                                                break;
+
+                                            case 8:
+                                                MetaTraderUI.displayPageError(localize('Sorry, this feature is not available in your jurisdiction.'));
+
+                                            case 9:
+                                            case 'end':
+                                                return _context.stop();
+                                        }
+                                    }
+                                }, _callee, undefined);
+                            })));
+
+                        case 1:
+                        case 'end':
+                            return _context2.stop();
                     }
-                });
-                return false;
-            });
-            os_list.forEach(function (os) {
-                var el_button = getElementById('app_' + os.name);
-                el_button.setAttribute('href', os.download_url);
-            });
-        });
-    };
+                }
+            }, _callee2, undefined);
+        }));
+
+        return function onLoad() {
+            return _ref.apply(this, arguments);
+        };
+    }();
 
     return {
         onLoad: onLoad
