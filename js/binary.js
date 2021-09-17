@@ -10627,7 +10627,7 @@ var Client = function () {
         var secondary_bg_color = 'secondary-bg-color';
 
         if (ClientBase.isLoggedIn()) {
-            BinarySocket.wait('authorize', 'website_status', 'get_account_status').then(function () {
+            BinarySocket.wait('authorize', 'website_status', 'get_account_status', 'landing_company').then(function () {
                 var client_logged_in = getElementById('client-logged-in');
                 client_logged_in.classList.add('gr-centered');
 
@@ -10647,6 +10647,12 @@ var Client = function () {
                     }, '', el_section);
                     topbar_class.add(primary_bg_color_dark);
                     topbar_class.remove(secondary_bg_color);
+                }
+
+                if (ClientBase.get('landing_company_shortcode') === 'malta') {
+                    applyToAllElements('.mt5_disallowed_toggle', function (el) {
+                        el.setVisibility(0);
+                    });
                 }
             });
         } else {
