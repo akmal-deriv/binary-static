@@ -134,8 +134,8 @@ const ClientBase = (() => {
 
         const initTypesMap = () => ({
             default  : localize('Real'),
-            financial: localize('Investment'),
-            gaming   : localize('Gaming'),
+            financial: localize('Multipliers'),
+            gaming   : localize('Options'),
             virtual  : localize('Demo'),
         });
 
