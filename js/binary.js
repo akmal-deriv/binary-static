@@ -34172,6 +34172,7 @@ var Validation = __webpack_require__(/*! ../../../common/form_validation */ "./s
 var GTM = __webpack_require__(/*! ../../../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
 var localize = __webpack_require__(/*! ../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javascript/_common/storage.js").State;
+var urlFor = __webpack_require__(/*! ../../../../_common/url */ "./src/javascript/_common/url.js").urlFor;
 var isBinaryApp = __webpack_require__(/*! ../../../../config */ "./src/javascript/config.js").isBinaryApp;
 
 var MetaTraderConfig = function () {
@@ -34667,14 +34668,28 @@ var MetaTraderConfig = function () {
             deposit: [{
                 selector: fields.deposit.txt_amount.id,
                 validations: [['req', { hide_asterisk: true }],
+                // check if entered amount is less than the available balance
+                // e.g. transfer amount is 10 but client balance is 5
+                ['custom', {
+                    func: function func() {
+                        var balance = Client.get('balance');
+
+                        var is_balance_more_than_entered = +balance >= +$(fields.deposit.txt_amount.id).val();
+
+                        return balance && is_balance_more_than_entered;
+                    },
+                    message: localize('You have insufficient funds in your Binary account, please <a href="[_1]">add funds</a>.', urlFor('cashier'))
+                }],
                 // check if balance is less than the minimum limit for transfer
                 // e.g. client balance could be 0.45 but min limit could be 1
                 ['custom', {
                     func: function func() {
-                        var deposit_input_value = document.querySelector('#txt_amount_deposit').value;
+                        var balance = Client.get('balance');
                         var min_req_balance = Currency.getTransferLimits(Client.get('currency'), 'min', 'mt5');
 
-                        return +deposit_input_value > +min_req_balance;
+                        var is_balance_more_than_min_req = +balance >= +min_req_balance;
+
+                        return balance && is_balance_more_than_min_req;
                     },
                     message: localize('Should be more than [_1]', Currency.getTransferLimits(Client.get('currency'), 'min', 'mt5'))
                 }],
@@ -34888,121 +34903,45 @@ var MetaTrader = function () {
     var fields = MetaTraderConfig.fields;
     var getAccountsInfo = MetaTraderConfig.getAccountsInfo;
 
-    var onLoad = function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    var onLoad = function onLoad() {
+        BinarySocket.send({ statement: 1, limit: 1 });
+        BinarySocket.wait('landing_company', 'get_account_status', 'statement').then(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
-                    switch (_context2.prev = _context2.next) {
+                    switch (_context.prev = _context.next) {
                         case 0:
-                            BinarySocket.send({ statement: 1, limit: 1 });
-                            BinarySocket.wait('landing_company', 'get_account_status', 'statement').then(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-                                var landing_company_short;
-                                return regeneratorRuntime.wrap(function _callee$(_context) {
-                                    while (1) {
-                                        switch (_context.prev = _context.next) {
-                                            case 0:
-                                                _context.next = 2;
-                                                return BinarySocket.send({ trading_servers: 1, platform: 'mt5' });
-
-                                            case 2:
-                                                _context.next = 4;
-                                                return isEligible();
-
-                                            case 4:
-                                                if (!_context.sent) {
-                                                    _context.next = 10;
-                                                    break;
-                                                }
-
-                                                landing_company_short = State.getResponse('landing_company.gaming_company.shortcode');
-
-
-                                                if (Client.get('is_virtual')) {
-                                                    addAllAccounts();
-                                                } else {
-                                                    BinarySocket.send({ get_limits: 1 }).then(addAllAccounts);
-                                                }
-
-                                                // hide New account button for MLT clients
-                                                if (landing_company_short === 'malta') {
-                                                    MetaTraderUI.disableNewAccountButton();
-                                                }
-                                                _context.next = 11;
-                                                break;
-
-                                            case 10:
-                                                MetaTraderUI.displayPageError(localize('Sorry, this feature is not available in your jurisdiction.'));
-
-                                            case 11:
-                                            case 'end':
-                                                return _context.stop();
-                                        }
-                                    }
-                                }, _callee, undefined);
-                            })));
+                            _context.next = 2;
+                            return BinarySocket.send({ trading_servers: 1, platform: 'mt5' });
 
                         case 2:
-                        case 'end':
-                            return _context2.stop();
-                    }
-                }
-            }, _callee2, undefined);
-        }));
 
-        return function onLoad() {
-            return _ref.apply(this, arguments);
-        };
-    }();
-
-    var isEligible = function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-            var landing_company, landing_company_short, has_mt5;
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                while (1) {
-                    switch (_context3.prev = _context3.next) {
-                        case 0:
-                            landing_company = State.getResponse('landing_company');
-                            landing_company_short = landing_company.gaming_company ? landing_company.gaming_company.shortcode : '';
-
-                            // hide MT5 dashboard for IOM account or VRTC of IOM landing company
-
-                            if (!(landing_company_short === 'iom' && !Client.isAccountOfType('financial'))) {
-                                _context3.next = 4;
-                                break;
+                            if (isEligible()) {
+                                if (Client.get('is_virtual')) {
+                                    addAllAccounts();
+                                } else {
+                                    BinarySocket.send({ get_limits: 1 }).then(addAllAccounts);
+                                }
+                            } else {
+                                MetaTraderUI.displayPageError(localize('Sorry, this feature is not available in your jurisdiction.'));
                             }
 
-                            return _context3.abrupt('return', false);
-
-                        case 4:
-                            if (!(landing_company_short === 'malta')) {
-                                _context3.next = 9;
-                                break;
-                            }
-
-                            has_mt5 = false;
-                            _context3.next = 8;
-                            return BinarySocket.wait('mt5_login_list').then(function (response) {
-                                has_mt5 = response.mt5_login_list.length > 0;
-                            });
-
-                        case 8:
-                            return _context3.abrupt('return', has_mt5);
-
-                        case 9:
-                            return _context3.abrupt('return', 'mt_gaming_company' in landing_company || 'mt_financial_company' in landing_company);
-
-                        case 10:
+                        case 3:
                         case 'end':
-                            return _context3.stop();
+                            return _context.stop();
                     }
                 }
-            }, _callee3, undefined);
-        }));
+            }, _callee, undefined);
+        })));
+    };
 
-        return function isEligible() {
-            return _ref3.apply(this, arguments);
-        };
-    }();
+    var isEligible = function isEligible() {
+        var landing_company = State.getResponse('landing_company');
+        // hide MT5 dashboard for IOM account or VRTC of IOM landing company
+        if (State.getResponse('landing_company.gaming_company.shortcode') === 'iom' && !Client.isAccountOfType('financial')) {
+            return false;
+        }
+        return 'mt_gaming_company' in landing_company || 'mt_financial_company' in landing_company;
+    };
 
     var addAllAccounts = function addAllAccounts() {
         BinarySocket.wait('mt5_login_list').then(function (response) {
@@ -35248,24 +35187,24 @@ var MetaTrader = function () {
             MetaTraderUI.disableButton(action);
             // further validations before submit (password_check)
             MetaTraderUI.postValidate(acc_type, action).then(function () {
-                var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(is_ok) {
-                    var req, _ref5, mt5_login_list, has_mt5_account, response;
+                var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(is_ok) {
+                    var req, _ref3, mt5_login_list, has_mt5_account, response;
 
-                    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                    return regeneratorRuntime.wrap(function _callee3$(_context3) {
                         while (1) {
-                            switch (_context5.prev = _context5.next) {
+                            switch (_context3.prev = _context3.next) {
                                 case 0:
                                     if (is_ok) {
-                                        _context5.next = 3;
+                                        _context3.next = 3;
                                         break;
                                     }
 
                                     MetaTraderUI.enableButton(action);
-                                    return _context5.abrupt('return');
+                                    return _context3.abrupt('return');
 
                                 case 3:
                                     if (!(action === 'verify_password_reset_token')) {
-                                        _context5.next = 7;
+                                        _context3.next = 7;
                                         break;
                                     }
 
@@ -35273,35 +35212,35 @@ var MetaTrader = function () {
                                     if (typeof actions_info[action].onSuccess === 'function') {
                                         actions_info[action].onSuccess({}, MetaTraderUI.$form());
                                     }
-                                    return _context5.abrupt('return');
+                                    return _context3.abrupt('return');
 
                                 case 7:
                                     req = makeRequestObject(acc_type, action);
 
                                     if (!(action === 'new_account' && MetaTraderUI.shouldSetTradingPassword())) {
-                                        _context5.next = 25;
+                                        _context3.next = 25;
                                         break;
                                     }
 
-                                    _context5.next = 11;
+                                    _context3.next = 11;
                                     return BinarySocket.send({ mt5_login_list: 1 });
 
                                 case 11:
-                                    _ref5 = _context5.sent;
-                                    mt5_login_list = _ref5.mt5_login_list;
+                                    _ref3 = _context3.sent;
+                                    mt5_login_list = _ref3.mt5_login_list;
                                     has_mt5_account = mt5_login_list.length > 0;
 
                                     if (!(has_mt5_account && !MetaTraderUI.getTradingPasswordConfirmVisibility())) {
-                                        _context5.next = 18;
+                                        _context3.next = 18;
                                         break;
                                     }
 
                                     MetaTraderUI.setTradingPasswordConfirmVisibility(1);
                                     MetaTraderUI.enableButton(action);
-                                    return _context5.abrupt('return');
+                                    return _context3.abrupt('return');
 
                                 case 18:
-                                    _context5.next = 20;
+                                    _context3.next = 20;
                                     return BinarySocket.send({
                                         trading_platform_password_change: 1,
                                         new_password: req.mainPassword,
@@ -35309,27 +35248,27 @@ var MetaTrader = function () {
                                     });
 
                                 case 20:
-                                    response = _context5.sent;
+                                    response = _context3.sent;
 
                                     if (!response.error) {
-                                        _context5.next = 25;
+                                        _context3.next = 25;
                                         break;
                                     }
 
                                     MetaTraderUI.displayFormMessage(response.error.message, action);
                                     MetaTraderUI.enableButton(action, response);
-                                    return _context5.abrupt('return');
+                                    return _context3.abrupt('return');
 
                                 case 25:
                                     BinarySocket.send(req).then(function () {
-                                        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(response) {
+                                        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(response) {
                                             var parent_action, success_msg;
-                                            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                                            return regeneratorRuntime.wrap(function _callee2$(_context2) {
                                                 while (1) {
-                                                    switch (_context4.prev = _context4.next) {
+                                                    switch (_context2.prev = _context2.next) {
                                                         case 0:
                                                             if (!response.error) {
-                                                                _context4.next = 7;
+                                                                _context2.next = 7;
                                                                 break;
                                                             }
 
@@ -35346,27 +35285,27 @@ var MetaTrader = function () {
                                                                 });
                                                             }
                                                             MetaTraderUI.enableButton(action, response);
-                                                            _context4.next = 20;
+                                                            _context2.next = 20;
                                                             break;
 
                                                         case 7:
-                                                            _context4.next = 9;
+                                                            _context2.next = 9;
                                                             return BinarySocket.send({ get_account_status: 1 });
 
                                                         case 9:
                                                             if (!(getAccountsInfo(acc_type) && getAccountsInfo(acc_type).info)) {
-                                                                _context4.next = 17;
+                                                                _context2.next = 17;
                                                                 break;
                                                             }
 
                                                             parent_action = /password/.test(action) ? 'manage_password' : 'cashier';
 
                                                             if (!(parent_action === 'cashier')) {
-                                                                _context4.next = 14;
+                                                                _context2.next = 14;
                                                                 break;
                                                             }
 
-                                                            _context4.next = 14;
+                                                            _context2.next = 14;
                                                             return BinarySocket.send({ get_limits: 1 });
 
                                                         case 14:
@@ -35410,27 +35349,27 @@ var MetaTrader = function () {
 
                                                         case 20:
                                                         case 'end':
-                                                            return _context4.stop();
+                                                            return _context2.stop();
                                                     }
                                                 }
-                                            }, _callee4, undefined);
+                                            }, _callee2, undefined);
                                         }));
 
                                         return function (_x3) {
-                                            return _ref6.apply(this, arguments);
+                                            return _ref4.apply(this, arguments);
                                         };
                                     }());
 
                                 case 26:
                                 case 'end':
-                                    return _context5.stop();
+                                    return _context3.stop();
                             }
                         }
-                    }, _callee5, undefined);
+                    }, _callee3, undefined);
                 }));
 
                 return function (_x2) {
-                    return _ref4.apply(this, arguments);
+                    return _ref2.apply(this, arguments);
                 };
             }());
         }
@@ -35549,33 +35488,26 @@ var MetaTrader = function () {
     };
 
     var metatraderMenuItemVisibility = function metatraderMenuItemVisibility() {
-        BinarySocket.wait('landing_company', 'get_account_status').then(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        BinarySocket.wait('landing_company', 'get_account_status').then(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
             var mt_visibility;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                    switch (_context6.prev = _context6.next) {
+                    switch (_context4.prev = _context4.next) {
                         case 0:
-                            _context6.next = 2;
-                            return isEligible();
+                            if (isEligible()) {
+                                mt_visibility = document.getElementsByClassName('mt_visibility');
 
-                        case 2:
-                            if (!_context6.sent) {
-                                _context6.next = 5;
-                                break;
+                                applyToAllElements(mt_visibility, function (el) {
+                                    el.setVisibility(1);
+                                });
                             }
 
-                            mt_visibility = document.getElementsByClassName('mt_visibility');
-
-                            applyToAllElements(mt_visibility, function (el) {
-                                el.setVisibility(1);
-                            });
-
-                        case 5:
+                        case 1:
                         case 'end':
-                            return _context6.stop();
+                            return _context4.stop();
                     }
                 }
-            }, _callee6, undefined);
+            }, _callee4, undefined);
         })));
     };
 
@@ -35890,10 +35822,6 @@ var MetaTraderUI = function () {
         button_link_el.children('span').addClass('disabled');
     };
 
-    var disableNewAccountButton = function disableNewAccountButton() {
-        $(document).find('.act_new_account').remove();
-    };
-
     var getTradingPasswordConfirmVisibility = function getTradingPasswordConfirmVisibility() {
         return is_trading_password_confirmed;
     };
@@ -35956,7 +35884,7 @@ var MetaTraderUI = function () {
             if (Object.keys(accounts_info).every(function (type) {
                 return getAccountsInfo(type).info || !MetaTraderConfig.hasTradeServers(type);
             })) {
-                disableNewAccountButton();
+                $container.find('.act_new_account').remove();
             }
 
             // Add more trade servers button.
@@ -36220,8 +36148,6 @@ var MetaTraderUI = function () {
             _$form.find('label[for="txt_amount_withdrawal"]').append(' ' + mt_currency);
 
             var should_show_transfer_fee = client_currency !== mt_currency;
-            var txt_amount_deposit_element = _$form.find('#txt_amount_deposit');
-
             if (should_show_transfer_fee) {
                 $('#transfer_fee_amount_to').text(getTransferFee(client_currency, mt_currency));
                 $('#transfer_fee_minimum_to').text(Currency.getMinimumTransferFee(client_currency));
@@ -36229,17 +36155,6 @@ var MetaTraderUI = function () {
                 $('#transfer_fee_minimum_from').text(Currency.getMinimumTransferFee(mt_currency));
             }
             _$form.find('#txt_amount_deposit, #txt_amount_withdrawal').siblings('.hint').setVisibility(should_show_transfer_fee);
-
-            txt_amount_deposit_element.on('input', function () {
-                var balance = Client.get('balance');
-                var insufficient_funds_error = _$form.find('#insufficient_funds');
-                var is_balance_more_than_entered = balance >= txt_amount_deposit_element.val();
-
-                if (is_balance_more_than_entered) {
-                    return insufficient_funds_error.setVisibility(0);
-                }
-                return insufficient_funds_error.setVisibility(1);
-            });
 
             ['deposit', 'withdrawal'].forEach(function (act) {
                 actions_info[act].prerequisites(acc_type).then(function (error_msg) {
@@ -36926,7 +36841,6 @@ var MetaTraderUI = function () {
         displayPageError: displayPageError,
         disableButton: disableButton,
         disableButtonLink: disableButtonLink,
-        disableNewAccountButton: disableNewAccountButton,
         enableButton: enableButton,
         refreshAction: refreshAction,
         setTopupLoading: setTopupLoading,
