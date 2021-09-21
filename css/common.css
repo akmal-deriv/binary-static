@@ -303,6 +303,9 @@ label {
 .full-width {
   width: 100%; }
 
+.strong {
+  font-weight: bold; }
+
 .errorfield {
   margin-top: 8px;
   color: #c03; }
