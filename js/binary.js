@@ -551,7 +551,7 @@ var ClientBase = function () {
             },
             financial: {
                 financial: {
-                    short: localize('Financial'),
+                    short: localize('LOL'),
                     full: is_demo ? localize('Demo Financial') : localize('Real Financial')
                 },
                 financial_stp: {
