@@ -36305,7 +36305,7 @@ var MetaTraderUI = function () {
         if (should_set_trading_password) {
             _$form.find('#view_3').find('#trading_password_new_user').setVisibility(1);
         } else {
-            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Enter your MT5 password to add a [_1] MT5 [_2] account.', [is_demo ? localize('demo') : localize('real'), is_synthetic ? localize('Synthetic') : localize('Financial')])).setVisibility(1);
+            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Create an MT5 password for logging in to your [_1] account.', [is_synthetic ? localize('Synthetic') : localize('CFDs')])).setVisibility(1);
         }
 
         _$form.find('.' + (is_demo ? 'real' : 'demo') + '-only').setVisibility(0);
