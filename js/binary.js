@@ -7957,11 +7957,6 @@ Element.prototype.setVisibility = function (make_visible) {
     return this;
 };
 
-Element.prototype.toggleVisibility = function () {
-    this.toggleClass('invisible');
-    return this;
-};
-
 Element.prototype.insertAfter = function (referenceNode) {
     if (referenceNode && referenceNode.parentNode) {
         referenceNode.parentNode.insertBefore(this, referenceNode.nextSibling);
@@ -10632,7 +10627,7 @@ var Client = function () {
         var secondary_bg_color = 'secondary-bg-color';
 
         if (ClientBase.isLoggedIn()) {
-            BinarySocket.wait('authorize', 'website_status', 'get_account_status', 'landing_company').then(function () {
+            BinarySocket.wait('authorize', 'website_status', 'get_account_status').then(function () {
                 var client_logged_in = getElementById('client-logged-in');
                 client_logged_in.classList.add('gr-centered');
 
@@ -10652,12 +10647,6 @@ var Client = function () {
                     }, '', el_section);
                     topbar_class.add(primary_bg_color_dark);
                     topbar_class.remove(secondary_bg_color);
-                }
-
-                if (ClientBase.get('landing_company_shortcode') === 'malta') {
-                    applyToAllElements('.mt5_disallowed_toggle', function (el) {
-                        el.toggleVisibility();
-                    });
                 }
             });
         } else {
@@ -34183,7 +34172,6 @@ var Validation = __webpack_require__(/*! ../../../common/form_validation */ "./s
 var GTM = __webpack_require__(/*! ../../../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
 var localize = __webpack_require__(/*! ../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javascript/_common/storage.js").State;
-var urlFor = __webpack_require__(/*! ../../../../_common/url */ "./src/javascript/_common/url.js").urlFor;
 var isBinaryApp = __webpack_require__(/*! ../../../../config */ "./src/javascript/config.js").isBinaryApp;
 
 var MetaTraderConfig = function () {
@@ -34679,28 +34667,14 @@ var MetaTraderConfig = function () {
             deposit: [{
                 selector: fields.deposit.txt_amount.id,
                 validations: [['req', { hide_asterisk: true }],
-                // check if entered amount is less than the available balance
-                // e.g. transfer amount is 10 but client balance is 5
-                ['custom', {
-                    func: function func() {
-                        var balance = Client.get('balance');
-
-                        var is_balance_more_than_entered = +balance >= +$(fields.deposit.txt_amount.id).val();
-
-                        return balance && is_balance_more_than_entered;
-                    },
-                    message: localize('You have insufficient funds in your Binary account, please <a href="[_1]">add funds</a>.', urlFor('cashier'))
-                }],
                 // check if balance is less than the minimum limit for transfer
                 // e.g. client balance could be 0.45 but min limit could be 1
                 ['custom', {
                     func: function func() {
-                        var balance = Client.get('balance');
+                        var deposit_input_value = document.querySelector('#txt_amount_deposit').value;
                         var min_req_balance = Currency.getTransferLimits(Client.get('currency'), 'min', 'mt5');
 
-                        var is_balance_more_than_min_req = +balance >= +min_req_balance;
-
-                        return balance && is_balance_more_than_min_req;
+                        return +deposit_input_value > +min_req_balance;
                     },
                     message: localize('Should be more than [_1]', Currency.getTransferLimits(Client.get('currency'), 'min', 'mt5'))
                 }],
@@ -36246,6 +36220,8 @@ var MetaTraderUI = function () {
             _$form.find('label[for="txt_amount_withdrawal"]').append(' ' + mt_currency);
 
             var should_show_transfer_fee = client_currency !== mt_currency;
+            var txt_amount_deposit_element = _$form.find('#txt_amount_deposit');
+
             if (should_show_transfer_fee) {
                 $('#transfer_fee_amount_to').text(getTransferFee(client_currency, mt_currency));
                 $('#transfer_fee_minimum_to').text(Currency.getMinimumTransferFee(client_currency));
@@ -36253,6 +36229,17 @@ var MetaTraderUI = function () {
                 $('#transfer_fee_minimum_from').text(Currency.getMinimumTransferFee(mt_currency));
             }
             _$form.find('#txt_amount_deposit, #txt_amount_withdrawal').siblings('.hint').setVisibility(should_show_transfer_fee);
+
+            txt_amount_deposit_element.on('input', function () {
+                var balance = Client.get('balance');
+                var insufficient_funds_error = _$form.find('#insufficient_funds');
+                var is_balance_more_than_entered = balance >= txt_amount_deposit_element.val();
+
+                if (is_balance_more_than_entered) {
+                    return insufficient_funds_error.setVisibility(0);
+                }
+                return insufficient_funds_error.setVisibility(1);
+            });
 
             ['deposit', 'withdrawal'].forEach(function (act) {
                 actions_info[act].prerequisites(acc_type).then(function (error_msg) {
