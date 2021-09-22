@@ -253,8 +253,8 @@ const ClientBase = (() => {
             },
             financial: {
                 financial: {
-                    short: localize('Financial'),
-                    full : is_demo ? localize('Demo Financial') : localize('Real Financial'),
+                    short: localize('CFDs'),
+                    full : is_demo ? localize('Demo CFDs') : localize('Real CFDs'),
                 },
                 financial_stp: {
                     short: localize('Financial STP'),

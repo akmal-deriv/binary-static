@@ -20,6 +20,9 @@
             font-style: normal;
         }
         & .password {
+            &--field-wrapper {
+                max-width: unset;
+            }
             &--message {
                 white-space: unset;
             }

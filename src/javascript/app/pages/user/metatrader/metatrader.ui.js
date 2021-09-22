@@ -712,10 +712,9 @@ const MetaTraderUI = (() => {
         } else {
             $form.find('#view_3').find('#trading_password_existing_user')
                 .html(localize(
-                    'Enter your MT5 password to add a [_1] MT5 [_2] account.',
+                    'Create an MT5 password for logging in to your [_1] account.',
                     [
-                        is_demo ? localize('demo') : localize('real'),
-                        is_synthetic ? localize('Synthetic') : localize('Financial'),
+                        is_synthetic ? localize('Synthetic') : localize('CFDs'),
                     ]
                 ))
                 .setVisibility(1);
@@ -1234,7 +1233,7 @@ const MetaTraderUI = (() => {
             ok_text          : localize('Yes, I\'m sure'),
             cancel_text      : localize('Cancel'),
             localized_title  : localize('Are you sure?'),
-            localized_message: localize('You will not be able to change your fiat account\'s currency after creating this MT5 account. Are you sure you want to proceed?'),
+            localized_message: localize('You will not be able to change your fiat account currency after creating this CFDs account. Are you sure you want to proceed?'),
             onConfirm        : () => {
                 onConfirm();
                 submit(e);
