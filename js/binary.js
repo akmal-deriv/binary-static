@@ -36375,7 +36375,7 @@ var MetaTraderUI = function () {
         }
 
         // is_new_account
-        displayAccountDescription();
+        displayAccountDescription(acc_type);
         _$form = actions_info[action].$form;
         if (Object.keys(accounts_info).every(function (a_type) {
             return !getAccountsInfo(a_type).info;
@@ -36495,7 +36495,7 @@ var MetaTraderUI = function () {
         var selected_acc_type = $item.attr('data-acc-type');
         var action = 'new_account';
         if (/(demo|real)/.test(selected_acc_type)) {
-            displayAccountDescription();
+            displayAccountDescription(selected_acc_type);
             updateAccountTypesUI(selected_acc_type);
             switchAccountTypesUI(selected_acc_type, _$form);
             _$form.find('#view_1 .btn-next').addClass('button-disabled');

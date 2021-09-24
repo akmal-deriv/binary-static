@@ -641,6 +641,9 @@ button .barspinner.white {
 input[style*='background'] ~ .password--toggle {
   right: 32px; }
 
+#trading_password {
+  width: 95%; }
+
 .required_asterisk:after {
   content: '*';
   color: #c03; }
