@@ -610,6 +610,10 @@ button .barspinner.white {
     }
 }
 
+#trading_password {
+    width: 95%;
+}
+
 .required_asterisk:after {
     content: '*';
     color: $COLOR_RED;

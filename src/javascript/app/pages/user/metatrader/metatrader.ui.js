@@ -787,7 +787,7 @@ const MetaTraderUI = (() => {
         }
 
         // is_new_account
-        displayAccountDescription();
+        displayAccountDescription(acc_type);
         $form = actions_info[action].$form;
         if (Object.keys(accounts_info).every(a_type => !getAccountsInfo(a_type).info)) {
             $form.find('#view_1 .btn-cancel').addClass('invisible');
@@ -905,7 +905,7 @@ const MetaTraderUI = (() => {
         const selected_acc_type = $item.attr('data-acc-type');
         const action            = 'new_account';
         if (/(demo|real)/.test(selected_acc_type)) {
-            displayAccountDescription();
+            displayAccountDescription(selected_acc_type);
             updateAccountTypesUI(selected_acc_type);
             switchAccountTypesUI(selected_acc_type, $form);
             $form.find('#view_1 .btn-next').addClass('button-disabled');

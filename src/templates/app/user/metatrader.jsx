@@ -197,8 +197,14 @@ const Metatrader = () => (
                 <div className='account-desc'>
                     <AccountDesc
                         id='general_desc'
-                        title={it.L('Choose an account')}
-                        description={it.L('[_1] offers a variety of account types to cater to the diverse needs of traders everywhere, whether you\'re an experienced trader or just starting out.', it.website_name)}
+                        title={it.L('CFDs Account')}
+                        description={it.L('Our CFDs account is suitable for both new and experienced traders.')}
+                        items={[
+                            it.L('Leverage up to [_1]', '1:30'),
+                            it.L('Market execution'),
+                            it.L('No commission'),
+                            it.L('Negative balance protection'),
+                        ]}
                     />
                     {/* first item should be the general description
                         if there are any landing company specific descriptions,
@@ -214,6 +220,7 @@ const Metatrader = () => (
                             it.L('No commission'),
                         ]}
                     />
+
                     <AccountDesc
                         account_type={'financial_financial'}
                         landing_company_short='maltainvest'
