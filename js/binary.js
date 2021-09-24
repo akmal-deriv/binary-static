@@ -36533,11 +36533,15 @@ var MetaTraderUI = function () {
         Object.keys(accounts_info).filter(function (acc_type) {
             return acc_type.indexOf(type) === 0;
         }).forEach(function (acc_type) {
-            var class_name = type === 'real' && Client.get('is_virtual') ? 'disabled' : '';
+            var landing_company_short = getAccountsInfo(acc_type).landing_company_short;
+            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
+
+            var class_name = type === 'real' && Client.get('is_virtual') || landing_company_short === 'malta' && /_gaming_/.test(clean_acc_type) ? 'disabled' : '';
+
             if (getAccountsInfo(acc_type).info && (getAvailableServers(false, acc_type).length === 0 || type === 'demo')) {
                 class_name = 'existed';
             }
-            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
+
             _$form.find('.step-2 #' + clean_acc_type.replace(type, 'rbtn')).removeClass('existed disabled selected').addClass(class_name);
         });
     };
