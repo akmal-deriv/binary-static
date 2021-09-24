@@ -428,8 +428,8 @@ var ClientBase = function () {
         var initTypesMap = function initTypesMap() {
             return {
                 default: localize('Real'),
-                financial: localize('Investment'),
-                gaming: localize('Gaming'),
+                financial: localize('Multipliers'),
+                gaming: localize('Options'),
                 virtual: localize('Demo')
             };
         };
@@ -551,8 +551,8 @@ var ClientBase = function () {
             },
             financial: {
                 financial: {
-                    short: localize('Financial'),
-                    full: is_demo ? localize('Demo Financial') : localize('Real Financial')
+                    short: localize('CFDs'),
+                    full: is_demo ? localize('Demo CFDs') : localize('Real CFDs')
                 },
                 financial_stp: {
                     short: localize('Financial STP'),
@@ -9868,26 +9868,27 @@ module.exports = {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var BinaryPjax = __webpack_require__(/*! ./binary_pjax */ "./src/javascript/app/base/binary_pjax.js");
 var pages_config = __webpack_require__(/*! ./binary_pages */ "./src/javascript/app/base/binary_pages.js");
+var BinaryPjax = __webpack_require__(/*! ./binary_pjax */ "./src/javascript/app/base/binary_pjax.js");
 var Client = __webpack_require__(/*! ./client */ "./src/javascript/app/base/client.js");
 var Header = __webpack_require__(/*! ./header */ "./src/javascript/app/base/header.js");
 var NetworkMonitor = __webpack_require__(/*! ./network_monitor */ "./src/javascript/app/base/network_monitor.js");
 var Page = __webpack_require__(/*! ./page */ "./src/javascript/app/base/page.js");
 var BinarySocket = __webpack_require__(/*! ./socket */ "./src/javascript/app/base/socket.js");
 var ContentVisibility = __webpack_require__(/*! ../common/content_visibility */ "./src/javascript/app/common/content_visibility.js");
-var GTM = __webpack_require__(/*! ../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
-var Login = __webpack_require__(/*! ../../_common/base/login */ "./src/javascript/_common/base/login.js");
-var LiveChat = __webpack_require__(/*! ../../_common/base/livechat */ "./src/javascript/_common/base/livechat.js");
 var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
 var urlLang = __webpack_require__(/*! ../../_common/language */ "./src/javascript/_common/language.js").urlLang;
-var localizeForLang = __webpack_require__(/*! ../../_common/localize */ "./src/javascript/_common/localize.js").forLang;
 var localize = __webpack_require__(/*! ../../_common/localize */ "./src/javascript/_common/localize.js").localize;
+var localizeForLang = __webpack_require__(/*! ../../_common/localize */ "./src/javascript/_common/localize.js").forLang;
 var ScrollToAnchor = __webpack_require__(/*! ../../_common/scroll_to_anchor */ "./src/javascript/_common/scroll_to_anchor.js");
 var isStorageSupported = __webpack_require__(/*! ../../_common/storage */ "./src/javascript/_common/storage.js").isStorageSupported;
 var ThirdPartyLinks = __webpack_require__(/*! ../../_common/third_party_links */ "./src/javascript/_common/third_party_links.js");
 var urlFor = __webpack_require__(/*! ../../_common/url */ "./src/javascript/_common/url.js").urlFor;
 var createElement = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").createElement;
+var ClientBase = __webpack_require__(/*! ../../_common/base/client_base */ "./src/javascript/_common/base/client_base.js");
+var GTM = __webpack_require__(/*! ../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
+var LiveChat = __webpack_require__(/*! ../../_common/base/livechat */ "./src/javascript/_common/base/livechat.js");
+var Login = __webpack_require__(/*! ../../_common/base/login */ "./src/javascript/_common/base/login.js");
 
 var BinaryLoader = function () {
     var container = void 0;
@@ -9994,7 +9995,7 @@ var BinaryLoader = function () {
             return localize('This page is only available to logged out clients.');
         },
         no_mf: function no_mf() {
-            return localize('Binary options trading is not available in your financial account.');
+            return localize('Binary options trading is not available via your Multipliers account.<br/>Please switch back to your Options account.');
         },
         options_blocked: function options_blocked() {
             return localize('Binary options trading is not available in your country.');
@@ -10004,6 +10005,15 @@ var BinaryLoader = function () {
         },
         not_deactivated: function not_deactivated() {
             return localize('Page not available, you did not deactivate your account.');
+        },
+        only_deriv: function only_deriv() {
+            return localize('Unfortunately, this service isn’t available in your country. If you’d like to trade multipliers, try DTrader on Deriv.');
+        }
+    };
+
+    var error_actions = {
+        only_deriv: function only_deriv() {
+            return { localized_title: localize('Go to DTrader'), target_url: 'https://app.deriv.com' };
         }
     };
 
@@ -10021,6 +10031,9 @@ var BinaryLoader = function () {
                         displayMessage(error_messages.only_virtual());
                     } else if (config.only_real && Client.get('is_virtual')) {
                         displayMessage(error_messages.only_real());
+                    } else if (response.authorize.country === 'fr') {
+                        // We don't offer service for France residence clients on Binary any more
+                        displayMessage(error_messages.only_deriv(), error_actions.only_deriv());
                     } else {
                         loadActiveScript(config);
                     }
@@ -10074,7 +10087,7 @@ var BinaryLoader = function () {
         }
     };
 
-    var displayMessage = function displayMessage(localized_message) {
+    var displayMessage = function displayMessage(localized_message, action) {
         var content = container.querySelector('#content');
 
         if (!content) {
@@ -10082,18 +10095,27 @@ var BinaryLoader = function () {
         }
         content.classList.add('container');
 
-        var div_container = createElement('div', { class: 'logged_out_title_container', html: Client.isAccountOfType('financial') || Client.isOptionsBlocked() ? '' : content.getElementsByTagName('h1')[0] || '' });
+        var base_html_elements = Client.isAccountOfType('financial') || Client.isOptionsBlocked() || ClientBase.get('residence') === 'fr' ? '' : content.getElementsByTagName('h1')[0] || '';
+        var div_container = createElement('div', { class: 'logged_out_title_container', html: base_html_elements });
         var div_notice = createElement('p', { class: 'center-text notice-msg', html: localized_message });
-
         div_container.appendChild(div_notice);
+
+        if (action) {
+            var action_button = createElement('a', { class: 'button', href: action.target_url });
+            var action_button_title = createElement('span', { text: action.localized_title });
+            action_button.appendChild(action_button_title);
+            div_container.appendChild(action_button);
+        }
 
         content.html(div_container);
 
-        var link = content.getElementsByTagName('a')[0];
-        if (link) {
-            link.addEventListener('click', function () {
-                Login.redirectToLogin();
-            });
+        if (!action) {
+            var link = content.getElementsByTagName('a')[0];
+            if (link) {
+                link.addEventListener('click', function () {
+                    Login.redirectToLogin();
+                });
+            }
         }
     };
 
@@ -11216,8 +11238,8 @@ var Header = function () {
                 upgrade_link_txt = localize('Click here to open a Real Account');
                 upgrade_btn_txt = localize('Open a Real Account');
             } else if (upgrade_info.can_upgrade_to.length === 1) {
-                upgrade_link_txt = upgrade_info.type[0] === 'financial' ? localize('Click here to open a Financial Account') : upgrade_info.can_upgrade_to[0] === 'malta' ? localize('Click here to open a Gaming account') : localize('Click here to open a Real Account');
-                upgrade_btn_txt = upgrade_info.type[0] === 'financial' ? localize('Open a Financial Account') : localize('Open a Real Account');
+                upgrade_link_txt = upgrade_info.type[0] === 'financial' ? localize('Click here to open a Multipliers Account') : upgrade_info.can_upgrade_to[0] === 'malta' ? localize('Click here to open an Options account') : localize('Click here to open a Real Account');
+                upgrade_btn_txt = upgrade_info.type[0] === 'financial' ? localize('Open a Multipliers Account') : localize('Open a Real Account');
             }
 
             if (Client.get('is_virtual')) {
@@ -33745,10 +33767,10 @@ var Accounts = function () {
         upgrade_info.type.forEach(function (new_account_type, index) {
             var getAccountTitle = function getAccountTitle() {
                 if (new_account_type === 'financial') {
-                    return localize('Financial Account');
+                    return localize('Multipliers Account');
                 }
                 if (upgrade_info.can_upgrade_to[index] === 'malta') {
-                    return localize('Gaming Account');
+                    return localize('Options Account');
                 }
 
                 return localize('Real Account');
@@ -34172,7 +34194,6 @@ var Validation = __webpack_require__(/*! ../../../common/form_validation */ "./s
 var GTM = __webpack_require__(/*! ../../../../_common/base/gtm */ "./src/javascript/_common/base/gtm.js");
 var localize = __webpack_require__(/*! ../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javascript/_common/storage.js").State;
-var urlFor = __webpack_require__(/*! ../../../../_common/url */ "./src/javascript/_common/url.js").urlFor;
 var isBinaryApp = __webpack_require__(/*! ../../../../config */ "./src/javascript/config.js").isBinaryApp;
 
 var MetaTraderConfig = function () {
@@ -34668,28 +34689,14 @@ var MetaTraderConfig = function () {
             deposit: [{
                 selector: fields.deposit.txt_amount.id,
                 validations: [['req', { hide_asterisk: true }],
-                // check if entered amount is less than the available balance
-                // e.g. transfer amount is 10 but client balance is 5
-                ['custom', {
-                    func: function func() {
-                        var balance = Client.get('balance');
-
-                        var is_balance_more_than_entered = +balance >= +$(fields.deposit.txt_amount.id).val();
-
-                        return balance && is_balance_more_than_entered;
-                    },
-                    message: localize('You have insufficient funds in your Binary account, please <a href="[_1]">add funds</a>.', urlFor('cashier'))
-                }],
                 // check if balance is less than the minimum limit for transfer
                 // e.g. client balance could be 0.45 but min limit could be 1
                 ['custom', {
                     func: function func() {
-                        var balance = Client.get('balance');
+                        var deposit_input_value = document.querySelector('#txt_amount_deposit').value;
                         var min_req_balance = Currency.getTransferLimits(Client.get('currency'), 'min', 'mt5');
 
-                        var is_balance_more_than_min_req = +balance >= +min_req_balance;
-
-                        return balance && is_balance_more_than_min_req;
+                        return +deposit_input_value > +min_req_balance;
                     },
                     message: localize('Should be more than [_1]', Currency.getTransferLimits(Client.get('currency'), 'min', 'mt5'))
                 }],
@@ -36148,6 +36155,8 @@ var MetaTraderUI = function () {
             _$form.find('label[for="txt_amount_withdrawal"]').append(' ' + mt_currency);
 
             var should_show_transfer_fee = client_currency !== mt_currency;
+            var txt_amount_deposit_element = _$form.find('#txt_amount_deposit');
+
             if (should_show_transfer_fee) {
                 $('#transfer_fee_amount_to').text(getTransferFee(client_currency, mt_currency));
                 $('#transfer_fee_minimum_to').text(Currency.getMinimumTransferFee(client_currency));
@@ -36155,6 +36164,17 @@ var MetaTraderUI = function () {
                 $('#transfer_fee_minimum_from').text(Currency.getMinimumTransferFee(mt_currency));
             }
             _$form.find('#txt_amount_deposit, #txt_amount_withdrawal').siblings('.hint').setVisibility(should_show_transfer_fee);
+
+            txt_amount_deposit_element.on('input', function () {
+                var balance = Client.get('balance');
+                var insufficient_funds_error = _$form.find('#insufficient_funds');
+                var is_balance_more_than_entered = balance >= txt_amount_deposit_element.val();
+
+                if (is_balance_more_than_entered) {
+                    return insufficient_funds_error.setVisibility(0);
+                }
+                return insufficient_funds_error.setVisibility(1);
+            });
 
             ['deposit', 'withdrawal'].forEach(function (act) {
                 actions_info[act].prerequisites(acc_type).then(function (error_msg) {
@@ -36285,7 +36305,7 @@ var MetaTraderUI = function () {
         if (should_set_trading_password) {
             _$form.find('#view_3').find('#trading_password_new_user').setVisibility(1);
         } else {
-            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Enter your MT5 password to add a [_1] MT5 [_2] account.', [is_demo ? localize('demo') : localize('real'), is_synthetic ? localize('Synthetic') : localize('Financial')])).setVisibility(1);
+            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Create an MT5 password for logging in to your [_1] account.', [is_synthetic ? localize('Synthetic') : localize('CFDs')])).setVisibility(1);
         }
 
         _$form.find('.' + (is_demo ? 'real' : 'demo') + '-only').setVisibility(0);
@@ -36533,15 +36553,11 @@ var MetaTraderUI = function () {
         Object.keys(accounts_info).filter(function (acc_type) {
             return acc_type.indexOf(type) === 0;
         }).forEach(function (acc_type) {
-            var landing_company_short = getAccountsInfo(acc_type).landing_company_short;
-            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
-
-            var class_name = type === 'real' && Client.get('is_virtual') || landing_company_short === 'malta' && /_gaming_/.test(clean_acc_type) ? 'disabled' : '';
-
+            var class_name = type === 'real' && Client.get('is_virtual') ? 'disabled' : '';
             if (getAccountsInfo(acc_type).info && (getAvailableServers(false, acc_type).length === 0 || type === 'demo')) {
                 class_name = 'existed';
             }
-
+            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
             _$form.find('.step-2 #' + clean_acc_type.replace(type, 'rbtn')).removeClass('existed disabled selected').addClass(class_name);
         });
     };
@@ -36812,7 +36828,7 @@ var MetaTraderUI = function () {
             ok_text: localize('Yes, I\'m sure'),
             cancel_text: localize('Cancel'),
             localized_title: localize('Are you sure?'),
-            localized_message: localize('You will not be able to change your fiat account\'s currency after creating this MT5 account. Are you sure you want to proceed?'),
+            localized_message: localize('You will not be able to change your fiat account currency after creating this CFDs account. Are you sure you want to proceed?'),
             onConfirm: function onConfirm() {
                 _onConfirm();
                 submit(e);
@@ -37447,6 +37463,12 @@ var getPersonalDetailsConfig = function getPersonalDetailsConfig(_ref) {
         supported_in: ['iom', 'malta', 'maltainvest'],
         default_value: account_settings.account_opening_reason || '',
         rules: ['req']
+    }, {
+        id: 'accurate_answer_warning',
+        section: '',
+        supported_in: ['maltainvest'],
+        default_value: '',
+        rules: []
     }];
     return config;
 };
@@ -38781,7 +38803,7 @@ var WelcomePage = function () {
             if (upgrade_info.can_upgrade_to.length > 1) {
                 upgrade_btn_txt = localize('Real Account');
             } else if (upgrade_info.can_upgrade_to.length === 1) {
-                upgrade_btn_txt = upgrade_info.type[0] === 'financial' ? localize('Financial Account') : localize('Real Account');
+                upgrade_btn_txt = upgrade_info.type[0] === 'financial' ? localize('Multipliers Account') : localize('Real Account');
             }
             el_upgrade_title.html(upgrade_btn_txt);
             el_welcome_container.setVisibility(1);
@@ -39499,7 +39521,7 @@ var SetCurrency = function () {
             if (should_show_confirmation) {
                 var currency = $clicked_currency.attr('id');
                 var is_iom_client = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-                var change_text_for_iom = is_iom_client ? localize('deposit') : localize('deposit or create an MT5 account');
+                var change_text_for_iom = is_iom_client ? localize('deposit') : localize('deposit or create a CFDs account');
                 var localized_message = '';
                 var localized_footnote = '';
 

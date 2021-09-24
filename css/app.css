@@ -184,6 +184,8 @@ a.previous-wrapper {
       margin: 25px 0 32px;
       font-size: 1.15rem;
       font-style: normal; }
+    #mt_account_management .mt-panel .password--field-wrapper {
+      max-width: unset; }
     #mt_account_management .mt-panel .password--message {
       white-space: unset; }
     @media screen and (max-width: 480px) {
@@ -440,6 +442,10 @@ a.previous-wrapper {
     #mt_account_management .fst-container #fst_action #frm_cashier .binary-balance, #mt_account_management .fst-container #fst_action #frm_cashier .mt5-balance {
       font-weight: bold;
       color: #c2c2c2; }
+    #mt_account_management .fst-container #fst_action #frm_cashier #insufficient_funds {
+      text-align: left; }
+      #mt_account_management .fst-container #fst_action #frm_cashier #insufficient_funds .insufficient-funds-error-link {
+        color: #c03; }
     #mt_account_management .fst-container #fst_action #frm_cashier #mt5_remaining_transfers .empty {
       color: #c03; }
     #mt_account_management .fst-container #fst_action #frm_manage_password #token_error {

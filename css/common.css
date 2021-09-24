@@ -303,6 +303,9 @@ label {
 .full-width {
   width: 100%; }
 
+.strong {
+  font-weight: bold; }
+
 .errorfield {
   margin-top: 8px;
   color: #c03; }
@@ -423,7 +426,11 @@ input[type=checkbox] {
 
 .logged_out_title_container {
   margin-top: 40px;
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  text-align: center; }
+
+.signup-warning-message {
+  padding-bottom: 40px; }
 
 button .barspinner.white {
   height: 13px;
