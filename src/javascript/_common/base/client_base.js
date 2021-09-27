@@ -239,7 +239,7 @@ const ClientBase = (() => {
     // market_type: "financial" | "gaming"
     // sub_account_type: "financial" | "financial_stp" | "swap_free"
     // *
-    const getMT5AccountDisplays = (market_type, sub_account_type, is_demo) => {
+    const getMT5AccountDisplays = (market_type, sub_account_type, is_demo, landing_company_short) => {
         // needs to be declared inside because of localize
         // TODO: handle swap_free when ready
 
@@ -253,7 +253,7 @@ const ClientBase = (() => {
             },
             financial: {
                 financial: {
-                    short: localize('CFDs'),
+                    short: landing_company_short === 'maltainvest' ? localize('CFDs') : localize('Financial'),
                     full : is_demo ? localize('Demo CFDs') : localize('Real CFDs'),
                 },
                 financial_stp: {
