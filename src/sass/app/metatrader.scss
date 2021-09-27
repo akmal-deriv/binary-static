@@ -20,9 +20,6 @@
             font-style: normal;
         }
         & .password {
-            &--field-wrapper {
-                max-width: unset;
-            }
             &--message {
                 white-space: unset;
             }
@@ -368,6 +365,11 @@
                 }
                 .change-investor-button {
                     margin-bottom: 10px;
+                }
+                .change-investor-password {
+                    .password--field-wrapper {
+                        max-width: 95%;
+                    }
                 }
                 #existing_client_message {
                     .notice-msg {
