@@ -537,7 +537,7 @@ var ClientBase = function () {
     // market_type: "financial" | "gaming"
     // sub_account_type: "financial" | "financial_stp" | "swap_free"
     // *
-    var getMT5AccountDisplays = function getMT5AccountDisplays(market_type, sub_account_type, is_demo) {
+    var getMT5AccountDisplays = function getMT5AccountDisplays(market_type, sub_account_type, is_demo, landing_company_short) {
         // needs to be declared inside because of localize
         // TODO: handle swap_free when ready
 
@@ -551,7 +551,7 @@ var ClientBase = function () {
             },
             financial: {
                 financial: {
-                    short: localize('CFDs'),
+                    short: landing_company_short === 'maltainvest' ? localize('CFDs') : localize('Financial'),
                     full: is_demo ? localize('Demo CFDs') : localize('Real CFDs')
                 },
                 financial_stp: {
@@ -35048,7 +35048,7 @@ var MetaTrader = function () {
 
                 ['demo', 'real'].forEach(function (account_type) {
                     var is_demo = account_type === 'demo';
-                    var display_name = Client.getMT5AccountDisplays(market_type, sub_account_type, is_demo);
+                    var display_name = Client.getMT5AccountDisplays(market_type, sub_account_type, is_demo, landing_company_short);
                     var leverage = getLeverage(market_type, sub_account_type, landing_company_short);
 
                     var addAccountsInfo = function addAccountsInfo(trading_server) {
@@ -36305,7 +36305,7 @@ var MetaTraderUI = function () {
         if (should_set_trading_password) {
             _$form.find('#view_3').find('#trading_password_new_user').setVisibility(1);
         } else {
-            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Create an MT5 password for logging in to your [_1] account.', [is_synthetic ? localize('Synthetic') : localize('CFDs')])).setVisibility(1);
+            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Enter your MT5 password to add a [_1] MT5 [_2] account.', [is_demo ? localize('demo') : localize('real'), is_synthetic ? localize('Synthetic') : localize('Financial')])).setVisibility(1);
         }
 
         _$form.find('.' + (is_demo ? 'real' : 'demo') + '-only').setVisibility(0);

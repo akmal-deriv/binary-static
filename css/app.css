@@ -456,6 +456,8 @@ a.previous-wrapper {
       width: 100%; }
     #mt_account_management .fst-container #fst_action #frm_manage_password .change-investor-button {
       margin-bottom: 10px; }
+    #mt_account_management .fst-container #fst_action #frm_manage_password .change-investor-password .password--field-wrapper {
+      max-width: 95%; }
     #mt_account_management .fst-container #fst_action #frm_manage_password #existing_client_message .notice-msg {
       padding: 16px; }
     #mt_account_management .fst-container #fst_action .type-group .mt5_type_box {
