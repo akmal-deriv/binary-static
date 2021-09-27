@@ -184,8 +184,6 @@ a.previous-wrapper {
       margin: 25px 0 32px;
       font-size: 1.15rem;
       font-style: normal; }
-    #mt_account_management .mt-panel .password--field-wrapper {
-      max-width: unset; }
     #mt_account_management .mt-panel .password--message {
       white-space: unset; }
     @media screen and (max-width: 480px) {
@@ -557,7 +555,8 @@ a.previous-wrapper {
     padding-left: 24px; }
   #mt_account_management #account_desc .button span {
     padding: 10px 5px;
-    line-height: 18px; }
+    line-height: 18px;
+    width: 95%; }
   #mt_account_management span {
     font-size: 1.15rem; }
 
