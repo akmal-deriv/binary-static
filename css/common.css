@@ -303,6 +303,9 @@ label {
 .full-width {
   width: 100%; }
 
+.full-max-width {
+  max-width: 95%; }
+
 .strong {
   font-weight: bold; }
 
