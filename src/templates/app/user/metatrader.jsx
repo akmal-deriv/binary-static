@@ -329,7 +329,7 @@ const Metatrader = () => (
                                             {it.L('Cancel')}
                                         </button>
                                         <button className='button'  id='existing_user_btn_submit_new_account' type='submit' action='new_account'>
-                                            {it.L('Set MT5 password')}
+                                            {it.L('Add account')}
                                         </button>
                                     </div>
                                     <div id='view_3-buttons_new_user' className='gr-padding-10 center-text'>

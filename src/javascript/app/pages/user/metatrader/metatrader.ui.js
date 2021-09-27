@@ -712,8 +712,9 @@ const MetaTraderUI = (() => {
         } else {
             $form.find('#view_3').find('#trading_password_existing_user')
                 .html(localize(
-                    'Create an MT5 password for logging in to your [_1] account.',
+                    'Enter your MT5 password to add a [_1] MT5 [_2] account.',
                     [
+                        is_demo ? localize('demo') : localize('real'),
                         is_synthetic ? localize('Synthetic') : localize('CFDs'),
                     ]
                 ))
