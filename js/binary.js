@@ -35943,6 +35943,10 @@ var MetaTraderUI = function () {
 
     var displayAccountDescription = function displayAccountDescription(acc_type) {
         var $account_desc = $templates.find('.account-desc');
+
+        landing_company_short = State.getResponse('landing_company.financial_company.shortcode');
+
+        var $general_description = landing_company_short === 'maltainvest' ? $account_desc.find('#general_desc_eu') : $account_desc.find('#general_desc');
         var $account_type_desc = '';
         if (acc_type) {
             $account_type_desc = $account_desc.find('.' + acc_type);
@@ -35957,7 +35961,7 @@ var MetaTraderUI = function () {
                 $account_type_desc = $specific_description.length ? $specific_description : $account_type_desc.first();
             }
         }
-        var $el_to_clone = $account_type_desc.length ? $account_type_desc : $account_desc.find('#general_desc');
+        var $el_to_clone = $account_type_desc.length ? $account_type_desc : $general_description;
         $container.find('#account_desc').html($el_to_clone.clone());
     };
 
