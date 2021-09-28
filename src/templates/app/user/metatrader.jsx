@@ -146,7 +146,8 @@ const Metatrader = () => (
                 <div className='mt-panel'>
                     <div className='acc-actions'>
                         <a href='javascript:;' className='act_new_account new-account center-text invisible'>
-                            <span>{it.L('Create a CFDs account')}</span>
+                            <span className='client-general'>{it.L('Create a MetaTrader 5 account')}</span>
+                            <span className='client-eu invisible'>{it.L('Create a CFDs account')}</span>
                         </a>
                         <a href='javascript:;' className='act_cashier has-account center-text invisible'>
                             <span>{it.L('Manage funds')}</span>
@@ -197,6 +198,12 @@ const Metatrader = () => (
                 <div className='account-desc'>
                     <AccountDesc
                         id='general_desc'
+                        title={it.L('Choose an account')}
+                        description={it.L('[_1] offers a variety of account types to cater to the diverse needs of traders everywhere, whether you\'re an experienced trader or just starting out.', it.website_name)}
+                    />
+
+                    <AccountDesc
+                        id='general_desc_eu'
                         title={it.L('CFDs Account')}
                         description={it.L('Our CFDs account is suitable for both new and experienced traders.')}
                         items={[
@@ -211,8 +218,8 @@ const Metatrader = () => (
                         they should be below this with landing_company_short prop */}
                     <AccountDesc
                         account_type={'financial_financial'}
-                        title={it.L('CFDs Account')}
-                        description={it.L('Our CFDs account is suitable for both new and experienced traders.')}
+                        title={it.L('Financial Account')}
+                        description={it.L('Our MetaTrader 5 Financial account is suitable for both new and experienced traders.')}
                         items={[
                             it.L('Leverage up to [_1]', '1:1000'),
                             it.L('Variable spreads'),
@@ -298,7 +305,8 @@ const Metatrader = () => (
                             <div id='view_3' className='gr-row invisible'>
                                 <div className='container gr-12'>
                                     <p id='trading_password_new_user' className='center-text notice-msg invisible'>
-                                        {it.L('Create an MT5 password for logging in to your CFDs account.')}
+                                        <span className='client-general'>{it.L('Create an MT5 password. You can use this password for all your MT5 accounts.')}</span>
+                                        <span className='client-eu invisible'>{it.L('Create an MT5 password for logging in to your CFDs account.')}</span>
                                     </p>
                                     <p id='trading_password_new_user_confirm' className='center-text notice-msg invisible'>
                                         {it.L('Confirm to create your MT5 password')}
