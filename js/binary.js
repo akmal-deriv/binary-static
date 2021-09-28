@@ -35574,11 +35574,14 @@ var MetaTraderUI = function () {
         $templates = void 0,
         _$form = void 0,
         $main_msg = void 0,
+        $client_general = void 0,
+        $client_eu = void 0,
         validations = void 0,
         submit = void 0,
         topup_demo = void 0,
         token = void 0,
-        current_action_ui = void 0;
+        current_action_ui = void 0,
+        landing_company_short = void 0;
 
     var accounts_info = MetaTraderConfig.accounts_info;
     var actions_info = MetaTraderConfig.actions_info;
@@ -35597,6 +35600,7 @@ var MetaTraderUI = function () {
     };
 
     var init = function init(submit_func, topup_demo_func) {
+        landing_company_short = State.getResponse('landing_company.financial_company.shortcode');
         token = getHashValue('token');
         topup_demo = topup_demo_func;
         submit = submit_func;
@@ -35608,6 +35612,8 @@ var MetaTraderUI = function () {
         $action = $container.find('#fst_action');
         $templates = $container.find('#templates').remove();
         $main_msg = $container.find('#main_msg');
+        $client_general = $container.find('.client-general');
+        $client_eu = $container.find('.client-eu');
         $container.find('[class*="act_"]').on('click', populateForm);
 
         MetaTraderConfig.setMessages($templates.find('#messages'));
@@ -35616,6 +35622,14 @@ var MetaTraderUI = function () {
 
         populateAccountTypes();
         populateAccountList();
+        populateContent(landing_company_short);
+    };
+
+    var populateContent = function populateContent(landing_company) {
+        if (landing_company === 'maltainvest') {
+            $client_general.setVisibility(0);
+            $client_eu.setVisibility(1);
+        }
     };
 
     var populateWebLinks = function populateWebLinks(server_info) {
@@ -35933,7 +35947,7 @@ var MetaTraderUI = function () {
         if (acc_type) {
             $account_type_desc = $account_desc.find('.' + acc_type);
 
-            var landing_company_short = MetaTraderConfig.getSampleAccount(acc_type).landing_company_short;
+            landing_company_short = MetaTraderConfig.getSampleAccount(acc_type).landing_company_short;
 
             if ($account_type_desc.length === 2) {
                 var $specific_description = $account_desc.find('.' + acc_type + '.' + landing_company_short);
