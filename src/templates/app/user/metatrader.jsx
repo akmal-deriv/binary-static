@@ -140,7 +140,7 @@ const Metatrader = () => (
 
                 <div className='hint gr-padding-20 gr-parent no-margin'>
                     <p className='no-margin'>
-                        {it.L('Server maintenance starts at 03:00 (GMT) every Sunday. This process may take up to 2 hours to complete. You may experience service disruption during this time.')}
+                        {it.L('Server maintenance starts at 01:00 (GMT) every Sunday. This process may take up to 2 hours to complete. You may experience service disruption during this time.')}
                     </p>
                 </div>
                 <div className='mt-panel'>
