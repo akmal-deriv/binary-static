@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-09-22 06:37\n"
+"PO-Revision-Date: 2021-10-01 03:48\n"
 "Last-Translator: \n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -747,6 +747,9 @@ msgstr "Una laurea breve in economia e commercio o un ambito legato al business,
 
 msgid "A bachelor's degree in commerce or any business-related field, law, or risk management"
 msgstr "Una laurea breve in economia e commercio o un ambito legato al business, oppure in giurisprudenza o gestione del rischio"
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is synthetic indices."
+msgstr ""
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
 msgstr "Un'opzione binaria è un contratto in cui una parte si impegna a versare a un'altra parte un importo prestabilito se il valore di un dato asset cambia in una direzione precisa entro un certo periodo di tempo. La Società offre tre principali categorie di asset sottostanti per le opzioni binarie:"
@@ -2437,11 +2440,17 @@ msgstr "CFD"
 msgid "CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. %1 of retail investor accounts lose money when trading CFDs with Deriv Investments (Europe) Limited. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money."
 msgstr "I CFD sono strumenti complessi che implicano un rischio elevato di perdite rapide di denaro a causa della leva finanziaria. Una percentuale pari a %1 degli investitori al dettaglio subisce perdite effettuando trading su CFD con Deriv Investments (Europe) Limited. Ti invitiamo a valutare se sei effettivamente in grado di comprendere il funzionamento dei CFD e nelle condizioni di correre l'elevato rischio di perdere del denaro."
 
+msgid "CFDs on Synthetic Indices"
+msgstr ""
+
 msgid "CFDs on commodities"
 msgstr "CFD sulle materie prime"
 
-msgid "CFDs on indices"
-msgstr "CFD sugli indici"
+msgid "CFDs on stock indices"
+msgstr ""
+
+msgid "CFDs on stocks"
+msgstr ""
 
 msgid "CFH Clearing Limited"
 msgstr "CFH Clearing Limited"
@@ -2818,11 +2827,14 @@ msgstr "i clienti dovranno registrarsi personalmente;"
 msgid "Clients need to satisfy at least two of the following criteria in order to receive Professional Client status:"
 msgstr "I clienti devono soddisfare almeno due dei seguenti criteri al fine di ricevere lo status di cliente professionista:"
 
+msgid "Clients registered with Deriv (Europe) Limited can refer their complaints to the Malta Gaming Authority via the %1Player Support Unity%3. They can file their unresolved disputes with the European Commission’s %2Online Dispute Resolution (ODR)%3."
+msgstr ""
+
 msgid "Clients registered with Deriv (MX) Ltd can formally submit a complaint to their local Supervisory Authority."
 msgstr "I clienti registrati con Deriv (MX) Ltd possono presentare un ricorso formale all'autorità di sorveglianza locale."
 
-msgid "Clients registered with Deriv (MX) Ltd or Deriv (Europe) Limited can raise their unresolved disputes with the alternative dispute resolution entity IBAS by filling the adjudication form on the ADR entity's %1website%2. Alternatively, they can make use of the European Commission's Online Dispute Resolution (ODR) platform available %3here%4. Clients registered with Deriv (Europe) Limited can also refer their unresolved disputes to the Malta Gaming Authority via the %5Player Support Unit%6."
-msgstr "I clienti registrati con Deriv (MX) Ltd o Deriv (Europe) Limited possono presentare i contenziosi irrisolti all'IBAS, un altro organo preposto alla risoluzione delle controversie, compilando il modulo sul %1sito web%2 dell'ente per l'ADR (metodi alternativi di risoluzione delle controversie). In alternativa possono utilizzare la piattaforma ODR (Risoluzione delle controversie online) della Commissione europea disponibile %3qui%4. Inoltre, possono presentare eventuali controversie irrisolte alla Malta Gaming Authority tramite l'%unità di assistenza ai giocatori%6."
+msgid "Clients registered with Deriv (MX) Ltd can raise their unresolved disputes with the alternative dispute resolution entity IBAS by filing the adjudication form on the %1ADR entity's website%2."
+msgstr ""
 
 msgid "Clients registered with Deriv Investments (Europe) Limited can raise their unresolved disputes with the Office of the Arbiter for Financial Services. Contact details and guidance on making a complaint with the Arbiter's Office can be found %1here%2."
 msgstr "Clienti registrati con Deriv Investments (Europe) Limited possono presentare eventuali controversie non risolte rivolgendosi all'ufficio dell'Arbitro per i Servizi Finanziari. Contatti e linee guida su come presentare un reclamo all'ufficio dell'Arbitro possono essere trovati %1qui%2."
@@ -3742,8 +3754,8 @@ msgstr "I conti di prova non dispongono di servizi degli agenti di pagamento."
 msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website and as detailed in the About us section of the website and the type of products offered, the term \"the Company\" shall denote,"
 msgstr "A seconda della giurisdizione a cui il conto di un cliente è stato associato, in conformità alle procedure di apertura del conto riportate sul sito, alla tipologia di prodotti offerti e come illustrato in dettaglio nella sezione Chi siamo del sito stesso, il termine \"la Società\" si riferisce a"
 
-msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website, the terms 'the Company' and '%1' shall denote either"
-msgstr "A seconda della giurisdizione a cui il conto del cliente è stato associato e in conformità alle procedure di apertura del conto riportate sul sito web, i termini \"la Società\" e \"%1\" si riferiscono a"
+msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website, the terms 'the Company' and '%1' shall denote"
+msgstr ""
 
 msgid "Depending on the level of risk that the Company is exposed to while acting as the client's counterparty, the Company acts largely in a principal capacity of the client's trades. As such, the execution venue will usually be %1. However, the Company may transmit the client's order to third-party liquidity providers, in which case the Company will determine the execution venue on the basis described above."
 msgstr "In base al livello di rischio a cui è esposta agendo in qualità di controparte del Cliente, la Società agisce largamente in qualità di mandante dei trade del Cliente. In quanto tale, la sede di esecuzione sarà normalmente %1. Tuttavia, la Società può trasmettere l'ordine del Cliente a fornitori di liquidità terzi, nel qual caso stabilirà la sede di esecuzione sulla base dei criteri descritti sopra."
@@ -3814,17 +3826,11 @@ msgstr "Deriv (Europe) Limited"
 msgid "Deriv (Europe) Limited,"
 msgstr "Deriv (Europe) Limited,"
 
-msgid "Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed and regulated (for gambling products only - %1's Synthetic Indices) by the Malta Gaming Authority in Malta (%2licence no. MGA/B2C/102/2000%4), by the Gambling Commission for clients in Great Britain under (%3account no. 39495%4), and by the Revenue Commissioners for clients in Ireland (licence no. 1010285)."
-msgstr "Deriv (Europe) Limited, W Business Centre, terzo piano, Triq Dun Karm, Birkirkara BKR 9033, Malta è autorizzata e regolamentata (esclusivamente per prodotti per il gioco d'azzardo - indici sintetici %1) dalla Gaming Authority di Malta (%2licenza n. MGA/B2C/102/2000%4), dalla Gambling Commission per clienti in Gran Bretagna (%3n. di conto 39495%4) e dalla Revenue Commissioners per i clienti in Irlanda (licenza n. 1010285)."
-
-msgid "Deriv (Europe) Limited, or"
-msgstr "Deriv (Europe) Limited, o"
+msgid "Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed and regulated (for gambling products only - %1's Synthetic Indices) by the Malta Gaming Authority in Malta (%2licence no. MGA/B2C/102/2000%3) and by the Revenue Commissioners for clients in Ireland (licence no. 1010285)."
+msgstr ""
 
 msgid "Deriv (FX) Ltd"
 msgstr "Deriv (FX) Ltd"
-
-msgid "Deriv (FX) Ltd,"
-msgstr "Deriv (FX) Ltd,"
 
 msgid "Deriv (FX) Ltd, or"
 msgstr "Deriv (FX) Ltd, o"
@@ -6418,8 +6424,8 @@ msgstr "Nel caso in cui la Società non riceva indicazione dal cliente di chiude
 msgid "In the event that the Company is aware of an Affiliate who is in breach of any of the above provisions, the Company shall have the right, in addition to any other right or remedy available to it under this Agreement or applicable law, to immediately block the Affiliate's access to this programme. The Affiliate hereby irrevocably waives their rights to, and shall indemnify the Company and any member of the Deriv group of companies for, any claims or demands made against the Company or any member of the Deriv group of companies, their directors, officers, shareholders, or employees or against the %1 website if the Company revokes the Affiliate's access to the programme."
 msgstr "Nel caso in cui la Società sia a conoscenza della violazione da parte di un Associato di una qualsiasi delle suddette disposizioni, quest'ultima avrà il diritto, oltre agli altri diritti o rimedi disponibili ai sensi del presente Contratto o della legge applicabile, di bloccare immediatamente l'accesso dell'Associato al presente programma. Con la presente, qualora la Società revocasse il suo accesso al programa, l'Associato rinuncia irrevocabilmente ai suoi diritti e risarcirà la Società e qualsiasi membro del gruppo di società Deriv per reclami o richieste avanzati nei confronti della Società o di qualsiasi membro del gruppo di società Deriv, dei suoi direttori, funzionari, azionisti, impiegati, o nei confronti del sito internet di %1."
 
-msgid "In the rest of the EU, Synthetic Indices are offered by Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta; licensed and regulated by (1) the Malta Gaming Authority (%1licence no. MGA/B2C/102/2000%4), by (2) the Gambling Commission for clients in Great Britain under %2account no. 39495%4, and by (3) the Revenue Commissioners for clients in Ireland (licence no. 1010285). View complete %3Regulatory Information%4."
-msgstr "Nel resto dell'Unione europea, gli indici sintetici sono offerti da Deriv (Europe) Limited, W Business Centre, piano 3, Triq Dun Karm, Birkirkara BKR 9033, Malta; che è autorizzata e regolamentata dalla (1) Malta Gaming Authority (%1licenza n. MGA/B2C/102/2000%3) dalla (2) Gambling Commission per clienti in Gran Bretagna con %2n. di conto 39495%4 e dalla (3) Revenue Commissioners per i clienti in Irlanda (licenza n. 1010285). Consulta la %3normativa%4 completa per maggiori informazioni."
+msgid "In the rest of the EU, Synthetic Indices are offered by Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta; licensed and regulated by (1) the Malta Gaming Authority (%1licence no. MGA/B2C/102/2000%3) and (2) the Revenue Commissioners for clients in Ireland (licence no. 1010285). View complete %2Regulatory Information%3."
+msgstr ""
 
 msgid "In this Agreement, unless the context otherwise requires, the following definitions hold:"
 msgstr "Nel presente Contratto, salvo disposizioni contrarie, valgono le seguente definizioni:"
@@ -11290,8 +11296,8 @@ msgstr "La Società rifiuta ogni forma di comportamento inadeguato, come l'utili
 msgid "The Company endeavours to open or close the transaction to which the client's Order relates at a price reasonably available to the Company, acting in accordance with the Company's duty of best execution. Best execution means that, when executing Orders, the Company must take all sufficient steps to obtain the best possible result for the client, taking into account the price, costs, speed, likelihood of execution and settlement, size, nature, or any other consideration relevant to the execution of the Order."
 msgstr "La Società cerca di aprire o chiudere l'operazione relativa all'ordine del cliente ad un prezzo ragionevolmente disponibile alla Società, operando in conformità all'obbligo di esecuzione alle migliori condizioni. Miglior esecuzione significa che, al momento di esecuzione di un Ordine, la Società dovrà adottare tutte le misure necessarie ad ottenere il miglior risultato possibile per il cliente, tenendo conto del prezzo, costi, velocità, probabilità di esecuzione e di regolamento, dimensione, natura e ogni altra considerazione pertinente all'esecuzione dell'ordine."
 
-msgid "The Company has a Stop Out policy which prevents the client from losing more than they have deposited. However, in the event that the client's Open Positions are not closed when the Margin Level for their MT5 Real Account reaches the Stop Out Level, the Company, at its sole discretion, may waive the client's negative balance by crediting their account if their Account Balance goes into a negative balance. The negative balance is determined by aggregating all the negative balances incurred over a 24-hour period across all accounts held by the client. The client acknowledges that, unless they are a retail customer of Deriv Investments (Europe) Limited, a client of Deriv (Europe) Limited, or a retail customer residing in Australia, the offer of the negative balance protection by the Company to the client is at the Company's sole discretion and the Company reserves the right to change the features and eligibility criteria of the negative balance protection at any time. The provisions of the negative balance protection do not apply in the following situations:"
-msgstr "La Società adotta una politica di Stop Out che impedisce di perdere più di quanto è stato depositato. Tuttavia, nel caso in cui le posizioni aperte del cliente non fossero chiuse quando il livello di margine per il conto reale MT5 raggiunge il livello di Stop Out, la Società potrebbe rinunciare, a sua esclusiva discrezione, al saldo negativo del conto effettuando un accredito, qualora il saldo risultasse negativo. Il saldo negativo è determinato dalla somma di tutti i saldi negativi registrati nelle 24 ore precedenti in tutti i conti detenuti dal cliente. Il cliente riconosce che l'offerta di protezione da saldo negativo della Società è a esclusiva discrezione della Società stessa, ad eccezione dei clienti al dettaglio di Deriv Investments (Europe) Limited, dei clienti di Deriv (Europe) Limited o di un cliente al dettaglio residente in Australia. La Società si riserva inoltre il diritto di modificare in qualsiasi momento le caratteristiche e i criteri di idoneità della protezione da saldo negativo. Le disposizioni per tale protezione non sono valide nei seguenti casi:"
+msgid "The Company has a Stop Out policy which prevents the client from losing more than they have deposited. However, in the event that the client's Open Positions are not closed when the Margin Level for their MT5 Real Account reaches the Stop Out Level, the Company, at its sole discretion, may waive the client's negative balance by crediting their account if their Account Balance goes into a negative balance. The negative balance is determined by aggregating all the negative balances incurred over a 24-hour period across all accounts held by the client. The client acknowledges that, unless they are a retail customer of Deriv Investments (Europe) Limited or a retail customer residing in Australia, the offer of the negative balance protection by the Company to the client is at the Company's sole discretion and the Company reserves the right to change the features and eligibility criteria of the negative balance protection at any time. The provisions of the negative balance protection do not apply in the following situations:"
+msgstr ""
 
 msgid "The Company has a general duty to conduct its business with the client honestly, fairly, and professionally and to act in the client's best interests when opening and closing binary options trades with the client."
 msgstr "La Società ha il dovere generale di condurre la propria attività con il cliente in modo onesto, equo e professionale e di agire nei migliori interessi del cliente quando apre e chiude trade di opzioni binarie con quest'ultimo."
@@ -13466,10 +13472,10 @@ msgid "USD 10"
 msgstr "10 USD"
 
 msgid "USD 2"
-msgstr ""
+msgstr "2 USD"
 
 msgid "USD 4"
-msgstr ""
+msgstr "4 USD"
 
 msgid "USD Coin"
 msgstr "USD Coin"
@@ -15150,6 +15156,9 @@ msgstr "per es. Stati Uniti"
 
 msgid "e.g. frontend.binaryws.com"
 msgstr "ad es. frontend.binaryws.com"
+
+msgid "either"
+msgstr ""
 
 msgid "for account %1"
 msgstr "per il conto %1"

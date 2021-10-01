@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-09-22 06:37\n"
+"PO-Revision-Date: 2021-10-01 03:48\n"
 "Last-Translator: \n"
 "Language-Team: Acholi\n"
 "MIME-Version: 1.0\n"
@@ -747,6 +747,9 @@ msgstr "crwdns68382:0crwdne68382:0"
 
 msgid "A bachelor's degree in commerce or any business-related field, law, or risk management"
 msgstr "crwdns53302:0crwdne53302:0"
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is synthetic indices."
+msgstr "crwdns166139:0crwdne166139:0"
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
 msgstr "crwdns54028:0crwdne54028:0"
@@ -2437,11 +2440,17 @@ msgstr "crwdns42056:0crwdne42056:0"
 msgid "CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. %1 of retail investor accounts lose money when trading CFDs with Deriv Investments (Europe) Limited. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money."
 msgstr "crwdns123320:0%1crwdne123320:0"
 
+msgid "CFDs on Synthetic Indices"
+msgstr "crwdns166141:0crwdne166141:0"
+
 msgid "CFDs on commodities"
 msgstr "crwdns54270:0crwdne54270:0"
 
-msgid "CFDs on indices"
-msgstr "crwdns54272:0crwdne54272:0"
+msgid "CFDs on stock indices"
+msgstr "crwdns166143:0crwdne166143:0"
+
+msgid "CFDs on stocks"
+msgstr "crwdns166145:0crwdne166145:0"
 
 msgid "CFH Clearing Limited"
 msgstr "crwdns54274:0crwdne54274:0"
@@ -2818,11 +2827,14 @@ msgstr "crwdns38056:0crwdne38056:0"
 msgid "Clients need to satisfy at least two of the following criteria in order to receive Professional Client status:"
 msgstr "crwdns43584:0crwdne43584:0"
 
+msgid "Clients registered with Deriv (Europe) Limited can refer their complaints to the Malta Gaming Authority via the %1Player Support Unity%3. They can file their unresolved disputes with the European Commission’s %2Online Dispute Resolution (ODR)%3."
+msgstr "crwdns166097:0%1crwdnd166097:0%3crwdnd166097:0%2crwdnd166097:0%3crwdne166097:0"
+
 msgid "Clients registered with Deriv (MX) Ltd can formally submit a complaint to their local Supervisory Authority."
 msgstr "crwdns123322:0crwdne123322:0"
 
-msgid "Clients registered with Deriv (MX) Ltd or Deriv (Europe) Limited can raise their unresolved disputes with the alternative dispute resolution entity IBAS by filling the adjudication form on the ADR entity's %1website%2. Alternatively, they can make use of the European Commission's Online Dispute Resolution (ODR) platform available %3here%4. Clients registered with Deriv (Europe) Limited can also refer their unresolved disputes to the Malta Gaming Authority via the %5Player Support Unit%6."
-msgstr "crwdns123324:0%1crwdnd123324:0%2crwdnd123324:0%3hecrwdnd123324:0%4crwdnd123324:0%5crwdnd123324:0%6crwdne123324:0"
+msgid "Clients registered with Deriv (MX) Ltd can raise their unresolved disputes with the alternative dispute resolution entity IBAS by filing the adjudication form on the %1ADR entity's website%2."
+msgstr "crwdns166099:0%1crwdnd166099:0%2crwdne166099:0"
 
 msgid "Clients registered with Deriv Investments (Europe) Limited can raise their unresolved disputes with the Office of the Arbiter for Financial Services. Contact details and guidance on making a complaint with the Arbiter's Office can be found %1here%2."
 msgstr "crwdns123326:0%1hecrwdnd123326:0%2crwdne123326:0"
@@ -3742,8 +3754,8 @@ msgstr "crwdns163898:0crwdne163898:0"
 msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website and as detailed in the About us section of the website and the type of products offered, the term \"the Company\" shall denote,"
 msgstr "crwdns54384:0crwdne54384:0"
 
-msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website, the terms 'the Company' and '%1' shall denote either"
-msgstr "crwdns56208:0%1crwdne56208:0"
+msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website, the terms 'the Company' and '%1' shall denote"
+msgstr "crwdns166147:0%1crwdne166147:0"
 
 msgid "Depending on the level of risk that the Company is exposed to while acting as the client's counterparty, the Company acts largely in a principal capacity of the client's trades. As such, the execution venue will usually be %1. However, the Company may transmit the client's order to third-party liquidity providers, in which case the Company will determine the execution venue on the basis described above."
 msgstr "crwdns51484:0%1crwdne51484:0"
@@ -3814,17 +3826,11 @@ msgstr "crwdns123162:0crwdne123162:0"
 msgid "Deriv (Europe) Limited,"
 msgstr "crwdns123334:0crwdne123334:0"
 
-msgid "Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed and regulated (for gambling products only - %1's Synthetic Indices) by the Malta Gaming Authority in Malta (%2licence no. MGA/B2C/102/2000%4), by the Gambling Commission for clients in Great Britain under (%3account no. 39495%4), and by the Revenue Commissioners for clients in Ireland (licence no. 1010285)."
-msgstr "crwdns159266:0%1crwdnd159266:0%2licrwdnd159266:0%4crwdnd159266:0%3acrwdnd159266:0%4crwdne159266:0"
-
-msgid "Deriv (Europe) Limited, or"
-msgstr "crwdns123336:0crwdne123336:0"
+msgid "Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed and regulated (for gambling products only - %1's Synthetic Indices) by the Malta Gaming Authority in Malta (%2licence no. MGA/B2C/102/2000%3) and by the Revenue Commissioners for clients in Ireland (licence no. 1010285)."
+msgstr "crwdns166101:0%1crwdnd166101:0%2licrwdnd166101:0%3crwdne166101:0"
 
 msgid "Deriv (FX) Ltd"
 msgstr "crwdns122182:0crwdne122182:0"
-
-msgid "Deriv (FX) Ltd,"
-msgstr "crwdns123338:0crwdne123338:0"
 
 msgid "Deriv (FX) Ltd, or"
 msgstr "crwdns123340:0crwdne123340:0"
@@ -6418,8 +6424,8 @@ msgstr "crwdns56922:0crwdne56922:0"
 msgid "In the event that the Company is aware of an Affiliate who is in breach of any of the above provisions, the Company shall have the right, in addition to any other right or remedy available to it under this Agreement or applicable law, to immediately block the Affiliate's access to this programme. The Affiliate hereby irrevocably waives their rights to, and shall indemnify the Company and any member of the Deriv group of companies for, any claims or demands made against the Company or any member of the Deriv group of companies, their directors, officers, shareholders, or employees or against the %1 website if the Company revokes the Affiliate's access to the programme."
 msgstr "crwdns118224:0%1crwdne118224:0"
 
-msgid "In the rest of the EU, Synthetic Indices are offered by Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta; licensed and regulated by (1) the Malta Gaming Authority (%1licence no. MGA/B2C/102/2000%4), by (2) the Gambling Commission for clients in Great Britain under %2account no. 39495%4, and by (3) the Revenue Commissioners for clients in Ireland (licence no. 1010285). View complete %3Regulatory Information%4."
-msgstr "crwdns159272:0%1licrwdnd159272:0%4crwdnd159272:0%2acrwdnd159272:0%4crwdnd159272:0%3crwdnd159272:0%4crwdne159272:0"
+msgid "In the rest of the EU, Synthetic Indices are offered by Deriv (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta; licensed and regulated by (1) the Malta Gaming Authority (%1licence no. MGA/B2C/102/2000%3) and (2) the Revenue Commissioners for clients in Ireland (licence no. 1010285). View complete %2Regulatory Information%3."
+msgstr "crwdns166103:0%1licrwdnd166103:0%3crwdnd166103:0%2crwdnd166103:0%3crwdne166103:0"
 
 msgid "In this Agreement, unless the context otherwise requires, the following definitions hold:"
 msgstr "crwdns54644:0crwdne54644:0"
@@ -11290,8 +11296,8 @@ msgstr "crwdns68134:0crwdne68134:0"
 msgid "The Company endeavours to open or close the transaction to which the client's Order relates at a price reasonably available to the Company, acting in accordance with the Company's duty of best execution. Best execution means that, when executing Orders, the Company must take all sufficient steps to obtain the best possible result for the client, taking into account the price, costs, speed, likelihood of execution and settlement, size, nature, or any other consideration relevant to the execution of the Order."
 msgstr "crwdns56948:0crwdne56948:0"
 
-msgid "The Company has a Stop Out policy which prevents the client from losing more than they have deposited. However, in the event that the client's Open Positions are not closed when the Margin Level for their MT5 Real Account reaches the Stop Out Level, the Company, at its sole discretion, may waive the client's negative balance by crediting their account if their Account Balance goes into a negative balance. The negative balance is determined by aggregating all the negative balances incurred over a 24-hour period across all accounts held by the client. The client acknowledges that, unless they are a retail customer of Deriv Investments (Europe) Limited, a client of Deriv (Europe) Limited, or a retail customer residing in Australia, the offer of the negative balance protection by the Company to the client is at the Company's sole discretion and the Company reserves the right to change the features and eligibility criteria of the negative balance protection at any time. The provisions of the negative balance protection do not apply in the following situations:"
-msgstr "crwdns161186:0crwdne161186:0"
+msgid "The Company has a Stop Out policy which prevents the client from losing more than they have deposited. However, in the event that the client's Open Positions are not closed when the Margin Level for their MT5 Real Account reaches the Stop Out Level, the Company, at its sole discretion, may waive the client's negative balance by crediting their account if their Account Balance goes into a negative balance. The negative balance is determined by aggregating all the negative balances incurred over a 24-hour period across all accounts held by the client. The client acknowledges that, unless they are a retail customer of Deriv Investments (Europe) Limited or a retail customer residing in Australia, the offer of the negative balance protection by the Company to the client is at the Company's sole discretion and the Company reserves the right to change the features and eligibility criteria of the negative balance protection at any time. The provisions of the negative balance protection do not apply in the following situations:"
+msgstr "crwdns166149:0crwdne166149:0"
 
 msgid "The Company has a general duty to conduct its business with the client honestly, fairly, and professionally and to act in the client's best interests when opening and closing binary options trades with the client."
 msgstr "crwdns66782:0crwdne66782:0"
@@ -15150,6 +15156,9 @@ msgstr "crwdns158638:0crwdne158638:0"
 
 msgid "e.g. frontend.binaryws.com"
 msgstr "crwdns41918:0crwdne41918:0"
+
+msgid "either"
+msgstr "crwdns166151:0crwdne166151:0"
 
 msgid "for account %1"
 msgstr "crwdns44587:0%1crwdne44587:0"
