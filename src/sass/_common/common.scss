@@ -249,7 +249,11 @@ label {
 }
 
 .strong {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+.width-50 {
+    width: 50%;
 }
 
 .errorfield {
@@ -364,7 +368,7 @@ _:-ms-fullscreen, :root #content-holder {
     vertical-align: middle;
 }
 
-#email_consent + label {
+#mail_consent + label {
     display: flex;
     justify-content: center;
 
@@ -398,6 +402,10 @@ input[type=checkbox] {
 
 .signup-warning-message {
     padding-bottom: 40px;
+}
+
+.red {
+    color: $COLOR_RED;
 }
 
 button .barspinner.white {
@@ -469,6 +477,14 @@ button .barspinner.white {
 
 .clear {
     clear: both;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
 }
 
 .sidebar-container {
