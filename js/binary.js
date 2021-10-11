@@ -425,19 +425,19 @@ var ClientBase = function () {
     var TypesMapConfig = function () {
         var types_map_config = void 0;
 
-        var initTypesMap = function initTypesMap() {
+        var initTypesMap = function initTypesMap(loginid) {
             return {
                 default: localize('Real'),
                 financial: localize('Multipliers'),
-                gaming: localize('Options'),
+                gaming: get('residence', loginid) === 'gb' ? localize('Gaming') : localize('Options'),
                 virtual: localize('Demo')
             };
         };
 
         return {
-            get: function get() {
+            get: function get(loginid) {
                 if (!types_map_config) {
-                    types_map_config = initTypesMap();
+                    types_map_config = initTypesMap(loginid);
                 }
                 return types_map_config;
             }
@@ -445,7 +445,7 @@ var ClientBase = function () {
     }();
 
     var getAccountTitle = function getAccountTitle(loginid) {
-        var types_map = TypesMapConfig.get();
+        var types_map = TypesMapConfig.get(loginid);
         return types_map[getAccountType(loginid)] || types_map.default;
     };
 
@@ -524,24 +524,24 @@ var ClientBase = function () {
     };
 
     var isAuthenticationAllowed = function isAuthenticationAllowed() {
-        var _State$getResponse = State.getResponse('get_account_status'),
-            status = _State$getResponse.status,
-            authentication = _State$getResponse.authentication;
-
-        var has_allow_document_upload = /allow_document_upload/.test(status);
-        var has_verification_flags = authentication.needs_verification.length;
-        return has_allow_document_upload || has_verification_flags;
+        var acccount = State.getResponse('get_account_status');
+        return acccount.status.some(function (s) {
+            return s === 'allow_document_upload' || s === 'allow_poi_resubmission';
+        });
     };
 
     // * MT5 login list returns these:
     // market_type: "financial" | "gaming"
     // sub_account_type: "financial" | "financial_stp" | "swap_free"
     // *
-    var getMT5AccountDisplays = function getMT5AccountDisplays(market_type, sub_account_type, is_demo, landing_company_short) {
+    var getMT5AccountDisplays = function getMT5AccountDisplays(market_type, sub_account_type, is_demo, landing_company_short, is_eu) {
         // needs to be declared inside because of localize
         // TODO: handle swap_free when ready
 
         var account_market_type = market_type === 'synthetic' || market_type === 'gaming' ? 'gaming' : market_type;
+        var real_financial = is_eu ? localize('Real CFDs') : localize('Real Financial');
+        var demo_financial = is_eu ? localize('Demo CFDs') : localize('Demo Financial');
+
         var obj_display = {
             gaming: {
                 financial: {
@@ -552,7 +552,7 @@ var ClientBase = function () {
             financial: {
                 financial: {
                     short: landing_company_short === 'maltainvest' ? localize('CFDs') : localize('Financial'),
-                    full: is_demo ? localize('Demo CFDs') : localize('Real CFDs')
+                    full: is_demo ? demo_financial : real_financial
                 },
                 financial_stp: {
                     short: localize('Financial STP'),
@@ -702,7 +702,7 @@ var ClientBase = function () {
     };
 
     var isOptionsBlocked = function isOptionsBlocked() {
-        var options_blocked_countries = ['au'];
+        var options_blocked_countries = ['au', 'fr'];
         var country = State.getResponse('authorize.country');
 
         return options_blocked_countries.includes(country);
@@ -1561,8 +1561,8 @@ var Login = function () {
         return server_url && /qa/.test(server_url) ? 'https://' + server_url + '/oauth2/authorize?app_id=' + getAppId() + '&l=' + language + marketing_queries : urlForCurrentDomain('https://oauth.binary.com/oauth2/authorize?app_id=' + getAppId() + '&l=' + language + marketing_queries);
     };
 
-    var socialLoginUrl = function socialLoginUrl(brand, affiliate_token, utm_source, utm_medium, utm_campaign) {
-        return loginUrl() + '&social_signup=' + brand + affiliate_token + utm_source + utm_medium + utm_campaign;
+    var socialLoginUrl = function socialLoginUrl(brand, affiliate_token, utm_data) {
+        return loginUrl() + '&social_signup=' + brand + affiliate_token + utm_data;
     };
 
     var initOneAll = function initOneAll() {
@@ -1572,12 +1572,13 @@ var Login = function () {
 
                 var affiliate_tracking = Cookies.getJSON('affiliate_tracking');
                 var utm_data = TrafficSource.getData();
-                var utm_source = TrafficSource.getSource(utm_data);
-                var utm_source_link = utm_source ? '&utm_source=' + utm_source : '';
-                var utm_medium_link = utm_data.utm_medium ? '&utm_medium=' + utm_data.utm_medium : '';
-                var utm_campaign_link = utm_data.utm_campaign ? '&utm_campaign=' + utm_data.utm_campaign : '';
                 var affiliate_token_link = affiliate_tracking ? '&affiliate_token=' + affiliate_tracking.t : '';
-                var social_login_url = socialLoginUrl(provider, affiliate_token_link, utm_source_link, utm_medium_link, utm_campaign_link);
+
+                var utm_data_link = '';
+                Object.keys(utm_data).forEach(function (key) {
+                    if (utm_data[key]) utm_data_link += '&' + key + '=' + utm_data[key];
+                });
+                var social_login_url = socialLoginUrl(provider, affiliate_token_link, utm_data_link);
 
                 window.location.href = social_login_url;
             });
@@ -8903,6 +8904,7 @@ CookieStorage.prototype = {
             path: this.path,
             domain: this.domain
         });
+        this.value = {};
     }
 };
 
@@ -9556,6 +9558,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var extend = __webpack_require__(/*! extend */ "./node_modules/extend/index.js");
+
 __webpack_require__(/*! ./lib/polyfills/element.matches */ "./src/javascript/_common/lib/polyfills/element.matches.js");
 
 /**
@@ -9829,8 +9832,135 @@ var PromiseClass = function PromiseClass() {
 var lc_licenseID = 12049137;
 var lc_clientID = '66aa088aad5a414484c1fd1fa8a5ace7';
 
+var getDocumentData = function getDocumentData(country_code, document_type) {
+    if (Object.keys(idv_document_data).includes(country_code)) {
+        return idv_document_data[country_code][document_type];
+    }
+    return null;
+};
+
+var getImageLocation = function getImageLocation(image_name) {
+    return '/images/common/visual_samples/' + image_name;
+};
+
+// Note: Ensure that the object keys matches BE API's keys. This is simply a mapping for FE templates
+var idv_document_data = {
+    ke: {
+        alien_card: {
+            new_display_name: '',
+            example_format: '123456',
+            sample_image: getImageLocation('ke_alien_card.png')
+        },
+        national_id: {
+            new_display_name: '',
+            example_format: '12345678',
+            sample_image: getImageLocation('ke_national_identity_card.png')
+        },
+        passport: {
+            new_display_name: '',
+            example_format: 'A12345678',
+            sample_image: getImageLocation('ke_passport.png')
+        }
+    },
+    za: {
+        national_id: {
+            new_display_name: 'National ID',
+            example_format: '123456789012',
+            sample_image: getImageLocation('za_national_identity_card.png')
+        },
+        national_id_no_photo: {
+            new_display_name: 'National ID (No Photo)',
+            example_format: '123456789012',
+            sample_image: ''
+        }
+    },
+    ng: {
+        bvn: {
+            new_display_name: 'Bank Verification Number',
+            example_format: '12345678901',
+            sample_image: ''
+        },
+        cac: {
+            new_display_name: 'Corporate Affairs Commission',
+            example_format: '12345678',
+            sample_image: ''
+        },
+        drivers_license: {
+            new_display_name: '',
+            example_format: 'ABC123456789',
+            sample_image: getImageLocation('ng_drivers_license.png')
+        },
+        nin: {
+            new_display_name: 'National Identity Number',
+            example_format: '12345678901',
+            sample_image: ''
+        },
+        nin_slip: {
+            new_display_name: 'National Identity Number Slip',
+            example_format: '12345678901',
+            sample_image: getImageLocation('ng_nin_slip.png')
+        },
+        tin: {
+            new_display_name: 'Taxpayer identification number',
+            example_format: '12345678-1234',
+            sample_image: ''
+        },
+        voter_id: {
+            new_display_name: 'Voter ID',
+            example_format: '1234567890123456789',
+            sample_image: getImageLocation('ng_voter_id.png')
+        }
+    },
+    gh: {
+        drivers_license: {
+            new_display_name: '',
+            example_format: 'B1234567',
+            sample_image: ''
+        },
+        national_id: {
+            new_display_name: 'National ID',
+            example_format: 'GHA-123456789-1',
+            sample_image: ''
+        },
+        passport: {
+            new_display_name: 'Passport',
+            example_format: 'G1234567',
+            sample_image: ''
+        },
+        ssnit: {
+            new_display_name: 'Social Security and National Insurance Trust',
+            example_format: 'C123456789012',
+            sample_image: ''
+        },
+        voter_id: {
+            new_display_name: 'Voter ID',
+            example_format: '01234567890',
+            sample_image: ''
+        }
+    }
+};
+
+var getRegex = function getRegex(target_regex) {
+    var output_regex = regex.find(function (r) {
+        return r.regex_string === target_regex;
+    });
+    if (output_regex) {
+        return new RegExp(output_regex.value, output_regex.flags);
+    }
+    return new RegExp(target_regex);
+};
+
+// Unsupported Regex List
+var regex = [{
+    regex_string: '^(?i)G[a-zA-Z0-9]{7,9}$',
+    value: '^G[a-zA-Z0-9]{7,9}$',
+    flags: 'i'
+}];
+
 module.exports = {
     showLoadingImage: showLoadingImage,
+    getDocumentData: getDocumentData,
+    getRegex: getRegex,
     getHighestZIndex: getHighestZIndex,
     downloadCSV: downloadCSV,
     template: template,
@@ -9995,6 +10125,9 @@ var BinaryLoader = function () {
             return localize('This page is only available to logged out clients.');
         },
         no_mf: function no_mf() {
+            return localize('Binary options trading is not available in your Multipliers account.');
+        },
+        no_mf_switch_to_options: function no_mf_switch_to_options() {
             return localize('Binary options trading is not available via your Multipliers account.<br/>Please switch back to your Options account.');
         },
         options_blocked: function options_blocked() {
@@ -10011,11 +10144,11 @@ var BinaryLoader = function () {
         }
     };
 
-    var error_actions = {
-        only_deriv: function only_deriv() {
-            return { localized_title: localize('Go to DTrader'), target_url: 'https://app.deriv.com' };
-        }
-    };
+    // This variable related to if else condition below
+
+    // const error_actions = {
+    //     only_deriv: () => ({ localized_title: localize('Go to DTrader'), target_url: 'https://app.deriv.com' }),
+    // };
 
     var loadHandler = function loadHandler(this_page) {
         var config = _extends({}, pages_config[this_page]);
@@ -10031,12 +10164,15 @@ var BinaryLoader = function () {
                         displayMessage(error_messages.only_virtual());
                     } else if (config.only_real && Client.get('is_virtual')) {
                         displayMessage(error_messages.only_real());
-                    } else if (response.authorize.country === 'fr') {
-                        // We don't offer service for France residence clients on Binary any more
-                        displayMessage(error_messages.only_deriv(), error_actions.only_deriv());
-                    } else {
-                        loadActiveScript(config);
-                    }
+                    } // eslint-disable-line
+                    // The if else condition below, blocked the usage of portfolio/profile/settings on french accounts
+
+                    // else if (response.authorize.country === 'fr') { // We don't offer service for France residence clients on Binary any more
+                    //     displayMessage(error_messages.only_deriv(), error_actions.only_deriv());
+                    // }
+                    else {
+                            loadActiveScript(config);
+                        }
                 });
             }
         } else if (config.not_authenticated && Client.isLoggedIn()) {
@@ -10049,9 +10185,13 @@ var BinaryLoader = function () {
             loadActiveScript(config);
         }
         if (config.no_mf && Client.isLoggedIn() && Client.isAccountOfType('financial')) {
-            BinarySocket.wait('authorize').then(function () {
+            BinarySocket.wait('authorize').then(function (response) {
                 if (config.msg_residence_blocked) {
                     displayMessage(error_messages.residence_blocked());
+                } else if (response.authorize.account_list.some(function (account) {
+                    return ['iom', 'malta'].includes(account.landing_company_name);
+                })) {
+                    displayMessage(error_messages.no_mf_switch_to_options());
                 } else {
                     displayMessage(error_messages.no_mf());
                 }
@@ -15559,14 +15699,16 @@ var Url = __webpack_require__(/*! ../../_common/url */ "./src/javascript/_common
  * Handles utm parameters/referrer to use on signup
  *
  * Priorities:
- * 1. Cookie having utm data (utm_source, utm_medium, utm_campaign) [Expires in 3 months]
- * 2. Query string utm parameters
- * 3. document.referrer
+ * 1. Affiliate utm data
+ * 2. PPC utm data
+ * 3. Cookie having main utm data (utm_source, utm_medium, utm_campaign) [Expires in 3 months]
+ * 4. Everything else
  *
  */
 
 var TrafficSource = function () {
     var cookie = void 0;
+    var utm_fields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_ad_id', 'utm_adgroup_id', 'utm_campaign_id'];
 
     var initCookie = function initCookie() {
         if (!cookie) {
@@ -15580,17 +15722,42 @@ var TrafficSource = function () {
 
     var getData = function getData() {
         initCookie();
-        var data = cookie.value;
-        Object.keys(data).map(function (key) {
-            data[key] = (data[key] || '').replace(/[^a-zA-Z0-9\s-._]/gi, '').substring(0, 100);
+        return cookie.value;
+    };
+
+    var shouldOverwrite = function shouldOverwrite(new_utm_data, current_utm_data) {
+        if (!current_utm_data) {
+            return true;
+        } else if (!new_utm_data) {
+            return false;
+        }
+
+        // Check if both new and old utm_data has all required fields
+        var required_fields = ['utm_source', 'utm_medium', 'utm_campaign'];
+        var has_new_required_fields = required_fields.every(function (field) {
+            return new_utm_data[field];
         });
-        return data;
+        var has_curr_required_fields = required_fields.every(function (field) {
+            return current_utm_data[field];
+        });
+
+        // Overwrite based on the order of priority
+        if (has_new_required_fields && has_curr_required_fields) {
+            if (new_utm_data.utm_medium.includes('aff')) return true; // 1. Affiliate tags
+            else if (new_utm_data.utm_medium.includes('ppc') && !current_utm_data.utm_medium.includes('aff')) return true; // 2. PPC tags
+                else if (!current_utm_data.utm_medium.includes('ppc') && !current_utm_data.utm_medium.includes('aff')) return true; // 3. Complete set of required tags
+        } else if (has_new_required_fields) {
+            return true;
+        } else if (has_curr_required_fields) {
+            return false;
+        } else if (new_utm_data.utm_source !== undefined && Object.values(new_utm_data).length >= Object.values(current_utm_data).length) return true; // 4. Everything else
+        return false;
     };
 
     // get source in order of precedence
     var getSource = function getSource() {
         var utm_data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getData();
-        return utm_data.utm_source || utm_data.referrer || 'direct';
+        return utm_data.utm_source || 'null';
     };
 
     var setData = function setData() {
@@ -15599,27 +15766,25 @@ var TrafficSource = function () {
             return;
         }
 
+        var new_values = {
+            utm_source: document.referrer.includes(location.hostname) ? 'null' : document.referrer.replace(/([^a-zA-Z0-9\s\-\.\_]|https)/gi, '').substring(0, 100) || 'null'
+        };
         var current_values = getData();
         var params = Url.paramsHash();
-        var param_keys = ['utm_source', 'utm_medium', 'utm_campaign'];
 
-        // When the user comes to the site with URL params
-        if (params.utm_source || params.utm_medium || params.utm_campaign) {
-
-            // if url is missing one of required fields, do nothing
-            var has_all_params = param_keys.every(function (param) {
-                return param in params;
-            });
-
-            if (has_all_params) {
-                param_keys.forEach(function (key) {
-                    if (params[key]) {
-                        cookie.set(key, params[key], { sameSite: 'none', secure: true });
-                    }
-                });
+        // If the user has any new UTM params, store them
+        utm_fields.forEach(function (field) {
+            if (params[field]) {
+                new_values[field] = params[field].replace(/[^a-zA-Z0-9\s\-\.\_]/gi, '').substring(0, 100); // Limit to 100 supported characters
             }
-        } else if (!current_values.utm_source) {
-            cookie.set('utm_source', 'binary_direct', { sameSite: 'none', secure: true });
+        });
+
+        // Check if params has utm data
+        if (shouldOverwrite(new_values, current_values)) {
+            clearData();
+            Object.keys(new_values).forEach(function (key) {
+                cookie.set(key, new_values[key], { sameSite: 'none', secure: true });
+            });
         }
 
         // Store gclid
@@ -15704,12 +15869,7 @@ var getFormRequest = function getFormRequest() {
 
     return [{ selector: '#email', validations: ['req', 'email'], request_field: 'verify_email' }, { request_field: 'type', value: 'account_opening' }, {
         request_field: 'url_parameters',
-        value: _extends({
-            utm_source: TrafficSource.getSource(utm_data)
-        }, utm_data.utm_campaign && {
-            utm_medium: utm_data.utm_medium,
-            utm_campaign: utm_data.utm_campaign
-        }, affiliate_token && { affiliate_token: affiliate_token.t })
+        value: _extends({}, utm_data, affiliate_token && { affiliate_token: affiliate_token.t })
     }];
 };
 
@@ -27469,6 +27629,7 @@ module.exports = {
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var DocumentUploader = __webpack_require__(/*! @binary-com/binary-document-uploader */ "./node_modules/@binary-com/binary-document-uploader/DocumentUploader.js");
+var Countries = __webpack_require__(/*! i18n-iso-countries */ "./node_modules/i18n-iso-countries/index.js");
 var Cookies = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
 var Onfido = __webpack_require__(/*! onfido-sdk-ui */ "./node_modules/onfido-sdk-ui/lib/index.js");
 var onfido_phrases = __webpack_require__(/*! ./onfido_phrases */ "./src/javascript/app/pages/user/account/onfido_phrases/index.js");
@@ -27476,16 +27637,18 @@ var Client = __webpack_require__(/*! ../../../base/client */ "./src/javascript/a
 var Header = __webpack_require__(/*! ../../../base/header */ "./src/javascript/app/base/header.js");
 var BinarySocket = __webpack_require__(/*! ../../../base/socket */ "./src/javascript/app/base/socket.js");
 var isAuthenticationAllowed = __webpack_require__(/*! ../../../../_common/base/client_base */ "./src/javascript/_common/base/client_base.js").isAuthenticationAllowed;
+var makeOption = __webpack_require__(/*! ../../../../_common/common_functions */ "./src/javascript/_common/common_functions.js").makeOption;
 var CompressImage = __webpack_require__(/*! ../../../../_common/image_utility */ "./src/javascript/_common/image_utility.js").compressImg;
 var ConvertToBase64 = __webpack_require__(/*! ../../../../_common/image_utility */ "./src/javascript/_common/image_utility.js").convertToBase64;
 var isImageType = __webpack_require__(/*! ../../../../_common/image_utility */ "./src/javascript/_common/image_utility.js").isImageType;
 var getLanguage = __webpack_require__(/*! ../../../../_common/language */ "./src/javascript/_common/language.js").get;
 var localize = __webpack_require__(/*! ../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
-var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javascript/_common/storage.js").State;
 var toTitleCase = __webpack_require__(/*! ../../../../_common/string_util */ "./src/javascript/_common/string_util.js").toTitleCase;
 var TabSelector = __webpack_require__(/*! ../../../../_common/tab_selector */ "./src/javascript/_common/tab_selector.js");
 var Url = __webpack_require__(/*! ../../../../_common/url */ "./src/javascript/_common/url.js");
 var showLoadingImage = __webpack_require__(/*! ../../../../_common/utility */ "./src/javascript/_common/utility.js").showLoadingImage;
+var getDocumentData = __webpack_require__(/*! ../../../../_common/utility */ "./src/javascript/_common/utility.js").getDocumentData;
+var getRegex = __webpack_require__(/*! ../../../../_common/utility */ "./src/javascript/_common/utility.js").getRegex;
 
 /*
     To handle onfido unsupported country, we handle the functions separately,
@@ -27494,11 +27657,13 @@ var showLoadingImage = __webpack_require__(/*! ../../../../_common/utility */ ".
 var Authenticate = function () {
     var is_any_upload_failed = false;
     var is_any_upload_failed_uns = false;
-    var onfido_unsupported = false;
-    var authentication_object = {};
+    var account_status = {};
     var file_checks = {};
     var file_checks_uns = {};
-    var onfido = void 0,
+    var onfido_sdk = void 0,
+        available_document_list = void 0,
+        residence_list = void 0,
+        selected_country = void 0,
         $button = void 0,
         $submit_status = void 0,
         $submit_table = void 0,
@@ -27540,6 +27705,15 @@ var Authenticate = function () {
             $('#expiry_datepicker_proofid').setVisibility(0);
             $('#exp_date_2').datepicker('setDate', '2099-12-31');
         }
+    };
+
+    var getAccountStatus = function getAccountStatus() {
+        return new Promise(function (resolve) {
+            BinarySocket.wait('get_account_status').then(function (response) {
+                var authentication_response = response.get_account_status;
+                resolve(authentication_response);
+            });
+        });
     };
 
     var initUnsupported = function initUnsupported() {
@@ -28227,7 +28401,7 @@ var Authenticate = function () {
 
     var showSuccess = function showSuccess() {
         BinarySocket.send({ get_account_status: 1 }, { forced: true }).then(function (response) {
-            authentication_object = response.get_account_status.authentication;
+            account_status = response.get_account_status;
             Header.displayAccountStatus();
             removeButtonLoading();
             $button.setVisibility(0);
@@ -28240,7 +28414,7 @@ var Authenticate = function () {
 
     var showSuccessUns = function showSuccessUns() {
         BinarySocket.send({ get_account_status: 1 }, { forced: true }).then(function (response) {
-            authentication_object = response.get_account_status.authentication;
+            account_status = response.get_account_status;
             Header.displayAccountStatus();
             removeButtonLoadingUns();
             $button_uns.setVisibility(0);
@@ -28295,203 +28469,26 @@ var Authenticate = function () {
         TabSelector.onLoad();
     };
 
-    var getAuthenticationStatus = function getAuthenticationStatus() {
-        return new Promise(function (resolve) {
-            // check update account status
-            BinarySocket.wait('get_account_status').then(function () {
-                var authentication_response = State.getResponse('get_account_status.authentication');
-                resolve(authentication_response);
-            });
-        });
-    };
-
-    var initOnfido = function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(sdk_token, documents_supported, country_code) {
+    var initOnfidoVerification = function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var country_code, documents_supported, service_token_response, has_personal_details_error, personal_fields_errors, missing_personal_fields, error_msgs, onfido_country_code, onfido_documents;
             return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                            if (!$('#onfido').is(':parent')) {
-                                $('#onfido').setVisibility(1);
+                            $('#idv-container').setVisibility(0);
+                            $('#authentication_tab').setVisibility(1);
+                            Url.updateParamsWithoutReload({ authentication_tab: 'poi' }, true);
+                            TabSelector.updateTabDisplay();
 
-                                try {
-                                    onfido = Onfido.init({
-                                        containerId: 'onfido',
-                                        language: {
-                                            locale: getLanguage().toLowerCase() || 'en',
-                                            phrases: onfido_phrases,
-                                            mobilePhrases: onfido_phrases
-                                        },
-                                        token: sdk_token,
-                                        useModal: false,
-                                        onComplete: function onComplete(data) {
-                                            handleComplete(data);
-                                        },
-
-                                        steps: [{
-                                            type: 'document',
-                                            options: {
-                                                documentTypes: {
-                                                    passport: documents_supported.some(function (doc) {
-                                                        return (/Passport/g.test(doc)
-                                                        );
-                                                    }),
-                                                    driving_licence: documents_supported.some(function (doc) {
-                                                        return (/Driving Licence/g.test(doc)
-                                                        );
-                                                    }) ? {
-                                                        country: country_code
-                                                    } : false,
-                                                    national_identity_card: documents_supported.some(function (doc) {
-                                                        return (/National Identity Card/g.test(doc)
-                                                        );
-                                                    }) ? {
-                                                        country: country_code
-                                                    } : false
-                                                }
-                                            }
-                                        }, 'face']
-                                    });
-                                    $('#authentication_loading').setVisibility(0);
-                                } catch (err) {
-                                    $('#error_occured').setVisibility(1);
-                                    $('#authentication_loading').setVisibility(0);
-                                }
-                            }
-
-                        case 1:
-                        case 'end':
-                            return _context.stop();
-                    }
-                }
-            }, _callee, undefined);
-        }));
-
-        return function initOnfido(_x, _x2, _x3) {
-            return _ref.apply(this, arguments);
-        };
-    }();
-
-    var showCTAButton = function showCTAButton(type, status) {
-        var _authentication_objec = authentication_object,
-            needs_verification = _authentication_objec.needs_verification;
-
-        var type_required = type === 'identity' ? 'poi' : 'poa';
-        var type_pending = type === 'identity' ? 'poa' : 'poi';
-        var description_status = status !== 'verified';
-
-        $('#text_verified_' + type_pending + '_required, #text_pending_' + type_pending + '_required').setVisibility(0);
-        $('#button_verified_' + type_pending + '_required, #button_pending_' + type_pending + '_required').setVisibility(0);
-
-        if (needs_verification.includes(type)) {
-            $('#text_' + status + '_' + type_required + '_required').setVisibility(1);
-            $('#button_' + status + '_' + type_required + '_required').setVisibility(1);
-        } else if (description_status) {
-            $('#text_' + status + '_' + type_pending + '_pending').setVisibility(1);
-        }
-    };
-
-    var handleComplete = function handleComplete(data) {
-        var document_ids = Object.keys(data).map(function (key) {
-            return data[key].id;
-        });
-
-        BinarySocket.send({
-            notification_event: 1,
-            category: 'authentication',
-            event: 'poi_documents_uploaded',
-            args: {
-                documents: document_ids
-            }
-        }).then(function () {
-            onfido.tearDown();
-            $('#authentication_loading').setVisibility(1);
-            setTimeout(function () {
-                BinarySocket.send({ get_account_status: 1 }, { forced: true }).then(function (response) {
-                    authentication_object = response.get_account_status.authentication;
-                    $('#msg_personal_details').setVisibility(0);
-                    $('#upload_complete').setVisibility(1);
-                    Header.displayAccountStatus();
-                    $('#authentication_loading').setVisibility(0);
-
-                    showCTAButton('document', 'pending');
-                });
-            }, 4000);
-        });
-    };
-
-    var getOnfidoServiceToken = function getOnfidoServiceToken() {
-        return new Promise(function (resolve) {
-            var onfido_cookie = Cookies.get('onfido_token');
-
-            if (!onfido_cookie) {
-                BinarySocket.send({
-                    service_token: 1,
-                    service: 'onfido'
-                }).then(function (response) {
-                    if (response.error) {
-                        resolve({ error: response.error });
-                        return;
-                    }
-                    var token = response.service_token.onfido.token;
-                    var in_90_minutes = 1 / 16;
-                    Cookies.set('onfido_token', token, {
-                        expires: in_90_minutes,
-                        secure: true,
-                        sameSite: 'strict'
-                    });
-                    resolve({ token: token });
-                });
-            } else {
-                resolve({ token: onfido_cookie });
-            }
-        });
-    };
-
-    var checkIsRequired = function checkIsRequired(authentication_status) {
-        var identity = authentication_status.identity,
-            document = authentication_status.document,
-            needs_verification = authentication_status.needs_verification;
-
-        var is_not_required = identity.status === 'none' && document.status === 'none' && !needs_verification.length;
-
-        return !is_not_required;
-    };
-
-    var cleanElementVisibility = function cleanElementVisibility() {
-        $('#personal_details_error').setVisibility(0);
-        $('#limited_poi').setVisibility(0);
-    };
-
-    var initAuthentication = function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var has_personal_details_error, authentication_status, service_token_response, personal_fields_errors, missing_personal_fields, error_msgs, identity, needs_verification, document, is_fully_authenticated, should_allow_resubmission, documents_supported, country_code, has_submission_attempts, is_rejected, last_rejected_reasons, has_rejected_reasons, maximum_reasons, has_minimum_reasons;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                    switch (_context2.prev = _context2.next) {
-                        case 0:
-                            has_personal_details_error = false;
-                            _context2.next = 3;
-                            return getAuthenticationStatus();
-
-                        case 3:
-                            authentication_status = _context2.sent;
-
-                            if (!(!authentication_status || authentication_status.error)) {
-                                _context2.next = 8;
-                                break;
-                            }
-
-                            $('#authentication_tab').setVisibility(0);
-                            $('#error_occured').setVisibility(1);
-                            return _context2.abrupt('return');
+                            country_code = selected_country.value;
+                            documents_supported = selected_country.identity.services.onfido.documents_supported;
+                            _context.next = 8;
+                            return getOnfidoServiceToken(country_code);
 
                         case 8:
-                            _context2.next = 10;
-                            return getOnfidoServiceToken();
-
-                        case 10:
-                            service_token_response = _context2.sent;
+                            service_token_response = _context.sent;
+                            has_personal_details_error = false;
 
 
                             if (service_token_response.error && service_token_response.error.code === 'MissingPersonalDetails') {
@@ -28515,216 +28512,120 @@ var Authenticate = function () {
                                 $('#missing_personal_fields').html(error_msgs);
                             }
 
-                            identity = authentication_status.identity, needs_verification = authentication_status.needs_verification, document = authentication_status.document;
-
-                            authentication_object = authentication_status;
-
-                            is_fully_authenticated = identity.status === 'verified' && document.status === 'verified';
-                            should_allow_resubmission = needs_verification.includes('identity') || needs_verification.includes('document');
-
-                            onfido_unsupported = !identity.services.onfido.is_country_supported;
-                            documents_supported = identity.services.onfido.documents_supported;
-                            country_code = identity.services.onfido.country_code;
-                            has_submission_attempts = !!identity.services.onfido.submissions_left;
-                            is_rejected = identity.status === 'rejected' || identity.status === 'suspected';
-                            last_rejected_reasons = identity.services.onfido.last_rejected;
-                            has_rejected_reasons = !!last_rejected_reasons.length && is_rejected;
-
-
-                            if (is_fully_authenticated && !should_allow_resubmission) {
-                                $('#authentication_tab').setVisibility(0);
-                                $('#authentication_verified').setVisibility(1);
-                            }
-
                             if (!has_personal_details_error) {
-                                _context2.next = 28;
+                                _context.next = 15;
                                 break;
                             }
 
                             $('#personal_details_error').setVisibility(1);
-                            _context2.next = 65;
+                            _context.next = 30;
                             break;
 
-                        case 28:
-                            if (!(has_rejected_reasons && has_submission_attempts)) {
-                                _context2.next = 37;
+                        case 15:
+                            if ($('#onfido').is(':parent')) {
+                                _context.next = 30;
                                 break;
                             }
 
-                            maximum_reasons = last_rejected_reasons.slice(0, 3);
-                            has_minimum_reasons = last_rejected_reasons.length > 3;
+                            $('#onfido').setVisibility(1);
+                            onfido_country_code = country_code.length < 3 ? Countries.alpha2ToAlpha3(country_code.toUpperCase()) : country_code;
+                            onfido_documents = Array.isArray(documents_supported) ? documents_supported : Object.keys(documents_supported).map(function (d) {
+                                return documents_supported[d].display_name;
+                            });
+                            _context.prev = 19;
+                            _context.next = 22;
+                            return Onfido.init({
+                                containerId: 'onfido',
+                                language: {
+                                    locale: getLanguage().toLowerCase() || 'en',
+                                    phrases: onfido_phrases,
+                                    mobilePhrases: onfido_phrases
+                                },
+                                token: service_token_response.token,
+                                useModal: false,
+                                onComplete: function onComplete(data) {
+                                    handleComplete(data);
+                                },
 
-                            $('#last_rejection_poi').setVisibility(1);
-
-                            maximum_reasons.forEach(function (reason) {
-                                $('#last_rejection_list').append('<li>' + reason + '</li>');
+                                steps: [{
+                                    type: 'document',
+                                    options: {
+                                        documentTypes: {
+                                            passport: onfido_documents.some(function (doc) {
+                                                return (/Passport/g.test(doc)
+                                                );
+                                            }),
+                                            driving_licence: onfido_documents.some(function (doc) {
+                                                return (/Driving Licence/g.test(doc)
+                                                );
+                                            }) ? {
+                                                country: onfido_country_code
+                                            } : false,
+                                            national_identity_card: onfido_documents.some(function (doc) {
+                                                return (/National Identity Card/g.test(doc)
+                                                );
+                                            }) ? {
+                                                country: onfido_country_code
+                                            } : false
+                                        }
+                                    }
+                                }, 'face']
                             });
 
-                            $('#last_rejection_button').off('click').on('click', function () {
-                                $('#last_rejection_poi').setVisibility(0);
-
-                                if (onfido_unsupported) {
-                                    $('#not_authenticated_uns').setVisibility(1);
-                                    initUnsupported();
-                                } else {
-                                    initOnfido(service_token_response.token, documents_supported, country_code);
-                                }
-                            });
-                            if (has_minimum_reasons) {
-                                $('#last_rejection_more').setVisibility(1);
-                                $('#last_rejection_more').off('click').on('click', function () {
-                                    $('#last_rejection_more').setVisibility(0);
-                                    $('#last_rejection_less').setVisibility(1);
-
-                                    $('#last_rejection_list').empty();
-
-                                    last_rejected_reasons.forEach(function (reason) {
-                                        $('#last_rejection_list').append('<li>' + reason + '</li>');
-                                    });
-                                });
-                                $('#last_rejection_less').off('click').on('click', function () {
-                                    $('#last_rejection_less').setVisibility(0);
-                                    $('#last_rejection_more').setVisibility(1);
-
-                                    $('#last_rejection_list').empty();
-
-                                    maximum_reasons.forEach(function (reason) {
-                                        $('#last_rejection_list').append('<li>' + reason + '</li>');
-                                    });
-                                });
-                            }
-
-                            _context2.next = 65;
-                            break;
-
-                        case 37:
-                            if (!(!has_submission_attempts && is_rejected)) {
-                                _context2.next = 41;
-                                break;
-                            }
-
-                            $('#limited_poi').setVisibility(1);
-                            _context2.next = 65;
-                            break;
-
-                        case 41:
-                            if (needs_verification.includes('identity')) {
-                                _context2.next = 64;
-                                break;
-                            }
-
-                            // if POI is verified and POA is not verified, redirect to POA tab
-                            if (identity.status === 'verified' && document.status !== 'verified') {
-                                Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
-                            }
-                            _context2.t0 = identity.status;
-                            _context2.next = _context2.t0 === 'none' ? 46 : _context2.t0 === 'pending' ? 49 : _context2.t0 === 'rejected' ? 52 : _context2.t0 === 'verified' ? 54 : _context2.t0 === 'expired' ? 57 : _context2.t0 === 'suspected' ? 59 : 61;
-                            break;
-
-                        case 46:
-                            $('#msg_personal_details').setVisibility(1);
-                            if (onfido_unsupported) {
-                                $('#not_authenticated_uns').setVisibility(1);
-                                initUnsupported();
-                            } else {
-                                initOnfido(service_token_response.token, documents_supported, country_code);
-                            }
-                            return _context2.abrupt('break', 62);
-
-                        case 49:
-                            showCTAButton('document', 'pending');
-
-                            $('#upload_complete').setVisibility(1);
-                            return _context2.abrupt('break', 62);
-
-                        case 52:
-                            $('#unverified').setVisibility(1);
-                            return _context2.abrupt('break', 62);
-
-                        case 54:
-                            showCTAButton('document', 'verified');
-                            $('#verified').setVisibility(1);
-                            return _context2.abrupt('break', 62);
-
-                        case 57:
-                            $('#expired_poi').setVisibility(1);
-                            return _context2.abrupt('break', 62);
-
-                        case 59:
-                            $('#unverified').setVisibility(1);
-                            return _context2.abrupt('break', 62);
-
-                        case 61:
-                            return _context2.abrupt('break', 62);
-
-                        case 62:
-                            _context2.next = 65;
-                            break;
-
-                        case 64:
-                            // eslint-disable-next-line no-lonely-if
-                            if (onfido_unsupported) {
-                                $('#not_authenticated_uns').setVisibility(1);
-                                initUnsupported();
-                            } else {
-                                $('#msg_personal_details').setVisibility(1);
-                                initOnfido(service_token_response.token, documents_supported, country_code);
-                            }
-
-                        case 65:
-                            if (needs_verification.includes('document')) {
-                                _context2.next = 87;
-                                break;
-                            }
-
-                            _context2.t1 = document.status;
-                            _context2.next = _context2.t1 === 'none' ? 69 : _context2.t1 === 'pending' ? 72 : _context2.t1 === 'rejected' ? 75 : _context2.t1 === 'suspected' ? 77 : _context2.t1 === 'verified' ? 79 : _context2.t1 === 'expired' ? 82 : 84;
-                            break;
-
-                        case 69:
-                            init();
-                            $('#not_authenticated').setVisibility(1);
-                            return _context2.abrupt('break', 85);
-
-                        case 72:
-                            showCTAButton('identity', 'pending');
-                            $('#pending_poa').setVisibility(1);
-                            return _context2.abrupt('break', 85);
-
-                        case 75:
-                            $('#unverified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 85);
-
-                        case 77:
-                            $('#unverified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 85);
-
-                        case 79:
-                            showCTAButton('document', 'verified');
-                            $('#verified_poa').setVisibility(1);
-                            return _context2.abrupt('break', 85);
-
-                        case 82:
-                            $('#expired_poa').setVisibility(1);
-                            return _context2.abrupt('break', 85);
-
-                        case 84:
-                            return _context2.abrupt('break', 85);
-
-                        case 85:
-                            _context2.next = 89;
-                            break;
-
-                        case 87:
-                            init();
-                            $('#not_authenticated').setVisibility(1);
-
-                        case 89:
+                        case 22:
+                            onfido_sdk = _context.sent;
 
                             $('#authentication_loading').setVisibility(0);
-                            TabSelector.updateTabDisplay();
+                            _context.next = 30;
+                            break;
 
-                        case 91:
+                        case 26:
+                            _context.prev = 26;
+                            _context.t0 = _context['catch'](19);
+
+                            $('#error_occured').setVisibility(1);
+                            $('#authentication_loading').setVisibility(0);
+
+                        case 30:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, undefined, [[19, 26]]);
+        }));
+
+        return function initOnfidoVerification() {
+            return _ref.apply(this, arguments);
+        };
+    }();
+
+    var showCTAButton = function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(type, status) {
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            BinarySocket.send({ get_account_status: 1 }, { forced: true }).then(function (response) {
+                                account_status = response.get_account_status;
+                                var needs_verification = account_status.authentication.needs_verification;
+
+
+                                var type_required = type === 'identity' ? 'poi' : 'poa';
+                                var type_pending = type === 'identity' ? 'poa' : 'poi';
+                                var description_status = status !== 'verified';
+
+                                $('#text_verified_' + type_pending + '_required, #text_pending_' + type_pending + '_required').setVisibility(0);
+                                $('#button_verified_' + type_pending + '_required, #button_pending_' + type_pending + '_required').setVisibility(0);
+
+                                if (needs_verification.includes(type)) {
+                                    $('#text_' + status + '_' + type_required + '_required').setVisibility(1);
+                                    $('#button_' + status + '_' + type_required + '_required').setVisibility(1);
+                                } else if (description_status) {
+                                    $('#text_' + status + '_' + type_pending + '_pending').setVisibility(1);
+                                }
+                            });
+
+                        case 1:
                         case 'end':
                             return _context2.stop();
                     }
@@ -28732,44 +28633,165 @@ var Authenticate = function () {
             }, _callee2, undefined);
         }));
 
-        return function initAuthentication() {
+        return function showCTAButton(_x, _x2) {
             return _ref2.apply(this, arguments);
         };
     }();
 
-    var onLoad = function () {
+    var handleComplete = function handleComplete(data) {
+        var document_ids = Object.keys(data).map(function (key) {
+            return data[key].id;
+        });
+
+        BinarySocket.send({
+            notification_event: 1,
+            category: 'authentication',
+            event: 'poi_documents_uploaded',
+            args: {
+                documents: document_ids
+            }
+        }).then(function () {
+            onfido_sdk.tearDown();
+            $('#authentication_loading').setVisibility(1);
+            setTimeout(function () {
+                BinarySocket.send({ get_account_status: 1 }, { forced: true }).then(function (response) {
+                    account_status = response.get_account_status;
+                    $('#msg_personal_details').setVisibility(0);
+                    $('#upload_complete').setVisibility(1);
+                    Header.displayAccountStatus();
+                    $('#authentication_loading').setVisibility(0);
+
+                    showCTAButton('document', 'pending');
+                });
+            }, 4000);
+        });
+    };
+
+    var getOnfidoServiceToken = function getOnfidoServiceToken(country_code) {
+        return new Promise(function (resolve) {
+            var onfido_cookie = Cookies.get('onfido_token');
+            var onfido_country_code = country_code.length !== 2 ? Countries.alpha3ToAlpha2(country_code.toUpperCase()) : country_code;
+
+            if (!onfido_cookie) {
+                BinarySocket.send({
+                    service_token: 1,
+                    service: 'onfido',
+                    country: onfido_country_code
+                }).then(function (response) {
+                    if (response.error) {
+                        resolve({ error: response.error });
+                        return;
+                    }
+                    var token = response.service_token.onfido.token;
+                    var in_90_minutes = 1 / 16;
+                    Cookies.set('onfido_token', token, {
+                        expires: in_90_minutes,
+                        secure: true,
+                        sameSite: 'strict'
+                    });
+                    resolve({ token: token });
+                });
+            } else {
+                resolve({ token: onfido_cookie });
+            }
+        });
+    };
+
+    var cleanElementVisibility = function cleanElementVisibility() {
+        $('#personal_details_error').setVisibility(0);
+        $('#limited_poi').setVisibility(0);
+        $('#idv-container').setVisibility(0);
+    };
+
+    var handleCountrySelector = function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-            var authentication_status, is_required, has_svg_account;
+            var $residence_dropdown, next_button, _account_status$authe, idv, onfido, idv_submissions_left, onfido_submissions_left, is_idv_disallowed;
+
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
                     switch (_context3.prev = _context3.next) {
                         case 0:
-                            cleanElementVisibility();
-                            _context3.next = 3;
-                            return getAuthenticationStatus();
+                            $('#authentication_tab').setVisibility(0);
+                            $('#idv-container').setVisibility(1);
+                            $residence_dropdown = $('#country_dropdown');
+                            next_button = document.getElementById('button_next_country_selected');
+                            _account_status$authe = account_status.authentication.identity.services, idv = _account_status$authe.idv, onfido = _account_status$authe.onfido;
+                            idv_submissions_left = idv.submissions_left;
+                            onfido_submissions_left = onfido.submissions_left;
+                            is_idv_disallowed = account_status.status.some(function (ac) {
+                                return ac === 'idv_disallowed';
+                            });
 
-                        case 3:
-                            authentication_status = _context3.sent;
-                            is_required = checkIsRequired(authentication_status);
 
-                            if (!isAuthenticationAllowed()) {
-                                $('#authentication_tab').setVisibility(0);
-                                $('#authentication_loading').setVisibility(0);
-                                $('#authentication_unneeded').setVisibility(1);
+                            selected_country = null;
+                            _context3.next = 11;
+                            return BinarySocket.send({ residence_list: 1 }).then(function (response) {
+                                return residence_list = response.residence_list;
+                            });
+
+                        case 11:
+
+                            if (!selected_country) {
+                                next_button.classList.add('button-disabled');
                             }
 
-                            has_svg_account = Client.hasSvgAccount();
+                            $('#authentication_loading').setVisibility(0);
 
-                            if (is_required || has_svg_account) {
-                                initTab();
-                                initAuthentication();
-                            } else {
-                                $('#authentication_tab').setVisibility(0);
-                                $('#not_required_msg').setVisibility(1);
-                                $('#authentication_loading').setVisibility(0);
+                            if (residence_list.length > 0) {
+                                $('#idv_country_selector').setVisibility(1);
+
+                                $residence_dropdown.append(makeOption({
+                                    text: localize('Please select the country of document issuance'),
+                                    class: 'placeholder',
+                                    value: 'initial',
+                                    is_disabled: 'disabled'
+                                }));
+
+                                residence_list.forEach(function (residence) {
+                                    $residence_dropdown.append(makeOption({
+                                        text: residence.text,
+                                        value: residence.value
+                                    }));
+                                });
+
+                                $residence_dropdown.html($residence_dropdown.html());
+
+                                if (selected_country) {
+                                    $residence_dropdown.val(selected_country.value);
+                                } else {
+                                    $residence_dropdown.val('initial');
+                                }
+
+                                $residence_dropdown.on('change', function (e) {
+                                    var dropdown_country = residence_list.find(function (r) {
+                                        return r.value === e.target.value;
+                                    });
+                                    if (dropdown_country) {
+                                        selected_country = dropdown_country;
+                                    }
+                                    if (selected_country) {
+                                        next_button.classList.remove('button-disabled');
+                                    }
+                                });
+
+                                next_button.addEventListener('click', function () {
+                                    if (selected_country) {
+                                        var is_idv_supported = selected_country.identity.services.idv.is_country_supported;
+                                        var is_onfido_supported = selected_country.identity.services.onfido.is_country_supported;
+                                        $('#idv_country_selector').setVisibility(0);
+
+                                        if (is_idv_supported && !is_idv_disallowed && Number(idv_submissions_left) > 0) {
+                                            handleIdvDocumentSubmit();
+                                        } else if (is_onfido_supported && Number(onfido_submissions_left) > 0) {
+                                            initOnfidoVerification();
+                                        } else {
+                                            handleManual();
+                                        }
+                                    }
+                                });
                             }
 
-                        case 8:
+                        case 14:
                         case 'end':
                             return _context3.stop();
                     }
@@ -28777,14 +28799,702 @@ var Authenticate = function () {
             }, _callee3, undefined);
         }));
 
-        return function onLoad() {
+        return function handleCountrySelector() {
             return _ref3.apply(this, arguments);
         };
     }();
 
+    var handleIdvDocumentSubmit = function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            var $documents, $example, $personal_detail_msg, left_container, right_container, example_format_text, document_input, document_sample_img, back_button, verify_button, country_code, _selected_country$ide, has_visual_sample, documents_supported, document_type, document_number, filtered_documents, $enabled_options, validateInput;
+
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                    switch (_context5.prev = _context5.next) {
+                        case 0:
+                            $('#idv_document_submit').setVisibility(1);
+
+                            $documents = $('#document_type');
+                            $example = $('#document_example_format');
+                            $personal_detail_msg = $('#idv_personal_detail_msg');
+                            left_container = document.getElementById('idv_document_left');
+                            right_container = document.getElementById('idv_document_right');
+                            example_format_text = document.getElementById('document_example_format');
+                            document_input = document.getElementById('document_number');
+                            document_sample_img = document.getElementById('document_sample_image');
+                            back_button = document.getElementById('idv_document_submit_back_btn');
+                            verify_button = document.getElementById('idv_document_submit_verify_btn');
+
+                            // Reset all states in case user navigates back and forth
+
+                            document_input.value = '';
+                            document_input.disabled = true;
+                            document_sample_img.src = '';
+                            right_container.setVisibility(0);
+                            $personal_detail_msg.setVisibility(0);
+                            verify_button.classList.add('button-disabled');
+                            left_container.classList.remove('show-sample-image');
+                            example_format_text.classList.remove('error-text');
+                            $example.html('');
+
+                            country_code = selected_country.value;
+                            _selected_country$ide = selected_country.identity.services.idv, has_visual_sample = _selected_country$ide.has_visual_sample, documents_supported = _selected_country$ide.documents_supported;
+                            document_type = void 0, document_number = void 0;
+                            filtered_documents = country_code === 'gh' ? Object.keys(documents_supported).filter(function (d) {
+                                return d !== 'voter_id';
+                            }) : Object.keys(documents_supported);
+
+
+                            available_document_list = filtered_documents.map(function (d) {
+                                var _getDocumentData = getDocumentData(country_code, d),
+                                    new_display_name = _getDocumentData.new_display_name,
+                                    example_format = _getDocumentData.example_format,
+                                    sample_image = _getDocumentData.sample_image;
+
+                                var _documents_supported$ = documents_supported[d],
+                                    regex = _documents_supported$.format,
+                                    display_name = _documents_supported$.display_name;
+
+                                return { id: d, text: new_display_name || display_name, example_format: example_format, sample_image: sample_image, regex: regex };
+                            });
+
+                            if (selected_country) {
+                                $enabled_options = $('<select/>');
+
+                                $enabled_options.append(makeOption({
+                                    text: localize('Choose the document type'),
+                                    value: 'initial',
+                                    is_disabled: 'disabled'
+                                }));
+
+                                available_document_list.forEach(function (doc) {
+                                    $enabled_options.append(makeOption({
+                                        text: doc.text,
+                                        value: doc.id,
+                                        is_disabled: false
+                                    }));
+                                });
+
+                                $documents.html($enabled_options.html());
+                                $documents.val('initial');
+
+                                validateInput = function validateInput() {
+                                    var input_value = document_input.value;
+                                    var _document_type = document_type,
+                                        example_format = _document_type.example_format,
+                                        regex = _document_type.regex;
+
+                                    var format_regex = getRegex(regex);
+
+                                    if (format_regex.test(input_value)) {
+                                        document_number = input_value;
+                                        verify_button.classList.remove('button-disabled');
+                                        example_format_text.classList.remove('error-text');
+                                    } else {
+                                        var error_text = localize('Please enter the correct format. Example:');
+                                        $example.html(error_text + ' ' + example_format);
+                                        example_format_text.classList.add('error-text');
+
+                                        if (!verify_button.classList.contains('button-disabled')) {
+                                            verify_button.classList.add('button-disabled');
+                                        }
+                                    }
+
+                                    if (input_value === '') {
+                                        example_format_text.classList.remove('error-text');
+                                    }
+                                };
+
+                                // Update Sample Image and Example Format on Dropdown Change (If Available)
+
+
+                                $documents.on('change', function (e) {
+                                    document_type = available_document_list.find(function (d) {
+                                        return d.id === e.target.value;
+                                    });
+                                    validateInput();
+                                    var _document_type2 = document_type,
+                                        sample_image = _document_type2.sample_image,
+                                        example_format = _document_type2.example_format;
+
+
+                                    if (has_visual_sample && sample_image) {
+                                        document_sample_img.src = sample_image;
+                                        right_container.setVisibility(1);
+                                        left_container.classList.add('show-sample-image');
+                                    } else {
+                                        document_sample_img.src = '';
+                                        right_container.setVisibility(0);
+                                        left_container.classList.remove('show-sample-image');
+                                    }
+
+                                    if ($documents[0].selectedOptions) {
+                                        $example.html('Example: ' + example_format);
+                                    }
+
+                                    if (document_type) {
+                                        $personal_detail_msg.setVisibility(1);
+                                        document_input.disabled = false;
+                                    }
+                                });
+
+                                document_input.addEventListener('keyup', function (e) {
+                                    e.preventDefault();
+                                    validateInput();
+                                });
+
+                                back_button.addEventListener('click', function (e) {
+                                    e.preventDefault();
+                                    $('#idv_document_submit').setVisibility(0);
+                                    handleCountrySelector();
+                                });
+
+                                verify_button.addEventListener('click', function () {
+                                    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(e) {
+                                        var submit_data;
+                                        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                                            while (1) {
+                                                switch (_context4.prev = _context4.next) {
+                                                    case 0:
+                                                        e.preventDefault();
+                                                        submit_data = {
+                                                            identity_verification_document_add: 1,
+                                                            document_number: document_number,
+                                                            document_type: document_type.id,
+                                                            issuing_country: selected_country.value
+                                                        };
+                                                        _context4.next = 4;
+                                                        return BinarySocket.send(submit_data).then(function (response) {
+                                                            if (response.error) {
+                                                                // Show some error message to user
+                                                            } else {
+                                                                // Success - Update authentication object with new status
+                                                                BinarySocket.send({ get_account_status: 1 }, { forced: true }).then(function (res) {
+                                                                    account_status = res.get_account_status;
+                                                                    var needs_verification = account_status.authentication.needs_verification;
+                                                                    var needs_poa = needs_verification.length && needs_verification.includes('document');
+                                                                    $('#idv_document_submit').setVisibility(0);
+                                                                    if (needs_poa) {
+                                                                        $('#authentication_tab').setVisibility(1);
+                                                                        $('#idv_submit_pending_need_poa').setVisibility(1);
+                                                                        Url.updateParamsWithoutReload({ authentication_tab: 'poi' }, true);
+                                                                        TabSelector.updateTabDisplay();
+                                                                        $('#idv_pending_submit_poa_btn').on('click', function () {
+                                                                            init();
+                                                                            $('#not_authenticated').setVisibility(1);
+                                                                            Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
+                                                                            TabSelector.updateTabDisplay();
+                                                                        });
+                                                                    } else {
+                                                                        $('#idv_submit_pending').setVisibility(1);
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+
+                                                    case 4:
+                                                    case 'end':
+                                                        return _context4.stop();
+                                                }
+                                            }
+                                        }, _callee4, undefined);
+                                    }));
+
+                                    return function (_x3) {
+                                        return _ref5.apply(this, arguments);
+                                    };
+                                }());
+                            }
+
+                        case 26:
+                        case 'end':
+                            return _context5.stop();
+                    }
+                }
+            }, _callee5, undefined);
+        }));
+
+        return function handleIdvDocumentSubmit() {
+            return _ref4.apply(this, arguments);
+        };
+    }();
+
+    var handleIdv = function () {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+            var is_idv_disallowed, _account_status$authe2, idv, onfido, status, idv_submissions_left, onfido_submissions_left, needs_poa, is_visible;
+
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                while (1) {
+                    switch (_context6.prev = _context6.next) {
+                        case 0:
+                            $('#authentication_tab').setVisibility(0);
+                            _context6.next = 3;
+                            return getAccountStatus();
+
+                        case 3:
+                            account_status = _context6.sent;
+                            is_idv_disallowed = account_status.status.some(function (ac) {
+                                return ac === 'idv_disallowed';
+                            });
+                            _account_status$authe2 = account_status.authentication.identity.services, idv = _account_status$authe2.idv, onfido = _account_status$authe2.onfido;
+                            status = idv.status, idv_submissions_left = idv.submissions_left;
+                            onfido_submissions_left = onfido.submissions_left;
+                            needs_poa = account_status.authentication.needs_verification.length && account_status.authentication.needs_verification.includes('document');
+
+                            $('#idv-container').setVisibility(1);
+
+                            _context6.t0 = status;
+                            _context6.next = _context6.t0 === 'pending' ? 13 : _context6.t0 === 'rejected' ? 15 : _context6.t0 === 'verified' ? 19 : _context6.t0 === 'expired' ? 21 : 24;
+                            break;
+
+                        case 13:
+                            if (needs_poa) {
+                                $('#authentication_tab').setVisibility(1);
+                                $('#idv_submit_pending_need_poa').setVisibility(1);
+                                $('#idv_pending_submit_poa_btn').on('click', function () {
+                                    $('#not_authenticated').setVisibility(1);
+                                    Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
+                                    $('#poa').setVisibility(1);
+                                    TabSelector.updateTabDisplay();
+                                });
+                            } else {
+                                if (is_idv_disallowed) {
+                                    $('#authentication_tab').setVisibility(1);
+                                    Url.updateParamsWithoutReload({ authentication_tab: 'poi' }, true);
+                                    TabSelector.updateTabDisplay();
+                                    $('#poa').setVisibility(1);
+                                }
+                                $('#idv_submit_pending').setVisibility(1);
+                            }
+                            return _context6.abrupt('break', 25);
+
+                        case 15:
+                            $('#idv_document_failed').setVisibility(1);
+                            $('#idv_document_failed_upload_btn').setVisibility(0);
+                            // If IDV has remaining attempt
+                            if (Number(idv_submissions_left) > 0) {
+                                $('#idv_document_failed_try_again_btn').on('click', function () {
+                                    $('#idv_document_failed').setVisibility(0);
+                                    handleCountrySelector();
+                                });
+                            } else {
+                                $('#idv_document_failed_try_again_btn').setVisibility(0);
+                                $('#idv_document_failed_text').setVisibility(1);
+                                $('#idv_document_failed_upload_btn').setVisibility(1);
+                                $('#idv_document_failed_upload_btn').on('click', function () {
+                                    $('#idv_document_failed').setVisibility(0);
+                                    if (Number(onfido_submissions_left) > 0) {
+                                        handleCountrySelector();
+                                    } else {
+                                        handleManual();
+                                    }
+                                });
+                            }
+                            return _context6.abrupt('break', 25);
+
+                        case 19:
+                            if (needs_poa) {
+                                $('#authentication_tab').setVisibility(1);
+                                Url.updateParamsWithoutReload({ authentication_tab: 'poi' }, true);
+                                TabSelector.updateTabDisplay();
+                                $('#idv_document_verified_need_poa').setVisibility(1);
+                                $('#idv_verified_poa_btn').on('click', function () {
+                                    $('#poa').setVisibility(1);
+                                    Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
+                                    TabSelector.updateTabDisplay();
+                                });
+                            } else {
+                                is_visible = 1;
+
+                                if (is_idv_disallowed) {
+                                    $('#authentication_tab').setVisibility(is_visible);
+                                    Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
+                                    TabSelector.updateTabDisplay();
+                                    $('#poa').setVisibility(is_visible);
+                                    $('#idv_document_verified_poi').setVisibility(is_visible);
+                                } else {
+                                    $('#idv_document_verified').setVisibility(is_visible);
+                                }
+                            }
+                            return _context6.abrupt('break', 25);
+
+                        case 21:
+                            $('#idv_document_expired').setVisibility(1);
+                            $('#idv_expired_btn').on('click', function () {
+                                $('#idv_document_expired').setVisibility(0);
+                                handleCountrySelector(is_idv_disallowed);
+                            });
+                            return _context6.abrupt('break', 25);
+
+                        case 24:
+                            return _context6.abrupt('break', 25);
+
+                        case 25:
+                        case 'end':
+                            return _context6.stop();
+                    }
+                }
+            }, _callee6, undefined);
+        }));
+
+        return function handleIdv() {
+            return _ref6.apply(this, arguments);
+        };
+    }();
+
+    var handleOnfido = function () {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+            var needs_poa, _account_status$authe3, status, submissions_left, rejected_reasons, is_idv_disallowed, maximum_reasons, has_minimum_reasons;
+
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                while (1) {
+                    switch (_context7.prev = _context7.next) {
+                        case 0:
+                            $('#idv-container').setVisibility(0);
+                            _context7.next = 3;
+                            return getAccountStatus();
+
+                        case 3:
+                            account_status = _context7.sent;
+                            needs_poa = account_status.authentication.needs_verification.length && account_status.authentication.needs_verification.includes('document');
+                            _account_status$authe3 = account_status.authentication.identity.services.onfido, status = _account_status$authe3.status, submissions_left = _account_status$authe3.submissions_left, rejected_reasons = _account_status$authe3.last_rejected;
+                            is_idv_disallowed = account_status.status.some(function (ac) {
+                                return ac === 'idv_disallowed';
+                            });
+
+                            $('#authentication_tab').setVisibility(1);
+
+                            _context7.t0 = status;
+                            _context7.next = _context7.t0 === 'none' ? 11 : _context7.t0 === 'pending' ? 13 : _context7.t0 === 'suspected' ? 16 : _context7.t0 === 'rejected' ? 18 : _context7.t0 === 'verified' ? 20 : _context7.t0 === 'expired' ? 27 : 30;
+                            break;
+
+                        case 11:
+                            handleCountrySelector();
+                            return _context7.abrupt('break', 31);
+
+                        case 13:
+                            $('#upload_complete').setVisibility(1);
+                            showCTAButton('document', 'pending');
+                            return _context7.abrupt('break', 31);
+
+                        case 16:
+                            $('#unverified').setVisibility(1);
+                            return _context7.abrupt('break', 31);
+
+                        case 18:
+                            if (Number(submissions_left) < 1) {
+                                $('#limited_poi').setVisibility(1);
+                            } else {
+                                maximum_reasons = rejected_reasons.slice(0, 3);
+                                has_minimum_reasons = rejected_reasons.length > 3;
+
+                                $('#last_rejection_poi').setVisibility(1);
+
+                                maximum_reasons.forEach(function (reason) {
+                                    $('#last_rejection_list').append('<li>' + reason + '</li>');
+                                });
+
+                                $('#last_rejection_button').off('click').on('click', function () {
+                                    $('#last_rejection_poi').setVisibility(0);
+                                    handleCountrySelector();
+                                });
+
+                                if (has_minimum_reasons) {
+                                    $('#last_rejection_more').setVisibility(1);
+                                    $('#last_rejection_more').off('click').on('click', function () {
+                                        $('#last_rejection_more').setVisibility(0);
+                                        $('#last_rejection_less').setVisibility(1);
+                                        $('#last_rejection_list').empty();
+
+                                        rejected_reasons.forEach(function (reason) {
+                                            $('#last_rejection_list').append('<li>' + reason + '</li>');
+                                        });
+                                    });
+                                    $('#last_rejection_less').off('click').on('click', function () {
+                                        $('#last_rejection_less').setVisibility(0);
+                                        $('#last_rejection_more').setVisibility(1);
+                                        $('#last_rejection_list').empty();
+
+                                        maximum_reasons.forEach(function (reason) {
+                                            $('#last_rejection_list').append('<li>' + reason + '</li>');
+                                        });
+                                    });
+                                }
+                            }
+                            return _context7.abrupt('break', 31);
+
+                        case 20:
+                            $('#authentication_tab').setVisibility(1);
+                            Url.updateParamsWithoutReload({ authentication_tab: 'poi' }, true);
+                            TabSelector.updateTabDisplay();
+                            if (needs_poa || is_idv_disallowed) {
+                                Url.updateParamsWithoutReload({ authentication_tab: 'poa' }, true);
+                                $('#poa').setVisibility(1);
+                                TabSelector.updateTabDisplay();
+                            }
+                            showCTAButton('document', 'verified');
+                            $('#verified').setVisibility(1);
+                            return _context7.abrupt('break', 31);
+
+                        case 27:
+                            $('#expired_poi').setVisibility(1);
+                            $('#expired_button').off('click').on('click', function () {
+                                $('#expired_poi').setVisibility(0);
+                                handleCountrySelector();
+                            });
+                            return _context7.abrupt('break', 31);
+
+                        case 30:
+                            return _context7.abrupt('break', 31);
+
+                        case 31:
+                        case 'end':
+                            return _context7.stop();
+                    }
+                }
+            }, _callee7, undefined);
+        }));
+
+        return function handleOnfido() {
+            return _ref7.apply(this, arguments);
+        };
+    }();
+
+    var handleManual = function handleManual() {
+        $('#idv-container').setVisibility(0);
+        $('#authentication_tab').setVisibility(1);
+        $('#msg_personal_details').setVisibility(1);
+        TabSelector.updateTabDisplay();
+        $('#not_authenticated_uns').setVisibility(1);
+        initUnsupported();
+    };
+
+    var initAuthentication = function () {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            var authentication_object, allow_poi_resubmission, attempts, document, identity, is_idv_disallowed, identity_status, identity_last_attempt, is_fully_authenticated, needs_verification, needs_poa;
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                while (1) {
+                    switch (_context8.prev = _context8.next) {
+                        case 0:
+                            _context8.next = 2;
+                            return getAccountStatus();
+
+                        case 2:
+                            account_status = _context8.sent;
+
+                            if (!(!account_status || account_status.error)) {
+                                _context8.next = 6;
+                                break;
+                            }
+
+                            $('#error_occured').setVisibility(1);
+                            return _context8.abrupt('return');
+
+                        case 6:
+                            authentication_object = account_status.authentication;
+                            allow_poi_resubmission = account_status.status.some(function (s) {
+                                return s === 'allow_poi_resubmission';
+                            });
+                            attempts = authentication_object.attempts, document = authentication_object.document, identity = authentication_object.identity;
+                            is_idv_disallowed = account_status.status.some(function (ac) {
+                                return ac === 'idv_disallowed';
+                            });
+                            identity_status = identity.status;
+                            identity_last_attempt = attempts.latest;
+                            is_fully_authenticated = identity.status === 'verified' && document.status === 'verified';
+                            needs_verification = account_status.authentication.needs_verification;
+                            needs_poa = needs_verification.length && needs_verification.includes('document');
+
+                            if (!(identity_status === 'none' || allow_poi_resubmission)) {
+                                _context8.next = 19;
+                                break;
+                            }
+
+                            handleCountrySelector();
+                            _context8.next = 54;
+                            break;
+
+                        case 19:
+                            if (!is_fully_authenticated) {
+                                _context8.next = 23;
+                                break;
+                            }
+
+                            $('#authentication_verified').setVisibility(1);
+                            // For statuses set from BO, last attempt will be null
+                            _context8.next = 54;
+                            break;
+
+                        case 23:
+                            if (identity_last_attempt) {
+                                _context8.next = 44;
+                                break;
+                            }
+
+                            $('#authentication_tab').setVisibility(1);
+                            _context8.t0 = identity_status;
+                            _context8.next = _context8.t0 === 'pending' ? 28 : _context8.t0 === 'suspected' ? 31 : _context8.t0 === 'rejected' ? 33 : _context8.t0 === 'verified' ? 35 : _context8.t0 === 'expired' ? 38 : 41;
+                            break;
+
+                        case 28:
+                            showCTAButton('document', 'pending');
+                            $('#upload_complete').setVisibility(1);
+                            return _context8.abrupt('break', 42);
+
+                        case 31:
+                            $('#unverified').setVisibility(1);
+                            return _context8.abrupt('break', 42);
+
+                        case 33:
+                            $('#limited_poi').setVisibility(1);
+                            return _context8.abrupt('break', 42);
+
+                        case 35:
+                            $('#verified').setVisibility(1);
+
+                            if (is_idv_disallowed) {
+                                $('#authentication_tab').setVisibility(1);
+                                Url.updateParamsWithoutReload({ authentication_tab: 'poi' }, true);
+                                TabSelector.updateTabDisplay();
+                                $('#poa').setVisibility(1);
+                            }
+                            return _context8.abrupt('break', 42);
+
+                        case 38:
+                            $('#expired_poi').setVisibility(1);
+                            $('#expired_button').off('click').on('click', function () {
+                                $('#expired_poi').setVisibility(0);
+                                handleCountrySelector();
+                            });
+                            return _context8.abrupt('break', 42);
+
+                        case 41:
+                            return _context8.abrupt('break', 42);
+
+                        case 42:
+                            _context8.next = 54;
+                            break;
+
+                        case 44:
+                            _context8.t1 = identity_last_attempt.service;
+                            _context8.next = _context8.t1 === 'idv' ? 47 : _context8.t1 === 'onfido' ? 49 : _context8.t1 === 'manual' ? 51 : 53;
+                            break;
+
+                        case 47:
+                            handleIdv();
+                            return _context8.abrupt('break', 54);
+
+                        case 49:
+                            handleOnfido();
+                            return _context8.abrupt('break', 54);
+
+                        case 51:
+                            handleManual();
+                            return _context8.abrupt('break', 54);
+
+                        case 53:
+                            return _context8.abrupt('break', 54);
+
+                        case 54:
+                            if (needs_poa) {
+                                _context8.next = 73;
+                                break;
+                            }
+
+                            _context8.t2 = document.status;
+                            _context8.next = _context8.t2 === 'none' ? 58 : _context8.t2 === 'pending' ? 61 : _context8.t2 === 'suspected' ? 63 : _context8.t2 === 'rejected' ? 63 : _context8.t2 === 'verified' ? 65 : _context8.t2 === 'expired' ? 68 : 70;
+                            break;
+
+                        case 58:
+                            init();
+                            $('#not_authenticated').setVisibility(1);
+                            return _context8.abrupt('break', 71);
+
+                        case 61:
+                            $('#pending_poa').setVisibility(1);
+                            return _context8.abrupt('break', 71);
+
+                        case 63:
+                            $('#unverified_poa').setVisibility(1);
+                            return _context8.abrupt('break', 71);
+
+                        case 65:
+                            showCTAButton('document', 'verified');
+                            $('#verified_poa').setVisibility(1);
+                            return _context8.abrupt('break', 71);
+
+                        case 68:
+                            $('#expired_poa').setVisibility(1);
+                            return _context8.abrupt('break', 71);
+
+                        case 70:
+                            return _context8.abrupt('break', 71);
+
+                        case 71:
+                            _context8.next = 75;
+                            break;
+
+                        case 73:
+                            init();
+                            $('#not_authenticated').setVisibility(1);
+
+                        case 75:
+
+                            $('#authentication_loading').setVisibility(0);
+                            TabSelector.updateTabDisplay();
+
+                        case 77:
+                        case 'end':
+                            return _context8.stop();
+                    }
+                }
+            }, _callee8, undefined);
+        }));
+
+        return function initAuthentication() {
+            return _ref8.apply(this, arguments);
+        };
+    }();
+
+    var onLoad = function () {
+        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                while (1) {
+                    switch (_context9.prev = _context9.next) {
+                        case 0:
+                            cleanElementVisibility();
+                            _context9.next = 3;
+                            return getAccountStatus();
+
+                        case 3:
+                            account_status = _context9.sent;
+
+
+                            if (isAuthenticationAllowed()) {
+                                initTab();
+                                initAuthentication();
+                            } else {
+                                $('#authentication_tab').setVisibility(0);
+                                $('#authentication_loading').setVisibility(0);
+                                $('#authentication_unneeded').setVisibility(1);
+                            }
+
+                        case 5:
+                        case 'end':
+                            return _context9.stop();
+                    }
+                }
+            }, _callee9, undefined);
+        }));
+
+        return function onLoad() {
+            return _ref9.apply(this, arguments);
+        };
+    }();
+
     var onUnload = function onUnload() {
-        if (onfido) {
-            onfido.tearDown();
+        if (onfido_sdk) {
+            onfido_sdk.tearDown();
         }
 
         TabSelector.onUnload();
@@ -33764,12 +34474,17 @@ var Accounts = function () {
 
     var populateNewAccounts = function populateNewAccounts(upgrade_info) {
         var table_headers = TableHeaders.get();
+        var residence = Client.get('residence');
+
         upgrade_info.type.forEach(function (new_account_type, index) {
             var getAccountTitle = function getAccountTitle() {
                 if (new_account_type === 'financial') {
                     return localize('Multipliers Account');
                 }
-                if (upgrade_info.can_upgrade_to[index] === 'malta') {
+                if (residence === 'gb' && upgrade_info.can_upgrade_to[index] === 'iom') {
+                    return localize('Gaming Account');
+                }
+                if (['malta', 'iom'].includes(upgrade_info.can_upgrade_to[index])) {
                     return localize('Options Account');
                 }
 
@@ -33788,7 +34503,7 @@ var Accounts = function () {
             }))).append($('<td/>', { text: getAvailableMarkets(account), datath: table_headers.available_markets })).append($('<td/>').html($('<a/>', {
                 class: 'button',
                 href: AccountOpening.getSinupPageLink(upgrade_info, upgrade_info.can_upgrade_to[index])
-            }).html($('<span/>', { text: localize('Create account') })))));
+            }).html($('<span/>', { text: localize('Create account'), class: 'padding-x-30' })))));
         });
     };
 
@@ -34298,7 +35013,7 @@ var MetaTraderConfig = function () {
 
                                         case 11:
                                             $('#authenticate_loading').setVisibility(0);
-                                            $message.find('.authenticate').setVisibility(1);
+                                            $message.find('.authenticate_msg').setVisibility(1);
                                             is_ok = false;
 
                                         case 14:
@@ -34315,7 +35030,7 @@ var MetaTraderConfig = function () {
 
                                         case 19:
                                             $('#authenticate_loading').setVisibility(0);
-                                            $message.find('.authenticate').setVisibility(1);
+                                            $message.find('.authenticate_msg').setVisibility(1);
                                             is_ok = false;
 
                                         case 22:
@@ -34781,20 +35496,19 @@ var MetaTraderConfig = function () {
     };
 
     var isAuthenticated = function isAuthenticated() {
-        return State.getResponse('get_account_status').status.indexOf('authenticated') !== -1;
+        var authentication = State.getResponse('get_account_status.authentication');
+        var identity = authentication.identity,
+            document = authentication.document,
+            needs_verification = authentication.needs_verification;
+
+        return identity.status === 'verified' && document.status === 'verified' && needs_verification.length === 0;
     };
 
     var isAuthenticationPromptNeeded = function isAuthenticationPromptNeeded() {
         var authentication = State.getResponse('get_account_status.authentication');
-        var identity = authentication.identity,
-            needs_verification = authentication.needs_verification;
+        var needs_verification = authentication.needs_verification;
 
-        var is_need_verification = needs_verification.length;
-        var has_been_authenticated = /^(rejected|expired|verified)$/.test(identity.status);
-
-        if (has_been_authenticated) return false;
-
-        return is_need_verification;
+        return needs_verification.length && (needs_verification.includes('identity') || needs_verification.includes('document'));
     };
 
     // remove server from acc_type for cases where we don't need it
@@ -34901,6 +35615,7 @@ var Validation = __webpack_require__(/*! ../../../common/form_validation */ "./s
 var localize = __webpack_require__(/*! ../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 var State = __webpack_require__(/*! ../../../../_common/storage */ "./src/javascript/_common/storage.js").State;
 var applyToAllElements = __webpack_require__(/*! ../../../../_common/utility */ "./src/javascript/_common/utility.js").applyToAllElements;
+var isEuCountry = __webpack_require__(/*! ../../../common/country_base */ "./src/javascript/app/common/country_base.js").isEuCountry;
 
 var MetaTrader = function () {
     var show_new_account_popup = true;
@@ -35048,7 +35763,7 @@ var MetaTrader = function () {
 
                 ['demo', 'real'].forEach(function (account_type) {
                     var is_demo = account_type === 'demo';
-                    var display_name = Client.getMT5AccountDisplays(market_type, sub_account_type, is_demo, landing_company_short);
+                    var display_name = Client.getMT5AccountDisplays(market_type, sub_account_type, is_demo, landing_company_short, isEuCountry());
                     var leverage = getLeverage(market_type, sub_account_type, landing_company_short);
 
                     var addAccountsInfo = function addAccountsInfo(trading_server) {
@@ -35563,6 +36278,7 @@ var urlForStatic = __webpack_require__(/*! ../../../../_common/url */ "./src/jav
 var getHashValue = __webpack_require__(/*! ../../../../_common/url */ "./src/javascript/_common/url.js").getHashValue;
 var getPropertyValue = __webpack_require__(/*! ../../../../_common/utility */ "./src/javascript/_common/utility.js").getPropertyValue;
 var showLoadingImage = __webpack_require__(/*! ../../../../_common/utility */ "./src/javascript/_common/utility.js").showLoadingImage;
+var isEuCountry = __webpack_require__(/*! ../../../common/country_base */ "./src/javascript/app/common/country_base.js").isEuCountry;
 
 var MetaTraderUI = function () {
     var $container = void 0,
@@ -36323,7 +37039,8 @@ var MetaTraderUI = function () {
         if (should_set_trading_password) {
             _$form.find('#view_3').find('#trading_password_new_user').setVisibility(1);
         } else {
-            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Enter your MT5 password to add a [_1] MT5 [_2] account.', [is_demo ? localize('demo') : localize('real'), is_synthetic ? localize('Synthetic') : localize('CFDs')])).setVisibility(1);
+            var mt5_label = isEuCountry() ? localize('CFDs') : localize('MT5 Financial');
+            _$form.find('#view_3').find('#trading_password_existing_user').html(localize('Enter your MT5 password to add a [_1] [_2] account.', [is_demo ? localize('demo') : localize('real'), is_synthetic ? localize('MT5 Synthetic') : mt5_label])).setVisibility(1);
         }
 
         _$form.find('.' + (is_demo ? 'real' : 'demo') + '-only').setVisibility(0);
@@ -36571,11 +37288,15 @@ var MetaTraderUI = function () {
         Object.keys(accounts_info).filter(function (acc_type) {
             return acc_type.indexOf(type) === 0;
         }).forEach(function (acc_type) {
-            var class_name = type === 'real' && Client.get('is_virtual') ? 'disabled' : '';
+            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
+            landing_company_short = getAccountsInfo(acc_type).landing_company_short;
+
+            var class_name = type === 'real' && Client.get('is_virtual') || landing_company_short === 'malta' && /_gaming_/.test(clean_acc_type) ? 'disabled' : '';
+
             if (getAccountsInfo(acc_type).info && (getAvailableServers(false, acc_type).length === 0 || type === 'demo')) {
                 class_name = 'existed';
             }
-            var clean_acc_type = MetaTraderConfig.getCleanAccType(acc_type, 2);
+
             _$form.find('.step-2 #' + clean_acc_type.replace(type, 'rbtn')).removeClass('existed disabled selected').addClass(class_name);
         });
     };
@@ -36846,7 +37567,7 @@ var MetaTraderUI = function () {
             ok_text: localize('Yes, I\'m sure'),
             cancel_text: localize('Cancel'),
             localized_title: localize('Are you sure?'),
-            localized_message: localize('You will not be able to change your fiat account currency after creating this CFDs account. Are you sure you want to proceed?'),
+            localized_message: localize('You will not be able to change your fiat account currency after creating this [_1] account. Are you sure you want to proceed?', [isEuCountry() ? 'CFDs' : 'MT5']),
             onConfirm: function onConfirm() {
                 _onConfirm();
                 submit(e);
@@ -38581,10 +39302,12 @@ var VirtualAccOpening = function () {
         var signup_device = LocalStore.get('signup_device') || (isMobile() ? 'mobile' : 'desktop');
         var date_first_contact = LocalStore.get('date_first_contact');
 
-        var req = [{ selector: '#client_password', validations: ['req', 'password'] }, { selector: '#residence', validations: ['req'] }, { selector: '#email_consent' }, { request_field: 'utm_source', value: TrafficSource.getSource(utm_data) }, { request_field: 'new_account_virtual', value: 1 }, { request_field: 'signup_device', value: signup_device }];
+        var req = [{ selector: '#client_password', validations: ['req', 'password'] }, { selector: '#residence', validations: ['req'] }, { selector: '#email_consent' }, { request_field: 'new_account_virtual', value: 1 }, { request_field: 'signup_device', value: signup_device }];
 
-        if (utm_data.utm_medium) req.push({ request_field: 'utm_medium', value: utm_data.utm_medium });
-        if (utm_data.utm_campaign) req.push({ request_field: 'utm_campaign', value: utm_data.utm_campaign });
+        Object.keys(utm_data).forEach(function (field) {
+            if (utm_data[field]) req.push({ request_field: field, value: utm_data[field] });
+        });
+
         if (date_first_contact) req.push({ request_field: 'date_first_contact', value: date_first_contact });
         var gclid = LocalStore.get('gclid');
         if (gclid) req.push({ request_field: 'gclid_url', value: gclid });
@@ -39022,6 +39745,8 @@ var showLocalTimeOnHover = __webpack_require__(/*! ../../../base/clock */ "./src
 var BinarySocket = __webpack_require__(/*! ../../../base/socket */ "./src/javascript/app/base/socket.js");
 var FormManager = __webpack_require__(/*! ../../../common/form_manager */ "./src/javascript/app/common/form_manager.js");
 var urlFor = __webpack_require__(/*! ../../../../_common/url */ "./src/javascript/_common/url.js").urlFor;
+var Client = __webpack_require__(/*! ../../../base/client */ "./src/javascript/app/base/client.js");
+var localize = __webpack_require__(/*! ../../../../_common/localize */ "./src/javascript/_common/localize.js").localize;
 __webpack_require__(/*! ../../../../_common/lib/polyfills/array.includes */ "./src/javascript/_common/lib/polyfills/array.includes.js");
 __webpack_require__(/*! ../../../../_common/lib/polyfills/string.includes */ "./src/javascript/_common/lib/polyfills/string.includes.js");
 
@@ -39048,8 +39773,11 @@ var RealityCheckUI = function () {
 
     var ajaxSuccess = function ajaxSuccess(reality_check_text, summary) {
         var content = 'reality_check_content';
+        var account_type_label = Client.get('residence') === 'gb' ? 'Gaming' : 'Options';
+
         if (reality_check_text.includes(content) && $('#reality_check').length === 0) {
             $('body').append($('<div/>', { id: 'reality_check', class: 'lightbox' }).append($(reality_check_text).find('#' + content)));
+            $('#reality_check_note').text(localize('[_1] trading can become a real addiction, as can any other activity pushed to its limits. To avoid the danger of such an addiction, we provide a reality-check that gives you a summary of your trades and accounts on a regular basis.', account_type_label));
             $(form.num_reality_duration).val(Math.floor(+RealityCheckData.get('interval') / 60 / 1000));
             $('#statement').off('click').on('click dblclick', onStatementClick);
             $('#logout').off('click').on('click dblclick', onLogoutClick);

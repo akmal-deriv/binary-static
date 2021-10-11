@@ -306,6 +306,9 @@ label {
 .strong {
   font-weight: bold; }
 
+.width-50 {
+  width: 50%; }
+
 .errorfield {
   margin-top: 8px;
   color: #c03; }
@@ -402,14 +405,14 @@ _:-ms-fullscreen, :root #content-holder {
 .vertical-align-middle {
   vertical-align: middle; }
 
-#email_consent + label {
+#mail_consent + label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center; }
-  #email_consent + label:before {
+  #mail_consent + label:before {
     margin-top: 4px; }
 
 input[type=checkbox] {
@@ -431,6 +434,16 @@ input[type=checkbox] {
 
 .signup-warning-message {
   padding-bottom: 40px; }
+
+.padding-2rem {
+  padding: 2rem; }
+
+.padding-x-30 {
+  padding-right: 30px !important;
+  padding-left: 30px !important; }
+
+.red {
+  color: #c03; }
 
 button .barspinner.white {
   height: 13px;
@@ -496,6 +509,12 @@ button .barspinner.white {
 
 .clear {
   clear: both; }
+
+.margin-top-20 {
+  margin-top: 20px; }
+
+.margin-top-40 {
+  margin-top: 40px; }
 
 .sidebar-container {
   position: relative; }
