@@ -36342,15 +36342,9 @@ var MetaTraderUI = function () {
     };
 
     var populateContent = function populateContent(landing_company) {
-        // console.log('');
-        // console.log('populateContent');
-        // console.log(landing_company);
         if (landing_company === 'maltainvest') {
-            // console.log('here');
-            // console.log($client_general);
             $client_general.setVisibility(0);
             $client_eu.setVisibility(1);
-            // console.log('after here');
         }
     };
 
@@ -37079,8 +37073,6 @@ var MetaTraderUI = function () {
             }
             $('<p />', { id: 'msg_form', class: 'center-text gr-padding-10 error-msg no-margin invisible' }).prependTo($view_3_button_container);
             $view_3_button_container.setVisibility(1);
-            // console.log('button next');
-            populateContent(landing_company_short);
             $view_3_button_container.find('#btn_forgot_trading_password').on('click', function () {
                 resetMT5TradingPassword().then(function () {
                     showTradingPasswordResetAlertPopup();
