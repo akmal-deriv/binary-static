@@ -183,6 +183,9 @@ button.button-disabled {
     color: #dedede;
     background: #f2f2f2; }
 
+a.button-disabled {
+  pointer-events: none; }
+
 span.checked {
   background: url("../images/pages/authenticate/checked.svg") no-repeat;
   width: 16px;
@@ -1129,7 +1132,7 @@ label + input {
     overflow: auto;
     text-align: left; }
   .lightbox#set_currency_popup_container #dialog_content, .lightbox#deposit_currency_change_popup_container #dialog_content, .lightbox#create_mt5_popup_container #dialog_content {
-    max-width: 24em;
+    max-width: 25em;
     padding: 25px 15px; }
     .lightbox#set_currency_popup_container #dialog_content #dialog_title, .lightbox#set_currency_popup_container #dialog_content #dialog_footnote, .lightbox#deposit_currency_change_popup_container #dialog_content #dialog_title, .lightbox#deposit_currency_change_popup_container #dialog_content #dialog_footnote, .lightbox#create_mt5_popup_container #dialog_content #dialog_title, .lightbox#create_mt5_popup_container #dialog_content #dialog_footnote {
       padding: 0;

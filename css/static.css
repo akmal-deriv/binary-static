@@ -23,6 +23,7 @@
 /*
  * return svg url using specified color
  */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 *, *:after, *:before {
   -webkit-transition: opacity 0.2s, color 0.2s, background 0.2s;
   transition: opacity 0.2s, color 0.2s, background 0.2s; }
@@ -903,6 +904,9 @@ div.kineticjs-content {
   .open-positions img.responsive {
     width: 40%; } }
 
+@font-face {
+  font-family: 'Open Sans', sans-serif; }
+
 .payment-methods__reference {
   display: inline-block;
   height: 30px;
@@ -1147,6 +1151,21 @@ div.kineticjs-content {
               transform: rotate(0); }
     #payment_methods table tbody tr td .td {
       padding: 0 !important; }
+
+#frm_confirm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end; }
+  #frm_confirm .switch-cancel-btn {
+    width: unset !important; }
+  #frm_confirm .switch-ok-btn {
+    width: unset !important;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1; }
 
 .charity .gallery {
   position: relative;
@@ -1534,6 +1553,7 @@ body #not_authenticated_financial ul.checked > li {
 #set_currency .currency_list > div {
   padding: 15px;
   background-image: url("../images/pages/set_currency/tick-normal.svg");
+  background-size: 16px;
   background-repeat: no-repeat;
   background-position: center bottom;
   line-height: 30px; }
@@ -1550,18 +1570,45 @@ body #not_authenticated_financial ul.checked > li {
 
 .lightbox #set_currency {
   padding: 25px;
-  padding-bottom: 4px;
+  padding-bottom: 20px;
   width: 40em; }
   .lightbox #set_currency #set_currency_text {
-    margin-top: 0; }
+    margin-top: 0;
+    margin-bottom: 1.9rem; }
+  .lightbox #set_currency #set_currency_text_secondary {
+    font-size: 16px;
+    margin-bottom: 0; }
+  .lightbox #set_currency #set_currency_text_note {
+    font-size: 10px;
+    margin-top: 0.4rem; }
   .lightbox #set_currency #fiat_currencies + div, .lightbox #set_currency #crypto_currencies + div {
     max-width: 30em; }
+  .lightbox #set_currency #fiat_currencies .note, .lightbox #set_currency #crypto_currencies .note {
+    margin: 0.4rem auto 0;
+    font-size: 10px; }
+  .lightbox #set_currency #crypto_currencies .text {
+    margin: 0 auto; }
   .lightbox #set_currency .section-divider {
     margin-top: 0;
     margin-bottom: 0; }
   .lightbox #set_currency #submit_section {
-    margin-top: 20px;
-    margin-bottom: 16px; }
+    border: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    max-width: 24em;
+    margin: 20px auto 16px; }
+  @media screen and (min-width: 768px) {
+    .lightbox #set_currency .btn_cancel {
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1; } }
+  .lightbox #set_currency #btn_ok {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1; }
+  .lightbox #set_currency .button span {
+    display: block; }
   .lightbox #set_currency #deposit_btn {
     margin-bottom: 16px; }
 
@@ -1607,11 +1654,10 @@ body #not_authenticated_financial ul.checked > li {
   -moz-text-align-last: center;
        text-align-last: center; }
 
-@media screen and (min-width: 768px) {
-  .currency_list {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center; } }
+.currency_list {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
 
 @media screen and (min-width: 768px) {
   .padding-h35 {
