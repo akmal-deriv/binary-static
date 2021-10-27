@@ -62,7 +62,7 @@ const setObject = function(key, value) {
             handlesQuotaExceededErrorException();
         }
 
-        throw e; // re-throw the error unchanged
+        console.error(e); // log the error unchanged
     }
 };
 
