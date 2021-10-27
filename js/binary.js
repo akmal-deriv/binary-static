@@ -39367,7 +39367,7 @@ var RealAccountOpening = function () {
                             }
 
                             AccountOpening.setCurrencyForFinancialAccount(currency_to_set);
-                            _context.next = 41;
+                            _context.next = 40;
                             break;
 
                         case 8:
@@ -39431,9 +39431,8 @@ var RealAccountOpening = function () {
                             getElementById('real_account_wrapper').setVisibility(1);
                             getElementById('account_opening_steps').setVisibility(1);
                             renderStep();
-                            runNextFix();
 
-                        case 41:
+                        case 40:
                         case 'end':
                             return _context.stop();
                     }
@@ -39445,57 +39444,6 @@ var RealAccountOpening = function () {
             return _ref.apply(this, arguments);
         };
     }();
-
-    var runNextFix = function runNextFix() {
-        var userClickDetected = false;
-        var userTouchDetected = false;
-        var editableElementsSelector = 'input[type=text],input[type=email],input[type=number]';
-        var nonEditableElementsSelector = 'select,input[type=date],input[type=time]';
-
-        window.addEventListener('click', function () {
-            userClickDetected = true;
-            setTimeout(function () {
-                userClickDetected = false;
-            }, 500);
-        });
-
-        window.addEventListener('touchstart', function () {
-            userTouchDetected = true;
-            setTimeout(function () {
-                userTouchDetected = false;
-            }, 500);
-        });
-
-        document.querySelectorAll('form').forEach(function (form) {
-            var formElements = Array.from(form.elements).filter(function (el) {
-                return el.tagName !== 'FIELDSET';
-            });
-            var editableElements = form.querySelectorAll(editableElementsSelector);
-            var nonEditableElements = form.querySelectorAll(nonEditableElementsSelector);
-
-            for (var i = 1; i < formElements.length; i++) {
-                formElements[i - 1].nextFormElement = formElements[i];
-            }
-
-            editableElements.forEach(function (element) {
-                element.addEventListener('blur', function (event) {
-                    if (!userClickDetected && !userTouchDetected) {
-                        if (element.nextFormElement && event.relatedTarget !== element.nextFormElement) {
-                            element.nextFormElement.focus();
-                        }
-                    }
-                });
-            });
-
-            nonEditableElements.forEach(function (element) {
-                element.addEventListener('change', function () {
-                    if (element.nextFormElement) {
-                        element.nextFormElement.focus();
-                    }
-                });
-            });
-        });
-    };
 
     var renderStep = function renderStep() {
         var previous_step = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
