@@ -10130,9 +10130,6 @@ var BinaryLoader = function () {
         no_mf_switch_to_options: function no_mf_switch_to_options() {
             return localize('Binary options trading is not available via your Multipliers account.<br/>Please switch back to your Options account.');
         },
-        no_options_mf_mx: function no_options_mf_mx() {
-            return localize('Sorry, options trading isn’t available in the United Kingdom and the Isle of Man');
-        },
         options_blocked: function options_blocked() {
             return localize('Binary options trading is not available in your country.');
         },
@@ -10197,15 +10194,6 @@ var BinaryLoader = function () {
                 }
             });
         }
-
-        if (config.no_mf && Client.isLoggedIn()) {
-            BinarySocket.wait('authorize').then(function (response) {
-                if (['gb', 'im'].includes(response.authorize.country)) {
-                    displayMessage(error_messages.no_options_mf_mx());
-                }
-            });
-        }
-
         if (this_page === 'deactivated-account' && Client.isLoggedIn()) {
             displayMessage(error_messages.not_deactivated());
         }
@@ -10246,7 +10234,7 @@ var BinaryLoader = function () {
         }
         content.classList.add('container');
 
-        var base_html_elements = Client.isAccountOfType('financial') || Client.isOptionsBlocked() || ClientBase.get('residence') === 'fr' || ClientBase.get('residence') === 'gb' || ClientBase.get('residence') === 'im' ? '' : content.getElementsByTagName('h1')[0] || '';
+        var base_html_elements = Client.isAccountOfType('financial') || Client.isOptionsBlocked() || ClientBase.get('residence') === 'fr' ? '' : content.getElementsByTagName('h1')[0] || '';
         var div_container = createElement('div', { class: 'logged_out_title_container', html: base_html_elements });
         var div_notice = createElement('p', { class: 'center-text notice-msg', html: localized_message });
         div_container.appendChild(div_notice);
@@ -12146,7 +12134,6 @@ var Url = __webpack_require__(/*! ../../_common/url */ "./src/javascript/_common
 var createElement = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").createElement;
 var isLoginPages = __webpack_require__(/*! ../../_common/utility */ "./src/javascript/_common/utility.js").isLoginPages;
 var isProduction = __webpack_require__(/*! ../../config */ "./src/javascript/config.js").isProduction;
-var ClosePopup = __webpack_require__(/*! ../common/game_close_popup */ "./src/javascript/app/common/game_close_popup.js");
 __webpack_require__(/*! ../../_common/lib/polyfills/array.includes */ "./src/javascript/_common/lib/polyfills/array.includes.js");
 __webpack_require__(/*! ../../_common/lib/polyfills/string.includes */ "./src/javascript/_common/lib/polyfills/string.includes.js");
 
@@ -12243,13 +12230,6 @@ var Page = function () {
             BinarySocket.wait('authorize', 'website_status', 'get_account_status').then(function () {
                 RealityCheck.onLoad();
                 Menu.init();
-                var is_uk_residence = Client.get('residence') === 'gb' || State.getResponse('website_status.clients_country') === 'gb';
-                var is_iom_client = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-                if (is_uk_residence && Client.hasAccountType('gaming')) {
-                    ClosePopup.loginOnLoad();
-                } else if (is_iom_client && Client.hasAccountType('gaming')) {
-                    ClosePopup.loginOnLoad();
-                }
             });
         } else {
             Menu.init();
@@ -15362,125 +15342,6 @@ module.exports = Validation;
 
 /***/ }),
 
-/***/ "./src/javascript/app/common/game_close_banner.js":
-/*!********************************************************!*\
-  !*** ./src/javascript/app/common/game_close_banner.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
-var BinarySocket = __webpack_require__(/*! ../base/socket */ "./src/javascript/app/base/socket.js");
-var Client = __webpack_require__(/*! ../base/client */ "./src/javascript/app/base/client.js");
-var State = __webpack_require__(/*! ../../_common/storage */ "./src/javascript/_common/storage.js").State;
-
-var CloseBanner = function () {
-
-    var el_close_banner_container = void 0,
-        el_gaming_popup = void 0,
-        el_learn_more = void 0;
-
-    var onLoad = function onLoad() {
-        BinarySocket.wait('authorize', 'website_status', 'landing_company').then(function () {
-            var is_uk_residence = Client.get('residence') === 'gb' || State.getResponse('website_status.clients_country') === 'gb';
-            var is_iom_client = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-            if (is_uk_residence) {
-                el_gaming_popup = getElementById('gaming-close-popup');
-                el_close_banner_container = getElementById('close_banner_container');
-                el_close_banner_container.setVisibility(1);
-                el_learn_more = getElementById('close_banner_btn');
-            } else if (is_iom_client) {
-                el_gaming_popup = getElementById('gaming-close-popup-iom');
-                el_close_banner_container = getElementById('close_banner_container_iom');
-                el_close_banner_container.setVisibility(1);
-                el_learn_more = getElementById('close_banner_btn_iom');
-            }
-            el_gaming_popup.setVisibility(0);
-            el_learn_more.addEventListener('click', onShowPopup);
-        });
-    };
-
-    var onShowPopup = function onShowPopup() {
-        el_gaming_popup.setVisibility(1);
-        var el_top_bar = getElementById('topbar');
-        el_top_bar.style.zIndex = 0;
-        document.body.style.overflow = 'hidden';
-    };
-
-    return { onLoad: onLoad, onShowPopup: onShowPopup };
-}();
-
-module.exports = CloseBanner;
-
-/***/ }),
-
-/***/ "./src/javascript/app/common/game_close_popup.js":
-/*!*******************************************************!*\
-  !*** ./src/javascript/app/common/game_close_popup.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var getElementById = __webpack_require__(/*! ../../_common/common_functions */ "./src/javascript/_common/common_functions.js").getElementById;
-var BinarySocket = __webpack_require__(/*! ../base/socket */ "./src/javascript/app/base/socket.js");
-var Client = __webpack_require__(/*! ../base/client */ "./src/javascript/app/base/client.js");
-var State = __webpack_require__(/*! ../../_common/storage */ "./src/javascript/_common/storage.js").State;
-
-var ClosePopup = function () {
-    var el_gaming_popup = void 0,
-        el_accept_btn = void 0;
-
-    var onLoad = function onLoad() {
-        BinarySocket.wait('authorize', 'website_status', 'landing_company').then(function () {
-            var is_uk_residence = Client.get('residence') === 'gb' || State.getResponse('website_status.clients_country') === 'gb';
-            var is_iom_client = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-            if (is_uk_residence) {
-                el_gaming_popup = getElementById('gaming-close-popup');
-                el_accept_btn = getElementById('accept-btn');
-            } else if (is_iom_client) {
-                el_gaming_popup = getElementById('gaming-close-popup-iom');
-                el_accept_btn = getElementById('accept-btn-iom');
-            }
-            el_gaming_popup.setVisibility(0);
-            el_accept_btn.addEventListener('click', onClosePopup);
-        });
-    };
-    var loginOnLoad = function loginOnLoad() {
-        BinarySocket.wait('authorize', 'website_status', 'landing_company').then(function () {
-            var is_uk_residence = Client.get('residence') === 'gb' || State.getResponse('website_status.clients_country') === 'gb';
-            var is_iom_client = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-            if (is_uk_residence) {
-                el_gaming_popup = getElementById('gaming-close-popup');
-                el_accept_btn = getElementById('accept-btn');
-            } else if (is_iom_client) {
-                el_gaming_popup = getElementById('gaming-close-popup-iom');
-                el_accept_btn = getElementById('accept-btn-iom');
-            }
-            el_gaming_popup.setVisibility(1);
-            el_accept_btn.addEventListener('click', onClosePopup);
-        });
-    };
-
-    var onClosePopup = function onClosePopup() {
-        el_gaming_popup.setVisibility(0);
-        var el_top_bar = getElementById('topbar');
-        el_top_bar.style.zIndex = 4;
-        document.body.style.overflow = 'auto';
-    };
-
-    return { loginOnLoad: loginOnLoad, onLoad: onLoad, onClosePopup: onClosePopup };
-}();
-
-module.exports = ClosePopup;
-
-/***/ }),
-
 /***/ "./src/javascript/app/common/get_app_details.js":
 /*!******************************************************!*\
   !*** ./src/javascript/app/common/get_app_details.js ***!
@@ -18536,49 +18397,47 @@ var Dashboard = function () {
         var el_loading = document.getElementById('loading_dashboard');
         var el_dashboard_container = document.getElementById('binary_dashboard');
 
-        if (el_dashboard_container) {
-            el_shadow_dom_dashboard = el_dashboard_container ? el_dashboard_container.attachShadow({ mode: 'open' }) : '';
+        el_shadow_dom_dashboard = el_dashboard_container.attachShadow({ mode: 'open' });
 
-            var el_main_css = document.createElement('style');
-            // These are styles that are to be injected into the Shadow DOM, so they are in JS and not stylesheets
-            // They are to be applied to the `:host` selector
-            el_main_css.innerHTML = '@import url(' + urlForStatic('css/dashboard.min.css') + '); :host { --hem: 10px; }';
-            el_main_css.rel = 'stylesheet';
+        var el_main_css = document.createElement('style');
+        // These are styles that are to be injected into the Shadow DOM, so they are in JS and not stylesheets
+        // They are to be applied to the `:host` selector
+        el_main_css.innerHTML = '@import url(' + urlForStatic('css/dashboard.min.css') + '); :host { --hem: 10px; }';
+        el_main_css.rel = 'stylesheet';
 
-            var language = getLanguage().toLowerCase();
-            var dashboard_props = {
-                client: {
-                    is_logged_in: Client.get('currency'),
-                    loginid: Client.get('residence')
-                },
-                config: {
-                    asset_path: '/dashboard/assets',
-                    has_router: false,
-                    is_deriv_crypto: false,
-                    routes: {
-                        home: '/' + language + '/dashboard/overview.html',
-                        about_us: '/' + language + '/dashboard/about-us.html',
-                        resources: '/' + language + '/dashboard/resources.html',
-                        explore: '/' + language + '/dashboard/explore.html'
-                    }
-                },
-                ui: {
-                    is_dark_mode_on: false,
-                    language: language,
-                    components: {
-                        LoginPrompt: null, // eslint-disable-line
-                        Page404: null // eslint-disable-line
-                    }
-                },
-                server_time: ServerTime,
-                ws: BinarySocket
-            };
+        var language = getLanguage().toLowerCase();
+        var dashboard_props = {
+            client: {
+                is_logged_in: Client.get('currency'),
+                loginid: Client.get('residence')
+            },
+            config: {
+                asset_path: '/dashboard/assets',
+                has_router: false,
+                is_deriv_crypto: false,
+                routes: {
+                    home: '/' + language + '/dashboard/overview.html',
+                    about_us: '/' + language + '/dashboard/about-us.html',
+                    resources: '/' + language + '/dashboard/resources.html',
+                    explore: '/' + language + '/dashboard/explore.html'
+                }
+            },
+            ui: {
+                is_dark_mode_on: false,
+                language: language,
+                components: {
+                    LoginPrompt: null, // eslint-disable-line
+                    Page404: null // eslint-disable-line
+                }
+            },
+            server_time: ServerTime,
+            ws: BinarySocket
+        };
 
-            ReactDOM.render(React.createElement(module, dashboard_props), el_shadow_dom_dashboard);
-            el_shadow_dom_dashboard.prepend(el_main_css);
-            el_loading.parentNode.removeChild(el_loading);
-            el_shadow_dom_dashboard.host.classList.remove('invisible');
-        }
+        ReactDOM.render(React.createElement(module, dashboard_props), el_shadow_dom_dashboard);
+        el_shadow_dom_dashboard.prepend(el_main_css);
+        el_loading.parentNode.removeChild(el_loading);
+        el_shadow_dom_dashboard.host.classList.remove('invisible');
     };
 
     return {
@@ -27932,8 +27791,6 @@ var Client = __webpack_require__(/*! ../../base/client */ "./src/javascript/app/
 var Header = __webpack_require__(/*! ../../base/header */ "./src/javascript/app/base/header.js");
 var BinarySocket = __webpack_require__(/*! ../../base/socket */ "./src/javascript/app/base/socket.js");
 var DerivBanner = __webpack_require__(/*! ../../common/deriv_banner */ "./src/javascript/app/common/deriv_banner.js");
-var CloseBanner = __webpack_require__(/*! ../../common/game_close_banner */ "./src/javascript/app/common/game_close_banner.js");
-var ClosePopup = __webpack_require__(/*! ../../common/game_close_popup */ "./src/javascript/app/common/game_close_popup.js");
 var Guide = __webpack_require__(/*! ../../common/guide */ "./src/javascript/app/common/guide.js");
 var TopUpVirtualPopup = __webpack_require__(/*! ../../pages/user/account/top_up_virtual/pop_up */ "./src/javascript/app/pages/user/account/top_up_virtual/pop_up.js");
 var State = __webpack_require__(/*! ../../../_common/storage */ "./src/javascript/_common/storage.js").State;
@@ -27943,19 +27800,7 @@ var TradePage = function () {
     State.remove('is_trading');
 
     var onLoad = function onLoad() {
-        BinarySocket.wait('authorize', 'website_status', 'landing_company').then(function () {
-            var is_uk_residence = Client.get('residence') === 'gb' || State.getResponse('website_status.clients_country') === 'gb';
-            var is_iom_client = Client.get('residence') === 'im' || State.getResponse('website_status.clients_country') === 'im';
-            if (is_uk_residence && Client.hasAccountType('gaming')) {
-                CloseBanner.onLoad();
-                ClosePopup.onLoad();
-            } else if (is_iom_client && Client.hasAccountType('gaming')) {
-                CloseBanner.onLoad();
-                ClosePopup.onLoad();
-            } else {
-                DerivBanner.onLoad();
-            }
-        });
+        DerivBanner.onLoad();
 
         BinarySocket.wait('authorize', 'landing_company').then(function () {
             init();
@@ -37719,6 +37564,9 @@ var MetaTraderUI = function () {
 
     var selectAccountTypeUI = function selectAccountTypeUI(e) {
         var box_class = 'mt5_type_box';
+        var real_acc_number = Object.values(accounts_info).filter(function (acc_type) {
+            return !acc_type.is_demo;
+        }).length;
         var $item = $(e.target);
         if (!$item.hasClass(box_class)) {
             $item = $item.parents('.' + box_class);
@@ -37729,12 +37577,12 @@ var MetaTraderUI = function () {
         var selected_acc_type = $item.attr('data-acc-type');
         var action = 'new_account';
         if (/(demo|real)/.test(selected_acc_type)) {
+            displayMessage('#new_account_msg', selected_acc_type === 'real' && Client.get('is_virtual') && real_acc_number > 2 ? MetaTraderConfig.needsRealMessage() : '', true);
             displayAccountDescription(selected_acc_type);
             updateAccountTypesUI(selected_acc_type);
             switchAccountTypesUI(selected_acc_type, _$form);
             _$form.find('#view_1 .btn-next').addClass('button-disabled');
             _$form.find('#view_1 .step-2').setVisibility(1);
-            displayMessage('#new_account_msg', selected_acc_type === 'real' && Client.get('is_virtual') ? MetaTraderConfig.needsRealMessage() : '', true);
         } else {
             var new_acc_type = newAccountGetType();
             displayAccountDescription(new_acc_type);
