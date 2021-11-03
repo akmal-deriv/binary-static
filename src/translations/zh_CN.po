@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-10-26 08:53\n"
+"PO-Revision-Date: 2021-11-02 07:21\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -595,6 +595,9 @@ msgstr "1%"
 msgid "1-2 years"
 msgstr "1-2 年"
 
+msgid "1. Ensure to close all your positions"
+msgstr "1. 确保将所有持仓头寸平仓"
+
 msgid "1. Proof of identity"
 msgstr "1. 身份证明"
 
@@ -630,6 +633,9 @@ msgstr "双向报价"
 
 msgid "2. Selfie with proof of ID"
 msgstr "2. 带ID证件的自拍照片"
+
+msgid "2. Withdraw your funds"
+msgstr "2. 提取资金"
 
 msgid "2. Your desktop window stays open"
 msgstr "2. 您的桌面窗口保持打开状态"
@@ -753,6 +759,9 @@ msgstr "商业或任何商业相关领域、法律或风险管理学士学位"
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is Synthetic Indices."
 msgstr "二元期权是指一方承诺如果某一资产的价值在预定期间内朝着特定方向发生变化，将向另一方支付特定数额的合约 。公司提供的二元期权主要基础资产类别是综合指数."
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
+msgstr "二元期权是指一方承诺如果某一资产的价值在预定期间内朝着特定方向发生变化，将向另一方支付特定数额的合约 。公司提供的二元期权三大基础资产类别是"
 
 msgid "A binary option is a contract purchased by a trader, which pays a pre-determined amount if their prediction is correct."
 msgstr "二元期权为交易者所买入之合约，如果预测正确即可获得预先确定的获利金额。"
@@ -2098,8 +2107,8 @@ msgstr "上传文档之前，请确保您的%1个人详细信息%2已更新以�
 msgid "Before using the trading robots or Expert Advisors and forward trade, the client should test it on a demo account."
 msgstr "客户在使用交易机器人或智能交易系统和远期交易之前, 应透过模拟账户进行测试。"
 
-msgid "Before you deactivate your account, you need to do the following:"
-msgstr "在停用账户之前，您需要执行以下操作："
+msgid "Before you deactivate your account, you’ll need to:"
+msgstr "在停用账户之前，您需要："
 
 msgid "Beginner"
 msgstr "初学者"
@@ -2902,9 +2911,6 @@ msgstr "以合理可用的平仓水平将客户所有或任何未平仓头寸平
 
 msgid "Close identity verification screen"
 msgstr "关闭身份验证屏幕"
-
-msgid "Close open positions"
-msgstr "将持仓头寸平仓"
 
 msgid "Close your %1 account."
 msgstr "关闭您的 %1 账户。"
@@ -3720,6 +3726,9 @@ msgid "Deactivate"
 msgstr "停用"
 
 msgid "Deactivate Account"
+msgstr "停用账户"
+
+msgid "Deactivate account"
 msgstr "停用账户"
 
 msgid "Deactivate account?"
@@ -6134,17 +6143,23 @@ msgstr "如果在几分钟内未收到电子邮件，请检查您的垃圾/广�
 msgid "If you find any vulnerabilities in our %1open-source code%2, feel free to submit a pull request on GitHub."
 msgstr "如您在我们的%1开源代码%2中发现任何漏洞， 请随时在GitHub提交引入请求。"
 
-msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds"
+msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds."
 msgstr "如您有 Binary 真实账户，请前往%1C收银台%2提取资金。"
 
-msgid "If you have a Binary real account, go to %1Portfolio%2 to close any open positions."
-msgstr "如您有 Binary 真实账户，请前往%1投资组合%2将全部持仓头寸平仓。"
+msgid "If you have a Binary real account, go to %1Portfolio%2 to close or sell any open positions."
+msgstr "如您有 Binary 真实账户，请前往%1投资组合%2将全部持仓头寸平仓或售出。"
 
-msgid "If you have a MT5 real account, go to %1MT5 dashboard%2 to withdraw your funds."
-msgstr "如您有 MT5 真实账户，请前往%1MT5 仪表板%2提取资金。"
+msgid "If you have a DMT5 or Deriv X real account, go to your %1DMT5%2 or %3Deriv X%4 dashboard to withdraw your funds."
+msgstr "如您有 DMT5 或 Deriv X 真实账户，请前往%1DMT5%2或%3Deriv X%4仪表板提取资金."
 
-msgid "If you have a MT5 real account, log into it to close any open positions."
-msgstr "如您有 MT5 真实账户，请登录以便将全部持仓头寸平仓。"
+msgid "If you have a DMT5 or Deriv X real account, log in to close any open positions."
+msgstr "如您有 DMT5 或 Deriv X 真实账户，请登录以便将全部持仓头寸平仓。"
+
+msgid "If you have a DMT5 real account, go to your %1DMT5%2 dashboard to withdraw your funds."
+msgstr "如您有 DMT5 真实账户，请前往%1DMT5%2仪表板提取资金。"
+
+msgid "If you have a DMT5 real account, log in to close any open positions."
+msgstr "如您有 DMT5 真实账户，请登录以便将全部持仓头寸平仓。"
 
 msgid "If you have a payment reference (for example 122), you can enter it here."
 msgstr "如有付款参考编号（例如122），可在此处输入。"
@@ -8144,6 +8159,9 @@ msgstr "注: 如有任何关于禁用或隔离账户的查询, 请与%1客服部
 
 msgid "Note: Payment Agent transfers are only available for accounts registered with Deriv (SVG) LLC."
 msgstr "注意：只有在 Deriv (SVG) LLC 注册的账户才能通过付款代理汇款。"
+
+msgid "Note: Please switch to your %1 account to change currencies."
+msgstr "注意：请切换到%1账户以更改币种。"
 
 msgid "Note: You are limited to one fiat currency account. The currency of your fiat account can be changed before you deposit into your fiat account for the first time or create an MT5 account. You may also open one account for each supported cryptocurrency."
 msgstr "注意: 您只能使用一个法定货币账户。首次将资金存入法定账户或开立 MT5 账户之前, 您可以更改法定账户的币种。您还可以为每种受支持的加密货币开立专用账户。"
@@ -10487,6 +10505,9 @@ msgstr "对不起，手机版本还不可用。"
 
 msgid "Sorry, no mobile phone bills"
 msgstr "抱歉，不接受手机账单"
+
+msgid "Sorry, options trading isn’t available in the United Kingdom and the Isle of Man"
+msgstr "抱歉，英国和马恩岛不提供期权交易。"
 
 msgid "Sorry, this feature is not available in your jurisdiction."
 msgstr "对不起，您的管辖权内无法使用此功能。"
@@ -13045,6 +13066,9 @@ msgstr "如要重新设置密码，在下面字段输入您注册的电子邮件
 msgid "To smoothly verify you, we need a better photo"
 msgstr "为了顺利验证，我们需要更好的照片"
 
+msgid "To transfer funds to your MT5 account, enter an amount of %1 or more"
+msgstr "要把资金转入MT5账户，请输入%1或更多金额"
+
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr "执行本协议时，由于各方没有过错，该协议已经或随后已进入公共领域"
 
@@ -13630,8 +13654,8 @@ msgstr "很遗憾，您的国家不能使用此服务。如您要交易乘数，
 msgid "Unfortunately, you can only make deposits. Please contact us via live chat to enable withdrawals."
 msgstr "很遗憾，您只能存款。请通过实时聊天与我们联系以启用提款。"
 
-msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat to enable deposits."
-msgstr "很遗憾，您只能取款。请通过实时聊天与我们联系以启用存款。"
+msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat."
+msgstr "很遗憾，您只能取款。请通过实时聊天与我们联系。"
 
 msgid "University degree in Marketing, Mathematics, IT/Programming or any related field"
 msgstr "市场营销、数学、信息技术/编程或任何相关领域的大学学位"
@@ -14581,9 +14605,6 @@ msgstr "从MT5提款"
 msgid "Withdraw funds from your MT5 account"
 msgstr "从您的 MT5 账户中提取资金"
 
-msgid "Withdraw your funds"
-msgstr "提取资金"
-
 msgid "Withdrawal"
 msgstr "提款"
 
@@ -14815,6 +14836,9 @@ msgstr "您已开立所有可用的账户。"
 msgid "You have funds in these Binary accounts:"
 msgstr "您在以下Binary 账户中存有资金："
 
+msgid "You have funds in these Deriv X accounts:"
+msgstr "您在以下 Deriv X 账户中存有资金："
+
 msgid "You have funds in these MT5 accounts:"
 msgstr "您在以下 MT5 账户中存有资金："
 
@@ -14832,6 +14856,9 @@ msgstr "您没有提供税务编号。法律和监管规定要求提供此信息
 
 msgid "You have open positions in these Binary accounts:"
 msgstr "您在以下 Binary 账户中持有未平仓头寸："
+
+msgid "You have open positions in these Deriv X accounts:"
+msgstr "您在以下 Deriv X 账户中持有未平仓头寸："
 
 msgid "You have open positions in these MT5 accounts:"
 msgstr "您在以下 MT5 账户中持有未平仓头寸："

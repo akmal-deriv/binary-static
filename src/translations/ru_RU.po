@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-10-26 08:53\n"
+"PO-Revision-Date: 2021-11-03 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -595,6 +595,9 @@ msgstr "1%"
 msgid "1-2 years"
 msgstr "1-2 года"
 
+msgid "1. Ensure to close all your positions"
+msgstr "1. Убедитесь, что закрыли все позиции"
+
 msgid "1. Proof of identity"
 msgstr "1. Подтверждение личности"
 
@@ -630,6 +633,9 @@ msgstr "Оцените движение рынка в двух направле�
 
 msgid "2. Selfie with proof of ID"
 msgstr "2. Селфи с удостоверением личности"
+
+msgid "2. Withdraw your funds"
+msgstr "2. Выведите средства"
 
 msgid "2. Your desktop window stays open"
 msgstr "2. Окно программы остается открытым."
@@ -753,6 +759,9 @@ msgstr "Степень бакалавра в области финансов, б
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is Synthetic Indices."
 msgstr "Бинарный опцион – это контракт, при котором одна сторона берет на себя обязательства выплатить другой стороне заранее установленную сумму, если цена заданного актива изменится в определенном направлении за указанный период времени. Основным классом базовых активов для бинарных опционов, предлагаемых Компанией, являются синтетические индексы."
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
+msgstr "Бинарный опцион – это контракт, при котором одна сторона берет на себя обязательства выплатить другой стороне заранее установленную сумму, если цена заданного актива изменится в определенном направлении за указанный период времени. Компания предлагает три основных класса базовых активов для бинарных опционов:"
 
 msgid "A binary option is a contract purchased by a trader, which pays a pre-determined amount if their prediction is correct."
 msgstr "Бинарный опцион – это покупаемый трейдером контракт, по которому выплачивается заранее оговоренная сумма в случае правильного прогноза."
@@ -2098,8 +2107,8 @@ msgstr "Перед загрузкой документа убедитесь, ч�
 msgid "Before using the trading robots or Expert Advisors and forward trade, the client should test it on a demo account."
 msgstr "Перед тем, как использовать торговых роботов или Expert Advisors и форвардную торговлю, клиент должен протестировать их на демо-счете."
 
-msgid "Before you deactivate your account, you need to do the following:"
-msgstr "Прежде чем деактивировать свой счет, вам необходимо сделать следующее:"
+msgid "Before you deactivate your account, you’ll need to:"
+msgstr "Прежде чем деактивировать счет, вам необходимо:"
 
 msgid "Beginner"
 msgstr "Для начинающих"
@@ -2901,9 +2910,6 @@ msgstr "закрыть любую или все открытые позиции 
 
 msgid "Close identity verification screen"
 msgstr "Закройте экран подтверждения личности"
-
-msgid "Close open positions"
-msgstr "Закройте открытые позиции"
 
 msgid "Close your %1 account."
 msgstr "Закрыть ваш счет %1."
@@ -3719,6 +3725,9 @@ msgid "Deactivate"
 msgstr "Деактивировать"
 
 msgid "Deactivate Account"
+msgstr "Деактивировать счет"
+
+msgid "Deactivate account"
 msgstr "Деактивировать счет"
 
 msgid "Deactivate account?"
@@ -6134,17 +6143,23 @@ msgstr "Если вы не получите сообщения от нас в с
 msgid "If you find any vulnerabilities in our %1open-source code%2, feel free to submit a pull request on GitHub."
 msgstr "Если вы обнаружите какие-либо уязвимости в нашем %1проекте с открытым кодом%2, пожалуйста, отправьте pull-запрос на GitHub."
 
-msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds"
-msgstr "Если у вас есть реальный счет Binary, перейдите в %1Кассу%2, чтобы вывести средства"
+msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds."
+msgstr "Если у вас есть реальный счет Binary, перейдите в %1Кассу%2, чтобы вывести средства."
 
-msgid "If you have a Binary real account, go to %1Portfolio%2 to close any open positions."
-msgstr "Если у вас есть реальный счет Binary, перейдите в %1Портфель%2, чтобы закрыть открытые позиции."
+msgid "If you have a Binary real account, go to %1Portfolio%2 to close or sell any open positions."
+msgstr "Если у вас есть реальный счет Binary, перейдите в %1Портфель%2, чтобы закрыть или продать открытые позиции."
 
-msgid "If you have a MT5 real account, go to %1MT5 dashboard%2 to withdraw your funds."
-msgstr "Если у вас есть реальный счет MT5, перейдите на %1панель MT5%2, чтобы вывести средства."
+msgid "If you have a DMT5 or Deriv X real account, go to your %1DMT5%2 or %3Deriv X%4 dashboard to withdraw your funds."
+msgstr "Если у вас есть реальный счет DMT5 или Deriv X, перейдите на панель %1DMT5%2 или %3Deriv X%4, чтобы вывести средства."
 
-msgid "If you have a MT5 real account, log into it to close any open positions."
-msgstr "Если у вас есть реальный счет MT5, войдите на него, чтобы закрыть открытые позиции."
+msgid "If you have a DMT5 or Deriv X real account, log in to close any open positions."
+msgstr "Если у вас есть реальный счет DMT5 или Deriv X, войдите в него, чтобы закрыть открытые позиции."
+
+msgid "If you have a DMT5 real account, go to your %1DMT5%2 dashboard to withdraw your funds."
+msgstr "Если у вас есть реальный счет DMT5, перейдите на панель %1DMT5%2, чтобы вывести средства."
+
+msgid "If you have a DMT5 real account, log in to close any open positions."
+msgstr "Если у вас есть реальный счет DMT5, войдите на него, чтобы закрыть открытые позиции."
 
 msgid "If you have a payment reference (for example 122), you can enter it here."
 msgstr "Если у вас есть номер перевода (например, 122), укажите его здесь."
@@ -8143,6 +8158,9 @@ msgstr "Примечание: по любым вопросам о неактив
 
 msgid "Note: Payment Agent transfers are only available for accounts registered with Deriv (SVG) LLC."
 msgstr "Важно: переводы через платежных агентов доступны только для счетов, зарегистрированных в Deriv (SVG) LLC."
+
+msgid "Note: Please switch to your %1 account to change currencies."
+msgstr "Примечание: чтобы изменить валюту, перейдите на свой счет %1."
 
 msgid "Note: You are limited to one fiat currency account. The currency of your fiat account can be changed before you deposit into your fiat account for the first time or create an MT5 account. You may also open one account for each supported cryptocurrency."
 msgstr "Примечание: вы можете открыть только один счет в фиатной валюте. Валюту фиатного счета можно изменить до того, как вы первый раз пополните этот счет или откроете счёт MT5. Также вы можете открыть по одному счёту в каждой доступной криптовалюте."
@@ -10486,6 +10504,9 @@ msgstr "К сожалению, мобильная версия пока недо
 
 msgid "Sorry, no mobile phone bills"
 msgstr "К сожалению, мы не можем принять счет за мобильный телефон"
+
+msgid "Sorry, options trading isn’t available in the United Kingdom and the Isle of Man"
+msgstr "К сожалению, торговля опционами недоступна в Великобритании и на острове Мэн."
 
 msgid "Sorry, this feature is not available in your jurisdiction."
 msgstr "К сожалению, эта функция недоступна в вашей юрисдикции."
@@ -13043,6 +13064,9 @@ msgstr "Чтобы изменить пароль, введите ваш заре
 msgid "To smoothly verify you, we need a better photo"
 msgstr "Нам нужно фото более высокого качества, чтобы верифицировать вас"
 
+msgid "To transfer funds to your MT5 account, enter an amount of %1 or more"
+msgstr "Чтобы перевести средства на свой счет MT5, введите сумму не менее %1"
+
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr "которая на момент исполнения данного Соглашения была или впоследствии стала известной широкой общественности без участия сторон,"
 
@@ -13628,8 +13652,8 @@ msgstr "К сожалению, этот сервис недоступен в в�
 msgid "Unfortunately, you can only make deposits. Please contact us via live chat to enable withdrawals."
 msgstr "К сожалению, вы можете только пополнять счет. Пожалуйста, свяжитесь с нами через чат, чтобы активировать вывод средств."
 
-msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat to enable deposits."
-msgstr "К сожалению, вы можете только выводить средства. Пожалуйста, свяжитесь с нами через чат, чтобы активировать пополнение счета."
+msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat."
+msgstr "К сожалению, вы можете только выводить средства. Пожалуйста, свяжитесь с нами через чат."
 
 msgid "University degree in Marketing, Mathematics, IT/Programming or any related field"
 msgstr "Высшее образование в области маркетинга, математики, IT/программирования или в смежной области"
@@ -14579,9 +14603,6 @@ msgstr "Вывести средства с MT5"
 msgid "Withdraw funds from your MT5 account"
 msgstr "Вывод средств со счёта MT5"
 
-msgid "Withdraw your funds"
-msgstr "Выведите средства"
-
 msgid "Withdrawal"
 msgstr "Вывод"
 
@@ -14813,6 +14834,9 @@ msgstr "Вы открыли все доступные счета."
 msgid "You have funds in these Binary accounts:"
 msgstr "У вас есть средства на этих счетах Binary:"
 
+msgid "You have funds in these Deriv X accounts:"
+msgstr "У вас есть средства на этих счетах Deriv X:"
+
 msgid "You have funds in these MT5 accounts:"
 msgstr "У вас есть средства на этих счетах MT5:"
 
@@ -14830,6 +14854,9 @@ msgstr "Вы не указали свой идентификационный н�
 
 msgid "You have open positions in these Binary accounts:"
 msgstr "У вас есть открытые позиции на этих счетах Binary:"
+
+msgid "You have open positions in these Deriv X accounts:"
+msgstr "У вас есть открытые позиции на этих счетах Deriv X:"
 
 msgid "You have open positions in these MT5 accounts:"
 msgstr "У вас есть открытые позиции на этих счетах  MT5:"

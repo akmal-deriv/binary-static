@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-10-19 13:04\n"
+"PO-Revision-Date: 2021-11-02 07:13\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
@@ -595,6 +595,9 @@ msgstr "1%"
 msgid "1-2 years"
 msgstr "1-2 lata"
 
+msgid "1. Ensure to close all your positions"
+msgstr "1. Upewnić się, że wszystkie Twoje pozycje zostały zamknięte"
+
 msgid "1. Proof of identity"
 msgstr "1. Potwierdzenie tożsamości"
 
@@ -630,6 +633,9 @@ msgstr "Wycena dwustronna"
 
 msgid "2. Selfie with proof of ID"
 msgstr "2. Zdjęcie typu selfie z potwierdzeniem tożsamości"
+
+msgid "2. Withdraw your funds"
+msgstr "2. Wypłać swoje środki"
 
 msgid "2. Your desktop window stays open"
 msgstr "2. Okno na komputerze musi pozostać otwarte"
@@ -752,6 +758,9 @@ msgid "A bachelor's degree in commerce or any business-related field, law, or ri
 msgstr "Dyplom studiów licencjackich na kierunku handlowym lub na innym kierunku biznesowym, prawniczym lub w zakresie zarządzania ryzykiem"
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is Synthetic Indices."
+msgstr ""
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
 msgstr ""
 
 msgid "A binary option is a contract purchased by a trader, which pays a pre-determined amount if their prediction is correct."
@@ -2098,8 +2107,8 @@ msgstr "Zanim prześlesz dokument upewnij się, że Twoje %1dane osobowe%2 są z
 msgid "Before using the trading robots or Expert Advisors and forward trade, the client should test it on a demo account."
 msgstr "Przez użyciem funkcji robotów do handlowania lub funkcji doradczej Expert Advisors i zawarcia transakcji forward klient powinien wypróbować te funkcje na swoim koncie demo."
 
-msgid "Before you deactivate your account, you need to do the following:"
-msgstr "Przed dezaktywowaniem konta należy:"
+msgid "Before you deactivate your account, you’ll need to:"
+msgstr "Zanim dezaktywujesz swoje konto. musisz:"
 
 msgid "Beginner"
 msgstr "Początkujący"
@@ -2675,7 +2684,7 @@ msgid "Chief Executives, Senior Officials and Legislators"
 msgstr "Dyrektorzy, urzędnicy wysokiego szczebla, prawodawcy"
 
 msgid "Choose a cryptocurrency account"
-msgstr ""
+msgstr "Wybierz konto w kryptowalucie"
 
 msgid "Choose a duration from 10 seconds to 365 days."
 msgstr "Wybierz czas trwania od 10 sekund do 365 dni."
@@ -2714,13 +2723,13 @@ msgid "Choose one of your accounts or add a new account"
 msgstr ""
 
 msgid "Choose one of your accounts or add a new cryptocurrency account"
-msgstr ""
+msgstr "Wybierz jedno ze swoich kont lub dodaj nowe konto w kryptowalucie"
 
 msgid "Choose scopes:"
 msgstr "Wybierz zakres:"
 
 msgid "Choose the document type"
-msgstr ""
+msgstr "Wybierz rodzaj dokumentu"
 
 msgid "Choose the market, trade type, duration, barrier, and payout."
 msgstr "Wybierz rynek, rodzaj zakładu, czas trwania, limit i wypłatę."
@@ -2744,7 +2753,7 @@ msgid "Choose your own strike."
 msgstr "Wybierz swoją wypłatę."
 
 msgid "Choose your preferred cryptocurrency"
-msgstr ""
+msgstr "Wybierz preferowaną kryptowalutę"
 
 msgid "Choose your preferred programme, complete the application form, and receive your affiliate link upon approval."
 msgstr "Wybierz swój preferowany program i uzupełnij formularz, i otrzymaj swoje łącze partnerskie po byciu zaakceptowanym."
@@ -2901,9 +2910,6 @@ msgstr "Zamknij wszystkie otwarte pozycje klienta lub dowolną pozycję na dost�
 
 msgid "Close identity verification screen"
 msgstr "Zamknij ekran weryfikacji tożsamości"
-
-msgid "Close open positions"
-msgstr "Zamknij otwarte pozycje"
 
 msgid "Close your %1 account."
 msgstr "Wybierz swoje konto %1."
@@ -3431,7 +3437,7 @@ msgid "Create a New Demo Account"
 msgstr ""
 
 msgid "Create a cryptocurrency account"
-msgstr ""
+msgstr "Utwórz konto w kryptowalucie"
 
 msgid "Create a new Binary password."
 msgstr "Utwórz nowe hasło Binary."
@@ -3721,6 +3727,9 @@ msgstr "Deaktywuj"
 msgid "Deactivate Account"
 msgstr "Dezaktywuj konto"
 
+msgid "Deactivate account"
+msgstr "Deaktywuj konto"
+
 msgid "Deactivate account?"
 msgstr "Deaktywuj konto?"
 
@@ -3818,10 +3827,10 @@ msgid "Deposit as little as 5 USD to start trading."
 msgstr "Wpłać zaledwie 5 USD, aby rozpocząć handlowanie."
 
 msgid "Deposit cryptocurrencies"
-msgstr ""
+msgstr "Wpłać kryptowaluty"
 
 msgid "Deposit in your local currency via an authorised, independent payment agent in your country."
-msgstr ""
+msgstr "Wpłacaj w swojej lokalnej walucie przez autoryzowanego i niezależnego pośrednika płatności w Twoim kraju."
 
 msgid "Deposit now"
 msgstr "Wpłać teraz"
@@ -3830,13 +3839,13 @@ msgid "Deposit or withdraw below"
 msgstr "Wpłaty lub wypłaty poniżej"
 
 msgid "Deposit via bank wire, credit card, and e-wallet"
-msgstr ""
+msgstr "Wpłacaj środki przez przelew bankowy lub przy użyciu karty kredytowej lub e-portfela"
 
 msgid "Deposit via bank wire, credit card, and e-wallet."
-msgstr ""
+msgstr "Wpłacaj środki przez przelew bankowy lub przy użyciu karty kredytowej lub e-portfela."
 
 msgid "Deposit via payment agents"
-msgstr ""
+msgstr "Wpłać przez pośrednika płatności"
 
 msgid "Deposit: %1 blockchain confirmations"
 msgstr "Wpłata: potwierdzenia blockchain w liczbie %1"
@@ -3854,7 +3863,7 @@ msgid "Deposits and/or payments due are to be made in the currency chosen by the
 msgstr "Należne wpłaty i/lub płatności będą dokonywane w walucie wybranej przez klienta spośród walut określonych przez DIEL w określonym czasie."
 
 msgid "Deposits are temporarily unavailable due to system maintenance. You can make your deposits when the maintenance is complete."
-msgstr ""
+msgstr "Wpłaty są tymczasowo niedostępne z powodu konserwacji systemu. Możesz dokonać wpłaty po zakończeniu konserwacji."
 
 msgid "Deriv"
 msgstr "Deriv"
@@ -4487,10 +4496,10 @@ msgid "Engage in misleading or deceptive conduct or illusory or deceptive advert
 msgstr "Jest zaangażowany w zwodnicze, mylące lub wprowadzające błąd działania reklamowe"
 
 msgid "Engage in misleading, illusory, or deceptive advertising or promises."
-msgstr ""
+msgstr "Jest zaangażowany w zwodnicze, mylące lub wprowadzające błąd działania reklamowe lub zobowiązania."
 
 msgid "Engage in misleading, illusory, or deceptive conduct."
-msgstr ""
+msgstr "Jest zaangażowany w zwodnicze, mylące lub wprowadzające błąd działania."
 
 msgid "Enhanced performance. Intuitively simple."
 msgstr "Ulepszone działanie. Intuicyjna prostota."
@@ -4985,7 +4994,7 @@ msgid "Fairly and accurately describe Binary's business and services in a transp
 msgstr "Sprawiedliwie, dokładnie i w przejrzysty sposób opisuje klientom działalność i usługi Binary"
 
 msgid "Fairly and accurately describe the Agent's services to the clients."
-msgstr ""
+msgstr "Uczciwie i dokładnie przedstawia usługi Pośrednika swoim klientom."
 
 msgid "Familiarity with Git"
 msgstr "Znajomość Git"
@@ -5183,7 +5192,7 @@ msgid "Follow up on the recommendations and timeline for corrective actions with
 msgstr "Stosowanie się do zaleceń kierowników działu i harmonogramu podejmowania działań naprawczych"
 
 msgid "Follow, comply, and implement with all business-related directions, policies, and procedures of the Company as amended or re-enacted or replaced from time to time."
-msgstr ""
+msgstr "Przestrzega wszelkich instrukcji biznesowych, polityk, procedur Firmy, w tym do ich zmienionej lub nowej wersji, stosuje się do nich i wprowadza je w życie."
 
 msgid "Food Services"
 msgstr "Usługi gastronomiczne"
@@ -6133,17 +6142,23 @@ msgstr "Jeśli nie otrzymasz od nas wiadomości e-mail w ciągu kilku minut, spr
 msgid "If you find any vulnerabilities in our %1open-source code%2, feel free to submit a pull request on GitHub."
 msgstr "Jeśli znajdziesz jakiekolwiek luki w zabezpieczeniach naszych %1kodów open-source%2, możesz wysłać wiadomość typu „pull request” na GitHub."
 
-msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds"
-msgstr "Jeśli masz prawdziwe konto Binary, przejdź do sekcji %1Kasjer%2, aby wypłacić swoje środki"
+msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds."
+msgstr "Jeśli masz prawdziwe konto Binary, przejdź do sekcji %1Kasjer%2, aby wypłacić swoje środki."
 
-msgid "If you have a Binary real account, go to %1Portfolio%2 to close any open positions."
-msgstr "Jeśli masz prawdziwe konto Binary, przejdź do sekcji %1Portfolio%2, aby zamknąć otwarte pozycje."
+msgid "If you have a Binary real account, go to %1Portfolio%2 to close or sell any open positions."
+msgstr ""
 
-msgid "If you have a MT5 real account, go to %1MT5 dashboard%2 to withdraw your funds."
-msgstr "Jeśli masz prawdziwe konto MT5, przejdź do %1pulpitu DMT5%2, aby wypłacić swoje środki."
+msgid "If you have a DMT5 or Deriv X real account, go to your %1DMT5%2 or %3Deriv X%4 dashboard to withdraw your funds."
+msgstr ""
 
-msgid "If you have a MT5 real account, log into it to close any open positions."
-msgstr "Jeśli masz prawdziwe konto MT5, zaloguj się do konta, aby zamknąć otwarte pozycje."
+msgid "If you have a DMT5 or Deriv X real account, log in to close any open positions."
+msgstr "Jeśli masz prawdziwe konto DMT5 lub Deriv X, zaloguj się, aby zamknąć otwarte pozycje."
+
+msgid "If you have a DMT5 real account, go to your %1DMT5%2 dashboard to withdraw your funds."
+msgstr ""
+
+msgid "If you have a DMT5 real account, log in to close any open positions."
+msgstr "Jeśli masz prawdziwe konto DMT5, zaloguj się, aby zamknąć otwarte pozycje."
 
 msgid "If you have a payment reference (for example 122), you can enter it here."
 msgstr "Jeśli masz numer identyfikacyjny płatności (na przykład 122), możesz wpisać go tutaj."
@@ -6482,7 +6497,7 @@ msgid "In this case, you predict that the price will rise. This is also known as
 msgstr "W tym przypadku, prognozujesz, że cena wzrośnie. To też jest zajęciem „pozycji długiej”."
 
 msgid "In which country was your document issued?"
-msgstr ""
+msgstr "Jaki jest kraj wydania dokumentu?"
 
 msgid "In-depth knowledge of accounting principles, best practices, standards, and regulations"
 msgstr "Dogłębna wiedza w zakresie zasad, najlepszych praktyk, standardów i przepisów obowiązujących w księgowości"
@@ -6740,7 +6755,7 @@ msgid "It is the responsibility of each client to read and understand this legal
 msgstr "Obowiązkiem każdego klienta jest przeczytanie i zrozumienie niniejszej informacji prawnej oraz regulaminu („Warunki”), na mocy których regulowane jest pozyskiwanie kontraktów finansowych za pośrednictwem tego portalu."
 
 msgid "It looks like your identity document has expired. Please try again with a valid document."
-msgstr ""
+msgstr "Wygląda na to, że dokument tożsamości stracił ważność. Spróbuj jeszcze raz, przesyłając ważny dokument."
 
 msgid "It may be disconnected. <fallback>Try using your phone instead</fallback>."
 msgstr "Może być odłączony. <fallback>Spróbuj użyć swojego telefonu</fallback>."
@@ -7733,7 +7748,7 @@ msgid "Misrepresent Binary or the services that are offered by Binary"
 msgstr "Niewłaściwie przedstawia firmę Binary lub oferowane przez nią usługi"
 
 msgid "Misrepresent the services that the Agent provides to the clients."
-msgstr ""
+msgstr "Fałszywie przedstawia usługi świadczone klientom przez Pośrednika."
 
 msgid "Mo"
 msgstr "Pn"
@@ -8021,7 +8036,7 @@ msgid "Next Available Price"
 msgstr "Następna dostępna cena"
 
 msgid "Next, we'll need your proof of address"
-msgstr ""
+msgstr "Następnie będziemy potrzebować potwierdzenia adresu"
 
 msgid "No"
 msgstr "Nie"
@@ -8142,6 +8157,9 @@ msgstr "Uwaga: Wszelkie pytania dotyczące wyłączonych kont prosimy kierować 
 
 msgid "Note: Payment Agent transfers are only available for accounts registered with Deriv (SVG) LLC."
 msgstr "Uwaga: Przelewy za pośrednictwem Pośrednika płatności nie są dostępne dla kont zarejestrowanych przez Deriv (SVG) LLC."
+
+msgid "Note: Please switch to your %1 account to change currencies."
+msgstr ""
 
 msgid "Note: You are limited to one fiat currency account. The currency of your fiat account can be changed before you deposit into your fiat account for the first time or create an MT5 account. You may also open one account for each supported cryptocurrency."
 msgstr "Uwaga: Możesz mieć wyłącznie jedno konto fiducjarne. Możesz zmienić walutę swojego konta fiat w dowolnej chwili, zanim dokonasz pierwszej wpłaty lub utworzysz konto MT5. Możesz też otworzyć jedno konto dla każdej obsługiwanej waluty."
@@ -8774,7 +8792,7 @@ msgid "Perform tests to ensure database performance and security, as well as dat
 msgstr "Przeprowadzanie testów w celu zapewnienia odpowiedniego działania bazy danych i jej bezpieczeństwa, jak również integralności danych"
 
 msgid "Perform the Agent's services and other obligations hereunder at their own cost and risk."
-msgstr ""
+msgstr "Świadczy usługi Pośrednika i wywiązuje się z pozostałych zobowiązań na mocy niniejszej umowy na własny koszt i na własne ryzyko."
 
 msgid "Performance Tuning,"
 msgstr "Poprawianie wydajności"
@@ -9047,7 +9065,7 @@ msgid "Please select the checkbox."
 msgstr "Proszę zaznaczyć pole wyboru."
 
 msgid "Please select the country of document issuance"
-msgstr ""
+msgstr "Wybierz kraj wydania dokumentu"
 
 msgid "Please select the country where you are a tax resident. If you have any doubts, kindly consult your tax advisor."
 msgstr "Proszę wybrać kraj, w którym jesteś rezydentem podatkowym. Jeśli masz jakiekolwiek wątpliwości, skontaktuj się ze swoim doradcą podatkowym."
@@ -9092,7 +9110,7 @@ msgid "Please update your %1 to continue."
 msgstr "Zaktualizuj %1, aby kontynuować."
 
 msgid "Please upload your identity document."
-msgstr ""
+msgstr "Prześlij swój dokument tożsamości."
 
 msgid "Please wait for confirmation. Our customer support team will get back to you regarding your account status via email within four hours."
 msgstr "Proszę zaczekać na potwierdzenie. W ciągu czterech godzin nasz dział wsparcia technicznego skontaktuje się z Tobą drogą e-mailową w sprawie statusu Twojego konta."
@@ -9230,7 +9248,7 @@ msgid "Prepare and publish any content or place any advertisements that refer to
 msgstr "Przygotowuje lub publikuje dowolną treść lub zamieszcza dowolne reklamy, które odnoszą się do firmy Binary i jego współpracy z Binary bez wcześniejszej pisemnej zgody firmy Binary"
 
 msgid "Prepare and publish any material or place any advertisements that refer to the Company and the Agent's relationship with the Company without an authorisation being given by the Company."
-msgstr ""
+msgstr "Przygotowywać i publikować jakiekolwiek materiały lub umieszczać jakiekolwiek ogłoszenia, które odnoszą się do Firmy i do związku Pośrednika z Firmą bez pozwolenia udzielonego przez Firmę."
 
 msgid "Prepare daily, weekly, and monthly financial reports"
 msgstr "Sporządzanie dziennych, tygodniowych i miesięcznych raportów finansowych"
@@ -9428,7 +9446,7 @@ msgid "Provide technical leadership on cryptocurrencies and blockchain technolog
 msgstr "Kierownictwo techniczne w zakresie kryptowalut i technologii blockchain"
 
 msgid "Provide the Company with all and any information whatsoever that the Agent may become aware of that may be harmful, adverse, or detrimental to the Company and its reputation."
-msgstr ""
+msgstr "Dostarcza Firmie wszelkie informacje, które posiada lub w których Agent może wejść posiadanie, które mogą zaszkodzić Firmie i jej reputacji."
 
 msgid "Provide the customer support agent with the four-digit verification code below for confirmation."
 msgstr "Podaj pracownikowi działu obsługi klienta czterocyfrowy kod weryfikujący podany poniżej w celu potwierdzenia."
@@ -9638,7 +9656,7 @@ msgid "Receive the approval of the Company to include any information in relatio
 msgstr "Uzyskuje zgodę Firmy na zawarcie wszelkich informacji powiązanych z Binary"
 
 msgid "Receive the approval of the Company to include any information in relation to the Company."
-msgstr ""
+msgstr "Uzyskuje zgodę Firmy na zawarcie wszelkich informacji powiązanych z Firmą."
 
 msgid "Receive your earnings through your favourite payment method"
 msgstr "Otrzymuj płatności za pośrednictwem swojej ulubionej metody płatności"
@@ -9794,7 +9812,7 @@ msgid "Replication,"
 msgstr "Replikacja,"
 
 msgid "Represent themselves as a representative of the Company or as an authorised person by the Company in their advertising activities."
-msgstr ""
+msgstr "W swoich działaniach marketingowych przedstawia się jako przedstawiciel Firmy lub osoba upoważniona przez Firmę."
 
 msgid "Representations and warranties"
 msgstr "Oświadczenia i gwarancje"
@@ -10058,7 +10076,7 @@ msgid "Sale of Property"
 msgstr "Sprzedaż mienia"
 
 msgid "Sample:"
-msgstr ""
+msgstr "Przykład:"
 
 msgid "Saturday"
 msgstr "Sobota"
@@ -10486,6 +10504,9 @@ msgstr "Przepraszamy, wersja mobilna jest jeszcze niedostępna."
 msgid "Sorry, no mobile phone bills"
 msgstr "Przepraszamy, nie akceptujemy rachunków za telefon komórkowy"
 
+msgid "Sorry, options trading isn’t available in the United Kingdom and the Isle of Man"
+msgstr ""
+
 msgid "Sorry, this feature is not available in your jurisdiction."
 msgstr "Niestety ta funkcja jest niedostępna w Twojej jurysdykcji."
 
@@ -10883,13 +10904,13 @@ msgid "Swiss franc vs Japanese yen"
 msgstr "Frank szwajcarski vs jen japoński"
 
 msgid "Switch account"
-msgstr ""
+msgstr "Zmień konto"
 
 msgid "Switch account?"
-msgstr ""
+msgstr "Zmień konto?"
 
 msgid "Switch to crypto account?"
-msgstr ""
+msgstr "Przejść na konto w kryptowalucie?"
 
 msgid "Symbol"
 msgstr "Symbol"
@@ -12978,7 +12999,7 @@ msgid "To create a MetaTrader 5 account:"
 msgstr "Aby utworzyć konto MetaTrader 5:"
 
 msgid "To deposit cryptocurrency, switch your account."
-msgstr ""
+msgstr "Aby wpłacić kryptowalutę, zmień konto."
 
 msgid "To deposit money, please switch to your %1 account."
 msgstr ""
@@ -13042,6 +13063,9 @@ msgstr "Aby zresetować hasło, w polu poniżej wprowadź adres e-mail użyty pr
 
 msgid "To smoothly verify you, we need a better photo"
 msgstr "Aby zweryfikować Twoją tożsamość, potrzebujemy lepszego zdjęcia"
+
+msgid "To transfer funds to your MT5 account, enter an amount of %1 or more"
+msgstr ""
 
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr "W momencie wykonywania niniejszej Umowy był lub stał się własnością publiczną bez winy stron"
@@ -13628,7 +13652,7 @@ msgstr ""
 msgid "Unfortunately, you can only make deposits. Please contact us via live chat to enable withdrawals."
 msgstr ""
 
-msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat to enable deposits."
+msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat."
 msgstr ""
 
 msgid "University degree in Marketing, Mathematics, IT/Programming or any related field"
@@ -13710,7 +13734,7 @@ msgid "Upload front of license from your computer"
 msgstr "Prześlij przednią część prawa jazdy ze swojego komputera"
 
 msgid "Upload identity document"
-msgstr ""
+msgstr "Prześlij dokument tożsamości"
 
 msgid "Upload passport photo page"
 msgstr "Załaduj zdjęcie strony paszportu ze zdjęciem"
@@ -13773,7 +13797,7 @@ msgid "Use the %1 API for any purpose that violates any law or regulation or any
 msgstr "korzystać z API %1 w celach, które naruszają jakiekolwiek prawo lub regulacje, czy też prawa innych osób, między innymi prawo własności intelektualnej, prawo do prywatności, prawo do dóbr osobistych, lub są w jakikolwiek sposób niezgodne z niniejszymi Warunkami lub polityką prywatności"
 
 msgid "Use the Company's name or trademark in the Agent's advertising activities without a written authorisation to be given by the Company."
-msgstr ""
+msgstr "Używanie nazwy Firmy ani jej znaków towarowych w reklamach Pośrednika bez pisemnej zgody udzielonej przez Firmę."
 
 msgid "Use the Marketing Materials provided by Binary solely for the purpose of providing IB services and in accordance with Binary's instructions"
 msgstr "Korzysta z Materiałów marketingowych dostarczanych przez Binary wyłącznie w celu świadczenia usług IB i zgodnie z instrukcjami Binary"
@@ -13839,7 +13863,7 @@ msgid "Verification complete"
 msgstr "Weryfikacja zakończona"
 
 msgid "Verification of document number failed"
-msgstr ""
+msgstr "Nie udało się zweryfikować numeru dokumentu"
 
 msgid "Verification required"
 msgstr "Uwierzytelnienie jest wymagane"
@@ -13863,7 +13887,7 @@ msgid "Verify your identity"
 msgstr "Potwierdź swoją tożsamość"
 
 msgid "Version 50. Last modified 06-10-2021."
-msgstr ""
+msgstr "Wersja 50. Ostatnio zmieniana: 06-10-2021."
 
 msgid "Video Room Facility"
 msgstr "Opcja rozmowy wideo"
@@ -13962,7 +13986,7 @@ msgid "Vs 407 zrnaf nalguvat fcrpvny gb lbh lbh znl pbcl lbhe nccyvpngvba gb wl+
 msgstr "Vs 407 zrnaf nalguvat fcrpvny gb lbh lbh znl pbcl lbhe nccyvpngvba gb wl+ebg13@ovanel.pbz sbe snfg-genpx pbafvqrengvba."
 
 msgid "WARNING"
-msgstr ""
+msgstr "OSTRZEŻENIE"
 
 msgid "Waiting for contract settlement."
 msgstr "Oczekiwanie na rozliczenie kontraktu."
@@ -13995,7 +14019,7 @@ msgid "We accept"
 msgstr "Akceptujemy"
 
 msgid "We accept the following cryptocurrencies:"
-msgstr ""
+msgstr "Akceptujemy następujące kryptowaluty:"
 
 msgid "We always put our customers first and dedicate ourselves to building products and services that give them the best trading experience possible."
 msgstr "Zawsze stawiamy naszych klientów na pierwszym miejscu i skupiamy się na tworzeniu produktów i usług, które zapewnią im najlepsze możliwe doświadczenie handlowania."
@@ -14127,7 +14151,7 @@ msgid "We'll compare it with your document"
 msgstr "Porównamy z Twoim dokumentem"
 
 msgid "We'll process your details within a few minutes and notify its status via email."
-msgstr ""
+msgstr "Twoje dane zostaną przetworzone w ciągu kilku minut, po czym otrzymasz powiadomienie o statusie drogą e-mailową."
 
 msgid "We'll process your details within a few minutes and notify its status via email. Next, we'll need your proof of address"
 msgstr ""
@@ -14579,9 +14603,6 @@ msgstr "Wypłać z konta MT5"
 msgid "Withdraw funds from your MT5 account"
 msgstr "Wypłać środki ze swojego konta MT5"
 
-msgid "Withdraw your funds"
-msgstr "Wypłać swoje środki"
-
 msgid "Withdrawal"
 msgstr "Wypłata"
 
@@ -14757,7 +14778,7 @@ msgid "You can only subscribe to one signal provider with one %1 account at any 
 msgstr "Możesz subskrybować tylko jednego dostawcę sygnału przy użyciu jednego konta %1. Możesz korzystać z jednego sygnału na maksymalnie 3 komputerach."
 
 msgid "You can open an account for each cryptocurrency."
-msgstr ""
+msgstr "Dla każdej kryptowaluty możesz utworzyć jedno konto."
 
 msgid "You can sell your contract before expiry to keep any profit you may have made or to minimise your loss."
 msgstr "Możesz sprzedać swój kontrakt przed datą jego wygaśnięcia, aby zachować potencjalne zyski lub ograniczyć straty."
@@ -14793,7 +14814,7 @@ msgid "You have a new MT5 password to log in to your %1 accounts on the web and 
 msgstr ""
 
 msgid "You have a trading password for MT5"
-msgstr ""
+msgstr "Masz hasło handlowe do MT5"
 
 msgid "You have added a %1 account."
 msgstr "Dodano konto %1."
@@ -14813,6 +14834,9 @@ msgstr "Utworzono wszystkie możliwe konta (dostępne dla Ciebie)."
 msgid "You have funds in these Binary accounts:"
 msgstr "Masz zgromadzone środki na tych kontach Binary:"
 
+msgid "You have funds in these Deriv X accounts:"
+msgstr "Masz zgromadzone środki na tych kontach Deriv X:"
+
 msgid "You have funds in these MT5 accounts:"
 msgstr "Masz zgromadzone środki na tych kontach MT5:"
 
@@ -14830,6 +14854,9 @@ msgstr ""
 
 msgid "You have open positions in these Binary accounts:"
 msgstr "Masz otwarte pozycje na tych kontach Binary:"
+
+msgid "You have open positions in these Deriv X accounts:"
+msgstr "Masz otwarte pozycje na tych kontach Deriv X:"
 
 msgid "You have open positions in these MT5 accounts:"
 msgstr "Masz otwarte pozycje na tych kontach MT5:"

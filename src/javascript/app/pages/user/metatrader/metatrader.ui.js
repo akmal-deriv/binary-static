@@ -745,6 +745,7 @@ const MetaTraderUI = (() => {
         if (should_set_trading_password) {
             $form.find('#view_3').find('#trading_password_new_user').setVisibility(1);
         } else {
+            $form.find('#view_3').find('#trading_password_new_user').setVisibility(0);
             const mt5_label = isEuCountry() ? localize('CFDs') : localize('MT5 Financial');
             $form.find('#view_3').find('#trading_password_existing_user')
                 .html(localize(
@@ -1309,6 +1310,7 @@ const MetaTraderUI = (() => {
         displayMainMessage,
         displayMessage,
         displayPageError,
+        displayStep,
         disableButton,
         disableButtonLink,
         enableButton,

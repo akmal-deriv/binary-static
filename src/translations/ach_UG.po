@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-10-19 13:04\n"
+"PO-Revision-Date: 2021-11-02 07:13\n"
 "Last-Translator: \n"
 "Language-Team: Acholi\n"
 "MIME-Version: 1.0\n"
@@ -595,6 +595,9 @@ msgstr "crwdns66654:0crwdne66654:0"
 msgid "1-2 years"
 msgstr "crwdns37561:0crwdne37561:0"
 
+msgid "1. Ensure to close all your positions"
+msgstr "crwdns168131:0crwdne168131:0"
+
 msgid "1. Proof of identity"
 msgstr "crwdns41737:0crwdne41737:0"
 
@@ -630,6 +633,9 @@ msgstr "crwdns37566:0crwdne37566:0"
 
 msgid "2. Selfie with proof of ID"
 msgstr "crwdns68434:0crwdne68434:0"
+
+msgid "2. Withdraw your funds"
+msgstr "crwdns168133:0crwdne168133:0"
 
 msgid "2. Your desktop window stays open"
 msgstr "crwdns158264:0crwdne158264:0"
@@ -753,6 +759,9 @@ msgstr "crwdns53302:0crwdne53302:0"
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is Synthetic Indices."
 msgstr "crwdns167609:0crwdne167609:0"
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
+msgstr "crwdns168595:0crwdne168595:0"
 
 msgid "A binary option is a contract purchased by a trader, which pays a pre-determined amount if their prediction is correct."
 msgstr "crwdns37604:0crwdne37604:0"
@@ -2098,8 +2107,8 @@ msgstr "crwdns161582:0%1pcrwdnd161582:0%2crwdne161582:0"
 msgid "Before using the trading robots or Expert Advisors and forward trade, the client should test it on a demo account."
 msgstr "crwdns56184:0crwdne56184:0"
 
-msgid "Before you deactivate your account, you need to do the following:"
-msgstr "crwdns163962:0crwdne163962:0"
+msgid "Before you deactivate your account, you’ll need to:"
+msgstr "crwdns168135:0crwdne168135:0"
 
 msgid "Beginner"
 msgstr "crwdns50426:0crwdne50426:0"
@@ -2901,9 +2910,6 @@ msgstr "crwdns56202:0crwdne56202:0"
 
 msgid "Close identity verification screen"
 msgstr "crwdns158296:0crwdne158296:0"
-
-msgid "Close open positions"
-msgstr "crwdns163964:0crwdne163964:0"
 
 msgid "Close your %1 account."
 msgstr "crwdns85235:0%1crwdne85235:0"
@@ -3720,6 +3726,9 @@ msgstr "crwdns123528:0crwdne123528:0"
 
 msgid "Deactivate Account"
 msgstr "crwdns162522:0crwdne162522:0"
+
+msgid "Deactivate account"
+msgstr "crwdns168137:0crwdne168137:0"
 
 msgid "Deactivate account?"
 msgstr "crwdns162524:0crwdne162524:0"
@@ -6133,17 +6142,23 @@ msgstr "crwdns53394:0crwdne53394:0"
 msgid "If you find any vulnerabilities in our %1open-source code%2, feel free to submit a pull request on GitHub."
 msgstr "crwdns41510:0%1ocrwdnd41510:0%2crwdne41510:0"
 
-msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds"
-msgstr "crwdns163966:0%1Ccrwdnd163966:0%2crwdne163966:0"
+msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds."
+msgstr "crwdns168139:0%1Ccrwdnd168139:0%2crwdne168139:0"
 
-msgid "If you have a Binary real account, go to %1Portfolio%2 to close any open positions."
-msgstr "crwdns163968:0%1crwdnd163968:0%2crwdne163968:0"
+msgid "If you have a Binary real account, go to %1Portfolio%2 to close or sell any open positions."
+msgstr "crwdns168141:0%1crwdnd168141:0%2crwdne168141:0"
 
-msgid "If you have a MT5 real account, go to %1MT5 dashboard%2 to withdraw your funds."
-msgstr "crwdns163970:0%1crwdnd163970:0%2crwdne163970:0"
+msgid "If you have a DMT5 or Deriv X real account, go to your %1DMT5%2 or %3Deriv X%4 dashboard to withdraw your funds."
+msgstr "crwdns168143:0%1crwdnd168143:0%2crwdnd168143:0%3crwdnd168143:0%4crwdne168143:0"
 
-msgid "If you have a MT5 real account, log into it to close any open positions."
-msgstr "crwdns163972:0crwdne163972:0"
+msgid "If you have a DMT5 or Deriv X real account, log in to close any open positions."
+msgstr "crwdns168145:0crwdne168145:0"
+
+msgid "If you have a DMT5 real account, go to your %1DMT5%2 dashboard to withdraw your funds."
+msgstr "crwdns168147:0%1crwdnd168147:0%2crwdne168147:0"
+
+msgid "If you have a DMT5 real account, log in to close any open positions."
+msgstr "crwdns168149:0crwdne168149:0"
 
 msgid "If you have a payment reference (for example 122), you can enter it here."
 msgstr "crwdns85331:0crwdne85331:0"
@@ -8142,6 +8157,9 @@ msgstr "crwdns53426:0%1Ccrwdnd53426:0%2crwdne53426:0"
 
 msgid "Note: Payment Agent transfers are only available for accounts registered with Deriv (SVG) LLC."
 msgstr "crwdns164110:0crwdne164110:0"
+
+msgid "Note: Please switch to your %1 account to change currencies."
+msgstr "crwdns168593:0%1crwdne168593:0"
 
 msgid "Note: You are limited to one fiat currency account. The currency of your fiat account can be changed before you deposit into your fiat account for the first time or create an MT5 account. You may also open one account for each supported cryptocurrency."
 msgstr "crwdns53248:0crwdne53248:0"
@@ -10485,6 +10503,9 @@ msgstr "crwdns87372:0crwdne87372:0"
 
 msgid "Sorry, no mobile phone bills"
 msgstr "crwdns158518:0crwdne158518:0"
+
+msgid "Sorry, options trading isn’t available in the United Kingdom and the Isle of Man"
+msgstr "crwdns168077:0crwdne168077:0"
 
 msgid "Sorry, this feature is not available in your jurisdiction."
 msgstr "crwdns39809:0crwdne39809:0"
@@ -13042,6 +13063,9 @@ msgstr "crwdns40208:0crwdne40208:0"
 msgid "To smoothly verify you, we need a better photo"
 msgstr "crwdns158574:0crwdne158574:0"
 
+msgid "To transfer funds to your MT5 account, enter an amount of %1 or more"
+msgstr "crwdns168597:0%1crwdne168597:0"
+
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr "crwdns55800:0crwdne55800:0"
 
@@ -13627,8 +13651,8 @@ msgstr "crwdns167581:0crwdne167581:0"
 msgid "Unfortunately, you can only make deposits. Please contact us via live chat to enable withdrawals."
 msgstr "crwdns167877:0crwdne167877:0"
 
-msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat to enable deposits."
-msgstr "crwdns167879:0crwdne167879:0"
+msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat."
+msgstr "crwdns168157:0crwdne168157:0"
 
 msgid "University degree in Marketing, Mathematics, IT/Programming or any related field"
 msgstr "crwdns52438:0crwdne52438:0"
@@ -14578,9 +14602,6 @@ msgstr "crwdns43497:0crwdne43497:0"
 msgid "Withdraw funds from your MT5 account"
 msgstr "crwdns43159:0crwdne43159:0"
 
-msgid "Withdraw your funds"
-msgstr "crwdns163976:0crwdne163976:0"
-
 msgid "Withdrawal"
 msgstr "crwdns41824:0crwdne41824:0"
 
@@ -14812,6 +14833,9 @@ msgstr "crwdns40638:0crwdne40638:0"
 msgid "You have funds in these Binary accounts:"
 msgstr "crwdns124288:0crwdne124288:0"
 
+msgid "You have funds in these Deriv X accounts:"
+msgstr "crwdns168151:0crwdne168151:0"
+
 msgid "You have funds in these MT5 accounts:"
 msgstr "crwdns124290:0crwdne124290:0"
 
@@ -14829,6 +14853,9 @@ msgstr "crwdns167887:0%1crwdnd167887:0%2crwdne167887:0"
 
 msgid "You have open positions in these Binary accounts:"
 msgstr "crwdns124292:0crwdne124292:0"
+
+msgid "You have open positions in these Deriv X accounts:"
+msgstr "crwdns168153:0crwdne168153:0"
 
 msgid "You have open positions in these MT5 accounts:"
 msgstr "crwdns124294:0crwdne124294:0"

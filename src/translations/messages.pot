@@ -580,6 +580,9 @@ msgstr ""
 msgid "1-2 years"
 msgstr ""
 
+msgid "1. Ensure to close all your positions"
+msgstr ""
+
 msgid "1. Proof of identity"
 msgstr ""
 
@@ -614,6 +617,9 @@ msgid "2-way pricing"
 msgstr ""
 
 msgid "2. Selfie with proof of ID"
+msgstr ""
+
+msgid "2. Withdraw your funds"
 msgstr ""
 
 msgid "2. Your desktop window stays open"
@@ -737,6 +743,9 @@ msgid "A bachelor's degree in commerce or any business-related field, law, or ri
 msgstr ""
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is Synthetic Indices."
+msgstr ""
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
 msgstr ""
 
 msgid "A binary option is a contract purchased by a trader, which pays a pre-determined amount if their prediction is correct."
@@ -2083,7 +2092,7 @@ msgstr ""
 msgid "Before using the trading robots or Expert Advisors and forward trade, the client should test it on a demo account."
 msgstr ""
 
-msgid "Before you deactivate your account, you need to do the following:"
+msgid "Before you deactivate your account, you’ll need to:"
 msgstr ""
 
 msgid "Beginner"
@@ -2885,9 +2894,6 @@ msgid "Close all or any of the client's Open Positions at a closing level that i
 msgstr ""
 
 msgid "Close identity verification screen"
-msgstr ""
-
-msgid "Close open positions"
 msgstr ""
 
 msgid "Close your %1 account."
@@ -3704,6 +3710,9 @@ msgid "Deactivate"
 msgstr ""
 
 msgid "Deactivate Account"
+msgstr ""
+
+msgid "Deactivate account"
 msgstr ""
 
 msgid "Deactivate account?"
@@ -6118,16 +6127,22 @@ msgstr ""
 msgid "If you find any vulnerabilities in our %1open-source code%2, feel free to submit a pull request on GitHub."
 msgstr ""
 
-msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds"
+msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds."
 msgstr ""
 
-msgid "If you have a Binary real account, go to %1Portfolio%2 to close any open positions."
+msgid "If you have a Binary real account, go to %1Portfolio%2 to close or sell any open positions."
 msgstr ""
 
-msgid "If you have a MT5 real account, go to %1MT5 dashboard%2 to withdraw your funds."
+msgid "If you have a DMT5 or Deriv X real account, go to your %1DMT5%2 or %3Deriv X%4 dashboard to withdraw your funds."
 msgstr ""
 
-msgid "If you have a MT5 real account, log into it to close any open positions."
+msgid "If you have a DMT5 or Deriv X real account, log in to close any open positions."
+msgstr ""
+
+msgid "If you have a DMT5 real account, go to your %1DMT5%2 dashboard to withdraw your funds."
+msgstr ""
+
+msgid "If you have a DMT5 real account, log in to close any open positions."
 msgstr ""
 
 msgid "If you have a payment reference (for example 122), you can enter it here."
@@ -8126,6 +8141,9 @@ msgid "Note: For any enquiries regarding disabled or excluded accounts, please c
 msgstr ""
 
 msgid "Note: Payment Agent transfers are only available for accounts registered with Deriv (SVG) LLC."
+msgstr ""
+
+msgid "Note: Please switch to your %1 account to change currencies."
 msgstr ""
 
 msgid "Note: You are limited to one fiat currency account. The currency of your fiat account can be changed before you deposit into your fiat account for the first time or create an MT5 account. You may also open one account for each supported cryptocurrency."
@@ -10469,6 +10487,9 @@ msgid "Sorry, mobile version is not available yet."
 msgstr ""
 
 msgid "Sorry, no mobile phone bills"
+msgstr ""
+
+msgid "Sorry, options trading isn’t available in the United Kingdom and the Isle of Man"
 msgstr ""
 
 msgid "Sorry, this feature is not available in your jurisdiction."
@@ -13027,6 +13048,9 @@ msgstr ""
 msgid "To smoothly verify you, we need a better photo"
 msgstr ""
 
+msgid "To transfer funds to your MT5 account, enter an amount of %1 or more"
+msgstr ""
+
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr ""
 
@@ -13612,7 +13636,7 @@ msgstr ""
 msgid "Unfortunately, you can only make deposits. Please contact us via live chat to enable withdrawals."
 msgstr ""
 
-msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat to enable deposits."
+msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat."
 msgstr ""
 
 msgid "University degree in Marketing, Mathematics, IT/Programming or any related field"
@@ -14563,9 +14587,6 @@ msgstr ""
 msgid "Withdraw funds from your MT5 account"
 msgstr ""
 
-msgid "Withdraw your funds"
-msgstr ""
-
 msgid "Withdrawal"
 msgstr ""
 
@@ -14797,6 +14818,9 @@ msgstr ""
 msgid "You have funds in these Binary accounts:"
 msgstr ""
 
+msgid "You have funds in these Deriv X accounts:"
+msgstr ""
+
 msgid "You have funds in these MT5 accounts:"
 msgstr ""
 
@@ -14813,6 +14837,9 @@ msgid "You have not provided your tax identification number. This information is
 msgstr ""
 
 msgid "You have open positions in these Binary accounts:"
+msgstr ""
+
+msgid "You have open positions in these Deriv X accounts:"
 msgstr ""
 
 msgid "You have open positions in these MT5 accounts:"

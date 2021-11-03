@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-10-26 08:53\n"
+"PO-Revision-Date: 2021-11-03 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -595,6 +595,9 @@ msgstr "1%"
 msgid "1-2 years"
 msgstr "1-2 tahun"
 
+msgid "1. Ensure to close all your positions"
+msgstr "1. Pastikan untuk menutup semua posisi"
+
 msgid "1. Proof of identity"
 msgstr "1. Bukti identitas"
 
@@ -630,6 +633,9 @@ msgstr "Harga 2-arah"
 
 msgid "2. Selfie with proof of ID"
 msgstr "2. Foto selfie dengan memegang bukti identitas"
+
+msgid "2. Withdraw your funds"
+msgstr "2. Tarik saldo Anda"
 
 msgid "2. Your desktop window stays open"
 msgstr "2. Jendela desktop Anda tetap terbuka"
@@ -753,6 +759,9 @@ msgstr "Gelar sarjana dalam bidang perdagangan atau bidang yang berkaitan dengan
 
 msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The major underlying asset class for binary options offered by the Company is Synthetic Indices."
 msgstr "Opsi binary adalah kontrak di mana satu pihak melakukan pembayaran kepada pihak lain sejumlah tertentu jika nilai aset yang diberikan berubah dalam arah tertentu dalam periode yang ditentukan sebelumnya. Kelas aset utama yang mendasari untuk opsi binary yang ditawarkan oleh Perusahaan adalah Indeks Sintetis."
+
+msgid "A binary option is a contract in which one party undertakes to pay the other party a specified amount if the value of a given asset changes in a specific direction within a predetermined period. The three major underlying asset classes for binary options offered by the Company are"
+msgstr "Opsi binary adalah kontrak di mana satu pihak melakukan pembayaran kepada pihak lain sejumlah tertentu jika nilai aset yang diberikan berubah dalam arah tertentu dalam periode yang ditentukan sebelumnya. Tiga kelas aset utama yang mendasari untuk opsi binary yang ditawarkan oleh Perusahaan adalah"
 
 msgid "A binary option is a contract purchased by a trader, which pays a pre-determined amount if their prediction is correct."
 msgstr "Opsi binary adalah sebuah kontrak yang dibeli oleh trader, yang memberi jumlah yang telah ditentukan jika analisa mereka benar."
@@ -2098,8 +2107,8 @@ msgstr "Sebelum mengunggah dokumen, pastikan bahwa %1data pribadi%2 Anda telah d
 msgid "Before using the trading robots or Expert Advisors and forward trade, the client should test it on a demo account."
 msgstr "Sebelum menggunakan trading robot atau Expert Advisor dan melanjutkan trading, klien harus mengujinya pada akun demo terlebih dahulu."
 
-msgid "Before you deactivate your account, you need to do the following:"
-msgstr "Sebelum menonaktifkan akun, Anda harus melakukan hal berikut:"
+msgid "Before you deactivate your account, you’ll need to:"
+msgstr "Sebelum menonaktifkan akun, Anda perlu:"
 
 msgid "Beginner"
 msgstr "Pemula"
@@ -2901,9 +2910,6 @@ msgstr "Menutup semua atau salah satu Open Posisi klien pada tingkat penutupan y
 
 msgid "Close identity verification screen"
 msgstr "Menutup layar verifikasi identitas"
-
-msgid "Close open positions"
-msgstr "Tutup kontrak yang masih berjalan"
 
 msgid "Close your %1 account."
 msgstr "Tutup akun %1 Anda."
@@ -3720,6 +3726,9 @@ msgstr "Menonaktifkan"
 
 msgid "Deactivate Account"
 msgstr "Menonaktifkan Akun"
+
+msgid "Deactivate account"
+msgstr "Menonaktifkan akun"
 
 msgid "Deactivate account?"
 msgstr "Menonaktifkan akun?"
@@ -6134,17 +6143,23 @@ msgstr "Jika Anda belum menerima e-mail setelah beberapa menit mendatang, silaka
 msgid "If you find any vulnerabilities in our %1open-source code%2, feel free to submit a pull request on GitHub."
 msgstr "Jika Anda menemukan kerentanan pada %1kode open-source%2 kami, silahkan ajukan permohonan pada GitHub."
 
-msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds"
-msgstr "Jika Anda memiliki akun riil Binary, kunjungi %1Kasir%2 untuk menarik saldo Anda"
+msgid "If you have a Binary real account, go to %1Cashier%2 to withdraw your funds."
+msgstr "Jika Anda memiliki akun riil Binary, kunjungi %1Kasir%2 untuk menarik saldo Anda."
 
-msgid "If you have a Binary real account, go to %1Portfolio%2 to close any open positions."
-msgstr "Jika Anda memiliki akun riil Binary, kunjungi %1Portfolio%2 untuk menutup posisi berjalan."
+msgid "If you have a Binary real account, go to %1Portfolio%2 to close or sell any open positions."
+msgstr "Jika Anda memiliki akun riil Binary, kunjungi %1Portfolio%2 untuk menutup atau menjual posisi berjalan."
 
-msgid "If you have a MT5 real account, go to %1MT5 dashboard%2 to withdraw your funds."
-msgstr "Jika Anda memiliki akun riil DMT5, kunjungi %1Dashboard MT5%2 untuk menarik dana Anda."
+msgid "If you have a DMT5 or Deriv X real account, go to your %1DMT5%2 or %3Deriv X%4 dashboard to withdraw your funds."
+msgstr "Jika Anda memiliki akun riil DMT5 atau Deriv X, kunjungi dasbor %1DMT5%2 Anda atau %3Deriv X%4 untuk menarik dana."
 
-msgid "If you have a MT5 real account, log into it to close any open positions."
-msgstr "Jika Anda memiliki akun riil MT5, akses akun tersebut untuk menutup posisi berjalan."
+msgid "If you have a DMT5 or Deriv X real account, log in to close any open positions."
+msgstr "Jika Anda memiliki akun riil DMT5 atau riil Deriv X, akses akun tersebut untuk menutup posisi berjalan."
+
+msgid "If you have a DMT5 real account, go to your %1DMT5%2 dashboard to withdraw your funds."
+msgstr "Jika Anda memiliki akun riil DMT5, kunjungi dasbor %1DMT5%2 untuk menarik dana Anda."
+
+msgid "If you have a DMT5 real account, log in to close any open positions."
+msgstr "Jika Anda memiliki akun riil DMT5, akses akun tersebut untuk menutup posisi berjalan."
 
 msgid "If you have a payment reference (for example 122), you can enter it here."
 msgstr "Jika Anda memiliki referensi pembayaran (misalnya 122), Anda dapat memasukkannya di sini."
@@ -8143,6 +8158,9 @@ msgstr "Nota: Untuk pertanyaan mengenai akun non aktif atau pembatalan akun, sil
 
 msgid "Note: Payment Agent transfers are only available for accounts registered with Deriv (SVG) LLC."
 msgstr "Catatan: Transfer Agen Pembayaran hanya tersedia untuk akun yang terdaftar di Deriv (SVG) LLC."
+
+msgid "Note: Please switch to your %1 account to change currencies."
+msgstr "Catatan: Pindah ke akun %1 Anda untuk merubah mata uang."
 
 msgid "Note: You are limited to one fiat currency account. The currency of your fiat account can be changed before you deposit into your fiat account for the first time or create an MT5 account. You may also open one account for each supported cryptocurrency."
 msgstr "Catatan: Anda hanya dapat memiliki satu akun dalam mata uang fiat. Mata uang akun fiat Anda dapat dirubah jika Anda belum melakukan deposit perdana atau mendaftar akun MT5. Anda juga dapat mendaftar pada setiap akun mata uang kripto yang tersedia."
@@ -10486,6 +10504,9 @@ msgstr "Maaf, versi seluler belum tersedia."
 
 msgid "Sorry, no mobile phone bills"
 msgstr "Maaf, tagihan ponsel tidak dapat diterima"
+
+msgid "Sorry, options trading isn’t available in the United Kingdom and the Isle of Man"
+msgstr "Mohon maaf, trading opsi tidak tersedia di Inggris dan Isle of Man"
 
 msgid "Sorry, this feature is not available in your jurisdiction."
 msgstr "Maaf, fitur ini tidak tersedia di yurisdiksi Anda."
@@ -13044,6 +13065,9 @@ msgstr "Untuk mereset kata sandi Anda, masukkan alamat email yang Anda daftarkan
 msgid "To smoothly verify you, we need a better photo"
 msgstr "Untuk memverifikasi Anda dengan lancar, kami membutuhkan foto yang lebih baik"
 
+msgid "To transfer funds to your MT5 account, enter an amount of %1 or more"
+msgstr "Untuk mentransfer dana ke akun MT5 Anda, masukkan jumlah %1 atau lebih"
+
 msgid "To which it, at the time of execution of this Agreement was, or subsequently has become, in the public domain through no fault of the parties"
 msgstr "Untuk yang mana, pada saat pelaksanaan Perjanjian ini, atau kemudian menjadi, dalam domain publik bukan karena kesalahan pihak manapun"
 
@@ -13629,8 +13653,8 @@ msgstr "Sayangnya, layanan ini tidak tersedia di negara Anda. Jika Anda ingin be
 msgid "Unfortunately, you can only make deposits. Please contact us via live chat to enable withdrawals."
 msgstr "Anda hanya dapat melakukan deposit. Hubungi kami melalui obrolan langsung untuk mengaktifkan penarikan."
 
-msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat to enable deposits."
-msgstr "Anda hanya dapat melakukan penarikan. Hubungi kami melalui obrolan langsung untuk mengaktifkan deposit."
+msgid "Unfortunately, you can only make withdrawals. Please contact us via live chat."
+msgstr "Anda hanya dapat melakukan penarikan. Hubungi kami melalui obrolan langsung."
 
 msgid "University degree in Marketing, Mathematics, IT/Programming or any related field"
 msgstr "Memiliki gelar universitas dalam Pemasaran, Matematika, IT/Programming atau bidang terkait"
@@ -14580,9 +14604,6 @@ msgstr "Penarikan dari MT5"
 msgid "Withdraw funds from your MT5 account"
 msgstr "Menarik dana dari akun MT5 Anda"
 
-msgid "Withdraw your funds"
-msgstr "Tarik dana Anda"
-
 msgid "Withdrawal"
 msgstr "Penarikan"
 
@@ -14814,6 +14835,9 @@ msgstr "Anda telah mendaftar berbagai akun yang tersedia bagi Anda."
 msgid "You have funds in these Binary accounts:"
 msgstr "Anda memiliki saldo pada akun Binary ini:"
 
+msgid "You have funds in these Deriv X accounts:"
+msgstr "Anda memiliki saldo pada akun Deriv X ini:"
+
 msgid "You have funds in these MT5 accounts:"
 msgstr "Anda memiliki saldo pada akun MT5 ini:"
 
@@ -14831,6 +14855,9 @@ msgstr "Anda belum menginformasikan nomer NPWP Anda. Informasi ini diperlukan un
 
 msgid "You have open positions in these Binary accounts:"
 msgstr "Anda memiliki posisi berjalan pada akun Binary ini:"
+
+msgid "You have open positions in these Deriv X accounts:"
+msgstr "Anda memiliki posisi berjalan pada akun Deriv X ini:"
 
 msgid "You have open positions in these MT5 accounts:"
 msgstr "Anda memiliki posisi berjalan pada akun MT5 ini:"
