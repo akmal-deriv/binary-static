@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: binary-static\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-11-26 02:35\n"
+"PO-Revision-Date: 2021-12-02 03:31\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "MIME-Version: 1.0\n"
@@ -456,9 +456,6 @@ msgstr "%1Quyền chọn số%1"
 
 msgid "%1Founded%2 October 1999"
 msgstr "%1Được thành lập%2 tháng 10 năm 1999"
-
-msgid "%1In regard to customers of Deriv (MX) Ltd, online gambling debts are enforceable by law in the Isle of Man.%2"
-msgstr "%1 Đối với khách hàng của Cty TNHH Deriv (MX), các khoản nợ cá cược sẽ được thực thi bởi luật pháp của đảo Isle of Man. %2"
 
 msgid "%1Manage your accounts%2"
 msgstr "%1Quản lý tài khoản của bạn%2"
@@ -2264,8 +2261,8 @@ msgstr "Chương trình tốt nghiệp Binary.com"
 msgid "Binary.com in Numbers"
 msgstr "Binary.com qua Số Liệu"
 
-msgid "Binary.com is moving to Deriv on 30 November"
-msgstr "Binary.com sẽ chuyển sang Deriv vào ngày 30 tháng 11"
+msgid "Binary.com is moving to Deriv"
+msgstr ""
 
 msgid "Binary.com recommends 1.1.1.1"
 msgstr "Binary.com đề xuất 1.1.1.1"
@@ -2597,9 +2594,6 @@ msgstr "Phiên làm việc của thu ngân đã hết hạn"
 msgid "Certain limits are imposed as to the acceptable levels for barrier/strike prices of contracts. Typically, the barrier/strike may not be too close nor too far from the current underlying market level."
 msgstr "Giới hạn nhất định được hiểu là giá đạt tới mức có thể chấp nhận được đối với giá thực hiện/ giá tới hạn của hợp đồng. Thông thường, giá thực hiện có thể không quá gần hoặc quá xa với mức giá thị trường cơ sở hiện tại."
 
-msgid "Champion Group Ltd: Vanuatu"
-msgstr "Tập đoàn Champion Ltd: Vanuatu"
-
 msgid "Change API Endpoint"
 msgstr "Thay đổi điểm nút cuối API"
 
@@ -2855,9 +2849,6 @@ msgstr "Khách hàng sau đây tuyên bố rằng họ đang giao dịch với
 msgid "Clients in the European Union who wish to trade gambling products will have their accounts opened with Deriv (Europe) Limited."
 msgstr "Khách hàng ở Liên minh Châu Âu muốn giao dịch các sản phẩm cá cược sẽ được mở tài khoản với Deriv (Europe) Limited."
 
-msgid "Clients in the Isle of Man and the UK who wish to trade gambling products will have their accounts opened with Deriv (MX) Ltd."
-msgstr "Khách hàng ở Liên minh Châu Âu muốn giao dịch các sản phẩm cá cược sẽ được mở tài khoản với Deriv (Europe) Limited."
-
 msgid "Clients may trade on our platforms only when they are using their own money and are drawing on funds that have been acquired honestly. If you have any suspicion that clients are using money that has been acquired dishonestly, you must inform %1.  In such cases, we may decide to conduct checks on the client’s status and background. %2 management will decide what information needs to be reported to government officials and through what channels."
 msgstr "Khách hàng chỉ có thể giao dịch trên nền tảng của chúng tôi khi họ sử dụng tiền của chính họ và có nguồn tiền vốn một cách trung thực. Nếu bạn có bất kỳ nghi ngờ về việc khách hàng đang sử dụng loại tiền mờ ám, bạn phải thông báo ngay cho %1. Với những trường hợp như vậy, chúng tôi có thể thực hiện việc kiểm tra thông tin và tình trạng của khách hàng. Quản lý %2 sẽ quyết định loại thông tin nào và kênh nào là cần thiết để báo cáo cho các cơ quan chính phủ."
 
@@ -2875,12 +2866,6 @@ msgstr "Khách Hàng cần phải đáp ứng ít nhất là hai yêu cầu dư�
 
 msgid "Clients registered with Deriv (Europe) Limited can refer their complaints to the Malta Gaming Authority via the %1Player Support Unity%3. They can file their unresolved disputes with the European Commission’s %2Online Dispute Resolution (ODR)%3."
 msgstr "Khách hàng đã đăng ký với Deriv (Europe) Limited có thể gửi khiếu nại của họ đến Cơ quan quản lý trò chơi Malta thông qua %1Đơn Vị Hỗ Trợ Người Chơi%3. Họ có thể gửi các tranh chấp chưa được giải quyết của mình với %2 Đơn Vị Xử Lý Tranh Chấp Trực Tuyến (ODR)%3 của Ủy ban Châu Âu."
-
-msgid "Clients registered with Deriv (MX) Ltd can formally submit a complaint to their local Supervisory Authority."
-msgstr "Các khách hàng đăng ký với Công ty TNHH Deriv (MX) có thể chính thức nộp đơn khiếu nại cho cơ quan có thẩm quyền tại địa phương."
-
-msgid "Clients registered with Deriv (MX) Ltd can raise their unresolved disputes with the alternative dispute resolution entity IBAS by filing the adjudication form on the %1ADR entity's website%2."
-msgstr "Khách hàng đã đăng ký với công ty TNHH Deriv (MX) Ltd có thể gửi các khiếu nại chưa được xử lý với các pháp nhân giải quyết tranh chấp thay thế IBAS bằng cách điền vào mẫu đơn phân xử trên %1trang mạng của tổ chức ADR%2."
 
 msgid "Clients registered with Deriv Investments (Europe) Limited can raise their unresolved disputes with the Office of the Arbiter for Financial Services. Contact details and guidance on making a complaint with the Arbiter's Office can be found %1here%2."
 msgstr "Khách hàng đã đăng ký Công ty TNHH Đầu tư Deriv Limited (Châu Âu) có thể nâng cao các tranh chấp chưa được giải quyết với Văn phòng Quản lý về Dịch vụ Tài chính. Chi tiết liên hệ và hướng dẫn thực hiện một khiếu nại với văn phòng Quản lý có thể được tìm thấy %1tại đây%2."
@@ -3803,8 +3788,8 @@ msgstr "Tổng hợp Demo"
 msgid "Demo accounts do not have Payment Agent services."
 msgstr "Các tài khoản demo không có các dịch vụ của Đại lý thanh toán."
 
-msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website and as detailed in the About us section of the website and the type of products offered, the term \"the Company\" shall denote,"
-msgstr "Tùy thuộc vào thẩm quyền mà tài khoản của khách hàng đã được đính kèm theo quy trình mở tài khoản của trang web và được nêu chi tiết trong phần Giới thiệu về chúng tôi của trang web, thuật ngữ \"Công ty\" sẽ biểu thị,"
+msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website and as detailed in the About us section of the website and the type of products offered, the term \"the Company\" shall denote"
+msgstr "Tùy thuộc vào thẩm quyền mà tài khoản của khách hàng đã được đính kèm theo quy trình mở tài khoản của trang web và được nêu chi tiết trong phần Giới thiệu về chúng tôi của trang web, thuật ngữ \"Công ty\" sẽ biểu thị"
 
 msgid "Depending on the jurisdiction to which a client's account has been attached in accordance with the account opening procedures of the website, the terms 'the Company' and '%1' shall denote"
 msgstr "Tùy thuộc vào thẩm quyền mà tài khoản của khách hàng đã được đính kèm theo quy trình mở tài khoản của trang web, thuật ngữ 'Công Ty' và '%1 'sẽ biểu thị"
@@ -3887,8 +3872,8 @@ msgstr "Deriv (BVI) Ltd: Quần đảo Virgin thuộc Anh"
 msgid "Deriv (Europe) Limited"
 msgstr "Deriv (Europe) Limited"
 
-msgid "Deriv (Europe) Limited,"
-msgstr "Deriv Limited (Europe),"
+msgid "Deriv (Europe) Limited or"
+msgstr "Deriv Limited (Europe) hoặc"
 
 msgid "Deriv (FX) Ltd"
 msgstr "Deriv (FX) Ltd"
@@ -3904,18 +3889,6 @@ msgstr "Deriv (FX) Ltd., Lô số F16, Tầng 1, Paragon Labuan, Jalan Tun Musta
 
 msgid "Deriv (FX) Ltd: Labuan, Territory of Malaysia"
 msgstr "Deriv (FX) Ltd: Labuan, Lãnh thổ Malaysia"
-
-msgid "Deriv (MX) Ltd"
-msgstr "Deriv (MX) Ltd"
-
-msgid "Deriv (MX) Ltd, Millennium House, Level 1, Victoria Road, Douglas IM2 4RW, Isle of Man, is licensed and regulated in Great Britain by the Gambling Commission under %1account no. 39172%3 and by the Gambling Supervision Commission in the Isle of Man (%2view licence%3)."
-msgstr "Deriv (MX) Ltd, Millennium House, Tầng 1, Victoria, Douglas IM2 4RW, Isle of Man, được cấp phép và quản lý tại Vương quốc Anh bởi Ủy ban cờ bạc theo %1tài khoản số 39172%3 và bởi Ủy ban giám sát cờ bạc ở Isle of Man (%2xem giấy phép%3)."
-
-msgid "Deriv (MX) Ltd."
-msgstr "Deriv (MX) Ltd."
-
-msgid "Deriv (MX) Ltd: the Isle of Man"
-msgstr "Deriv (MX) Ltd: Đảo Man"
 
 msgid "Deriv (SVG) LLC"
 msgstr "Công ty TNHH Deriv (SVG)"
@@ -3974,14 +3947,14 @@ msgstr "Deriv Investments (Europe) Limited, W Business Center, Tầng 3, Triq Du
 msgid "Deriv Investments (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, is licensed in Malta and regulated by the Malta Financial Services Authority under the Investments Services Act to provide investment services in the European Union (%1licence no. IS/70156%2). It is also authorised and subject to limited regulation by the Financial Conduct Authority in the UK. Details about the extent of our authorisation and regulation by the Financial Conduct Authority are available from us on request."
 msgstr "Deriv Investments (Europe) Limited, W Business Center, Tầng 3, Triq Dun Karm, Birkirkara BKR 9033, Malta, được cấp phép tại Malta và được Cơ quan Dịch vụ Tài chính Malta quản lý theo Đạo luật Dịch vụ Đầu tư để cung cấp dịch vụ đầu tư tại Liên minh Châu Âu (%1giấy phép số IS/70156%2). Nó cũng được ủy quyền và tuân theo quy định hạn chế của Cơ quan Quản lý Tài chính ở Vương quốc Anh. Chúng tôi cung cấp thông tin chi tiết về mức độ ủy quyền và quy định của chúng tôi bởi Cơ quan quản lý tài chính theo yêu cầu."
 
-msgid "Deriv Investments (Europe) Limited, or"
-msgstr "Công ty Đầu tư Deriv Limited (Châu Âu), hoặc"
-
 msgid "Deriv Investments (Europe) Limited."
 msgstr "Công ty Đầu tư Deriv Limited (Châu Âu)."
 
 msgid "Deriv Limited"
 msgstr "Deriv Limited"
+
+msgid "Deriv Limited — 13 Castle Street, St. Helier, JE2 3BT, Jersey — is the holding company for the above subsidiaries."
+msgstr "Deriv Limited — 13 Castle Street, St. Helier, JE2 3BT, Jersey — là công ty mẹ của các công ty con trên."
 
 msgid "Deriv Limited, with registered office at 13 Castle Street, St. Helier, JE2 3BT, Jersey, is the holding company for the subsidiaries listed below."
 msgstr "Deriv Limited, có văn phòng đăng ký tại 13 Castle Street, St. Helier, JE2 3BT, Jersey, là công ty mẹ của các công ty con được liệt kê dưới đây."
@@ -6408,9 +6381,6 @@ msgstr "Trong thị trường ngoại hối, nhà giao dịch có thể giao
 msgid "In light of the EU General Data Protection Regulation 2016/679 and the Data Protection Act 2018, the applicant is entitled to the following rights with regards to the applicant's personal data:"
 msgstr "Theo Quy định về Bảo vệ dữ liệu chung của EU 2016/679 và Đạo luật bảo vệ dữ liệu năm 2018, ứng viên được hưởng một số quyền sau liên quan đến dữ liệu cá nhân của họ:"
 
-msgid "In order for a UK resident to make use of the demo account, the client will first have to be age-verified. The client will also need to be fully verified before making use of the real money account. Verification can be done electronically or through submission of KYC documents."
-msgstr "Để một công dân Anh có thể sử dụng tài khoản demo, trước hết khách hàng sẽ phải xác minh tuổi của mình. Khách hàng cũng cần được xác nhận danh tính trước khi sử dụng tài khoản tiền thật. Việc xác nhận có thể được thực hiện trực tuyến hoặc gửi các tài liệu xác minh danh tính (KYC)."
-
 msgid "In order to access Telegram Bot, please %1generate an API Token%2 and enter it in the input box below."
 msgstr "Để truy cập các Telegram Bot, hãy %1tạo ra một thẻ API%2 và nhập nó vào ô nhập dưới đây."
 
@@ -6456,11 +6426,8 @@ msgstr "Tại Châu Âu, các sản phẩm tài chính được cung cấp bởi
 msgid "In the EU, financial products are offered by Deriv Investments (Europe) Limited, W Business Centre, Level 3, Triq Dun Karm, Birkirkara, BKR 9033, Malta, regulated as a Category 3 Investment Services provider by the Malta Financial Services Authority (%1licence no. IS/70156%2)."
 msgstr "Tại EU, các dịch vụ tài chính được cung cấp bởi Công Ty TNHH Đầu tư Deriv Limited (Châu Âu), W Business Centre, Tầng 3, Triq Dun Karm, Birkirkara, BKR 9033, Malta, được cấp phép là một nhà cung cấp dịch vụ đầu tư loại 3 bởi Cơ Quan Dịch Vụ Tài Chính Malta (%1giấy phép số IS/70156%2)."
 
-msgid "In the Isle of Man and the UK, virtual-events-based bets on synthetic indices are offered by Deriv (MX) Ltd, Millennium House, Level 1, Victoria Road, Douglas IM2 4RW, Isle of Man; licensed and regulated in Great Britain by (1) the Gambling Commission under %1account no. 39172%3 and by (2) the Gambling Supervision Commission in the Isle of Man (%2view licence%3)."
-msgstr "Ở Isle of Man và Vương quốc Anh, cá cược dựa vào các sự kiện ảo trên các chỉ số tổng hợp được cung cấp bởi Deriv (MX) Ltd, Millennium House, Level 1, Victoria Road, Douglas IM2 4RW, Isle of Man; được cấp phép và quản lý ở Vương quốc Anh bởi (1) Ủy ban cờ bạc theo %1atài khoản số 39172%3 và bởi (2) Ủy ban Giám sát Cờ bạc ở Isle of Man (%2vxem giấy phép%3)."
-
-msgid "In the UK, our clients trade through Deriv (MX) Ltd and Deriv Investments (Europe) Limited. In the Isle of Man, they trade through Deriv (MX) Ltd. In the European Union (except UK), they trade through Deriv (Europe) Limited and Deriv Investments (Europe) Limited. In the rest of the world, they trade through Deriv (SVG) LLC, Deriv (V) Ltd, Deriv (BVI) Ltd and Deriv (FX) Ltd."
-msgstr "Ở Anh, khách hàng của chúng tôi giao dịch thông qua Deriv (MX) Ltd và Deriv Investments (Europe) Limited. Tại Đảo Man, họ giao dịch thông qua Deriv (MX) Limited. Tại Liên minh châu Âu (trừ Anh), họ giao dịch qua Deriv (Europe) Limited và Deriv Investments (Europe) Ltd. Ở các quốc gia khác, họ giao dịch thông qua Deriv (SVG) LLC, Deriv (V) Ltd, Deriv (BVI) Ltd và Deriv (FX) Ltd."
+msgid "In the UK, our clients trade through Deriv Investments (Europe) Limited. In the European Union (except UK), they trade through Deriv (Europe) Limited and Deriv Investments (Europe) Limited. In the rest of the world, they trade through Deriv (SVG) LLC, Deriv (V) Ltd, Deriv (BVI) Ltd and Deriv (FX) Ltd."
+msgstr ""
 
 msgid "In the case of a Limit Order, the client acknowledges that the Company will endeavour to fill the Order at a level that is the same or better than the Limit the client has specified, subject to the availability of the Limit Price."
 msgstr "Trong trường hợp Lệnh Giới Hạn, khách hàng xác nhận rằng Công Ty sẽ cố gắng mở / đóng một Giao dịch ở mức tương đương hoặc tốt hơn Giới Hạn họ đã chỉ định, tùy thuộc vào tính khả dụng của Giá Giới Hạn."
@@ -10382,7 +10349,7 @@ msgid "Should be %1"
 msgstr "Nên là %1"
 
 msgid "Should be 1"
-msgstr ""
+msgstr "Nên là 1"
 
 msgid "Should be a valid number."
 msgstr "Nên là một số hợp lệ."
@@ -11398,8 +11365,8 @@ msgstr "Công ty không cho phép bất cứ hành vi thiếu chuẩn mự
 msgid "The Company endeavours to open or close the transaction to which the client's Order relates at a price reasonably available to the Company, acting in accordance with the Company's duty of best execution. Best execution means that, when executing Orders, the Company must take all sufficient steps to obtain the best possible result for the client, taking into account the price, costs, speed, likelihood of execution and settlement, size, nature, or any other consideration relevant to the execution of the Order."
 msgstr "Công ty cố gắng để mở hoặc đóng các giao dịch mà Lệnh của khách hàng được đưa ra với mức giá hợp lý có thể chấp nhận với Công ty, phù hợp với nhiệm vụ mang lại dịch vụ tốt nhất cho khách hàng của Công ty. Nghĩa là Công ty phải thực hiện đầy đủ nghĩa vụ, khi lệnh đang được thực hiện để mang lại kết quả tốt nhất có thể cho các khách hàng, khi tính đến giá cả, chi phí, tốc độ, khả năng thực hiện và giải quyết, kích thước, tính tự nhiên hay bất kỳ điều gì khác liên quan đến việc thực hiện Lệnh giao dịch."
 
-msgid "The Company has a Stop Out policy which prevents the client from losing more than they have deposited. However, in the event that the client's Open Positions are not closed when the Margin Level for their MT5 Real Account reaches the Stop Out Level, the Company, at its sole discretion, may waive the client's negative balance by crediting their account if their Account Balance goes into a negative balance. The negative balance is determined by aggregating all the negative balances incurred over a 24-hour period across all accounts held by the client. The client acknowledges that, unless they are a retail customer of Deriv Investments (Europe) Limited or a retail customer residing in Australia, the offer of the negative balance protection by the Company to the client is at the Company's sole discretion and the Company reserves the right to change the features and eligibility criteria of the negative balance protection at any time. The provisions of the negative balance protection do not apply in the following situations:"
-msgstr "Công Ty có chính sách Dừng khi khách hàng mất nhiều hơn số tiền họ đã ký gửi. Tuy nhiên, trong trường hợp các Vị trí Mở của khách hàng không bị đóng khi Mức Ký quỹ cho Tài khoản Thực MT5 của họ đạt đến Mức Ngừng, Công ty, theo quyết định riêng của mình, có thể bỏ qua số dư âm của khách hàng bằng cách ghi có vào tài khoản của họ nếu Số dư Tài khoản của họ trở thành số âm. Số dư âm được xác định bằng cách tổng hợp tất cả số dư âm phát sinh trong khoảng thời gian 24 giờ trên tất cả các tài khoản do khách hàng nắm giữ. Khách hàng phải biết rằng, trừ khi họ là khách hàng lẻ của Công ty Deriv Investments Limited (Europe) hoặc là một khách lẻ tại Úc, việc Công Ty bảo vệ tài khoản khỏi số dư âm cho khách hàng là được quyết định hoàn toàn bởi Công ty và chúng tôi có quyền thay đổi các tính năng và tiêu chí để đáp ứng điều kiện của Bảo Vệ Số Dư Âm bất cứ lúc nào. Các điều khoản của Bảo Vệ Số Dư Âm không áp dụng cho các trường hợp sau:"
+msgid "The Company has a Stop Out policy which prevents the client from losing more than they have deposited. If the client’s balance becomes negative due to Stop Out, an automatic compensation will revert the client’s balance to zero. The client acknowledges that, unless they are a retail customer of Deriv Investments (Europe) Limited or a retail customer residing in Australia, the offer of the negative balance protection by the Company to the client is at the Company's sole discretion and the Company reserves the right to change the features and eligibility criteria of the negative balance protection at any time. The provisions of the negative balance protection do not apply in the following situations:"
+msgstr "Công ty có chính sách Stop Out để ngăn chặn khách hàng mất nhiều hơn số tiền họ đã gửi. Nếu số số dư tài khoản khách hàng bị thành số âm do Stop Out, lúc đó sẽ có một khoản bồi thường tự động để hoàn nguyên số dư của khách hàng về 0. Khách hàng thừa nhận rằng, trừ khi họ là khách hàng bán lẻ của Deriv Investments (Europe) Limited hoặc khách hàng bán lẻ cư trú tại Úc, việc Công ty cung cấp biện pháp bảo vệ số dư âm cho khách hàng là do Công ty toàn quyền quyết định và Công ty bảo lưu quyền thay đổi các tính năng và tiêu chí đủ điều kiện của việc bảo vệ khỏi số dư âm bất kỳ lúc nào. Các quy định về bảo vệ khỏi số dư âm không áp dụng trong các trường hợp sau:"
 
 msgid "The Company has a general duty to conduct its business with the client honestly, fairly, and professionally and to act in the client's best interests when opening and closing binary options trades with the client."
 msgstr "Nhiệm vụ chung của Công Ty là hoạt động kinh doanh trung thực, công bằng, chuyên nghiệp, và mang lại cho khách hàng mức lãi suất tốt nhất khi mở và đóng những giao dịch binary options."
@@ -11428,8 +11395,8 @@ msgstr "Công ty giữ tất cả các dữ liệu cá nhân thu thập từ 
 msgid "The Company holds customer funds in bank accounts separate from the operational accounts, and arrangements have been made to ensure that the assets in the customer accounts will be distributed to the customers in the event of insolvency."
 msgstr "Công ty giữ tiền khách hàng trong tài khoản ngân hàng tách biệt với tài khoản ngân hàng vận hành; và thỏa thuận đã được thực hiện để đảm bảo tài sản trong các tài khoản của khách hàng được phân phối cho khách hàng trong trường hợp phá sản."
 
-msgid "The Company holds customer funds in bank accounts separate from the operational accounts. Deriv (MX) Ltd & Deriv (Europe) Limited have arrangements in place so that in the event of insolvency they are able to meet their obligations to clients. These arrangements are in the form of a loan agreement between each respective company and the parent company, Deriv Limited, this loan will always at minimum cover the client liabilities. This meets the Gambling Commission's requirements for the segregation of customer funds at the level of medium protection."
-msgstr "Công ty giữ vốn của khách hàng trong các tài khoản ngân hàng tách biệt với các tài khoản hoạt động. Công ty Deriv Ltd (MX) và Deriv Limited (Châu Âu) đã sắp xếp sao cho trong các truòng hợp không đủ khả năng thanh toán họ vẫn có thể thực hiện đầy đủ các nghĩa vụ đối với khách hàng. Các sắp xếp này thực hiện dưới dạng một khoản nợ thỏa thuận giữa các công ty con với công ty mẹ, Deriv Limited, khoản nợ này sẽ luôn ở mức chi trả tối thiểu cho các quỹ tách biệt của khách hàng vơi mức bảo vệ trung bình."
+msgid "The Company holds customer funds in bank accounts separate from the operational accounts. Deriv (Europe) Limited has arrangements in place so that in the event of insolvency, it is able to meet its obligations to clients. These arrangements are in the form of a loan agreement between Deriv (Europe) Limited and the parent company, Deriv Limited. This loan will always at minimum cover the client liabilities. This meets the Gambling Commission's requirements for the segregation of customer funds at the level of medium protection."
+msgstr "Công ty giữ tiền của khách hàng trong tài khoản ngân hàng tách biệt với tài khoản hoạt động. Deriv (Europe) Limited có các biện pháp sắp xếp để trong trường hợp mất khả năng thanh toán, công ty có thể đáp ứng các nghĩa vụ của mình đối với khách hàng. Các thỏa thuận này dưới hình thức hợp đồng cho vay giữa Deriv (Europe) Limited và công ty mẹ, Deriv Limited. Khoản vay này sẽ luôn trang trải tối thiểu các khoản nợ của khách hàng. Điều này đáp ứng các yêu cầu của Ủy ban cờ bạc về việc tách biệt tiền của khách hàng ở mức độ bảo vệ trung bình."
 
 msgid "The Company is an independent legal entity and is not affiliated with the MT5 trading platform. MT5 is not owned, controlled, or operated by the Company. Therefore, the Company does not provide any warranties related to any MT5 product or service and has not reviewed or verified any performance results that may be presented and/or described on this website in relation to MT5."
 msgstr "Công ty là một thực thể pháp lý độc lập và không được liên kết với sàn giao dịch MT5. MT5 không thuộc sở hữu, quản lý hoặc điều hành bởi Công ty. Do đó, Công ty không cung cấp bất cứ bảo hành liên quan đến bất kỳ sản phẩm hoặc dịch vụ MT5 đã không được kiểm tra hoặc xác nhận bất kỳ kết quả hiệu suất có thể được trình bày và/hoặc được mô tả trên trang web này liên quan đến MT5."
@@ -13901,8 +13868,8 @@ msgstr "Xác định danh tính"
 msgid "Verify your identity"
 msgstr "Xác minh danh tính của bạn"
 
-msgid "Version 50. Last modified 06-10-2021."
-msgstr "Phiên bản 50. Chỉnh sửa lần cuối ngày 06-10-2021."
+msgid "Version 52. Last modified 26-11-2021."
+msgstr "Phiên bản 52. Chỉnh sửa lần cuối ngày 26-11-2021."
 
 msgid "Video Room Facility"
 msgstr "Công cụ phòng Video"
@@ -14042,8 +14009,8 @@ msgstr "Chúng tôi luôn đặt khách hàng của mình lên hàng đầu và 
 msgid "We are PayOps, part of the Compliance department. Our team emphasizes business development by implementing the payment strategy for the Deriv group of companies in collaboration with the Marketing team."
 msgstr "Chúng tôi là PayOps, một bộ phận thuộc phòng Pháp lý. Đội ngũ của chúng tôi tập trung phát triển kinh doanh bằng cách áp dụng chiến lược thanh khoản cho các công ty của Tập đoàn Deriv qua việc hợp tác với đội ngũ Marketing."
 
-msgid "We are licensed and regulated in the British Isles and in Malta since 2015."
-msgstr "Chúng tôi được cấp giấy phép và quy định tại quần đảo Anh Quốc và Malta kể từ năm 2015."
+msgid "We are licensed and regulated in Malta since 2015."
+msgstr "Chúng tôi được cấp giấy phép và quy định tại Malta từ năm 2015."
 
 msgid "We are registered with the Financial Commission, an international independent organisation dedicated to resolving disputes within the financial services industry (%1view membership%2)."
 msgstr "Chúng tôi được đăng ký với Ủy ban Tài chính, một tổ chức độc lập quốc tế chuyên giải quyết các tranh chấp trong ngành dịch vụ tài chính (%1xem thành viên%2)."
