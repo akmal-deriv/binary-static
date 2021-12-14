@@ -37384,6 +37384,9 @@ var MetaTraderUI = function () {
         var acc_group_demo_set = false;
         var acc_group_real_set = false;
         Object.keys(accounts_info).sort(sortMt5Accounts).forEach(function (acc_type) {
+            // console.log('');
+            // console.warn('ACC TYPE: ');
+            // console.log(acc_type);
             if ($list.find('[value="' + acc_type + '"]').length === 0) {
                 if (getAccountsInfo(acc_type).is_demo) {
                     if (!acc_group_demo_set) {
