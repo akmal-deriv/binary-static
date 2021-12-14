@@ -37488,6 +37488,10 @@ var MetaTraderUI = function () {
     };
 
     var updateListItem = function updateListItem(acc_type) {
+        // console.log('');
+        // console.warn('updateListItem: ');
+        // console.log(acc_type);
+        // console.log(getAccountsInfo(acc_type));
         var $acc_item = $list.find('[value="' + acc_type + '"]');
         $acc_item.find('.mt-type').text(getAccountsInfo(acc_type).short_title);
         if (getAccountsInfo(acc_type).info) {
@@ -37498,7 +37502,7 @@ var MetaTraderUI = function () {
             var label_text = server_info ? sequence > 1 ? region + ' ' + sequence : region : getAccountsInfo(acc_type).info.display_server;
             setMTAccountText();
             $acc_item.find('.mt-login').text('(' + getAccountsInfo(acc_type).info.display_login + ')');
-            if (server_info && is_synthetic && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) || /unknown+$/.test(acc_type)) {
+            if (server_info && is_synthetic && MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info)) {
                 $acc_item.find('.mt-server').text('' + label_text);
 
                 // add disabled style to unknown or unavailable accounts

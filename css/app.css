@@ -379,8 +379,7 @@ a.previous-wrapper {
     -webkit-box-flex: 0;
         -ms-flex: 0;
             flex: 0;
-    position: relative;
-    min-height: 100px; }
+    position: relative; }
     #mt_account_management #account_details .acc-info {
       font-size: 0.8695652174rem;
       word-wrap: break-word; }
@@ -578,23 +577,21 @@ a.previous-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
-  #mt_account_management #account_details {
-    min-height: auto; }
-    #mt_account_management #account_details .add_region {
-      position: unset;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: end;
-          -ms-flex-pack: end;
-              justify-content: flex-end;
-      width: 100%;
-      padding: 0 10px; }
-      #mt_account_management #account_details .add_region a {
-        margin-bottom: 0 !important; }
-      #mt_account_management #account_details .add_region span {
-        padding: 9px;
-        font-size: 14px; } }
+  #mt_account_management #account_details .add_region {
+    position: unset;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    width: 100%;
+    padding: 0 10px; }
+    #mt_account_management #account_details .add_region a {
+      margin-bottom: 0 !important; }
+    #mt_account_management #account_details .add_region span {
+      padding: 9px;
+      font-size: 14px; } }
 
 @media (max-width: 480px) {
   #view_3 .button {
