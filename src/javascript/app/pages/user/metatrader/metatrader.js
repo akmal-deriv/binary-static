@@ -195,7 +195,11 @@ const MetaTrader = (() => {
 
     const addUnavailableAccounts = (response) => {
         response.mt5_login_list.forEach((account) => {
-            addUnknownAccount(`${account.error.details.account_type}-${account.error.details.login}`);
+            if (account.market_type) {
+                addAccount(account.market_type, account.landing_company_short);
+            } else {
+                addUnknownAccount(`${account.error.details.account_type}-${account.error.details.login}`);
+            }
         });
     };
 
