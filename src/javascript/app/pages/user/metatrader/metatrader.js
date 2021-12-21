@@ -197,9 +197,7 @@ const MetaTrader = (() => {
         response.mt5_login_list.forEach((account) => {
             addUnknownAccount(`${account.error.details.account_type}-${account.error.details.login}`);
         });
-
-        return;
-    }
+    };
 
     // synthetic is 500
     // financial is 1000, unless maltainvest then 30
