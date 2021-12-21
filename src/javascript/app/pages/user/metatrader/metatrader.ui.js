@@ -226,6 +226,9 @@ const MetaTraderUI = (() => {
         const $acc_name = $templates.find('> .acc-name');
         let acc_group_demo_set = false;
         let acc_group_real_set = false;
+
+        $list.empty();
+
         Object.keys(accounts_info)
             .sort(sortMt5Accounts)
             .forEach((acc_type) => {
@@ -325,10 +328,6 @@ const MetaTraderUI = (() => {
     };
 
     const updateListItem = (acc_type) => {
-        console.log('');
-        console.warn('updateListItem: ');
-        console.log(acc_type);
-        console.log(getAccountsInfo(acc_type));
         const $acc_item = $list.find(`[value="${acc_type}"]`);
         $acc_item.find('.mt-type').text(getAccountsInfo(acc_type).short_title);
         if (getAccountsInfo(acc_type).info) {
@@ -846,7 +845,7 @@ const MetaTraderUI = (() => {
         $form.find('#view_1 .btn-next').click(function() {
             if (!$(this).hasClass('button-disabled')) {
                 const account_type = newAccountGetType();
-                const is_demo = /^demo_/.test(account_type);
+                const is_demo = /^demo/.test(account_type);
 
                 if (is_demo) {
                     // If accound is demo, we will skip server selection and show the following step
@@ -1319,6 +1318,7 @@ const MetaTraderUI = (() => {
         disableButton,
         disableButtonLink,
         enableButton,
+        populateAccountList,
         refreshAction,
         setTopupLoading,
         getTradingPasswordConfirmVisibility,
