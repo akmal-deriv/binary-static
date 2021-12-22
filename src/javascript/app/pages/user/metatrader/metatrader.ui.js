@@ -329,24 +329,28 @@ const MetaTraderUI = (() => {
 
     const updateListItem = (acc_type) => {
         const $acc_item = $list.find(`[value="${acc_type}"]`);
+        const acc_info = getAccountsInfo(acc_type).info;
         $acc_item.find('.mt-type').text(getAccountsInfo(acc_type).short_title);
-        if (getAccountsInfo(acc_type).info) {
-            const server_info = getAccountsInfo(acc_type).info.server_info;
+        if (acc_info) {
+            const server_info = acc_info.server_info;
             const region = server_info && server_info.geolocation.region;
             const sequence = server_info && server_info.geolocation.sequence;
             const is_synthetic = getAccountsInfo(acc_type).market_type === 'gaming' || getAccountsInfo(acc_type).market_type === 'synthetic';
-            const label_text = server_info ? sequence > 1 ? `${region} ${sequence}` : region : getAccountsInfo(acc_type).info.display_server;
+            const is_unknown = /unknown+$/.test(acc_type);
+            const is_real = acc_type.startsWith('real');
+            const label_text = server_info ? sequence > 1 ? `${region} ${sequence}` : region : acc_info.display_server;
             setMTAccountText();
             $acc_item.find('.mt-login').text(`(${getAccountsInfo(acc_type).info.display_login})`);
             if (
                 server_info &&
                 is_synthetic &&
-                MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info)
+                MetaTraderConfig.hasMultipleTradeServers(acc_type, accounts_info) ||
+                is_real && is_unknown && acc_info.display_server
             ) {
                 $acc_item.find('.mt-server').text(`${label_text}`);
 
                 // add disabled style to unknown or unavailable accounts
-                if (/unknown+$/.test(acc_type)) {
+                if (is_unknown) {
                     $acc_item.find('.mt-server').css({
                         'color'           : '#fff',
                         'background-color': '#dedede',
