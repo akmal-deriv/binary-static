@@ -17,16 +17,17 @@ const Utility                  = require('../../../../_common/utility');
 
 const ViewPopup = (() => {
     let contract_id,
+        btn_view,
+        chart_init,
+        chart_started,
         contract,
         is_multiplier_contract,
-        is_sold,
-        is_sold_before_start,
         is_sell_clicked,
-        chart_started,
-        chart_init,
-        sell_text_updated,
-        btn_view,
+        is_sold_before_start,
+        is_sold,
+        is_vanilla_contract,
         multiplier,
+        sell_text_updated,
         $container;
 
     const popupbox_id   = 'inpage_popup_content_box';
@@ -75,6 +76,7 @@ const ViewPopup = (() => {
         // Lookback multiplier value
         multiplier = contract.multiplier;
         is_multiplier_contract = /MULTDOWN|MULTUP/.test(contract.contract_type);
+        is_vanilla_contract = /VANILLA/.test(contract.contract_type);
 
         if (contract && document.getElementById(wrapper_id)) {
             update();
@@ -88,38 +90,40 @@ const ViewPopup = (() => {
         let contract_type_display;
 
         const initContractTypeDisplay = () => ({
-            ASIANU      : localize('Asian Up'),
-            ASIAND      : localize('Asian Down'),
-            CALL        : localize('Higher'),
-            CALLE       : localize('Higher or equal'),
-            PUT         : localize('Lower'),
-            PUTE        : localize('Lower or equal'),
-            DIGITMATCH  : localize('Digit Matches'),
-            DIGITDIFF   : localize('Digit Differs'),
-            DIGITODD    : localize('Digit Odd'),
-            DIGITEVEN   : localize('Digit Even'),
-            DIGITOVER   : localize('Digit Over'),
-            DIGITUNDER  : localize('Digit Under'),
-            EXPIRYMISS  : localize('Ends Outside'),
-            EXPIRYRANGE : localize('Ends Between'),
-            EXPIRYRANGEE: localize('Ends Between'),
-            LBFLOATCALL : localize('Close-Low'),
-            LBFLOATPUT  : localize('High-Close'),
-            LBHIGHLOW   : localize('High-Low'),
-            RANGE       : localize('Stays Between'),
-            RESETCALL   : localize('Reset Call'),
-            RESETPUT    : localize('Reset Put'),
-            UPORDOWN    : localize('Goes Outside'),
-            ONETOUCH    : localize('Touches'),
-            NOTOUCH     : localize('Does Not Touch'),
-            CALLSPREAD  : localize('Call Spread'),
-            PUTSPREAD   : localize('Put Spread'),
-            TICKHIGH    : localize('High Tick'),
-            TICKLOW     : localize('Low Tick'),
-            RUNHIGH     : localize('Only Ups'),
-            RUNLOW      : localize('Only Downs'),
-            MULTUP      : localize('Multiplier Up'),
-            MULTDOWN    : localize('Multiplier Down'),
+            ASIAND         : localize('Asian Down'),
+            ASIANU         : localize('Asian Up'),
+            CALL           : localize('Higher'),
+            CALLE          : localize('Higher or equal'),
+            CALLSPREAD     : localize('Call Spread'),
+            DIGITDIFF      : localize('Digit Differs'),
+            DIGITEVEN      : localize('Digit Even'),
+            DIGITMATCH     : localize('Digit Matches'),
+            DIGITODD       : localize('Digit Odd'),
+            DIGITOVER      : localize('Digit Over'),
+            DIGITUNDER     : localize('Digit Under'),
+            EXPIRYMISS     : localize('Ends Outside'),
+            EXPIRYRANGE    : localize('Ends Between'),
+            EXPIRYRANGEE   : localize('Ends Between'),
+            LBFLOATCALL    : localize('Close-Low'),
+            LBFLOATPUT     : localize('High-Close'),
+            LBHIGHLOW      : localize('High-Low'),
+            MULTDOWN       : localize('Multiplier Down'),
+            MULTUP         : localize('Multiplier Up'),
+            NOTOUCH        : localize('Does Not Touch'),
+            ONETOUCH       : localize('Touches'),
+            PUT            : localize('Lower'),
+            PUTE           : localize('Lower or equal'),
+            PUTSPREAD      : localize('Put Spread'),
+            RANGE          : localize('Stays Between'),
+            RESETCALL      : localize('Reset Call'),
+            RESETPUT       : localize('Reset Put'),
+            RUNHIGH        : localize('Only Ups'),
+            RUNLOW         : localize('Only Downs'),
+            TICKHIGH       : localize('High Tick'),
+            TICKLOW        : localize('Low Tick'),
+            UPORDOWN       : localize('Goes Outside'),
+            VANILLALONGCALL: localize('Call'),
+            VANILLALONGPUT : localize('Put'),
         });
 
         return {
@@ -254,7 +258,7 @@ const ViewPopup = (() => {
             );
         }
 
-        const is_unsupported_contract = is_multiplier_contract || Callputspread.isCallputspread(contract.contract_type);
+        const is_unsupported_contract = is_multiplier_contract || is_vanilla_contract || Callputspread.isCallputspread(contract.contract_type);
         if (!is_started) {
             containerSetText('trade_details_entry_spot > span', '-');
             containerSetText('trade_details_message', localize('Contract has not started yet'));
