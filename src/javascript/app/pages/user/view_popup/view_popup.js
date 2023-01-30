@@ -258,7 +258,8 @@ const ViewPopup = (() => {
             );
         }
 
-        const is_unsupported_contract = is_multiplier_contract || is_vanilla_contract || Callputspread.isCallputspread(contract.contract_type);
+        const is_unsupported_contract =
+            is_multiplier_contract || is_vanilla_contract || Callputspread.isCallputspread(contract.contract_type);
         if (!is_started) {
             containerSetText('trade_details_entry_spot > span', '-');
             containerSetText('trade_details_message', localize('Contract has not started yet'));
