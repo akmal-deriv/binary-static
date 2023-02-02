@@ -21,6 +21,7 @@ const ViewPopup = (() => {
         chart_init,
         chart_started,
         contract,
+        is_accumulator_contract,
         is_multiplier_contract,
         is_sell_clicked,
         is_sold_before_start,
@@ -77,6 +78,7 @@ const ViewPopup = (() => {
         multiplier = contract.multiplier;
         is_multiplier_contract = /MULTDOWN|MULTUP/.test(contract.contract_type);
         is_vanilla_contract = /VANILLA/.test(contract.contract_type);
+        is_accumulator_contract = /ACCU/.test(contract.contract_type);
 
         if (contract && document.getElementById(wrapper_id)) {
             update();
@@ -90,6 +92,7 @@ const ViewPopup = (() => {
         let contract_type_display;
 
         const initContractTypeDisplay = () => ({
+            ACCU           : localize('Accumulator'),
             ASIAND         : localize('Asian Down'),
             ASIANU         : localize('Asian Up'),
             CALL           : localize('Higher'),
@@ -259,7 +262,7 @@ const ViewPopup = (() => {
         }
 
         const is_unsupported_contract =
-            is_multiplier_contract || is_vanilla_contract || Callputspread.isCallputspread(contract.contract_type);
+            is_accumulator_contract || is_multiplier_contract || is_vanilla_contract || Callputspread.isCallputspread(contract.contract_type);
         if (!is_started) {
             containerSetText('trade_details_entry_spot > span', '-');
             containerSetText('trade_details_message', localize('Contract has not started yet'));
